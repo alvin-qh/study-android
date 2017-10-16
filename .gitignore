@@ -1,0 +1,15 @@
+*.iws
+*.ipr
+*.iml
+*.ids
+*.log
+local.properties
+
+.idea
+.gradle
+.DS_Store
+node_modules
+bin
+**/build
+out
+gen

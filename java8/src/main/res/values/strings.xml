@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Android with Java8 support</string>
+    <string name="btn_click_me">Click Me</string>
+    <string name="text_hello">Hello World!</string>
+</resources>
