@@ -6,7 +6,8 @@ Edit `build.gradle -> buildscript -> dependencies`, add `classpath` option:
 
 ```groovy
 buildscript {
-	...
+    ...
+    
     dependencies {
         classpath 'me.tatarka:gradle-retrolambda:3.7.0'
         ...
@@ -21,6 +22,8 @@ buildscript {
 Edit `build.gradle`, add apply plugin:
 
 ```groovy
+...
+
 apply plugin: 'me.tatarka.retrolambda'
 ```
 
@@ -33,7 +36,7 @@ Edit `build.gradle -> android`, add `compileOptions` option:
 ```groovy
 android {
     ...
-
+    
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

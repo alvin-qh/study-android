@@ -1,10 +1,14 @@
+
 android {
     defaultConfig {
-        applicationId "alvin.java8"
+        applicationId "alvin.butterknife"
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile libs.main.common
+    compile libs.main.butterKnife
+
+    annotationProcessor libs.annotation.butterKnife
 }

@@ -1,0 +1,24 @@
+def versions = [
+        // main
+        appcompatV7     : '26.0.0-alpha1',
+        constraintLayout: '1.0.2',
+        butterKnife     : '8.8.1'
+]
+
+ext {
+    libs = [
+            main      : [
+                    common     : [
+                            "com.android.support:appcompat-v7:${versions.appcompatV7}",
+                            "com.android.support.constraint:constraint-layout:${versions.constraintLayout}"
+                    ],
+                    butterKnife: "com.jakewharton:butterknife:${versions.butterKnife}"
+            ],
+            annotation: [
+                    butterKnife: "com.jakewharton:butterknife-compiler:${versions.butterKnife}"
+            ],
+            test      : [
+
+            ]
+    ]
+}

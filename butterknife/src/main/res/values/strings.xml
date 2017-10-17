@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Butter Knife</string>
+    <string name="btn_click">Click Me</string>
+    <string name="str_hello">Hello World!</string>
+</resources>
