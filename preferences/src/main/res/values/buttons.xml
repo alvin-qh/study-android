@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btn_original">Original</string>
+    <string name="btn_storebox">Store Box</string>
+    <string name="btn_save">Save</string>
+</resources>

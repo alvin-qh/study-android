@@ -10,6 +10,7 @@ buildscript {
       
     dependencies {
         ...
+
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
     }
 }

@@ -18,6 +18,6 @@ public class MainActivity extends AppCompatActivity {
         this.textResult = (TextView) findViewById(R.id.text_result);
 
         this.btnClickMe = (Button) findViewById(R.id.btn_click_me);
-        this.btnClickMe.setOnClickListener(view -> this.textResult.setText(R.string.text_hello));
+        this.btnClickMe.setOnClickListener(view -> this.textResult.setText(R.string.hello_world));
     }
 }

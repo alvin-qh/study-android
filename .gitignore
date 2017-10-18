@@ -3,7 +3,6 @@
 *.iml
 *.ids
 *.log
-local.properties
 
 .idea
 .gradle

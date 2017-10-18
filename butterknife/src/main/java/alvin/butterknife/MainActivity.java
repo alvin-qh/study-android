@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.text_main)
     TextView textMain;
 
-    @BindString(R.string.str_hello)
-    String strHello;
+    @BindString(R.string.hello_world)
+    String hello;
 
     @BindColor(R.color.colorAccent)
     int colorAccent;
@@ -40,11 +40,11 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_hello)
     public void onHelloClick(Button element) {
-        textMain.setText(strHello);
+        textMain.setText(hello);
         textMain.setTextColor(colorAccent);
         textMain.setTextSize(dimenFontSize);
 
-        this.fragment.setText(strHello);
+        this.fragment.setText(hello);
 
         element.setEnabled(false);
     }

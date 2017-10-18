@@ -1,0 +1,14 @@
+
+android {
+    defaultConfig {
+        applicationId "alvin.preferences"
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile libs.main.common
+    compile libs.main.butterKnife
+
+    annotationProcessor libs.annotation.butterKnife
+}
