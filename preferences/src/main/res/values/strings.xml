@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Preferences</string>
+    <string name="origin_activity_name">Origin Preferences</string>
+    <string name="store_box_activity_name">StoreBox Preferences</string>
+
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
     <string name="save_success">Save success</string>

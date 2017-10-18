@@ -4,6 +4,7 @@ def versions = [
         constraintLayout: '1.0.2',
         butterKnife     : '8.8.1',
         guava           : '22.0-android',
+        storeBox        : '1.4.0',
 ]
 
 ext {
@@ -14,7 +15,8 @@ ext {
                             "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
                             "com.google.guava:guava:${versions.guava}"
                     ],
-                    butterKnife: "com.jakewharton:butterknife:${versions.butterKnife}"
+                    butterKnife: "com.jakewharton:butterknife:${versions.butterKnife}",
+                    storeBox   : "net.orange-box.storebox:storebox-lib:${versions.storeBox}",
             ],
             annotation: [
                     butterKnife: "com.jakewharton:butterknife-compiler:${versions.butterKnife}"

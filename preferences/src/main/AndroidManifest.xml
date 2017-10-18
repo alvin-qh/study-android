@@ -18,9 +18,11 @@
         </activity>
 
         <activity android:name=".OriginalActivity"
+                  android:label="@string/origin_activity_name"
                   android:parentActivityName=".OriginalActivity"/>
 
         <activity android:name=".StoreBoxActivity"
+                  android:label="@string/store_box_activity_name"
                   android:parentActivityName=".OriginalActivity"/>
     </application>
 

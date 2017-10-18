@@ -1,7 +1,6 @@
 package alvin.preferences;
 
 import android.app.DatePickerDialog;
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
@@ -12,12 +11,9 @@ import android.widget.Toast;
 
 import com.google.common.base.Strings;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import alvin.preferences.domain.models.Gender;
 import alvin.preferences.domain.models.Person;
@@ -67,19 +63,23 @@ public class OriginalActivity extends AppCompatActivity {
             radioGender.check(R.id.radio_gender_male);
         }
 
-        ZoneId zoneId = ZoneId.systemDefault();
-        editBirthday.setText(SimpleDateFormat.getDateInstance().format(Date.from(person.getBirthday().atStartOfDay().atZone(zoneId).toInstant())));
+        editBirthday.setText(person.getBirthday().format(DateTimeFormatter.ISO_DATE));
     }
 
     @OnClick(R.id.btn_calendar)
     public void onCalendarClick(ImageButton button) {
-        DatePickerDialog dialog = new DatePickerDialog(this, 0);
-        dialog.setOnDateSetListener((view, year, month, dayOfMonth) -> {
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(year, month, dayOfMonth);
-            final String date = SimpleDateFormat.getDateInstance().format(calendar.getTime());
-            editBirthday.setText(date);
-        });
+        DatePickerDialog dialog;
+
+        String date = editBirthday.getText().toString();
+        if (Strings.isNullOrEmpty(date)) {
+            dialog = new DatePickerDialog(this, 0);
+        } else {
+            LocalDate birthday = LocalDate.from(DateTimeFormatter.ISO_DATE.parse(date));
+            dialog = new DatePickerDialog(this, 0, null,
+                    birthday.getYear(), birthday.getMonthValue() - 1, birthday.getDayOfMonth());
+        }
+        dialog.setOnDateSetListener((view, year, month, dayOfMonth) ->
+                editBirthday.setText(LocalDate.of(year, month, dayOfMonth).format(DateTimeFormatter.ISO_DATE)));
         dialog.show();
     }
 
@@ -104,9 +104,8 @@ public class OriginalActivity extends AppCompatActivity {
         String date = editBirthday.getText().toString();
         if (!Strings.isNullOrEmpty(date)) {
             try {
-                ZoneId zoneId = ZoneId.systemDefault();
-                birthday = LocalDateTime.ofInstant(SimpleDateFormat.getDateInstance().parse(date).toInstant(), zoneId).toLocalDate();
-            } catch (ParseException e) {
+                birthday = LocalDate.from(DateTimeFormatter.ISO_DATE.parse(date));
+            } catch (DateTimeParseException e) {
                 Toast.makeText(this, getString(R.string.error_error_date_format), Toast.LENGTH_LONG).show();
             }
         }
