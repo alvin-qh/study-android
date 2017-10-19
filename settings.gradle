@@ -1,1 +1,1 @@
-include ':basic', ':java8', ':butterknife', ':preferences', ':database'
+include ':base.basic', ':base.java8', ':ui.butterknife', ':base.preferences', ':base.database'
