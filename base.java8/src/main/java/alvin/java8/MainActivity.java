@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnClickMe;
     private TextView textResult;
 
     @Override
@@ -17,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
         this.textResult = (TextView) findViewById(R.id.text_result);
 
-        this.btnClickMe = (Button) findViewById(R.id.btn_click_me);
-        this.btnClickMe.setOnClickListener(view -> this.textResult.setText(R.string.hello_world));
+        Button btnClickMe = (Button) findViewById(R.id.btn_click_me);
+        btnClickMe.setOnClickListener(view -> this.textResult.setText(R.string.hello_world));
     }
 }

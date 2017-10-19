@@ -2,4 +2,7 @@
 <resources>
     <string name="btn_sqlite">SQLite</string>
     <string name="btn_dbflow">DBFlow</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="btn_cancel">Cancel</string>
 </resources>
