@@ -6,9 +6,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile libs.main.common
-    compile libs.main.butterKnife
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation libs.main.common
+    implementation libs.main.butterKnife
+    implementation libs.main.DBFlow
 
     annotationProcessor libs.annotation.butterKnife
+    annotationProcessor libs.annotation.DBFlow
 }

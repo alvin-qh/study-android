@@ -1,26 +1,23 @@
-def versions = [
-        // main
-        sdk             : '26.0.0-alpha1',
-        constraintLayout: '1.0.2',
-        butterKnife     : '8.8.1',
-        guava           : '22.0-android',
-        storeBox        : '1.4.0',
-]
-
 ext {
     libs = [
             main      : [
                     common     : [
                             "com.android.support:appcompat-v7:${versions.sdk}",
+                            "com.android.support:support-v4:${versions.sdk}",
                             "com.android.support:design:${versions.sdk}",
                             "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
                             "com.google.guava:guava:${versions.guava}"
                     ],
                     butterKnife: "com.jakewharton:butterknife:${versions.butterKnife}",
                     storeBox   : "net.orange-box.storebox:storebox-lib:${versions.storeBox}",
+                    DBFlow     : [
+                            "com.github.Raizlabs.DBFlow:dbflow-core:${versions.DBFlow}",
+                            "com.github.Raizlabs.DBFlow:dbflow:${versions.DBFlow}"
+                    ]
             ],
             annotation: [
-                    butterKnife: "com.jakewharton:butterknife-compiler:${versions.butterKnife}"
+                    butterKnife: "com.jakewharton:butterknife-compiler:${versions.butterKnife}",
+                    DBFlow     : "com.github.Raizlabs.DBFlow:dbflow-processor:${versions.DBFlow}",
             ],
             test      : [
 

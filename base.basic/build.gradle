@@ -5,6 +5,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile libs.main.common
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation libs.main.common
 }
