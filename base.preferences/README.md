@@ -2,13 +2,13 @@
 
 ### Use Store Box Libaray
 
-Edit `build.grade -> dependencies -> compile`, add dependence of Store Box:
+Edit `build.grade -> dependencies -> implementation`, add dependence of Store Box:
 
 ```groovy
 dependencies {
     ...
     
-    compile 'net.orange-box.storebox:storebox-lib:1.4.0'
+    implementation 'net.orange-box.storebox:storebox-lib:1.4.0'
 }
 ```
 

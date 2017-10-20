@@ -6,10 +6,10 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile libs.main.common
-    compile libs.main.butterKnife
-    compile libs.main.storeBox
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation libs.main.common
+    implementation libs.main.butterKnife
+    implementation libs.main.storeBox
 
     annotationProcessor libs.annotation.butterKnife
 }

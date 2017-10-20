@@ -9,8 +9,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation libs.main.common
     implementation libs.main.butterKnife
-    implementation libs.main.DBFlow
+    implementation libs.main.dbflow
 
     annotationProcessor libs.annotation.butterKnife
-    annotationProcessor libs.annotation.DBFlow
+    annotationProcessor libs.annotation.dbflow
 }
