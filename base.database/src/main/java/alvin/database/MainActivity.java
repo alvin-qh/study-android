@@ -23,4 +23,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SQLiteActivity.class);
         startActivity(intent);
     }
+
+    @OnClick(R.id.btn_dbflow)
+    public void onDBFlowButtonClick(Button button) {
+        Intent intent = new Intent(this, DBFlowActivity.class);
+        startActivity(intent);
+    }
 }

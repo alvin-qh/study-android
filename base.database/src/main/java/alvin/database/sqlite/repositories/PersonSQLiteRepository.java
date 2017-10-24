@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import alvin.database.sqlite.models.Gender;
+import alvin.database.models.Gender;
 import alvin.database.sqlite.models.Person;
 
 
@@ -24,15 +24,24 @@ public class PersonSQLiteRepository {
         this.database = database;
     }
 
-    public List<Person> findAll() {
-        Cursor cursor = database.rawQuery("select id,name,gender,birthday from " + TABLE_NAME, null);
-        try {
+    public List<Person> findByGender(Gender gender) {
+        final String[] columns = {"id", "name", "gender", "birthday"};
+
+        String selection = "1=1 ";
+        List<String> selectionArgs = new ArrayList<>();
+
+        if (gender != null) {
+            selection += "and gender=? ";
+            selectionArgs.add(gender.toString());
+        }
+
+        try (Cursor cursor = database.query(TABLE_NAME, columns, selection, selectionArgs.toArray(new String[0]), null, null, null)) {
             List<Person> persons = new ArrayList<>();
             while (cursor.moveToNext()) {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
                 String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
 
-                Gender gender = null;
+                gender = null;
                 String rawData = cursor.getString(cursor.getColumnIndexOrThrow("gender"));
                 if (!Strings.isNullOrEmpty(rawData)) {
                     gender = Gender.valueOf(rawData);
@@ -47,8 +56,6 @@ public class PersonSQLiteRepository {
                 persons.add(new Person(id, name, gender, birthday));
             }
             return persons;
-        } finally {
-            cursor.close();
         }
     }
 

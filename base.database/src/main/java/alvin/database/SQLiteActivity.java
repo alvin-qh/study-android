@@ -1,10 +1,14 @@
 package alvin.database;
 
+import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
+import alvin.database.models.Gender;
+import alvin.database.models.IPerson;
+import alvin.database.sqlite.SQLite;
 import alvin.database.sqlite.models.Person;
 import alvin.database.sqlite.repositories.PersonSQLiteRepository;
-import alvin.database.sqlite.SQLite;
 
 public class SQLiteActivity extends FrameActivity {
 
@@ -19,7 +23,8 @@ public class SQLiteActivity extends FrameActivity {
     }
 
     @Override
-    protected void savePerson(Person person) {
+    protected void savePerson(String name, Gender gender, LocalDate birthday) {
+        Person person = new Person(name, gender, birthday);
         try (SQLite sqlite = SQLite.createSQLiteDB(this)) {
             PersonSQLiteRepository repository = new PersonSQLiteRepository(sqlite.getWritable());
             repository.create(person);
@@ -27,10 +32,10 @@ public class SQLiteActivity extends FrameActivity {
     }
 
     @Override
-    protected List<Person> getPersons() {
+    protected List<IPerson> getPersons(Gender gender) {
         try (SQLite sqlite = SQLite.createSQLiteDB(this)) {
             PersonSQLiteRepository repository = new PersonSQLiteRepository(sqlite.getReadable());
-            return repository.findAll();
+            return Collections.unmodifiableList(repository.findByGender(gender));
         }
     }
 }

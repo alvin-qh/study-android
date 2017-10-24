@@ -2,7 +2,10 @@ package alvin.database.sqlite.models;
 
 import java.time.LocalDate;
 
-public class Person {
+import alvin.database.models.Gender;
+import alvin.database.models.IPerson;
+
+public class Person implements IPerson {
     private final int id;
     private final String name;
     private final Gender gender;

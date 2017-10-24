@@ -5,21 +5,70 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import alvin.database.dbflow.FlowDatabase;
+import alvin.database.dbflow.converts.LocalDateConvert;
+import alvin.database.models.Gender;
+import alvin.database.models.IPerson;
 
 @Table(database = FlowDatabase.class, name = "user")
-public class Person extends BaseModel {
+public class Person extends BaseModel implements IPerson {
+
     @PrimaryKey(autoincrement = true)
-    public int id;
+    private int id;
 
     @Column
-    public String name;
+    private String name;
 
     @Column
-    public Gender gender;
+    private Gender gender;
 
-    @Column
-    public Date birthday;
+    @Column(typeConverter = LocalDateConvert.class)
+    private LocalDate birthday;
+
+    public Person() {
+    }
+
+    public Person(String name, Gender gender, LocalDate birthday) {
+        this.name = name;
+        this.gender = gender;
+        this.birthday = birthday;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    @Override
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
 }

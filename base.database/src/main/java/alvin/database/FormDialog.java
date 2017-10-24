@@ -17,8 +17,7 @@ import com.google.common.base.Strings;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import alvin.database.sqlite.models.Gender;
-import alvin.database.sqlite.models.Person;
+import alvin.database.models.Gender;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -84,9 +83,11 @@ public class FormDialog extends Dialog {
         this.onConfirmClickListener = onConfirmClickListener;
     }
 
-    public Person getPerson() {
-        String name = editName.getText().toString();
+    public String getName() {
+        return editName.getText().toString();
+    }
 
+    public Gender getGender() {
         Gender gender = null;
         switch (radioGender.getCheckedRadioButtonId()) {
         case R.id.radio_gender_male:
@@ -96,14 +97,15 @@ public class FormDialog extends Dialog {
             gender = Gender.FEMALE;
             break;
         }
+        return gender;
+    }
 
-        String date = editBirthday.getText().toString();
+    public LocalDate getBirthday() {
         LocalDate birthday = null;
-        if (!Strings.isNullOrEmpty(date)) {
-            birthday = LocalDate.from(DateTimeFormatter.ISO_DATE.parse(date));
+        if (editBirthday.getText().length() > 0) {
+            birthday = LocalDate.from(DateTimeFormatter.ISO_DATE.parse(editBirthday.getText().toString()));
         }
-
-        return new Person(name, gender, birthday);
+        return birthday;
     }
 
     public static class Builder {

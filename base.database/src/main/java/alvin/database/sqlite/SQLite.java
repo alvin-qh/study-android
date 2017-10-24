@@ -15,13 +15,13 @@ public final class SQLite implements Closeable, AutoCloseable {
         this.helper = new SQLiteOpenHelper(context, name, null, VERSION) {
             @Override
             public void onCreate(SQLiteDatabase db) {
-                String tableUser = "CREATE TABLE IF NOT EXISTS user(" +
-                        "id INTEGER PRIMARY KEY," +
-                        "name TEXT," +
-                        "gender TEXT," +
-                        "birthday TEXT" +
+                String tableUser =
+                        "CREATE TABLE IF NOT EXISTS user(" +
+                        "   id INTEGER PRIMARY KEY," +
+                        "   name TEXT," +
+                        "   gender TEXT," +
+                        "   birthday TEXT" +
                         ")";
-
                 db.execSQL(tableUser);
             }
 

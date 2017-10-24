@@ -10,16 +10,16 @@ import android.widget.TextView;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import alvin.database.sqlite.models.Person;
+import alvin.database.models.IPerson;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PersonAdapter extends BaseAdapter {
 
     private final LayoutInflater mInflater;
-    private final List<Person> persons;
+    private final List<IPerson> persons;
 
-    public PersonAdapter(Context context, List<Person> persons) {
+    public PersonAdapter(Context context, List<IPerson> persons) {
         this.mInflater = LayoutInflater.from(context);
         this.persons = persons;
     }
@@ -30,7 +30,7 @@ public class PersonAdapter extends BaseAdapter {
     }
 
     @Override
-    public Person getItem(int position) {
+    public IPerson getItem(int position) {
         return persons.get(position);
     }
 
@@ -50,7 +50,7 @@ public class PersonAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
 
-        Person item = getItem(position);
+        IPerson item = getItem(position);
 
         holder.id.setText(String.valueOf(item.getId()));
         holder.name.setText(item.getName());
