@@ -6,7 +6,7 @@ import alvin.database.sqlite.models.Person;
 import alvin.database.sqlite.repositories.PersonSQLiteRepository;
 import alvin.database.sqlite.SQLite;
 
-public class SQLiteActivity extends FrameActivity {
+public class DBFlowActivity extends FrameActivity {
 
     @Override
     protected int getLayoutId() {

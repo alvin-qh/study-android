@@ -1,4 +1,4 @@
-package alvin.database.domain.models;
+package alvin.database.sqlite.models;
 
 import java.time.LocalDate;
 

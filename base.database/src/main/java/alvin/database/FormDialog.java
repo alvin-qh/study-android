@@ -17,8 +17,8 @@ import com.google.common.base.Strings;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import alvin.database.domain.models.Gender;
-import alvin.database.domain.models.Person;
+import alvin.database.sqlite.models.Gender;
+import alvin.database.sqlite.models.Person;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

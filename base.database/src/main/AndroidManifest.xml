@@ -3,6 +3,7 @@
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
+        android:name=".Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,6 +23,11 @@
         <activity android:name=".SQLiteActivity"
                   android:parentActivityName=".MainActivity"
                   android:label="@string/title_sqlite"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".DBFlowActivity"
+                  android:parentActivityName=".MainActivity"
+                  android:label="@string/title_dbflow"
                   android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

@@ -6,12 +6,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.io.Closeable;
 
-public class SQLite implements Closeable, AutoCloseable {
+public final class SQLite implements Closeable, AutoCloseable {
     private static final int VERSION = 1;
 
     private final SQLiteOpenHelper helper;
 
-    public SQLite(Context context, String name) {
+    private SQLite(Context context, String name) {
         this.helper = new SQLiteOpenHelper(context, name, null, VERSION) {
             @Override
             public void onCreate(SQLiteDatabase db) {
@@ -27,9 +27,13 @@ public class SQLite implements Closeable, AutoCloseable {
 
             @Override
             public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+                // If VERSION has been changed, upgrade schema here
             }
         };
+    }
+
+    public static SQLite createSQLiteDB(Context context) {
+        return new SQLite(context, "sqlite_db");
     }
 
     public SQLiteDatabase getReadable() {

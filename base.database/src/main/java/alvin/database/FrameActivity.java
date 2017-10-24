@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import alvin.database.domain.models.Person;
+import alvin.database.sqlite.models.Person;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

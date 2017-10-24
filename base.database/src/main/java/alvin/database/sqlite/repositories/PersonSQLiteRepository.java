@@ -1,4 +1,4 @@
-package alvin.database.domain.repositories;
+package alvin.database.sqlite.repositories;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -11,10 +11,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import alvin.database.domain.models.Gender;
-import alvin.database.domain.models.Person;
+import alvin.database.sqlite.models.Gender;
+import alvin.database.sqlite.models.Person;
+
 
 public class PersonSQLiteRepository {
+    private static final String TABLE_NAME = "user";
+
     private final SQLiteDatabase database;
 
     public PersonSQLiteRepository(SQLiteDatabase database) {
@@ -22,7 +25,7 @@ public class PersonSQLiteRepository {
     }
 
     public List<Person> findAll() {
-        Cursor cursor = database.rawQuery("select id,name,gender,birthday from user", null);
+        Cursor cursor = database.rawQuery("select id,name,gender,birthday from " + TABLE_NAME, null);
         try {
             List<Person> persons = new ArrayList<>();
             while (cursor.moveToNext()) {
@@ -57,7 +60,7 @@ public class PersonSQLiteRepository {
 
         database.beginTransaction();
         try {
-            database.insertOrThrow("user", null, cv);
+            database.insertOrThrow(TABLE_NAME, null, cv);
             database.setTransactionSuccessful();
         } finally {
             database.endTransaction();

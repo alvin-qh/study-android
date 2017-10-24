@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import alvin.database.domain.models.Person;
+import alvin.database.sqlite.models.Person;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
