@@ -1,10 +1,10 @@
 package alvin.database;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.time.format.DateTimeFormatter;
@@ -18,9 +18,11 @@ public class PersonAdapter extends BaseAdapter {
 
     private final LayoutInflater mInflater;
     private final List<IPerson> persons;
+    private final FrameActivity activity;
 
-    public PersonAdapter(Context context, List<IPerson> persons) {
-        this.mInflater = LayoutInflater.from(context);
+    public PersonAdapter(FrameActivity activity, List<IPerson> persons) {
+        this.activity = activity;
+        this.mInflater = LayoutInflater.from(activity);
         this.persons = persons;
     }
 
@@ -55,7 +57,31 @@ public class PersonAdapter extends BaseAdapter {
         holder.id.setText(String.valueOf(item.getId()));
         holder.name.setText(item.getName());
         holder.gender.setText(item.getGender().toString());
-        holder.birthday.setText(item.getBirthday().format(DateTimeFormatter.ISO_DATE));
+        holder.birthday.setText(item.getBirthday() == null ? "" :
+                item.getBirthday().format(DateTimeFormatter.ISO_DATE));
+
+        holder.edit.setOnClickListener(v1 -> {
+            FormDialog.Builder builder = new FormDialog.Builder(activity);
+
+            FormDialog dlg = builder.create(R.string.title_form_dialog);
+            dlg.setOnConfirmClickListener(v2 -> {
+                activity.updatePerson(item.getId(), dlg.getName(), dlg.getGender(), dlg.getBirthday());
+                dlg.dismiss();
+
+                activity.showList();
+            });
+            dlg.show();
+
+            dlg.setName(item.getName());
+            dlg.setGender(item.getGender());
+            dlg.setBirthday(item.getBirthday());
+        });
+
+        holder.delete.setOnClickListener(v -> {
+            activity.deletePerson(item.getId());
+            activity.showList();
+        });
+
         return view;
     }
 
@@ -71,6 +97,12 @@ public class PersonAdapter extends BaseAdapter {
 
         @BindView(R.id.birthday)
         TextView birthday;
+
+        @BindView(R.id.btn_edit)
+        ImageButton edit;
+
+        @BindView(R.id.btn_delete)
+        ImageButton delete;
 
         public ViewHolder(View view) {
             ButterKnife.bind(this, view);

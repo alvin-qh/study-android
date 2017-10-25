@@ -73,4 +73,32 @@ public class PersonSQLiteRepository {
             database.endTransaction();
         }
     }
+
+    public void update(Person person) {
+        ContentValues cv = new ContentValues();
+        cv.put("name", person.getName() == null ? "" : person.getName());
+        cv.put("gender", person.getGender() == null ? "" : person.getGender().toString());
+        cv.put("birthday", person.getBirthday() == null ? "" : person.getBirthday().format(DateTimeFormatter.ISO_DATE));
+
+        String[] args = {String.valueOf(person.getId())};
+
+        database.beginTransaction();
+        try {
+            database.update(TABLE_NAME, cv, "id=?", args);
+            database.setTransactionSuccessful();
+        } finally {
+            database.endTransaction();
+        }
+    }
+
+    public void delete(int id) {
+        String[] args = {String.valueOf(id)};
+        database.beginTransaction();
+        try {
+            database.delete(TABLE_NAME, "id=?", args);
+            database.setTransactionSuccessful();
+        } finally {
+            database.endTransaction();
+        }
+    }
 }

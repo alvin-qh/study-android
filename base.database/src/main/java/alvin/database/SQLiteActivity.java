@@ -38,4 +38,21 @@ public class SQLiteActivity extends FrameActivity {
             return Collections.unmodifiableList(repository.findByGender(gender));
         }
     }
+
+    @Override
+    protected void updatePerson(int id, String name, Gender gender, LocalDate birthday) {
+        Person person = new Person(id, name, gender, birthday);
+        try (SQLite sqlite = SQLite.createSQLiteDB(this)) {
+            PersonSQLiteRepository repository = new PersonSQLiteRepository(sqlite.getReadable());
+            repository.update(person);
+        }
+    }
+
+    @Override
+    protected void deletePerson(int id) {
+        try (SQLite sqlite = SQLite.createSQLiteDB(this)) {
+            PersonSQLiteRepository repository = new PersonSQLiteRepository(sqlite.getReadable());
+            repository.delete(id);
+        }
+    }
 }

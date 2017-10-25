@@ -6,6 +6,7 @@
     <string name="title_dbflow">DBFlow</string>
     <string name="title_form_dialog">Edit</string>
 
+    <string name="gender_all">All</string>
     <string name="gender_male">Male</string>
     <string name="gender_female">Female</string>
     <string name="save_success">Save success</string>

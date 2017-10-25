@@ -8,17 +8,34 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="alvin.database.MainActivity">
 
-    <android.support.v7.widget.SwitchCompat
-        android:id="@+id/switch_gender"
+    <RadioGroup
+        android:id="@+id/radio_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/label_gender"
-        android:textOff="@string/gender_female"
-        android:textOn="@string/gender_male"
+        android:layout_marginEnd="10sp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:checked="true"
-        app:showText="true"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/radio_gender_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/gender_all"/>
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/radio_gender_male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gender_male"/>
+
+        <android.support.v7.widget.AppCompatRadioButton
+            android:id="@+id/radio_gender_female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gender_female"/>
+    </RadioGroup>
 
     <android.support.v7.widget.ListViewCompat
         android:id="@+id/list_person"
@@ -26,6 +43,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/switch_gender"/>
+        app:layout_constraintTop_toBottomOf="@id/radio_gender"/>
 
 </android.support.constraint.ConstraintLayout>

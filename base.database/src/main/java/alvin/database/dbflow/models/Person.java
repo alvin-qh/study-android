@@ -30,6 +30,13 @@ public class Person extends BaseModel implements IPerson {
     public Person() {
     }
 
+    public Person(int id, String name, Gender gender, LocalDate birthday) {
+        this.id = id;
+        this.name = name;
+        this.gender = gender;
+        this.birthday = birthday;
+    }
+
     public Person(String name, Gender gender, LocalDate birthday) {
         this.name = name;
         this.gender = gender;

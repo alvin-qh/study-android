@@ -3,11 +3,17 @@ package alvin.database.sqlite;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.util.SparseArray;
+
+import com.google.common.base.Strings;
 
 import java.io.Closeable;
 
 public final class SQLite implements Closeable, AutoCloseable {
-    private static final int VERSION = 1;
+    private static final String TAG = SQLite.class.getSimpleName();
+
+    private static final int VERSION = 2;
 
     private final SQLiteOpenHelper helper;
 
@@ -15,19 +21,33 @@ public final class SQLite implements Closeable, AutoCloseable {
         this.helper = new SQLiteOpenHelper(context, name, null, VERSION) {
             @Override
             public void onCreate(SQLiteDatabase db) {
-                String tableUser =
-                        "CREATE TABLE IF NOT EXISTS user(" +
+                final SparseArray<String> sqls = new SparseArray<>();
+                sqls.put(1, "CREATE TABLE IF NOT EXISTS user(" +
+                        "   id INTEGER PRIMARY KEY," +
+                        "   name TEXT," +
+                        "   gender TEXT" +
+                        ")");
+
+                sqls.put(2, "CREATE TABLE IF NOT EXISTS user(" +
                         "   id INTEGER PRIMARY KEY," +
                         "   name TEXT," +
                         "   gender TEXT," +
                         "   birthday TEXT" +
-                        ")";
-                db.execSQL(tableUser);
+                        ")");
+                db.execSQL(sqls.get(VERSION));
+                Log.d(TAG, "Table user created");
             }
 
             @Override
             public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-                // If VERSION has been changed, upgrade schema here
+                String sql = null;
+                if (oldVersion == 1 && newVersion == 2) {
+                    sql = "ALTER TABLE user ADD birthday TEXT";
+                }
+                if (!Strings.isNullOrEmpty(sql)) {
+                    db.execSQL(sql);
+                    Log.d(TAG, "Table user updated from version " + oldVersion + " to version " + newVersion);
+                }
             }
         };
     }

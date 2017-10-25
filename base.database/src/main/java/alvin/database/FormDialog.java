@@ -87,6 +87,10 @@ public class FormDialog extends Dialog {
         return editName.getText().toString();
     }
 
+    public void setName(String name) {
+        editName.setText(name == null ? "" : name);
+    }
+
     public Gender getGender() {
         Gender gender = null;
         switch (radioGender.getCheckedRadioButtonId()) {
@@ -100,12 +104,31 @@ public class FormDialog extends Dialog {
         return gender;
     }
 
+    public void setGender(Gender gender) {
+        switch (gender) {
+        case MALE:
+            radioGender.check(R.id.radio_gender_male);
+            break;
+        case FEMALE:
+            radioGender.check(R.id.radio_gender_female);
+            break;
+        }
+    }
+
     public LocalDate getBirthday() {
         LocalDate birthday = null;
         if (editBirthday.getText().length() > 0) {
             birthday = LocalDate.from(DateTimeFormatter.ISO_DATE.parse(editBirthday.getText().toString()));
         }
         return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        if (birthday == null) {
+            editBirthday.setText("");
+        } else {
+            editBirthday.setText(birthday.format(DateTimeFormatter.ISO_DATE));
+        }
     }
 
     public static class Builder {

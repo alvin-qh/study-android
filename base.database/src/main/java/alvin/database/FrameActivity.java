@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,7 +15,6 @@ import alvin.database.models.Gender;
 import alvin.database.models.IPerson;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 public abstract class FrameActivity extends AppCompatActivity {
@@ -26,8 +25,8 @@ public abstract class FrameActivity extends AppCompatActivity {
     @BindView(R.id.list_person)
     ListView listView;
 
-    @BindView(R.id.switch_gender)
-    SwitchCompat switchGender;
+    @BindView(R.id.radio_gender)
+    RadioGroup radioGender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +44,20 @@ public abstract class FrameActivity extends AppCompatActivity {
             actionBar.setTitle(getTitleId());
         }
         showList();
+
+        radioGender.setOnCheckedChangeListener((group, checkedId) -> showList());
     }
 
-    private void showList() {
-        Gender gender = switchGender.isChecked() ? Gender.MALE : Gender.FEMALE;
+    public void showList() {
+        Gender gender = null;
+        switch (radioGender.getCheckedRadioButtonId()) {
+        case R.id.radio_gender_male:
+            gender = Gender.MALE;
+            break;
+        case R.id.radio_gender_female:
+            gender = Gender.FEMALE;
+            break;
+        }
         List<IPerson> persons = getPersons(gender);
         listView.setAdapter(new PersonAdapter(this, persons));
     }
@@ -61,6 +70,10 @@ public abstract class FrameActivity extends AppCompatActivity {
 
     protected abstract List<IPerson> getPersons(Gender gender);
 
+    protected abstract void updatePerson(int id, String name, Gender gender, LocalDate birthday);
+
+    protected abstract void deletePerson(int id);
+
     @OnClick(R.id.fab)
     public void onFloatingActionButtonClick(FloatingActionButton button) {
         FormDialog.Builder builder = new FormDialog.Builder(this);
@@ -72,10 +85,5 @@ public abstract class FrameActivity extends AppCompatActivity {
             showList();
         });
         dlg.show();
-    }
-
-    @OnCheckedChanged(R.id.switch_gender)
-    public void onGenderSwitchChanged(SwitchCompat button) {
-        showList();
     }
 }
