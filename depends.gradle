@@ -15,10 +15,20 @@ ext {
                             "com.github.Raizlabs.DBFlow:dbflow:${versions.DBFlow}"
                     ],
                     kotlin     : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${versions.kotlin}",
+                    dagger     : [
+                            "com.google.dagger:dagger:${versions.dagger}",
+                            "com.google.dagger:dagger-android:${versions.dagger}",
+                            "com.google.dagger:dagger-android-support:${versions.dagger}"
+                    ],
+                    okhttp     : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
             ],
             annotation: [
                     butterKnife: "com.jakewharton:butterknife-compiler:${versions.butterKnife}",
                     dbflow     : "com.github.Raizlabs.DBFlow:dbflow-processor:${versions.DBFlow}",
+                    dagger     : [
+                            "com.google.dagger:dagger-android-processor:${versions.dagger}",
+                            "com.google.dagger:dagger-compiler:${versions.dagger}"
+                    ],
             ],
             test      : [
 

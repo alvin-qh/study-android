@@ -1,0 +1,20 @@
+apply plugin: 'com.android.application'
+
+android {
+    defaultConfig {
+        applicationId "alvin.mvp"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation libs.main.common
+    implementation libs.main.butterKnife
+    implementation libs.main.dbflow
+    implementation libs.main.dagger
+
+    annotationProcessor libs.annotation.butterKnife
+    annotationProcessor libs.annotation.dbflow
+    annotationProcessor libs.annotation.dagger
+}

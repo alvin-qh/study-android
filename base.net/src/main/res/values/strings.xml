@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Network</string>
+
+    <string name="string_net_status_demo">Net Status Demo</string>
+</resources>

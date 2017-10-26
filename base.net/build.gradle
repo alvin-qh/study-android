@@ -1,0 +1,16 @@
+android {
+    defaultConfig {
+        applicationId "alvin.net"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation libs.main.common
+    implementation libs.main.butterKnife
+    implementation libs.main.okhttp
+
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    annotationProcessor libs.annotation.butterKnife
+}

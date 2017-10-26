@@ -13,6 +13,8 @@ buildscript {
                 storeBox        : '1.4.0',
                 DBFlow          : '4.1.1',
                 kotlin          : '1.1.51',
+                dagger          : '2.12',
+                okhttp          : '3.9.0',
         ]
     }
 
@@ -24,7 +26,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:${versions.buildTool}"
 //      classpath 'me.tatarka:gradle-retrolambda:3.7.0' // Plugin support by java 8, Enable if SDK version < 24
-        classpath "com.jakewharton:butterknife-gradle-plugin:${versions.butterKnife}" // Butter Knife support
+        classpath "com.jakewharton:butterknife-gradle-plugin:${versions.butterKnife}"   // Butter Knife support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"    // Kotlin support
 
         // NOTE: Do not place your application dependencies here; they belong
