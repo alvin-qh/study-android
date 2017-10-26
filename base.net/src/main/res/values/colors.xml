@@ -3,6 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorNotifyBackground">#ffe8a3</color>
-    <color name="colorGrayText">#eeeeee</color>
+
+    <color name="color_gray_text">#eeeeee</color>
+
+    <color name="bg_notify_info">#d1f7b6</color>
+    <color name="bg_notify_error">#ffe8a3</color>
+
+    <color name="icon_warning">#ff404a</color>
+    <color name="icon_info">#4043ff</color>
 </resources>

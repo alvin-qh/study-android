@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import java.util.HashSet;
 import java.util.Set;
 
-import alvin.net.status.NetworkStatus;
+import alvin.net.status.network.NetworkStatus;
 
 public final class NetStatusEventHandler {
     private static final NetStatusEventHandler INSTANCE = new NetStatusEventHandler();

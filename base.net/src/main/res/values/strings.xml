@@ -2,4 +2,12 @@
     <string name="app_name">Network</string>
 
     <string name="string_net_status_demo">Net Status Demo</string>
+
+    <string name="string_no_network">No network, check your network settings</string>
+    <string name="string_mobile_network">Net connected by mobile</string>
+    <string name="string_wifi_network">Net connect by WIFI</string>
+
+    <string name="btn_open_net_work_status_demo">Network Status</string>
+    <string name="btn_open_http_demo">Http</string>
+    <string name="btn_open_socket_demo">Socket</string>
 </resources>

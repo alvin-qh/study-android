@@ -7,13 +7,25 @@
     android:layout_height="match_parent"
     tools:context="alvin.net.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_network_status"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/btn_open_net_work_status_demo"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_http"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_open_http_demo"
+        app:layout_constraintTop_toBottomOf="@id/btn_network_status"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_socket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_open_socket_demo"
+        app:layout_constraintTop_toTopOf="@id/btn_http"/>
 
 </android.support.constraint.ConstraintLayout>
