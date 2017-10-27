@@ -14,7 +14,6 @@ import java.util.List;
 import alvin.net.R;
 import alvin.net.http.WeatherContract;
 import alvin.net.http.models.LiveWeather;
-import alvin.net.http.presenters.WeatherTaskPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -32,7 +31,7 @@ public abstract class HttpBaseActivity extends AppCompatActivity implements Weat
 
         ButterKnife.bind(this);
 
-        presenter = new WeatherTaskPresenter(this);
+        presenter = getPresenter();
         presenter.doCreate();
     }
 

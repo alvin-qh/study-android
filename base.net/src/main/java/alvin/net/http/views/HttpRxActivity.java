@@ -1,12 +1,12 @@
 package alvin.net.http.views;
 
 import alvin.net.http.WeatherContract;
-import alvin.net.http.presenters.WeatherTaskPresenter;
+import alvin.net.http.presenters.WeatherRxPresenter;
 
 public class HttpRxActivity extends HttpBaseActivity {
 
     @Override
     protected WeatherContract.Presenter getPresenter() {
-        return new WeatherTaskPresenter(this);
+        return new WeatherRxPresenter(this);
     }
 }

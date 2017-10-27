@@ -11,6 +11,7 @@ dependencies {
     implementation libs.main.butterKnife
     implementation libs.main.jackson
     implementation libs.main.okhttp
+    implementation libs.main.rx
 
     annotationProcessor libs.annotation.butterKnife
 }
