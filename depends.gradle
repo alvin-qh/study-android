@@ -21,6 +21,10 @@ ext {
                             "com.google.dagger:dagger-android-support:${versions.dagger}"
                     ],
                     okhttp     : "com.squareup.okhttp3:okhttp:${versions.okhttp}",
+                    jackson    : [
+                            "com.fasterxml.jackson.core:jackson-core:${versions.jackson}",
+                            "com.fasterxml.jackson.core:jackson-databind:${versions.jackson}"
+                    ]
             ],
             annotation: [
                     butterKnife: "com.jakewharton:butterknife-compiler:${versions.butterKnife}",

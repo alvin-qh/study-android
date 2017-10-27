@@ -8,8 +8,11 @@ import android.net.Network;
 import android.os.Build;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import alvin.net.status.network.NetworkCallback;
 import alvin.net.status.receivers.NetStatusBroadcastReceiver;
+import alvin.utils.ApplicationConfig;
 
 public class Application extends android.app.Application {
 
@@ -33,6 +36,13 @@ public class Application extends android.app.Application {
                 Toast.makeText(Application.this, R.string.string_network_lost, Toast.LENGTH_LONG).show();
             }
         });
+
+        try {
+            ApplicationConfig.initialize(this);
+        } catch (IOException e) {
+            Toast.makeText(this, R.string.error_cannot_load_config_file, Toast.LENGTH_LONG).show();
+            System.exit(-1);
+        }
     }
 
 

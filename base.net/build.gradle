@@ -9,6 +9,7 @@ dependencies {
 
     implementation libs.main.common
     implementation libs.main.butterKnife
+    implementation libs.main.jackson
     implementation libs.main.okhttp
 
     annotationProcessor libs.annotation.butterKnife

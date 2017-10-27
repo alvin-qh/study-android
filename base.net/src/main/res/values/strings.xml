@@ -12,4 +12,7 @@
     <string name="btn_open_net_work_status_demo">Network Status</string>
     <string name="btn_open_http_demo">Http</string>
     <string name="btn_open_socket_demo">Socket</string>
+    <string name="btn_refresh">Refresh</string>
+
+    <string name="error_cannot_load_config_file">Cannot load config file</string>
 </resources>
