@@ -1,6 +1,5 @@
 package alvin.preferences.domain.models;
 
-import net.orange_box.storebox.annotations.method.DefaultValue;
 import net.orange_box.storebox.annotations.method.KeyByString;
 import net.orange_box.storebox.annotations.method.TypeAdapter;
 
