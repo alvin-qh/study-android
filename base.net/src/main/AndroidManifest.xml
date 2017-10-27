@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".Application"
@@ -29,13 +30,16 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".status.StatusMainActivity"
-            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".status.StatusMainActivity"
+                  android:parentActivityName=".MainActivity"/>
 
         <activity android:name=".http.HttpMainActivity"
-                  android:parentActivityName=".MainActivity">
-        </activity>
-    </application>
+                  android:parentActivityName=".MainActivity"/>
 
+        <activity android:name=".http.views.HttpTaskActivity"
+                  android:parentActivityName=".http.HttpMainActivity"/>
+
+        <activity android:name=".http.views.HttpRxActivity"
+                  android:parentActivityName=".http.HttpMainActivity"/>
+    </application>
 </manifest>

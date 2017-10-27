@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
+import alvin.net.http.HttpMainActivity;
 import alvin.net.status.StatusMainActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
         switch (b.getId()) {
         case R.id.btn_network_status:
             intent = new Intent(this, StatusMainActivity.class);
+            break;
+        case R.id.btn_http:
+            intent = new Intent(this, HttpMainActivity.class);
             break;
         }
         if (intent != null) {

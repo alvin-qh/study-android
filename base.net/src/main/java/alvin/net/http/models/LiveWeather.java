@@ -1,6 +1,7 @@
 package alvin.net.http.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.MoreObjects;
 
 public class LiveWeather {
 
@@ -32,5 +33,14 @@ public class LiveWeather {
 
     public Timestamp getTimestamp() {
         return timestamp;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("location", location)
+                .add("weather", weather)
+                .add("timestamp", timestamp)
+                .toString();
     }
 }

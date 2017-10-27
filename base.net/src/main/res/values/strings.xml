@@ -12,7 +12,34 @@
     <string name="btn_open_net_work_status_demo">Network Status</string>
     <string name="btn_open_http_demo">Http</string>
     <string name="btn_open_socket_demo">Socket</string>
+    <string name="btn_use_sync_task">Use Sync Task</string>
+    <string name="btn_use_rx">Use Rx</string>
     <string name="btn_refresh">Refresh</string>
 
     <string name="error_cannot_load_config_file">Cannot load config file</string>
+    <string name="error_get_weather">Cannot get weather</string>
+
+    <string name="label_city_name">City</string>
+    <string name="label_county">County</string>
+    <string name="label_timezone">Timezone</string>
+    <string name="label_longitude">Longitude</string>
+    <string name="label_latitude">Latitude</string>
+    <string name="label_condition">Condition</string>
+    <string name="label_feels_like_temperature">Feels Like Temperature</string>
+    <string name="label_temperature">Temperature</string>
+    <string name="label_precipitation">Precipitation</string>
+    <string name="label_pressure">Pressure</string>
+    <string name="label_humidity">Humidity</string>
+    <string name="label_wind_direction">Wind Direction</string>
+    <string name="label_wind_power">Wind Power</string>
+    <string name="label_wind_speed">Wind Speed</string>
+    <string name="label_visibility">Visibility</string>
+    <string name="label_cloud">Cloud</string>
+    <string name="label_update_time">Update time</string>
+
+    <string name="unit_temperature">℃</string>
+    <string name="unit_mm">mm</string>
+    <string name="unit_pa">Pa</string>
+    <string name="unit_speed">KM/h</string>
+    <string name="unit_km">KM</string>
 </resources>

@@ -1,6 +1,7 @@
 package alvin.net.http.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.MoreObjects;
 
 public class Weather {
 
@@ -32,21 +33,24 @@ public class Weather {
     private Integer windDirectionAngle;
 
     @JsonProperty("wind_dir")
-    private Integer windDirection;
+    private String windDirection;
 
     @JsonProperty("wind_sc")
-    private Integer windPower;
+    private String windPower;
 
     @JsonProperty("wind_spd")
     private Integer windSpeed;
+
+    @JsonProperty("cloud")
+    private Integer cloud;
 
     Weather() {
     }
 
     public Weather(String conditionCode, String conditionText, Integer feelsLikeTemperature,
                    Integer humidity, Integer precipitation, Integer pressure, Integer temperature,
-                   Double visibility, Integer windDirectionAngle, Integer windDirection,
-                   Integer windPower, Integer windSpeed) {
+                   Double visibility, Integer windDirectionAngle, String windDirection,
+                   String windPower, Integer windSpeed, Integer cloud) {
         this.conditionCode = conditionCode;
         this.conditionText = conditionText;
         this.feelsLikeTemperature = feelsLikeTemperature;
@@ -59,6 +63,7 @@ public class Weather {
         this.windDirection = windDirection;
         this.windPower = windPower;
         this.windSpeed = windSpeed;
+        this.cloud = cloud;
     }
 
     public String getConditionCode() {
@@ -97,15 +102,38 @@ public class Weather {
         return windDirectionAngle;
     }
 
-    public Integer getWindDirection() {
+    public String getWindDirection() {
         return windDirection;
     }
 
-    public Integer getWindPower() {
+    public String getWindPower() {
         return windPower;
     }
 
     public Integer getWindSpeed() {
         return windSpeed;
+    }
+
+    public Integer getCloud() {
+        return cloud;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("conditionCode", conditionCode)
+                .add("conditionText", conditionText)
+                .add("feelsLikeTemperature", feelsLikeTemperature)
+                .add("humidity", humidity)
+                .add("precipitation", precipitation)
+                .add("pressure", pressure)
+                .add("temperature", temperature)
+                .add("visibility", visibility)
+                .add("windDirectionAngle", windDirectionAngle)
+                .add("windDirection", windDirection)
+                .add("windPower", windPower)
+                .add("windSpeed", windSpeed)
+                .add("cloud", cloud)
+                .toString();
     }
 }

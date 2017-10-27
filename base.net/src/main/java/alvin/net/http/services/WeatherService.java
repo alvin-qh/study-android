@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 import alvin.net.http.models.LiveWeather;
 import alvin.net.http.models.WeatherConfig;
 import okhttp3.Call;
-import okhttp3.FormBody;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -40,16 +40,16 @@ public class WeatherService {
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .build();
 
-        FormBody formBody = new FormBody.Builder()
-                .add("location", config.getLocation())
-                .add("key", config.getKey())
-                .add("lang", config.getLang())
-                .add("unit", config.getUnit())
+        HttpUrl url = HttpUrl.parse(config.getUrl() + "/weather/now")
+                .newBuilder()
+                .addQueryParameter("location", config.getLocation())
+                .addQueryParameter("key", config.getKey())
+                .addQueryParameter("lang", config.getLang())
+                .addQueryParameter("unit", config.getUnit())
                 .build();
 
         Request request = new Request.Builder()
-                .url(config.getUrl())
-                .post(formBody)
+                .url(url.url())
                 .build();
         Call call = client.newCall(request);
         Response response = call.execute();
@@ -64,7 +64,6 @@ public class WeatherService {
         if (!isStatusOk(node)) {
             throw new WeatherException("Get live weather failed");
         }
-
         return objectMapper.treeToValue(node, LiveWeather.class);
     }
 

@@ -1,6 +1,7 @@
 package alvin.net.http.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.MoreObjects;
 
 public class Location {
     @JsonProperty("cid")
@@ -72,5 +73,19 @@ public class Location {
 
     public String getTimezone() {
         return timezone;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("cityId", cityId)
+                .add("name", name)
+                .add("parentCityName", parentCityName)
+                .add("adminAreaName", adminAreaName)
+                .add("countryName", countryName)
+                .add("longitude", longitude)
+                .add("latitude", latitude)
+                .add("timezone", timezone)
+                .toString();
     }
 }

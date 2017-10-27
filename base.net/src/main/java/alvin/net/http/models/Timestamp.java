@@ -1,6 +1,7 @@
 package alvin.net.http.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.base.MoreObjects;
 
 public class Timestamp {
 
@@ -24,5 +25,13 @@ public class Timestamp {
 
     public String getUtcTime() {
         return utcTime;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("localTime", localTime)
+                .add("utcTime", utcTime)
+                .toString();
     }
 }

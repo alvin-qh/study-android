@@ -1,24 +1,17 @@
 package alvin.net.http;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import alvin.net.R;
-import alvin.net.http.presenters.WeatherPresenter;
-import butterknife.BindView;
+import alvin.net.http.views.HttpRxActivity;
+import alvin.net.http.views.HttpTaskActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HttpMainActivity extends AppCompatActivity implements WeatherContract.View {
-
-    private WeatherContract.Presenter presenter;
-
-    @BindView(R.id.text_weather)
-    TextView textWheather;
+public class HttpMainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,25 +19,23 @@ public class HttpMainActivity extends AppCompatActivity implements WeatherContra
         setContentView(R.layout.activity_http_main);
 
         ButterKnife.bind(this);
-
-        presenter = new WeatherPresenter(this);
-        presenter.doCreate();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        presenter.showLiveWeather();
-    }
+    @OnClick({R.id.btn_use_sync_task, R.id.btn_use_rx})
+    public void onButtonsClick(Button b) {
+        Intent intent = null;
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.doDestroy();
-    }
+        switch (b.getId()) {
+        case R.id.btn_use_sync_task:
+            intent = new Intent(this, HttpTaskActivity.class);
+            break;
+        case R.id.btn_use_rx:
+            intent = new Intent(this, HttpRxActivity.class);
+            break;
+        }
 
-    @OnClick(R.id.btn_refresh)
-    public void onRefreshButtonClick(Button button) {
-        presenter.showLiveWeather();
+        if (intent != null) {
+            startActivity(intent);
+        }
     }
 }

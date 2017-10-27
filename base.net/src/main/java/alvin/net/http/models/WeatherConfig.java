@@ -13,7 +13,7 @@ public class WeatherConfig {
     public WeatherConfig() {
         final ApplicationConfig config = ApplicationConfig.getInstance();
 
-        this.url = config.get("heweather.url");
+        this.url = config.get("heweather.base_url");
         this.key = config.get("heweather.key");
         this.location = config.get("heweather.location");
         this.version = config.get("heweather.version");
