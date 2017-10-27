@@ -31,6 +31,12 @@ public class NetworkCallback {
     public void registerNetworkCallback(ConnectivityManager.NetworkCallback callback) {
         final NetworkRequest request = networkRequest();
         connectivityManager.registerNetworkCallback(request, callback);
+    }
+
+    @SuppressLint("NewApi")
+    @TargetApi(Build.VERSION_CODES.N)
+    public void requestNetwork(ConnectivityManager.NetworkCallback callback) {
+        final NetworkRequest request = networkRequest();
         connectivityManager.requestNetwork(request, callback);
     }
 }

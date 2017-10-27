@@ -2,12 +2,8 @@
 <manifest package="alvin.net"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-
     <application
+        android:name=".Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,13 +17,19 @@
             </intent-filter>
         </activity>
 
+        <!-- This receiver is deprecated in Android N -->
         <receiver android:name=".status.receivers.NetStatusBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
         </receiver>
 
-        <activity android:name=".status.StatusMainActivity"/>
+        <activity android:name=".status.StatusMainActivity"
+                  android:parentActivityName=".MainActivity"/>
     </application>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
 
 </manifest>

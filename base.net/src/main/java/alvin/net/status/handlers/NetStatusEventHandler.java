@@ -23,6 +23,10 @@ public final class NetStatusEventHandler {
         netStatusChangedListeners.add(l);
     }
 
+    public void removeOnNetStatusChangedListener(@NonNull OnNetStatusChangedListener l) {
+        netStatusChangedListeners.remove(l);
+    }
+
     public void send(NetworkStatus status) {
         Message message = new Message();
         message.obj = status;

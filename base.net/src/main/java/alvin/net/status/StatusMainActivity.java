@@ -1,12 +1,11 @@
 package alvin.net.status;
 
 import android.annotation.SuppressLint;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +15,6 @@ import java.util.TimerTask;
 import alvin.net.R;
 import alvin.net.status.handlers.NetStatusEventHandler;
 import alvin.net.status.handlers.OnNetStatusChangedListener;
-import alvin.net.status.network.NetworkCallback;
 import alvin.net.status.network.NetworkStatus;
 import butterknife.BindColor;
 import butterknife.BindView;
@@ -45,9 +43,9 @@ public class StatusMainActivity extends AppCompatActivity implements OnNetStatus
     @BindColor(R.color.icon_warning)
     int colorIconWarn;
 
-    private Timer timer = null;
-
-    private NetworkCallback networkCallback;
+    private Animation animFadeIn;
+    private Animation animFadeOut;
+    private Timer timer;
 
     @SuppressLint("ObsoleteSdkInt")
     @Override
@@ -59,34 +57,61 @@ public class StatusMainActivity extends AppCompatActivity implements OnNetStatus
 
         NetStatusEventHandler.getInstance().addOnNetStatusChangedListener(this);
 
-        onNetworkStatusChanged(NetworkStatus.getStatus(this));
+        this.animFadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        this.animFadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            networkCallback = new NetworkCallback(this);
-            networkCallback.registerNetworkCallback(new ConnectivityManager.NetworkCallback() {
-                @Override
-                public void onAvailable(Network network) {
-                    super.onAvailable(network);
+        animFadeIn.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                notifyBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (timer != null) {
+                    timer.cancel();
+                    timer = null;
                 }
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        notifyBar.startAnimation(animFadeOut);
+                    }
+                }, 1000);
+            }
 
-                @Override
-                public void onLost(Network network) {
-                    super.onLost(network);
-                }
-            });
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
 
-//            registerReceiver(new BroadcastReceiver() {
-//                @Override
-//                public void onReceive(Context context, Intent intent) {
-//                    Log.d("Hello", "");
-//                }
-//            }, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        }
+        animFadeOut.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                notifyBar.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        NetStatusEventHandler.getInstance().removeOnNetStatusChangedListener(this);
+
+        animFadeIn.cancel();
+        animFadeIn.setAnimationListener(null);
+        animFadeOut.cancel();
+        animFadeOut.setAnimationListener(null);
+
         if (timer != null) {
             timer.cancel();
         }
@@ -114,17 +139,6 @@ public class StatusMainActivity extends AppCompatActivity implements OnNetStatus
             notifyIcon.setColorFilter(colorIconInfo);
             break;
         }
-        notifyBar.setVisibility(View.VISIBLE);
-
-        if (timer != null) {
-            timer.cancel();
-        }
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                notifyBar.setVisibility(View.INVISIBLE);
-            }
-        }, 3000);
+        notifyBar.startAnimation(animFadeIn);
     }
 }
