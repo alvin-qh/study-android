@@ -1,11 +1,13 @@
 package alvin.net.http;
 
+import javax.annotation.Nonnull;
+
 import alvin.net.http.models.LiveWeather;
 
 public final class WeatherContract {
 
     public interface View {
-        void showLiveWeather(LiveWeather weather);
+        void showLiveWeather(@Nonnull LiveWeather weather);
 
         void showWeatherError();
     }

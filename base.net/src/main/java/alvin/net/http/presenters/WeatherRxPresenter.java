@@ -1,5 +1,7 @@
 package alvin.net.http.presenters;
 
+import android.support.annotation.NonNull;
+
 import java.lang.ref.WeakReference;
 import java.util.Optional;
 
@@ -18,7 +20,7 @@ public class WeatherRxPresenter implements WeatherContract.Presenter {
 
     private Disposable weatherSubscribe;
 
-    public WeatherRxPresenter(WeatherContract.View view) {
+    public WeatherRxPresenter(@NonNull WeatherContract.View view) {
         this.viewRef = new WeakReference<>(view);
     }
 

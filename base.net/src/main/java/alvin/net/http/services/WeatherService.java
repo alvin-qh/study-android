@@ -1,6 +1,8 @@
 package alvin.net.http.services;
 
 
+import android.support.annotation.NonNull;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -33,15 +35,20 @@ public class WeatherService {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
-    public LiveWeather liveWeather() throws IOException, WeatherException {
+    public @NonNull
+    LiveWeather liveWeather() throws IOException, WeatherException {
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .build();
 
-        HttpUrl url = HttpUrl.parse(config.getUrl() + "/weather/now")
-                .newBuilder()
+        HttpUrl url = HttpUrl.parse(config.getUrl() + "/weather/now");
+        if (url == null) {
+            throw new WeatherException("Invalid API url");
+        }
+
+        url = url.newBuilder()
                 .addQueryParameter("location", config.getLocation())
                 .addQueryParameter("key", config.getKey())
                 .addQueryParameter("lang", config.getLang())
@@ -50,6 +57,7 @@ public class WeatherService {
 
         Request request = new Request.Builder()
                 .url(url.url())
+//              .addHeader("Author", "alvin")
                 .build();
         Call call = client.newCall(request);
         Response response = call.execute();
@@ -67,11 +75,12 @@ public class WeatherService {
         return objectMapper.treeToValue(node, LiveWeather.class);
     }
 
-    private JsonNode fetchResult(JsonNode node) {
+    private @NonNull
+    JsonNode fetchResult(@NonNull JsonNode node) {
         return node.get(config.getVersion()).get(0);
     }
 
-    private boolean isStatusOk(JsonNode node) {
+    private boolean isStatusOk(@NonNull JsonNode node) {
         String result = node.get("status").asText();
         return "ok".equals(result);
     }

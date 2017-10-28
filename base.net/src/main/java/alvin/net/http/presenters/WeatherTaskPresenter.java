@@ -1,6 +1,8 @@
 package alvin.net.http.presenters;
 
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
@@ -39,14 +41,15 @@ public class WeatherTaskPresenter implements WeatherContract.Presenter {
 
         private Exception exception;
 
-        WeatherTask(WeakReference<WeatherContract.View> viewRef,
-                    WeatherService weatherService) {
+        WeatherTask(@NonNull WeakReference<WeatherContract.View> viewRef,
+                    @NonNull WeatherService weatherService) {
             this.viewRef = viewRef;
             this.weatherService = weatherService;
         }
 
         @Override
-        protected LiveWeather doInBackground(Void[] objects) {
+        protected @Nullable
+        LiveWeather doInBackground(@Nullable Void[] objects) {
             try {
                 return weatherService.liveWeather();
             } catch (IOException | WeatherException e) {
@@ -56,7 +59,7 @@ public class WeatherTaskPresenter implements WeatherContract.Presenter {
         }
 
         @Override
-        protected void onPostExecute(LiveWeather weather) {
+        protected void onPostExecute(@NonNull LiveWeather weather) {
             WeatherContract.View view = viewRef.get();
 
             if (view != null) {

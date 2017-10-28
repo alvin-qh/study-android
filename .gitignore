@@ -9,7 +9,8 @@
 .DS_Store
 node_modules
 bin
-**/build
+build
 out
 gen
-/local.properties
+local.properties
+package-lock.json

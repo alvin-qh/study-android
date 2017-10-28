@@ -1,5 +1,7 @@
 package alvin.net.http.models;
 
+import android.support.annotation.NonNull;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 
@@ -17,21 +19,26 @@ public class LiveWeather {
     LiveWeather() {
     }
 
-    public LiveWeather(Location location, Weather weather, Timestamp timestamp) {
+    public LiveWeather(@NonNull Location location,
+                       @NonNull Weather weather,
+                       @NonNull Timestamp timestamp) {
         this.location = location;
         this.weather = weather;
         this.timestamp = timestamp;
     }
 
-    public Location getLocation() {
+    public @NonNull
+    Location getLocation() {
         return location;
     }
 
-    public Weather getWeather() {
+    public @NonNull
+    Weather getWeather() {
         return weather;
     }
 
-    public Timestamp getTimestamp() {
+    public @NonNull
+    Timestamp getTimestamp() {
         return timestamp;
     }
 
