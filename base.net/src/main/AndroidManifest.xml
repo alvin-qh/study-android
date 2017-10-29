@@ -31,15 +31,27 @@
         </receiver>
 
         <activity android:name=".status.StatusMainActivity"
+                  android:label="@string/title_network_status"
                   android:parentActivityName=".MainActivity"/>
 
         <activity android:name=".http.HttpMainActivity"
+                  android:label="@string/title_network_status"
                   android:parentActivityName=".MainActivity"/>
 
         <activity android:name=".http.views.HttpTaskActivity"
+                  android:label="@string/title_http_async_task"
                   android:parentActivityName=".http.HttpMainActivity"/>
 
         <activity android:name=".http.views.HttpRxActivity"
+                  android:label="@string/title_http_rx_java"
                   android:parentActivityName=".http.HttpMainActivity"/>
+
+        <activity android:name=".socket.SocketMainActivity"
+                  android:label="@string/title_socket"
+                  android:parentActivityName=".MainActivity"/>
+
+        <activity android:name=".socket.views.NativeSocketActivity"
+                  android:label="@string/title_socket_native"
+                  android:parentActivityName=".socket.SocketMainActivity"/>
     </application>
 </manifest>

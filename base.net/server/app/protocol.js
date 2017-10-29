@@ -27,12 +27,12 @@ class Protocol {
 			this.buffer = this.buffer.slice(4);
 		}
 
-		if (this.checksum === null && this.buffer.length >= 16) {
+		if (this.length !== null && this.checksum === null && this.buffer.length >= 16) {
 			this.checksum = this.buffer.slice(0, 16);
 			this.buffer = this.buffer.slice(16);
 		}
 
-		if (this.message === null && this.buffer.length >= this.length) {
+		if (this.length !== null && this.checksum !== null && this.message === null && this.buffer.length >= this.length) {
 			this.message = this.buffer.slice(0, this.length);
 			this.buffer = this.buffer.slice(this.length);
 

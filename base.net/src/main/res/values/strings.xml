@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Network</string>
 
+    <string name="title_network_status">Network Status</string>
+    <string name="title_http">HTTP</string>
+    <string name="title_http_async_task">HTTP By Async Task</string>
+    <string name="title_http_rx_java">HTTP By Rx Java</string>
+    <string name="title_socket">Socket</string>
+    <string name="title_socket_native">Native Socket</string>
+
     <string name="string_net_status_demo">Net Status Demo</string>
 
     <string name="string_no_network">No network, check your network settings</string>
@@ -15,9 +22,14 @@
     <string name="btn_use_sync_task">Use Sync Task</string>
     <string name="btn_use_rx">Use Rx</string>
     <string name="btn_refresh">Refresh</string>
+    <string name="btn_native_socket">Native Socket</string>
+    <string name="btn_netty">Netty</string>
+    <string name="btn_stop">Stop</string>
 
     <string name="error_cannot_load_config_file">Cannot load config file</string>
     <string name="error_get_weather">Cannot get weather</string>
+    <string name="error_socket_connect">Socket connect failed</string>
+    <string name="error_socket_load_data">Cannot load data from remote</string>
 
     <string name="label_city_name">City</string>
     <string name="label_county">County</string>

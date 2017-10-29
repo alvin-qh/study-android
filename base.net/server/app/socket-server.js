@@ -29,13 +29,14 @@ function createServer() {
 					return;
 				}
 
+				console.log(`Message coming: ${msg.cmd}`);
+
 				switch (msg.cmd) {
 				case 'time':
 					socket.write(Protocol.package({cmd: 'time-ack', value: moment().utc().format()}));
 					break;
 				case 'bye':
-					socket.write(Protocol.package({cmd: 'bye-ack'}));
-					socket.end();
+					socket.end(Protocol.package({cmd: 'bye-ack'}));
 					break;
 				default:
 					console.log("Data error, invalid 'cmd' field");
@@ -51,6 +52,7 @@ function createServer() {
 
 		socket.on('close', data => {
 			console.log(`Close: ${socket.remoteAddress} ${socket.remotePort}`);
+			socket.destroy();
 		});
 	});
 }
