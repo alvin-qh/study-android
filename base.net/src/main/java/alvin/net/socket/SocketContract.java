@@ -1,5 +1,7 @@
 package alvin.net.socket;
 
+import android.support.annotation.NonNull;
+
 import java.time.LocalDateTime;
 
 public final class SocketContract {
@@ -7,7 +9,7 @@ public final class SocketContract {
     public interface View {
         void showConnectError();
 
-        void showRemoteDatetime(LocalDateTime time);
+        void showRemoteDatetime(@NonNull LocalDateTime time);
 
         void showRemoteError();
 

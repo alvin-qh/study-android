@@ -54,12 +54,12 @@ subprojects {
     apply plugin: 'com.jakewharton.butterknife'
 
     android {
-        compileSdkVersion 26
-        buildToolsVersion "26.0.2"
+        compileSdkVersion 27
+        buildToolsVersion "27"
 
         defaultConfig {
             minSdkVersion 26
-            targetSdkVersion 26
+            targetSdkVersion 27
             versionCode 1
             versionName "1.0"
 

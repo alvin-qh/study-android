@@ -1,13 +1,23 @@
 package alvin.net.socket.presenters;
 
+import android.support.annotation.NonNull;
+
+import com.google.common.base.Strings;
+
+import java.io.EOFException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
 import alvin.net.socket.SocketContract;
+import alvin.net.socket.models.CommandAck;
 import alvin.net.socket.net.NativeSocket;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,40 +30,108 @@ public class NativeSocketPresenter implements SocketContract.Presenter {
     private final Scheduler scheduler = Schedulers.from(Executors.newSingleThreadExecutor());
 
     private NativeSocket socket;
+
     private Disposable connectSubscribe;
+    private Disposable receiverSubscribe;
     private Disposable remoteTimeSubscribe;
     private Disposable disconnectSubscribe;
 
-    public NativeSocketPresenter(SocketContract.View view) {
+    public NativeSocketPresenter(@NonNull SocketContract.View view) {
         this.viewRef = new WeakReference<>(view);
     }
 
-    @Override
-    public void doStarted() {
-        connectSubscribe = Single.<NativeSocket>create(emitter -> {
-            try {
-                emitter.onSuccess(new NativeSocket());
-            } catch (IOException e) {
-                emitter.onError(e);
-            }
-        })
+    private void toView(Consumer<SocketContract.View> consumer) {
+        Optional.ofNullable(viewRef.get()).ifPresent(consumer);
+    }
+
+    private void doConnect(Consumer<NativeSocket> consumer) {
+        connectSubscribe = Single.<NativeSocket>create(
+                emitter -> {
+                    try {
+                        emitter.onSuccess(new NativeSocket());
+                    } catch (IOException e) {
+                        emitter.onError(e);
+                    }
+                })
                 .retry(3)
                 .subscribeOn(scheduler)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         socket -> {
                             this.socket = socket;
-                            Optional.ofNullable(viewRef.get()).ifPresent(SocketContract.View::connectReady);
+                            toView(SocketContract.View::connectReady);
+                            consumer.accept(socket);
                         },
-                        throwable ->
-                                Optional.ofNullable(viewRef.get()).ifPresent(SocketContract.View::showConnectError)
+                        throwable -> toView(SocketContract.View::showConnectError)
                 );
+    }
+
+    private void startReceive() {
+        if (socket != null && !socket.isClosed()) {
+            receiverSubscribe = Observable.<CommandAck>create(
+                    emitter -> {
+                        try {
+                            while (!socket.isClosed()) {
+                                CommandAck ack = socket.getResponse();
+                                emitter.onNext(ack);
+                            }
+                            emitter.onComplete();
+                        } catch (EOFException e) {
+                            emitter.onComplete();
+                        } catch (IOException e) {
+                            emitter.onError(e);
+                        }
+                    })
+                    .retry(3)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            this::responseReceived,
+                            throwable -> {
+                                toView(SocketContract.View::showConnectError);
+                                socket.close();
+                            }
+                    );
+        }
+    }
+
+    private void responseReceived(CommandAck ack) {
+        switch (ack.getCmd()) {
+        case "time-ack":
+            if (!Strings.isNullOrEmpty(ack.getValue())) {
+                LocalDateTime time = LocalDateTime.from(DateTimeFormatter.ISO_DATE_TIME.parse(ack.getValue()));
+                toView(view -> view.showRemoteDatetime(time));
+            }
+            break;
+        case "bye-ack":
+            try {
+                socket.close();
+            } catch (IOException ignore) {
+            }
+            break;
+        }
+    }
+
+    @Override
+    public void doStarted() {
+        doConnect(s -> startReceive());
     }
 
     @Override
     public void doStop() {
+        disconnect();
+    }
+
+    @Override
+    public void doDestroy() {
+        viewRef.clear();
+
         if (connectSubscribe != null && !connectSubscribe.isDisposed()) {
             connectSubscribe.dispose();
+        }
+
+        if (receiverSubscribe != null && !receiverSubscribe.isDisposed()) {
+            receiverSubscribe.dispose();
         }
 
         if (remoteTimeSubscribe != null && !remoteTimeSubscribe.isDisposed()) {
@@ -63,46 +141,30 @@ public class NativeSocketPresenter implements SocketContract.Presenter {
         if (disconnectSubscribe != null && !disconnectSubscribe.isDisposed()) {
             disconnectSubscribe.dispose();
         }
-
-        if (this.socket != null) {
-            Single.create(emitter -> {
-                try {
-                    socket.disconnect();
-                    emitter.onSuccess(null);
-                } catch (IOException e) {
-                    emitter.onError(e);
-                }
-            })
-                    .subscribeOn(scheduler)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(nil -> socket.close(), throwable -> socket.close());
-        }
-    }
-
-    @Override
-    public void doDestroy() {
-        viewRef.clear();
     }
 
     @Override
     public void readRemoteDatetime() {
-        if (socket != null) {
-            remoteTimeSubscribe = Single.<LocalDateTime>create(emitter -> {
-                try {
-                    emitter.onSuccess(socket.getRemoteTime());
-                } catch (IOException e) {
-                    emitter.onError(e);
-                }
-            })
+        if (socket != null && !socket.isClosed()) {
+
+            remoteTimeSubscribe = Single.create(
+                    emitter -> {
+                        try {
+                            socket.getRemoteTime();
+                            emitter.onSuccess(Boolean.TRUE);
+                        } catch (IOException e) {
+                            emitter.onError(e);
+                        }
+                    })
                     .retry(3)
                     .subscribeOn(scheduler)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
-                            time ->
-                                    Optional.ofNullable(viewRef.get()).ifPresent(view -> view.showRemoteDatetime(time)),
+                            nil -> {
+                            },
                             throwable -> {
                                 socket.close();
-                                Optional.ofNullable(viewRef.get()).ifPresent(SocketContract.View::showRemoteError);
+                                toView(SocketContract.View::showRemoteError);
                             }
 
                     );
@@ -111,21 +173,25 @@ public class NativeSocketPresenter implements SocketContract.Presenter {
 
     @Override
     public void disconnect() {
-        if (socket != null) {
-            disconnectSubscribe = Single.<Boolean>create(emitter -> {
-                try {
-                    socket.disconnect();
-                    emitter.onSuccess(Boolean.TRUE);
-                } catch (IOException e) {
-                    emitter.onError(e);
-                }
-            })
+        if (socket != null && !socket.isClosed()) {
+
+            disconnectSubscribe = Completable.create(
+                    emitter -> {
+                        try {
+                            socket.disconnect();
+                            emitter.onComplete();
+                        } catch (IOException e) {
+                            emitter.onError(e);
+                        }
+                    })
                     .subscribeOn(scheduler)
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(nil -> socket.close(),
+                    .subscribe(
+                            () -> {
+                            },
                             throwable -> {
                                 socket.close();
-                                Optional.ofNullable(viewRef.get()).ifPresent(SocketContract.View::showRemoteError);
+                                toView(SocketContract.View::showRemoteError);
                             });
         }
     }

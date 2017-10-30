@@ -1,6 +1,7 @@
 package alvin.net.socket.views;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
@@ -25,7 +26,7 @@ public class NativeSocketActivity extends AppCompatActivity implements SocketCon
     TextView textTime;
 
     private SocketContract.Presenter presenter;
-    private Timer timer = new Timer();
+    private Timer timer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,7 +47,9 @@ public class NativeSocketActivity extends AppCompatActivity implements SocketCon
     @Override
     protected void onStop() {
         super.onStop();
-        timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+        }
         presenter.doStop();
     }
 
@@ -58,23 +61,28 @@ public class NativeSocketActivity extends AppCompatActivity implements SocketCon
 
     @Override
     public void showConnectError() {
-        timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+        }
         Toast.makeText(this, R.string.error_socket_connect, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void showRemoteDatetime(LocalDateTime time) {
+    public void showRemoteDatetime(@NonNull LocalDateTime time) {
         textTime.setText(time.format(DateTimeFormatter.ISO_DATE_TIME));
     }
 
     @Override
     public void showRemoteError() {
-        timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+        }
         Toast.makeText(this, R.string.error_socket_load_data, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void connectReady() {
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -85,7 +93,9 @@ public class NativeSocketActivity extends AppCompatActivity implements SocketCon
 
     @OnClick(R.id.btn_stop)
     public void onButtonStop(Button b) {
-        timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+        }
         presenter.disconnect();
     }
 }

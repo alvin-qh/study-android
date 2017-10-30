@@ -3,7 +3,8 @@ package alvin.net.socket.net;
 import java.io.Closeable;
 import java.io.IOException;
 import java.net.Socket;
-import java.time.LocalDateTime;
+
+import alvin.net.socket.models.CommandAck;
 
 public class NativeSocket implements Closeable, AutoCloseable {
     private final Socket socket;
@@ -14,18 +15,37 @@ public class NativeSocket implements Closeable, AutoCloseable {
         this.socket = new Socket(config.getHost(), config.getPort());
     }
 
-    public LocalDateTime getRemoteTime() throws IOException {
+    public CommandAck getResponse() throws IOException {
+        Protocol proto = new Protocol();
+
+        CommandAck ack = proto.unpack(socket.getInputStream());
+        if (ack == null) {
+            throw new IOException("Invalid ack");
+        }
+
+        switch (ack.getCmd()) {
+        case "time-ack":
+        case "bye-ack":
+            break;
+        default:
+            throw new IOException("Invalid ack command");
+        }
+
+        return ack;
+    }
+
+    public void getRemoteTime() throws IOException {
         Protocol proto = new Protocol();
         proto.makeTimeCommand(socket.getOutputStream());
-
-        return proto.unpackTimeCommand(socket.getInputStream());
     }
 
     public void disconnect() throws IOException {
         Protocol proto = new Protocol();
         proto.makeDisconnectCommand(socket.getOutputStream());
+    }
 
-        proto.unpackDisconnectCommand(socket.getInputStream());
+    public boolean isClosed() {
+        return this.socket.isClosed();
     }
 
     @Override

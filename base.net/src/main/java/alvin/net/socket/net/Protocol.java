@@ -15,8 +15,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -74,7 +72,7 @@ public class Protocol {
         dos.flush();
     }
 
-    private Optional<CommandAck> unpack(InputStream in) throws IOException {
+    public CommandAck unpack(InputStream in) throws IOException {
         DataInputStream din = new DataInputStream(in);
         int length = din.readInt();
 
@@ -92,35 +90,9 @@ public class Protocol {
 
         byte[] checksumVerifyData = calculateChecksum(msgData);
         if (!Arrays.equals(checksumData, checksumVerifyData)) {
-            return Optional.empty();
+            throw new IOException("Checksum invalid");
         }
 
-        return Optional.ofNullable(
-                objectMapper.readValue(new String(msgData, Charsets.UTF_8), CommandAck.class));
-    }
-
-    public LocalDateTime unpackTimeCommand(InputStream in) throws IOException {
-        Optional<CommandAck> mayAck = unpack(in);
-        if (!mayAck.isPresent()) {
-            throw new IOException("Invalid response message");
-        }
-        CommandAck ack = mayAck.get();
-
-        if (!"time-ack".equals(ack.getCmd())) {
-            throw new IOException("Invalid response command");
-        }
-        return LocalDateTime.from(DateTimeFormatter.ISO_DATE_TIME.parse(ack.getValue()));
-    }
-
-    public void unpackDisconnectCommand(InputStream in) throws IOException {
-        Optional<CommandAck> mayAck = unpack(in);
-        if (!mayAck.isPresent()) {
-            throw new IOException("Invalid response message");
-        }
-        CommandAck ack = mayAck.get();
-
-        if (!"bye-ack".equals(ack.getCmd())) {
-            throw new IOException("Invalid response command");
-        }
+        return objectMapper.readValue(new String(msgData, Charsets.UTF_8), CommandAck.class);
     }
 }
