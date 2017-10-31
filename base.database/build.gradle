@@ -3,6 +3,18 @@ android {
     defaultConfig {
         applicationId "alvin.database"
     }
+
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res/layout/common',
+                    'src/main/res/layout/sqlite',
+                    'src/main/res/layout/dbflow',
+                    'src/main/res/layout',
+                    'src/main/res'
+            ]
+        }
+    }
 }
 
 dependencies {

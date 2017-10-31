@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import alvin.net.R;
-import alvin.net.socket.views.NativeSocketActivity;
+import alvin.net.socket.views.SocketNativeActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -29,7 +29,7 @@ public class SocketMainActivity extends AppCompatActivity {
         Intent intent = null;
         switch (b.getId()) {
         case R.id.btn_native_socket:
-            intent = new Intent(this, NativeSocketActivity.class);
+            intent = new Intent(this, SocketNativeActivity.class);
             break;
         case R.id.btn_netty:
             break;

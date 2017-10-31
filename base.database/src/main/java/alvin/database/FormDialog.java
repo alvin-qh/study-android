@@ -42,7 +42,7 @@ public class FormDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = View.inflate(getContext(), R.layout.dialog_form, null);
+        View view = View.inflate(getContext(), R.layout.dialog_add_person, null);
         setContentView(view);
 
         ButterKnife.bind(this);

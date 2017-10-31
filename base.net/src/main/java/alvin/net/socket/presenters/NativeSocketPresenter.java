@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 
 import alvin.net.socket.SocketContract;
 import alvin.net.socket.models.CommandAck;
-import alvin.net.socket.net.NativeSocket;
+import alvin.net.socket.net.SocketNative;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -29,7 +29,7 @@ public class NativeSocketPresenter implements SocketContract.Presenter {
     private final WeakReference<SocketContract.View> viewRef;
     private final Scheduler scheduler = Schedulers.from(Executors.newSingleThreadExecutor());
 
-    private NativeSocket socket;
+    private SocketNative socket;
 
     private Disposable connectSubscribe;
     private Disposable receiverSubscribe;
@@ -44,11 +44,11 @@ public class NativeSocketPresenter implements SocketContract.Presenter {
         Optional.ofNullable(viewRef.get()).ifPresent(consumer);
     }
 
-    private void doConnect(Consumer<NativeSocket> consumer) {
-        connectSubscribe = Single.<NativeSocket>create(
+    private void doConnect(Consumer<SocketNative> consumer) {
+        connectSubscribe = Single.<SocketNative>create(
                 emitter -> {
                     try {
-                        emitter.onSuccess(new NativeSocket());
+                        emitter.onSuccess(new SocketNative());
                     } catch (IOException e) {
                         emitter.onError(e);
                     }

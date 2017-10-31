@@ -20,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class NativeSocketActivity extends AppCompatActivity implements SocketContract.View {
+public class SocketNativeActivity extends AppCompatActivity implements SocketContract.View {
 
     @BindView(R.id.text_time)
     TextView textTime;
@@ -31,7 +31,7 @@ public class NativeSocketActivity extends AppCompatActivity implements SocketCon
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_native_socket);
+        setContentView(R.layout.activity_socket_native);
 
         ButterKnife.bind(this);
 

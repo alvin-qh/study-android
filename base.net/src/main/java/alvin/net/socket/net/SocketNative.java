@@ -6,10 +6,10 @@ import java.net.Socket;
 
 import alvin.net.socket.models.CommandAck;
 
-public class NativeSocket implements Closeable, AutoCloseable {
+public class SocketNative implements Closeable, AutoCloseable {
     private final Socket socket;
 
-    public NativeSocket() throws IOException {
+    public SocketNative() throws IOException {
         NetworkConfig config = new NetworkConfig();
 
         this.socket = new Socket(config.getHost(), config.getPort());

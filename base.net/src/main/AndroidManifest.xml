@@ -50,7 +50,7 @@
                   android:label="@string/title_socket"
                   android:parentActivityName=".MainActivity"/>
 
-        <activity android:name=".socket.views.NativeSocketActivity"
+        <activity android:name=".socket.views.SocketNativeActivity"
                   android:label="@string/title_socket_native"
                   android:parentActivityName=".socket.SocketMainActivity"/>
     </application>

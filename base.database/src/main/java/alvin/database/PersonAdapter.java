@@ -45,7 +45,7 @@ public class PersonAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup parent) {
         ViewHolder holder;
         if (view == null) {
-            view = mInflater.inflate(R.layout.list_person, null);
+            view = mInflater.inflate(R.layout.listview_person, null);
             holder = new ViewHolder(view);
             view.setTag(holder);
         } else {

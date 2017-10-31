@@ -2,7 +2,20 @@ android {
     defaultConfig {
         applicationId "alvin.net"
     }
+
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res/layout/status',
+                    'src/main/res/layout/http',
+                    'src/main/res/layout/socket',
+                    'src/main/res/layout',
+                    'src/main/res'
+            ]
+        }
+    }
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
