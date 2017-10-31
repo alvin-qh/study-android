@@ -1,9 +1,21 @@
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
     defaultConfig {
         applicationId "alvin.basekotlin"
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res/layout/butterknife',
+                    'src/main/res/layout/dbflow',
+                    'src/main/res/layout',
+                    'src/main/res'
+            ]
+        }
     }
 }
 
@@ -13,6 +25,9 @@ dependencies {
     implementation libs.main.common
     implementation libs.main.butterKnife
     implementation libs.main.kotlin
+    implementation libs.main.dbflow
+    implementation libs.main.dbflowKotlin
 
     kapt libs.annotation.butterKnife
+    kapt libs.annotation.dbflow
 }

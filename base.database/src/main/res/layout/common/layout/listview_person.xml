@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/list_item"
@@ -17,7 +18,8 @@
         android:gravity="center"
         android:paddingEnd="12sp"
         android:paddingStart="12sp"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        tools:text="1"/>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -34,7 +36,8 @@
 
             <TextView android:id="@+id/name"
                       android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"/>
+                      android:layout_height="wrap_content"
+                      tools:text="Alvin"/>
 
             <View
                 android:layout_width="1px"
@@ -49,7 +52,8 @@
 
             <TextView android:id="@+id/gender"
                       android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"/>
+                      android:layout_height="wrap_content"
+                      tools:text="Male"/>
         </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent"
@@ -61,7 +65,8 @@
 
             <TextView android:id="@+id/birthday"
                       android:layout_width="match_parent"
-                      android:layout_height="wrap_content"/>
+                      android:layout_height="wrap_content"
+                      tools:text="1981-03-17"/>
         </LinearLayout>
     </LinearLayout>
 

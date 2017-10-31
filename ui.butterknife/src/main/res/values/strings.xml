@@ -1,4 +1,9 @@
 <resources>
-    <string name="app_name">Butter Knife</string>
-    <string name="hello_world">Hello World!</string>
+    <string name="app_name">ButterKnife</string>
+
+    <string name="string_hello_world">Hello World!</string>
+
+    <string name="title_kotlin">ButterKnife with Kotlin</string>
+
+    <string name="btn_click">Click Me</string>
 </resources>

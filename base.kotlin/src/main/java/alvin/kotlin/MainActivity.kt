@@ -1,26 +1,15 @@
 package alvin.kotlin
 
-import android.annotation.SuppressLint
+import alvin.kotlin.butterknife.ButterKnifeMainActivity
+import alvin.kotlin.dbflow.DBFlowMainActivity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import butterknife.BindString
-import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 
 class MainActivity : AppCompatActivity() {
-
-    @BindView(R.id.edit_input)
-    lateinit var editInput: EditText
-
-    @BindView(R.id.text_result)
-    lateinit var textResult: TextView
-
-    @BindString(R.string.string_hello)
-    lateinit var stringHello: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +18,21 @@ class MainActivity : AppCompatActivity() {
         ButterKnife.bind(this)
     }
 
-    @SuppressLint("SetTextI18n")
-    @OnClick(R.id.button_ok)
-    fun onButtonOkClick(button: Button) {
-        val name = editInput.text.toString()
-        textResult.text = stringHello + " " + name
+    @OnClick(R.id.btn_butter_knife, R.id.btn_dbflow)
+    fun onButtonOkClick(b: Button) {
+        var intent: Intent? = null
+
+        when (b.id) {
+            R.id.btn_butter_knife -> {
+                intent = Intent(this, ButterKnifeMainActivity::class.java)
+            }
+            R.id.btn_dbflow -> {
+                intent = Intent(this, DBFlowMainActivity::class.java)
+            }
+        }
+
+        if (intent != null) {
+            startActivity(intent)
+        }
     }
 }

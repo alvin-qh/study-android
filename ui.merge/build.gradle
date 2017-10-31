@@ -1,15 +1,20 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
 
 android {
     defaultConfig {
-        applicationId "alvin.butterknife"
+        applicationId "com.example.alvin.uimerge"
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation libs.main.common
     implementation libs.main.butterKnife
     implementation libs.main.kotlin
 
-    annotationProcessor libs.annotation.butterKnife
+    kapt libs.annotation.butterKnife
 }

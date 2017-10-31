@@ -15,9 +15,9 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.text_main)
-    TextView textMain;
+    TextView tvMain;
 
-    @BindString(R.string.hello_world)
+    @BindString(R.string.string_hello_world)
     String hello;
 
     @BindColor(R.color.colorAccent)
@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_hello)
     public void onHelloClick(Button element) {
-        textMain.setText(hello);
-        textMain.setTextColor(colorAccent);
-        textMain.setTextSize(dimenFontSize);
+        tvMain.setText(hello);
+        tvMain.setTextColor(colorAccent);
+        tvMain.setTextSize(dimenFontSize);
 
         this.fragment.setText(hello);
 

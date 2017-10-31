@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">Kotlin Demo</string>
-    <string name="hint_name">Please input your name</string>
+
+    <string name="title_kotlin">Kotlin</string>
+    <string name="title_dbflow">DBFlow</string>
+
+    <string name="button_ok">OK</string>
+    <string name="button_butter_knife">ButterKnife</string>
+    <string name="button_dbflow">DBFlow</string>
+
     <string name="string_hello">Hello </string>
+
+    <string name="hint_name">Please input your name</string>
+
+    <string name="label_all">All</string>
+    <string name="label_male">Male</string>
+    <string name="label_female">Female</string>
+    <string name="label_name">Name: </string>
+    <string name="label_gender">Gender</string>
 </resources>
