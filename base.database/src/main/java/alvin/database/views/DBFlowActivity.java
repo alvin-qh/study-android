@@ -1,4 +1,4 @@
-package alvin.database;
+package alvin.database.views;
 
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import alvin.database.R;
 import alvin.database.dbflow.FlowDatabase;
 import alvin.database.dbflow.models.Person;
 import alvin.database.dbflow.repositories.PersonDBFlowRepository;
@@ -28,7 +29,7 @@ public class DBFlowActivity extends FrameActivity {
     }
 
     @Override
-    protected void savePerson(String name, Gender gender, LocalDate birthday) {
+    public void savePerson(String name, Gender gender, LocalDate birthday) {
         Person person = new Person(name, gender, birthday);
         DatabaseDefinition database = FlowManager.getDatabase(FlowDatabase.class);
         PersonDBFlowRepository repository = new PersonDBFlowRepository(database);
@@ -36,14 +37,14 @@ public class DBFlowActivity extends FrameActivity {
     }
 
     @Override
-    protected List<IPerson> getPersons(Gender gender) {
+    public List<IPerson> getPersons(Gender gender) {
         DatabaseDefinition database = FlowManager.getDatabase(FlowDatabase.class);
         PersonDBFlowRepository repository = new PersonDBFlowRepository(database);
         return Collections.unmodifiableList(repository.findByGender(gender));
     }
 
     @Override
-    protected void updatePerson(int id, String name, Gender gender, LocalDate birthday) {
+    public void updatePerson(int id, String name, Gender gender, LocalDate birthday) {
         DatabaseDefinition database = FlowManager.getDatabase(FlowDatabase.class);
         PersonDBFlowRepository repository = new PersonDBFlowRepository(database);
         Optional<Person> mayPerson = repository.findById(id);
@@ -56,7 +57,7 @@ public class DBFlowActivity extends FrameActivity {
     }
 
     @Override
-    protected void deletePerson(int id) {
+    public void deletePerson(int id) {
         DatabaseDefinition database = FlowManager.getDatabase(FlowDatabase.class);
         PersonDBFlowRepository repository = new PersonDBFlowRepository(database);
         Optional<Person> mayPerson = repository.findById(id);

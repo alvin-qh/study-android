@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
+import alvin.database.views.DBFlowActivity;
+import alvin.database.views.SQLiteActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 

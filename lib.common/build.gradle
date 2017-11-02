@@ -1,3 +1,5 @@
+apply plugin: 'propdeps'
+apply plugin: 'propdeps-idea'
 apply plugin: 'java-library'
 
 sourceCompatibility = "1.8"
@@ -5,4 +7,6 @@ targetCompatibility = "1.8"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    provided libs.main.guava
 }

@@ -11,7 +11,7 @@ buildscript {
                 sdk             : '26.1.0',
                 constraintLayout: '1.0.2',
                 butterKnife     : '8.8.1',
-                guava           : '22.0-android',
+                guava           : '23.3-android',
                 storeBox        : '1.4.0',
                 DBFlow          : '4.1.1',
                 kotlin          : '1.1.51',
@@ -20,22 +20,25 @@ buildscript {
                 jackson         : '2.9.2',
                 rx              : '2.0.1',
                 netty           : '4.1.16.Final',
+                propdepsPlugin  : '0.0.9.RELEASE'
         ]
     }
 
     repositories {
         jcenter()
         google()
+        maven { url 'http://repo.spring.io/plugins-release' }
 //      maven { url "https://oss.sonatype.org/content/repositories/snapshots" } // For Butter Knife SNAPSHOT
     }
 
     dependencies {
         classpath "com.android.tools.build:gradle:${versions.buildTool}"
 //      classpath "me.tatarka:gradle-retrolambda:${versions.retrolambda}" // Plugin support by java 8, Enable if SDK version < 24
+
         classpath "com.jakewharton:butterknife-gradle-plugin:${versions.butterKnife}"
-        // Butter Knife support
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        // Kotlin support
+
+        classpath "io.spring.gradle:propdeps-plugin:${versions.propdepsPlugin}"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -68,16 +71,16 @@ subprojects {
         apply plugin: 'com.android.application'
 
         dependencies {
-            implementation project(":lib.common")
-            implementation project(":lib.resource")
             implementation project(":lib.widget")
         }
     }
 
     dependencies {
+        implementation project(":lib.common")
         implementation fileTree(dir: 'libs', include: ['*.jar'])
 
         implementation libs.main.common
+        implementation libs.main.guava
     }
 
     android {

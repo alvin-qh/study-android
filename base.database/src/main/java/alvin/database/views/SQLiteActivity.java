@@ -1,9 +1,10 @@
-package alvin.database;
+package alvin.database.views;
 
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
+import alvin.database.R;
 import alvin.database.models.Gender;
 import alvin.database.models.IPerson;
 import alvin.database.sqlite.SQLite;
@@ -23,7 +24,7 @@ public class SQLiteActivity extends FrameActivity {
     }
 
     @Override
-    protected void savePerson(String name, Gender gender, LocalDate birthday) {
+    public void savePerson(String name, Gender gender, LocalDate birthday) {
         Person person = new Person(name, gender, birthday);
         try (SQLite sqlite = SQLite.createSQLiteDB(this)) {
             PersonSQLiteRepository repository = new PersonSQLiteRepository(sqlite.getWritable());
@@ -32,7 +33,7 @@ public class SQLiteActivity extends FrameActivity {
     }
 
     @Override
-    protected List<IPerson> getPersons(Gender gender) {
+    public List<IPerson> getPersons(Gender gender) {
         try (SQLite sqlite = SQLite.createSQLiteDB(this)) {
             PersonSQLiteRepository repository = new PersonSQLiteRepository(sqlite.getReadable());
             return Collections.unmodifiableList(repository.findByGender(gender));
@@ -40,7 +41,7 @@ public class SQLiteActivity extends FrameActivity {
     }
 
     @Override
-    protected void updatePerson(int id, String name, Gender gender, LocalDate birthday) {
+    public void updatePerson(int id, String name, Gender gender, LocalDate birthday) {
         Person person = new Person(id, name, gender, birthday);
         try (SQLite sqlite = SQLite.createSQLiteDB(this)) {
             PersonSQLiteRepository repository = new PersonSQLiteRepository(sqlite.getReadable());
@@ -49,7 +50,7 @@ public class SQLiteActivity extends FrameActivity {
     }
 
     @Override
-    protected void deletePerson(int id) {
+    public void deletePerson(int id) {
         try (SQLite sqlite = SQLite.createSQLiteDB(this)) {
             PersonSQLiteRepository repository = new PersonSQLiteRepository(sqlite.getReadable());
             repository.delete(id);

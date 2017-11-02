@@ -22,12 +22,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SQLiteActivity"
+        <activity android:name=".views.SQLiteActivity"
                   android:label="@string/title_sqlite"
                   android:parentActivityName=".MainActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".DBFlowActivity"
+        <activity android:name=".views.DBFlowActivity"
                   android:label="@string/title_dbflow"
                   android:parentActivityName=".MainActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>

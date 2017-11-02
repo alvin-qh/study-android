@@ -1,4 +1,4 @@
-package alvin.database;
+package alvin.database.views.dialogs;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -17,6 +17,7 @@ import com.google.common.base.Strings;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import alvin.database.R;
 import alvin.database.models.Gender;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +47,6 @@ public class FormDialog extends Dialog {
         setContentView(view);
 
         ButterKnife.bind(this);
-
         editBirthday.setKeyListener(null);
     }
 
@@ -142,6 +142,7 @@ public class FormDialog extends Dialog {
         public FormDialog create(int titleResId) {
             FormDialog dlg = new FormDialog(context, R.style.AppTheme_Dialog);
             dlg.setTitle(context.getString(titleResId));
+            dlg.create();
             return dlg;
         }
     }

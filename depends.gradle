@@ -6,9 +6,9 @@ ext {
                             "com.android.support:support-v4:${versions.sdk}",
                             "com.android.support:design:${versions.sdk}",
                             "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
-                            "com.google.guava:guava:${versions.guava}",
                             "com.android.support:multidex:${versions.multidex}"
                     ],
+                    guava       : "com.google.guava:guava:${versions.guava}",
                     butterKnife : "com.jakewharton:butterknife:${versions.butterKnife}",
                     storeBox    : "net.orange-box.storebox:storebox-lib:${versions.storeBox}",
                     dbflow      : [
@@ -33,7 +33,7 @@ ext {
                             "io.reactivex.rxjava2:rxjava:${versions.rx}",
                             "io.reactivex.rxjava2:rxandroid:${versions.rx}"
                     ],
-                    netty      : [
+                    netty       : [
                             "io.netty:netty-all:${versions.netty}"
                     ]
             ],
