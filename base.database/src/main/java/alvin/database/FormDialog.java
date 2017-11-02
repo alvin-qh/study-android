@@ -51,15 +51,15 @@ public class FormDialog extends Dialog {
     }
 
     @OnClick(R.id.btn_calendar)
-    public void onCalendarButtonClick(ImageButton button) {
+    public void onCalendarButtonClick(ImageButton b) {
         DatePickerDialog dialog;
 
         String date = editBirthday.getText().toString();
         if (Strings.isNullOrEmpty(date)) {
-            dialog = new DatePickerDialog(getContext(), 0);
+            dialog = new DatePickerDialog(getContext());
         } else {
             LocalDate birthday = LocalDate.from(DateTimeFormatter.ISO_DATE.parse(date));
-            dialog = new DatePickerDialog(getContext(), 0, null,
+            dialog = new DatePickerDialog(getContext(), null,
                     birthday.getYear(), birthday.getMonthValue() - 1, birthday.getDayOfMonth());
         }
         dialog.setOnDateSetListener((view, year, month, dayOfMonth) ->

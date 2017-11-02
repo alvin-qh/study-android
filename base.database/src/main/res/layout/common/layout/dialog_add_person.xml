@@ -7,7 +7,7 @@
         android:paddingEnd="20sp"
         android:paddingStart="20sp"
         android:paddingTop="20sp"
-        android:theme="@style/AppTheme.Dialog">
+        android:theme="@style/AppTheme.Dialog.Custom">
 
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content">

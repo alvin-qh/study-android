@@ -53,9 +53,24 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: 'com.android.application'
 //  apply plugin: 'me.tatarka.retrolambda'  // Plugin support by java 8, Enable if SDK version < 24
 //  apply plugin: 'com.jakewharton.butterknife'
+
+    if (project.name.startsWith("lib.")) {
+        apply plugin: 'com.android.library'
+    } else {
+        apply plugin: 'com.android.application'
+
+        dependencies {
+            implementation project(":lib.resource")
+        }
+    }
+
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+        implementation libs.main.common
+    }
 
     android {
         compileSdkVersion 27

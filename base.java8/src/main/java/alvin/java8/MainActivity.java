@@ -17,6 +17,6 @@ public class MainActivity extends AppCompatActivity {
         this.textResult = (TextView) findViewById(R.id.text_result);
 
         Button btnClickMe = (Button) findViewById(R.id.btn_click_me);
-        btnClickMe.setOnClickListener(view -> this.textResult.setText(R.string.hello_world));
+        btnClickMe.setOnClickListener(view -> this.textResult.setText(R.string.string_hello_world));
     }
 }
