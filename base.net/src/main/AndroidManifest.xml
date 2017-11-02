@@ -53,5 +53,9 @@
         <activity android:name=".socket.views.SocketNativeActivity"
                   android:label="@string/title_socket_native"
                   android:parentActivityName=".socket.SocketMainActivity"/>
+
+        <activity android:name=".socket.views.SocketNettyActivity"
+                  android:label="@string/title_socket_native"
+                  android:parentActivityName=".socket.SocketMainActivity"/>
     </application>
 </manifest>

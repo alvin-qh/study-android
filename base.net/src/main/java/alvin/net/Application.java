@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.Build;
+import android.support.multidex.MultiDexApplication;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import alvin.net.status.network.NetworkCallback;
 import alvin.net.status.receivers.NetStatusBroadcastReceiver;
 import alvin.utils.ApplicationConfig;
 
-public class Application extends android.app.Application {
+public class Application extends MultiDexApplication {
 
     @Override
     public void onCreate() {

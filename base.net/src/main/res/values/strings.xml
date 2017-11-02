@@ -7,6 +7,7 @@
     <string name="title_http_rx_java">HTTP By Rx Java</string>
     <string name="title_socket">Socket</string>
     <string name="title_socket_native">Native Socket</string>
+    <string name="title_socket_netty">Netty Socket</string>
 
     <string name="string_net_status_demo">Net Status Demo</string>
 

@@ -16,26 +16,25 @@ import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-import java.util.Optional;
 
 import alvin.net.socket.models.Command;
 import alvin.net.socket.models.CommandAck;
 
-public class Protocol {
+public class NativeProtocol {
     private static final int CHECK_SUM_SIZE = 16;
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    public Protocol() {
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        objectMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, false);
-        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    static {
+        OBJECT_MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        OBJECT_MAPPER.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, false);
+        OBJECT_MAPPER.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
     public void makeTimeCommand(OutputStream out) throws IOException {
         Command cmd = new Command("time");
         try {
-            String msg = objectMapper.writeValueAsString(cmd);
+            String msg = OBJECT_MAPPER.writeValueAsString(cmd);
             packMessage(out, msg);
         } catch (JsonProcessingException e) {
             throw new IOException("Invalid command");
@@ -45,7 +44,7 @@ public class Protocol {
     public void makeDisconnectCommand(OutputStream out) throws IOException {
         Command cmd = new Command("bye");
         try {
-            String msg = objectMapper.writeValueAsString(cmd);
+            String msg = OBJECT_MAPPER.writeValueAsString(cmd);
             packMessage(out, msg);
         } catch (JsonProcessingException e) {
             throw new IOException("Invalid command");
@@ -93,6 +92,6 @@ public class Protocol {
             throw new IOException("Checksum invalid");
         }
 
-        return objectMapper.readValue(new String(msgData, Charsets.UTF_8), CommandAck.class);
+        return OBJECT_MAPPER.readValue(new String(msgData, Charsets.UTF_8), CommandAck.class);
     }
 }

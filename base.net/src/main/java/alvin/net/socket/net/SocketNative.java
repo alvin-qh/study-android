@@ -16,7 +16,7 @@ public class SocketNative implements Closeable, AutoCloseable {
     }
 
     public CommandAck getResponse() throws IOException {
-        Protocol proto = new Protocol();
+        NativeProtocol proto = new NativeProtocol();
 
         CommandAck ack = proto.unpack(socket.getInputStream());
         if (ack == null) {
@@ -35,12 +35,12 @@ public class SocketNative implements Closeable, AutoCloseable {
     }
 
     public void getRemoteTime() throws IOException {
-        Protocol proto = new Protocol();
+        NativeProtocol proto = new NativeProtocol();
         proto.makeTimeCommand(socket.getOutputStream());
     }
 
     public void disconnect() throws IOException {
-        Protocol proto = new Protocol();
+        NativeProtocol proto = new NativeProtocol();
         proto.makeDisconnectCommand(socket.getOutputStream());
     }
 

@@ -7,6 +7,7 @@ import com.google.common.base.Strings;
 import java.io.EOFException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -24,7 +25,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class NativeSocketPresenter implements SocketContract.Presenter {
+public class SocketNativePresenter implements SocketContract.Presenter {
 
     private final WeakReference<SocketContract.View> viewRef;
     private final Scheduler scheduler = Schedulers.from(Executors.newSingleThreadExecutor());
@@ -36,7 +37,7 @@ public class NativeSocketPresenter implements SocketContract.Presenter {
     private Disposable remoteTimeSubscribe;
     private Disposable disconnectSubscribe;
 
-    public NativeSocketPresenter(@NonNull SocketContract.View view) {
+    public SocketNativePresenter(@NonNull SocketContract.View view) {
         this.viewRef = new WeakReference<>(view);
     }
 
