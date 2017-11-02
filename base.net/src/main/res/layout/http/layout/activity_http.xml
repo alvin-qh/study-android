@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="alvin.net.http.HttpMainActivity">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="alvin.net.http.HttpMainActivity">
 
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_refresh"
-        android:textAllCaps="false"
-        app:layout_constraintTop_toTopOf="parent"/>
+            android:id="@+id/btn_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_refresh"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/text_weather"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10sp"
-        android:lineSpacingMultiplier="1.2"
-        android:paddingEnd="10sp"
-        android:paddingStart="10sp"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/btn_refresh"/>
+            android:id="@+id/text_weather"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:lineSpacingMultiplier="1.2"
+            android:paddingEnd="10sp"
+            android:paddingStart="10sp"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/btn_refresh"/>
 </android.support.constraint.ConstraintLayout>

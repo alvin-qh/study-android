@@ -1,9 +1,9 @@
 package alvin.kotlin
 
-import android.app.Application
+import android.support.multidex.MultiDexApplication
 import com.raizlabs.android.dbflow.config.FlowManager
 
-class Application : Application() {
+class Application : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()

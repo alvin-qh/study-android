@@ -14,6 +14,8 @@ public final class SocketContract {
         void showRemoteError();
 
         void connectReady();
+
+        void disconnected();
     }
 
     public interface Presenter {

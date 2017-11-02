@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.multidex.MultiDexApplication;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import alvin.utils.ApplicationConfig;
 public class Application extends MultiDexApplication {
 
     @Override
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void onCreate() {
         super.onCreate();
 
@@ -48,9 +50,9 @@ public class Application extends MultiDexApplication {
 
 
     @SuppressLint({"NewApi", "ObsoleteSdkInt"})
-    @TargetApi(Build.VERSION_CODES.N)
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void checkNetworkStatus() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
             this.registerReceiver(new NetStatusBroadcastReceiver(), filter);
         }

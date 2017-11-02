@@ -7,7 +7,6 @@ import com.google.common.base.Strings;
 import java.io.EOFException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
-import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -54,7 +53,6 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                         emitter.onError(e);
                     }
                 })
-                .retry(3)
                 .subscribeOn(scheduler)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -78,8 +76,10 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                             }
                             emitter.onComplete();
                         } catch (EOFException e) {
+                            socket.close();
                             emitter.onComplete();
                         } catch (IOException e) {
+                            socket.close();
                             emitter.onError(e);
                         }
                     })
@@ -90,7 +90,10 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                             this::responseReceived,
                             throwable -> {
                                 toView(SocketContract.View::showConnectError);
-                                socket.close();
+                                toView(SocketContract.View::disconnected);
+                            },
+                            () -> {
+                                toView(SocketContract.View::disconnected);
                             }
                     );
         }
@@ -105,10 +108,7 @@ public class SocketNativePresenter implements SocketContract.Presenter {
             }
             break;
         case "bye-ack":
-            try {
-                socket.close();
-            } catch (IOException ignore) {
-            }
+            socket.close();
             break;
         }
     }
@@ -154,6 +154,7 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                             socket.getRemoteTime();
                             emitter.onSuccess(Boolean.TRUE);
                         } catch (IOException e) {
+                            socket.close();
                             emitter.onError(e);
                         }
                     })
@@ -164,7 +165,6 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                             nil -> {
                             },
                             throwable -> {
-                                socket.close();
                                 toView(SocketContract.View::showRemoteError);
                             }
 
@@ -182,6 +182,7 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                             socket.disconnect();
                             emitter.onComplete();
                         } catch (IOException e) {
+                            socket.close();
                             emitter.onError(e);
                         }
                     })
@@ -190,10 +191,7 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                     .subscribe(
                             () -> {
                             },
-                            throwable -> {
-                                socket.close();
-                                toView(SocketContract.View::showRemoteError);
-                            });
+                            throwable -> toView(SocketContract.View::showRemoteError));
         }
     }
 }

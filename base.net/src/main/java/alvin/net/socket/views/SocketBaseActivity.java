@@ -99,4 +99,9 @@ public abstract class SocketBaseActivity extends AppCompatActivity implements So
         }
         presenter.disconnect();
     }
+
+    @Override
+    public void disconnected() {
+        Toast.makeText(this, R.string.string_network_disconnected, Toast.LENGTH_LONG).show();
+    }
 }

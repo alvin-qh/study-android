@@ -8,15 +8,17 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-        android:name=".Application"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+            android:name=".Application"
+            android:allowBackup="true"
+            android:fullBackupContent="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -24,18 +26,20 @@
         </activity>
 
         <!-- This receiver is deprecated in Android N -->
+        <!--
         <receiver android:name=".status.receivers.NetStatusBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
         </receiver>
+        -->
 
         <activity android:name=".status.StatusMainActivity"
                   android:label="@string/title_network_status"
                   android:parentActivityName=".MainActivity"/>
 
         <activity android:name=".http.HttpMainActivity"
-                  android:label="@string/title_network_status"
+                  android:label="@string/title_http"
                   android:parentActivityName=".MainActivity"/>
 
         <activity android:name=".http.views.HttpTaskActivity"
@@ -55,7 +59,7 @@
                   android:parentActivityName=".socket.SocketMainActivity"/>
 
         <activity android:name=".socket.views.SocketNettyActivity"
-                  android:label="@string/title_socket_native"
+                  android:label="@string/title_socket_netty"
                   android:parentActivityName=".socket.SocketMainActivity"/>
     </application>
 </manifest>

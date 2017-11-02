@@ -2,17 +2,21 @@ package alvin.net.socket.net;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 
 import alvin.net.socket.models.CommandAck;
 
 public class SocketNative implements Closeable, AutoCloseable {
+    private static final int TIMEOUT = 1000 * 5;
+
     private final Socket socket;
 
     public SocketNative() throws IOException {
         NetworkConfig config = new NetworkConfig();
 
-        this.socket = new Socket(config.getHost(), config.getPort());
+        this.socket = new Socket();
+        this.socket.connect(new InetSocketAddress(config.getHost(), config.getPort()), TIMEOUT);
     }
 
     public CommandAck getResponse() throws IOException {
@@ -49,9 +53,12 @@ public class SocketNative implements Closeable, AutoCloseable {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         if (!this.socket.isClosed()) {
-            this.socket.close();
+            try {
+                this.socket.close();
+            } catch (IOException ignore) {
+            }
         }
     }
 }

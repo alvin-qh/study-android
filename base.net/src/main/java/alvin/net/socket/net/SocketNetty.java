@@ -23,13 +23,10 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.ssl.SslContext;
-import io.netty.handler.ssl.SslContextBuilder;
-import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
-import io.netty.handler.timeout.IdleStateHandler;
 
 public class SocketNetty implements Closeable, AutoCloseable {
 
+    private static final int TIMEOUT = 1000 * 5;
     private final EventLoopGroup group;
 
     private final Map<Channel, ChannelContextImpl> contextMap = new ConcurrentHashMap<>();
@@ -43,43 +40,54 @@ public class SocketNetty implements Closeable, AutoCloseable {
         NetworkConfig config = new NetworkConfig();
         Bootstrap bootstrap = new Bootstrap().group(group)
                 .option(ChannelOption.SO_KEEPALIVE, true)
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, TIMEOUT)
                 .channel(NioSocketChannel.class)
                 .handler(new ChannelInitializer<SocketChannel>() {
 
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
-                        SslContext sslCtx = SslContextBuilder.forClient()
-                                .trustManager(InsecureTrustManagerFactory.INSTANCE)
-                                .build();
+//                      SslContext sslCtx = SslContextBuilder.forClient()
+//                              .trustManager(InsecureTrustManagerFactory.INSTANCE)
+//                              .build();
+
                         ChannelPipeline pipeline = ch.pipeline();
-                        pipeline.addLast(sslCtx.newHandler(ch.alloc()))
+                        pipeline
+//                              .addLast(sslCtx.newHandler(ch.alloc()))
 //                              .addLast(new LoggingHandler(LogLevel.INFO))
 //                              .addLast(new IdleStateHandler(30, 60, 100))
+//                              .addLast(new MessageToMessageDecoder<String>() {
+//                                  @Override
+//                                  protected void decode(ChannelHandlerContext ctx, String msg, List<Object> out) throws Exception {
+//                                  }
+//                              })
+//                              .addLast(new MessageToMessageEncoder<String>() {
+//                                  @Override
+//                                  protected void encode(ChannelHandlerContext ctx, String msg, List<Object> out) throws Exception {
+//                                  }
+//                              })
                                 .addLast(new SimpleChannelInboundHandler<ByteBuf>() {
+                                    @Override
+                                    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+                                        super.channelInactive(ctx);
 
-                            @Override
-                            public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-                                super.channelInactive(ctx);
+                                        final Channel channel = ctx.channel();
+                                        ChannelContextImpl context = contextMap.remove(channel);
+                                        channel.close();
 
-                                final Channel channel = ctx.channel();
-                                contextMap.remove(channel);
-                                channel.close();
-                            }
+                                        listener.onDisconnected(context);
+                                    }
 
-                            @Override
-                            protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
-                                ChannelContextImpl c = contextMap.get(ctx.channel());
-                                if (c == null) {
-                                    ctx.disconnect().addListener(
-                                            (ChannelFutureListener) future -> future.channel().disconnect());
-                                    return;
-                                }
-                                c.read(msg, ack -> onMessageReceived(c, ack), t ->
-                                        ctx.disconnect().addListener(
-                                                (ChannelFutureListener) future -> future.channel().disconnect()
-                                        ));
-                            }
-                        });
+                                    @Override
+                                    protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
+                                        ChannelContextImpl c = contextMap.get(ctx.channel());
+                                        if (c == null) {
+                                            ctx.disconnect().addListener(
+                                                    (ChannelFutureListener) future -> future.channel().disconnect());
+                                            return;
+                                        }
+                                        c.read(msg, ack -> onMessageReceived(c, ack), t -> ctx.disconnect());
+                                    }
+                                });
                     }
 
                     @Override
@@ -156,6 +164,8 @@ public class SocketNetty implements Closeable, AutoCloseable {
 
     public interface OnNetworkFutureListener {
         void onConnected(final ChannelContext context);
+
+        void onDisconnected(final ChannelContext context);
 
         void onCommandReceived(final ChannelContext context, final CommandAck cmd);
 

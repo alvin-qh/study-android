@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="alvin.net.status.StatusMainActivity">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="alvin.net.status.StatusMainActivity">
 
     <LinearLayout android:id="@+id/notify_bar"
                   android:layout_width="match_parent"
@@ -22,31 +22,31 @@
                   app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/notify_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_dialog_alert"
-            android:tint="@color/icon_warning"/>
+                android:id="@+id/notify_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_dialog_alert"
+                android:tint="@color/icon_warning"/>
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/text_net_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20sp"
-            android:paddingTop="5sp"
-            android:textSize="16sp"/>
+                android:id="@+id/text_net_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:paddingTop="5sp"
+                android:textSize="16sp"/>
     </LinearLayout>
 
     <android.support.v7.widget.AppCompatTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/string_net_status_demo"
-        android:textAlignment="center"
-        android:textColor="@color/color_gray_text"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/notify_bar"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/string_net_status_demo"
+            android:textAlignment="center"
+            android:textColor="@color/color_gray_text"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/notify_bar"/>
 
 </android.support.constraint.ConstraintLayout>

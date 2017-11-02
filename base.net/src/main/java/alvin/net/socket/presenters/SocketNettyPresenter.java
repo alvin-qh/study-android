@@ -70,6 +70,11 @@ public class SocketNettyPresenter implements SocketContract.Presenter, SocketNet
     }
 
     @Override
+    public void onDisconnected(ChannelContext context) {
+        toView(SocketContract.View::disconnected);
+    }
+
+    @Override
     public void onCommandReceived(final ChannelContext context, final CommandAck ack) {
         mainThreadHandler.post(() -> {
             switch (ack.getCmd()) {
@@ -88,7 +93,6 @@ public class SocketNettyPresenter implements SocketContract.Presenter, SocketNet
 
     @Override
     public void onCommandSent(ChannelContext context, Command cmd) {
-
     }
 
     @Override

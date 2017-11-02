@@ -1,8 +1,10 @@
 package alvin.database;
 
+import android.support.multidex.MultiDexApplication;
+
 import com.raizlabs.android.dbflow.config.FlowManager;
 
-public class Application extends android.app.Application {
+public class Application extends MultiDexApplication {
 
     @Override
     public void onCreate() {

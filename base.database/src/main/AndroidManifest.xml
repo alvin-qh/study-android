@@ -3,17 +3,19 @@
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:name=".Application"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+            android:name=".Application"
+            android:allowBackup="true"
+            android:fullBackupContent="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name">
+                android:name=".MainActivity"
+                android:label="@string/app_name">
             <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -21,13 +23,13 @@
         </activity>
 
         <activity android:name=".SQLiteActivity"
-                  android:parentActivityName=".MainActivity"
                   android:label="@string/title_sqlite"
+                  android:parentActivityName=".MainActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".DBFlowActivity"
-                  android:parentActivityName=".MainActivity"
                   android:label="@string/title_dbflow"
+                  android:parentActivityName=".MainActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

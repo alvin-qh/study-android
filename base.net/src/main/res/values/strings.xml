@@ -16,6 +16,7 @@
     <string name="string_wifi_network">Net connect by WIFI</string>
     <string name="string_network_available">Network available</string>
     <string name="string_network_lost">Network lost</string>
+    <string name="string_network_disconnected">Network disconnected</string>
 
     <string name="btn_open_net_work_status_demo">Network Status</string>
     <string name="btn_open_http_demo">Http</string>
@@ -33,7 +34,6 @@
     <string name="error_socket_load_data">Cannot load data from remote</string>
 
     <string name="label_city_name">City</string>
-    <string name="label_county">County</string>
     <string name="label_timezone">Timezone</string>
     <string name="label_longitude">Longitude</string>
     <string name="label_latitude">Latitude</string>
@@ -47,7 +47,6 @@
     <string name="label_wind_power">Wind Power</string>
     <string name="label_wind_speed">Wind Speed</string>
     <string name="label_visibility">Visibility</string>
-    <string name="label_cloud">Cloud</string>
     <string name="label_update_time">Update time</string>
 
     <string name="unit_temperature">℃</string>

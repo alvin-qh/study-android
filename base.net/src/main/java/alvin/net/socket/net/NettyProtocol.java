@@ -73,21 +73,21 @@ public class NettyProtocol {
         try {
             if (length < 0 && buffer.readableBytes() >= Integer.BYTES) {
                 int length = buffer.readInt();
-                buffer = buffer.copy(0, 4);
+                buffer = buffer.slice();
                 this.length = length;
             }
 
             if (length > 0 && checksum == null && buffer.readableBytes() >= CHECK_SUM_SIZE) {
                 byte[] checksum = new byte[CHECK_SUM_SIZE];
                 buffer.readBytes(checksum);
-                buffer = buffer.copy(0, CHECK_SUM_SIZE);
+                buffer = buffer.slice();
                 this.checksum = checksum;
             }
 
-            if (length > 0 && checksum == null && message == null && buffer.readableBytes() >= CHECK_SUM_SIZE) {
+            if (length > 0 && checksum != null && message == null && buffer.readableBytes() >= length) {
                 byte[] message = new byte[length];
                 buffer.readBytes(message);
-                buffer = buffer.copy(0, length);
+                buffer = buffer.slice();
 
                 byte[] checksumVerifyData = calculateChecksum(message);
                 if (Arrays.equals(checksum, checksumVerifyData)) {
