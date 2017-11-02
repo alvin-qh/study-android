@@ -32,8 +32,10 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:${versions.buildTool}"
 //      classpath "me.tatarka:gradle-retrolambda:${versions.retrolambda}" // Plugin support by java 8, Enable if SDK version < 24
-        classpath "com.jakewharton:butterknife-gradle-plugin:${versions.butterKnife}"   // Butter Knife support
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"    // Kotlin support
+        classpath "com.jakewharton:butterknife-gradle-plugin:${versions.butterKnife}"
+        // Butter Knife support
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+        // Kotlin support
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -56,13 +58,19 @@ subprojects {
 //  apply plugin: 'me.tatarka.retrolambda'  // Plugin support by java 8, Enable if SDK version < 24
 //  apply plugin: 'com.jakewharton.butterknife'
 
+    if (project.name.startsWith("lib.common")) {
+        return
+    }
+
     if (project.name.startsWith("lib.")) {
         apply plugin: 'com.android.library'
     } else {
         apply plugin: 'com.android.application'
 
         dependencies {
+            implementation project(":lib.common")
             implementation project(":lib.resource")
+            implementation project(":lib.widget")
         }
     }
 
