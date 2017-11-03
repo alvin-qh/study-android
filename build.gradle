@@ -8,7 +8,7 @@ buildscript {
                 buildTool       : '3.0.0',
                 multidex        : '1.0.1',
                 retrolambda     : '3.7.0',
-                sdk             : '26.1.0',
+                sdk             : '27.0.0',
                 constraintLayout: '1.0.2',
                 butterKnife     : '8.8.1',
                 guava           : '23.3-android',
@@ -20,7 +20,21 @@ buildscript {
                 jackson         : '2.9.2',
                 rx              : '2.0.1',
                 netty           : '4.1.16.Final',
-                propdepsPlugin  : '0.0.9.RELEASE'
+                retrofit        : '2.3.0',
+                reflections     : '0.9.11',
+
+                propdepsPlugin  : '0.0.9.RELEASE',
+
+                testJunit       : '4.12',
+                testHamcrest    : '1.3',
+                testMockito     : '2.0.2-beta',
+                testUnitils     : '3.4.6',
+                testAssertj     : [
+                        java   : '3.8.0',
+                        android: '1.2.0'
+                ],
+                testRunner      : '1.0.1',
+                testEspresso    : '3.0.1'
         ]
     }
 
@@ -62,6 +76,13 @@ subprojects {
 //  apply plugin: 'com.jakewharton.butterknife'
 
     if (project.name.startsWith("lib.common")) {
+        apply plugin: 'java-library'
+
+        dependencies {
+            implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+            testImplementation libs.test.java
+        }
         return
     }
 
@@ -81,6 +102,8 @@ subprojects {
 
         implementation libs.main.common
         implementation libs.main.guava
+
+        testImplementation libs.test.android
     }
 
     android {

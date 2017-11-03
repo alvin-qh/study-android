@@ -46,7 +46,22 @@ ext {
                     ],
             ],
             test      : [
-
+                    java   : [
+                            "junit:junit:${versions.junit}",
+                            "org.hamcrest:hamcrest-all:${versions.testHamcrest}",
+                            "org.mockito:mockito-all:${versions.testMockito}",
+                            "org.unitils:unitils-core:${versions.testUnitils}",
+                            "org.assertj:assertj-core:${versions.testAssertj.java}"
+                    ],
+                    android: [
+                            "junit:junit:${versions.testJunit}",
+                            "org.hamcrest:hamcrest-all:${versions.testHamcrest}",
+                            "org.mockito:mockito-all:${versions.testMockito}",
+                            "org.unitils:unitils-core:${versions.testUnitils}",
+                            "com.squareup.assertj:assertj-android:${versions.testAssertj.android}",
+                            "com.android.support.test:runner:${versions.testRunner}",
+                            "com.android.support.test.espresso:espresso-core:${versions.testEspresso}"
+                    ]
             ]
     ]
 }
