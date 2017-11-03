@@ -5,7 +5,18 @@ apply plugin: 'kotlin-kapt'
 
 android {
     defaultConfig {
-        applicationId "alvin.ui.merge"
+        applicationId "alvin.ui.list"
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res/layout/list',
+                    'src/main/res/layout/grid',
+                    'src/main/res/layout',
+                    'src/main/res'
+            ]
+        }
     }
 }
 

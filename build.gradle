@@ -93,6 +93,8 @@ subprojects {
 
         dependencies {
             implementation project(":lib.widget")
+
+            implementation libs.main.guava
         }
     }
 
@@ -101,7 +103,6 @@ subprojects {
         implementation fileTree(dir: 'libs', include: ['*.jar'])
 
         implementation libs.main.common
-        implementation libs.main.guava
 
         testImplementation libs.test.android
     }

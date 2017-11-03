@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">List and Grid</string>
+
+    <string name="btn_list">List layout</string>
+    <string name="btn_grid">Grid layout</string>
+    <string name="btn_list_view">Use ListView</string>
+    <string name="btn_recycler_view">Use RecyclerView</string>
+
+    <string name="title_list_demos">List Layout Demos</string>
+    <string name="title_grid_demos">Grid Layout Demos</string>
+    <string name="title_list_view_demo">ListView Demo</string>
+    <string name="title_recycler_view_demo">RecyclerView Demo</string>
+</resources>
