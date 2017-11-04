@@ -8,7 +8,7 @@
     <string name="button_butter_knife">ButterKnife</string>
     <string name="button_dbflow">DBFlow</string>
 
-    <string name="string_hello">Hello </string>
+    <string name="string_hello">Hello %1$s</string>
 
     <string name="hint_name">Please input your name</string>
 

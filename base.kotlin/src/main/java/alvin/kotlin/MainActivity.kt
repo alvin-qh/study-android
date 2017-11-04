@@ -5,9 +5,9 @@ import alvin.kotlin.dbflow.DBFlowMainActivity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.widget.Button
+import android.view.View
 import butterknife.ButterKnife
-import butterknife.OnClick
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,23 +16,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         ButterKnife.bind(this)
-    }
 
-    @OnClick(R.id.btn_butter_knife, R.id.btn_dbflow)
-    fun onButtonOkClick(b: Button) {
-        var intent: Intent? = null
+        val listener = View.OnClickListener { b ->
+            var intent: Intent? = null
 
-        when (b.id) {
-            R.id.btn_butter_knife -> {
-                intent = Intent(this, ButterKnifeMainActivity::class.java)
+            when (b.id) {
+                R.id.btn_butter_knife -> {
+                    intent = Intent(this, ButterKnifeMainActivity::class.java)
+                }
+                R.id.btn_dbflow -> {
+                    intent = Intent(this, DBFlowMainActivity::class.java)
+                }
             }
-            R.id.btn_dbflow -> {
-                intent = Intent(this, DBFlowMainActivity::class.java)
+
+            if (intent != null) {
+                startActivity(intent)
             }
         }
 
-        if (intent != null) {
-            startActivity(intent)
-        }
+        this.btn_butter_knife.setOnClickListener(listener)
+        this.btn_dbflow.setOnClickListener(listener)
     }
 }
