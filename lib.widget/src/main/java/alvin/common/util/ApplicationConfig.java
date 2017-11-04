@@ -1,4 +1,4 @@
-package alvin.utils;
+package alvin.common.util;
 
 import android.content.Context;
 
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public final class ApplicationConfig {
+public class ApplicationConfig {
     private static ApplicationConfig instance;
 
     private final Properties properties = new Properties();

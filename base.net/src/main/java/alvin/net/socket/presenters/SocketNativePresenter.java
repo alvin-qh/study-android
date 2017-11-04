@@ -40,8 +40,11 @@ public class SocketNativePresenter implements SocketContract.Presenter {
         this.viewRef = new WeakReference<>(view);
     }
 
-    private void toView(Consumer<SocketContract.View> consumer) {
-        Optional.ofNullable(viewRef.get()).ifPresent(consumer);
+    private void withView(Consumer<SocketContract.View> consumer) {
+        SocketContract.View view = viewRef.get();
+        if (view != null) {
+            consumer.accept(view);
+        }
     }
 
     private void doConnect(Consumer<SocketNative> consumer) {
@@ -58,10 +61,10 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                 .subscribe(
                         socket -> {
                             this.socket = socket;
-                            toView(SocketContract.View::connectReady);
+                            withView(SocketContract.View::connectReady);
                             consumer.accept(socket);
                         },
-                        throwable -> toView(SocketContract.View::showConnectError)
+                        throwable -> withView(SocketContract.View::showConnectError)
                 );
     }
 
@@ -89,11 +92,11 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                     .subscribe(
                             this::responseReceived,
                             throwable -> {
-                                toView(SocketContract.View::showConnectError);
-                                toView(SocketContract.View::disconnected);
+                                withView(SocketContract.View::showConnectError);
+                                withView(SocketContract.View::disconnected);
                             },
                             () -> {
-                                toView(SocketContract.View::disconnected);
+                                withView(SocketContract.View::disconnected);
                             }
                     );
         }
@@ -104,7 +107,7 @@ public class SocketNativePresenter implements SocketContract.Presenter {
         case "time-ack":
             if (!Strings.isNullOrEmpty(ack.getValue())) {
                 LocalDateTime time = LocalDateTime.from(DateTimeFormatter.ISO_DATE_TIME.parse(ack.getValue()));
-                toView(view -> view.showRemoteDatetime(time));
+                withView(view -> view.showRemoteDatetime(time));
             }
             break;
         case "bye-ack":
@@ -165,7 +168,7 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                             nil -> {
                             },
                             throwable -> {
-                                toView(SocketContract.View::showRemoteError);
+                                withView(SocketContract.View::showRemoteError);
                             }
 
                     );
@@ -191,7 +194,7 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                     .subscribe(
                             () -> {
                             },
-                            throwable -> toView(SocketContract.View::showRemoteError));
+                            throwable -> withView(SocketContract.View::showRemoteError));
         }
     }
 }

@@ -8,6 +8,9 @@ ext {
                             "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
                             "com.android.support:multidex:${versions.multidex}"
                     ],
+                    apacheCommons    : [
+                            codec: "commons-codec:commons-codec:${versions.apacheCommons.codec}"
+                    ],
                     guava            : "com.google.guava:guava:${versions.guava}",
                     butterKnife      : "com.jakewharton:butterknife:${versions.butterKnife}",
                     storeBox         : "net.orange-box.storebox:storebox-lib:${versions.storeBox}",

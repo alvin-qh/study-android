@@ -1,11 +1,14 @@
-
-apply plugin: 'propdeps'
-apply plugin: 'propdeps-idea'
+apply plugin: 'java-library'
 
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
 dependencies {
-    provided libs.main.guava
-    provided libs.main.androidAnnotation
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation libs.main.guava
+    implementation libs.main.androidAnnotation
+    implementation libs.main.apacheCommons.codec
+
+    testImplementation libs.test.java
 }

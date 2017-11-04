@@ -1,6 +1,7 @@
 package alvin.net.http.models;
 
-import alvin.utils.ApplicationConfig;
+
+import alvin.common.util.ApplicationConfig;
 
 public class WeatherConfig {
     private final String url;

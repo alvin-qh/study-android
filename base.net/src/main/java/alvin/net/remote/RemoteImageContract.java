@@ -1,15 +1,23 @@
 package alvin.net.remote;
 
-import java.util.Collection;
-
 public final class RemoteImageContract {
 
     public interface View {
+        void imageSrcLoaded();
     }
 
     public interface Presenter {
-        Collection<String> getImageUrls();
 
-        String getImageUrlAt(int position);
+        void doCreate();
+
+        void doStart();
+
+        void doStop();
+
+        void doDestroy();
+
+        String getImageSrcAt(int position);
+
+        int getImageCount();
     }
 }

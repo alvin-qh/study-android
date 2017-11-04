@@ -13,10 +13,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+import alvin.common.util.MD5;
 import alvin.net.socket.models.Command;
 import alvin.net.socket.models.CommandAck;
 
@@ -51,22 +50,12 @@ public class NativeProtocol {
         }
     }
 
-    private byte[] calculateChecksum(byte[] data) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(data);
-            return md.digest();
-        } catch (NoSuchAlgorithmException ignore) {
-            throw new RuntimeException(ignore);
-        }
-    }
-
     private void packMessage(OutputStream out, String msg) throws IOException {
         final byte[] msgData = msg.getBytes(Charsets.UTF_8);
 
         DataOutputStream dos = new DataOutputStream(out);
         dos.writeInt(msgData.length);
-        dos.write(calculateChecksum(msgData));
+        dos.write(new MD5().digest(msgData));
         dos.write(msgData);
         dos.flush();
     }
@@ -87,7 +76,7 @@ public class NativeProtocol {
             throw new IOException("Data load failed");
         }
 
-        byte[] checksumVerifyData = calculateChecksum(msgData);
+        byte[] checksumVerifyData = new MD5().digest(msgData);
         if (!Arrays.equals(checksumData, checksumVerifyData)) {
             throw new IOException("Checksum invalid");
         }

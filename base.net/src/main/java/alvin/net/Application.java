@@ -14,7 +14,7 @@ import java.io.IOException;
 
 import alvin.net.status.network.NetworkCallback;
 import alvin.net.status.receivers.NetStatusBroadcastReceiver;
-import alvin.utils.ApplicationConfig;
+import alvin.common.util.ApplicationConfig;
 
 public class Application extends MultiDexApplication {
 

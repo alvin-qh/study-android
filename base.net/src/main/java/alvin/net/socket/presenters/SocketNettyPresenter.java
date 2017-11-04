@@ -9,7 +9,6 @@ import com.google.common.base.Strings;
 import java.lang.ref.WeakReference;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import java.util.function.Consumer;
 
 import alvin.net.socket.SocketContract;
@@ -29,8 +28,11 @@ public class SocketNettyPresenter implements SocketContract.Presenter, SocketNet
         this.viewRef = new WeakReference<>(view);
     }
 
-    private void toView(Consumer<SocketContract.View> consumer) {
-        Optional.ofNullable(viewRef.get()).ifPresent(consumer);
+    private void withView(Consumer<SocketContract.View> consumer) {
+        SocketContract.View view = viewRef.get();
+        if (view != null) {
+            consumer.accept(view);
+        }
     }
 
     @Override
@@ -66,12 +68,12 @@ public class SocketNettyPresenter implements SocketContract.Presenter, SocketNet
 
     @Override
     public void onConnected(ChannelContext context) {
-        toView(SocketContract.View::connectReady);
+        withView(SocketContract.View::connectReady);
     }
 
     @Override
     public void onDisconnected(ChannelContext context) {
-        toView(SocketContract.View::disconnected);
+        withView(SocketContract.View::disconnected);
     }
 
     @Override
@@ -81,7 +83,7 @@ public class SocketNettyPresenter implements SocketContract.Presenter, SocketNet
             case "time-ack":
                 if (!Strings.isNullOrEmpty(ack.getValue())) {
                     LocalDateTime time = LocalDateTime.from(DateTimeFormatter.ISO_DATE_TIME.parse(ack.getValue()));
-                    toView(view -> view.showRemoteDatetime(time));
+                    withView(view -> view.showRemoteDatetime(time));
                 }
                 break;
             case "bye-ack":
@@ -97,7 +99,7 @@ public class SocketNettyPresenter implements SocketContract.Presenter, SocketNet
 
     @Override
     public void onError(final ChannelContext context, final Throwable t) {
-        mainThreadHandler.post(() -> toView(view -> {
+        mainThreadHandler.post(() -> withView(view -> {
             if (t instanceof SocketNetworkException) {
                 switch (((SocketNetworkException) t).getErrorStatus()) {
                 case CONNECT:

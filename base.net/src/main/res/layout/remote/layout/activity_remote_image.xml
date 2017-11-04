@@ -21,7 +21,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start|center_vertical"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_arrow_back" />
+        android:alpha="0.3"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_arrow_back"
+        tools:visibility="visible" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_end"
@@ -29,6 +32,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|center_vertical"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_arrow_next" />
+        android:alpha="0.3"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_arrow_next"
+        tools:visibility="visible" />
 
 </android.support.design.widget.CoordinatorLayout>

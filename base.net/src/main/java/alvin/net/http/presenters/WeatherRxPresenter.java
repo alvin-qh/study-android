@@ -3,7 +3,7 @@ package alvin.net.http.presenters;
 import android.support.annotation.NonNull;
 
 import java.lang.ref.WeakReference;
-import java.util.Optional;
+import java.util.function.Consumer;
 
 import alvin.net.http.WeatherContract;
 import alvin.net.http.models.LiveWeather;
@@ -22,6 +22,13 @@ public class WeatherRxPresenter implements WeatherContract.Presenter {
 
     public WeatherRxPresenter(@NonNull WeatherContract.View view) {
         this.viewRef = new WeakReference<>(view);
+    }
+
+    private void withView(Consumer<WeatherContract.View> consumer) {
+        WeatherContract.View view = viewRef.get();
+        if (view != null) {
+            consumer.accept(view);
+        }
     }
 
     @Override
@@ -50,12 +57,8 @@ public class WeatherRxPresenter implements WeatherContract.Presenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        weather ->
-                                Optional.ofNullable(viewRef.get())
-                                        .ifPresent(view -> view.showLiveWeather(weather)),
-                        throwable ->
-                                Optional.ofNullable(viewRef.get())
-                                        .ifPresent(WeatherContract.View::showWeatherError)
+                        weather -> withView(view -> view.showLiveWeather(weather)),
+                        throwable -> withView(WeatherContract.View::showWeatherError)
                 );
     }
 }
