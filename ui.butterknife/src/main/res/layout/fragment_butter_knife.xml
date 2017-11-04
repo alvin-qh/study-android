@@ -8,8 +8,8 @@
             android:id="@+id/text_red"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20sp"
-            android:paddingRight="20sp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:textColor="@color/colorRed"
             android:textSize="@dimen/normal_font_size"/>
 
@@ -17,8 +17,8 @@
             android:id="@+id/text_blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20sp"
-            android:paddingRight="20sp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:textColor="@color/colorBlue"
             android:textSize="@dimen/normal_font_size"/>
 
@@ -26,8 +26,8 @@
             android:id="@+id/text_green"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="20sp"
-            android:paddingRight="20sp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:textColor="@color/colorGreen"
             android:textSize="@dimen/normal_font_size"/>
 </LinearLayout>
