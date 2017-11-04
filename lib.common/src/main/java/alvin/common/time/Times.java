@@ -5,40 +5,50 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
+import javax.annotation.Nonnull;
+
 public final class Times {
 
     private Times() {
     }
 
-    public static LocalDateTime toLocalDateTime(Date date, ZoneId zone) {
+    @Nonnull
+    public static LocalDateTime toLocalDateTime(@Nonnull Date date, @Nonnull ZoneId zone) {
         return LocalDateTime.ofInstant(date.toInstant(), zone);
     }
 
-    public static LocalDateTime toLocalDateTime(Date date) {
+    @Nonnull
+    public static LocalDateTime toLocalDateTime(@Nonnull Date date) {
         return toLocalDateTime(date, ZoneId.systemDefault());
     }
 
-    public static LocalDate toLocalDate(Date date, ZoneId zone) {
+    @Nonnull
+    public static LocalDate toLocalDate(@Nonnull Date date, @Nonnull ZoneId zone) {
         return toLocalDateTime(date, zone).toLocalDate();
     }
 
-    public static LocalDate toLocalDate(Date date) {
+    @Nonnull
+    public static LocalDate toLocalDate(@Nonnull Date date) {
         return toLocalDate(date, ZoneId.systemDefault());
     }
 
-    public static Date toDate(LocalDateTime dateTime, ZoneId zoneId) {
+    @Nonnull
+    public static Date toDate(@Nonnull LocalDateTime dateTime, @Nonnull ZoneId zoneId) {
         return Date.from(dateTime.atZone(zoneId).toInstant());
     }
 
-    public static Date toDate(LocalDateTime dateTime) {
+    @Nonnull
+    public static Date toDate(@Nonnull LocalDateTime dateTime) {
         return toDate(dateTime, ZoneId.systemDefault());
     }
 
-    public static Date toDate(LocalDate date, ZoneId zoneId) {
+    @Nonnull
+    public static Date toDate(@Nonnull LocalDate date, @Nonnull ZoneId zoneId) {
         return toDate(date.atStartOfDay(), zoneId);
     }
 
-    public static Date toDate(LocalDate date) {
+    @Nonnull
+    public static Date toDate(@Nonnull LocalDate date) {
         return toDate(date, ZoneId.systemDefault());
     }
 }

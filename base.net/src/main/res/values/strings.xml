@@ -8,6 +8,8 @@
     <string name="title_socket">Socket</string>
     <string name="title_socket_native">Native Socket</string>
     <string name="title_socket_netty">Netty Socket</string>
+    <string name="title_remote">Remote Data</string>
+    <string name="title_remote_image">Remote Image</string>
 
     <string name="string_net_status_demo">Net Status Demo</string>
 
@@ -27,6 +29,8 @@
     <string name="btn_native_socket">Native Socket</string>
     <string name="btn_netty">Netty</string>
     <string name="btn_stop">Stop</string>
+    <string name="btn_remote_data">Remote Data</string>
+    <string name="btn_remote_image">Remote Image</string>
 
     <string name="error_cannot_load_config_file">Cannot load config file</string>
     <string name="error_get_weather">Cannot get weather</string>
@@ -54,4 +58,8 @@
     <string name="unit_pa">Pa</string>
     <string name="unit_speed">KM/h</string>
     <string name="unit_km">KM</string>
+
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

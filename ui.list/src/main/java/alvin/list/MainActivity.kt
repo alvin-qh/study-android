@@ -22,8 +22,12 @@ class MainActivity : AppCompatActivity() {
         var intent: Intent? = null
 
         when (b.id) {
-            R.id.btn_list -> intent = Intent(this, ListMainActivity::class.java)
-            R.id.btn_grid -> intent = null
+            R.id.btn_list -> {
+                intent = Intent(this, ListMainActivity::class.java)
+            }
+            R.id.btn_grid -> {
+                intent = null
+            }
         }
 
         if (intent != null) {
