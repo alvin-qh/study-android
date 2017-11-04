@@ -32,6 +32,6 @@
         android:scaleType="center"
         android:tint="@color/colorWhite"
         app:fabSize="normal"
-        app:srcCompat="@drawable/ic_add_white_24dp" />
+        app:srcCompat="@drawable/ic_add" />
 
 </android.support.design.widget.CoordinatorLayout>

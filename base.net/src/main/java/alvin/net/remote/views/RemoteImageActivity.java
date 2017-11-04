@@ -3,13 +3,11 @@ package alvin.net.remote.views;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,15 +21,11 @@ import alvin.net.remote.RemoteImageContract;
 import alvin.net.remote.presenters.RemoteImagePresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class RemoteImageActivity extends AppCompatActivity implements RemoteImageContract.View {
     private static final String ARG_IMAGE_URL = "arg_image_url";
 
     private final RemoteImageContract.Presenter presenter = new RemoteImagePresenter();
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
 
     @BindView(R.id.container)
     ViewPager container;
@@ -43,8 +37,6 @@ public class RemoteImageActivity extends AppCompatActivity implements RemoteImag
         setContentView(R.layout.activity_remote_image);
 
         ButterKnife.bind(this);
-
-        this.setSupportActionBar(toolbar);
 
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         this.container.setAdapter(adapter);
@@ -60,11 +52,6 @@ public class RemoteImageActivity extends AppCompatActivity implements RemoteImag
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
-    }
-
-    @OnClick(R.id.fab)
-    public void onFloatButtonClick(FloatingActionButton b) {
-
     }
 
     class SectionsPagerAdapter extends FragmentPagerAdapter {
