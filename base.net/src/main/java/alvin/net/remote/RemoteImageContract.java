@@ -1,9 +1,18 @@
 package alvin.net.remote;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+
+import java.util.function.Consumer;
+
 public final class RemoteImageContract {
 
     public interface View {
+        Context context();
+
         void imageSrcLoaded();
+
+        void imageLoadFailed(String imageSrc);
     }
 
     public interface Presenter {
@@ -19,5 +28,7 @@ public final class RemoteImageContract {
         String getImageSrcAt(int position);
 
         int getImageCount();
+
+        void loadImageAsDrawable(String url, Consumer<Drawable> callback);
     }
 }

@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 

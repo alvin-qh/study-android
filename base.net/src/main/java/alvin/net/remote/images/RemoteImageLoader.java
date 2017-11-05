@@ -33,7 +33,7 @@ public class RemoteImageLoader {
         this.cache = cache;
     }
 
-    public Drawable loadImageWithCache(String imgSrc) throws IOException {
+    public Drawable load(String imgSrc) throws IOException {
         final String cacheFileName = new MD5().digestToString(imgSrc);
 
         if (cache != null) {
@@ -64,5 +64,11 @@ public class RemoteImageLoader {
             cache.put(cacheFileName, drawable);
         }
         return drawable;
+    }
+
+    public void dispose() {
+        if (cache != null) {
+            cache.clear();
+        }
     }
 }

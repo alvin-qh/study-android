@@ -12,9 +12,9 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import alvin.common.util.ApplicationConfig;
 import alvin.net.status.network.NetworkCallback;
 import alvin.net.status.receivers.NetStatusBroadcastReceiver;
-import alvin.common.util.ApplicationConfig;
 
 public class Application extends MultiDexApplication {
 

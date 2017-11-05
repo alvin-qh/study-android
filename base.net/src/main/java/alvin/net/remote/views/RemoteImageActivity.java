@@ -1,7 +1,6 @@
 package alvin.net.remote.views;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,28 +15,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import java.io.File;
-import java.time.temporal.ChronoUnit;
+import com.google.common.base.Strings;
 
-import alvin.common.util.Cache;
 import alvin.net.R;
 import alvin.net.remote.RemoteImageContract;
-import alvin.net.remote.images.RemoteImageLoader;
 import alvin.net.remote.presenters.RemoteImagePresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class RemoteImageActivity extends AppCompatActivity implements RemoteImageContract.View {
     private static final String KEY_IMAGE_SRC = "key_image_src";
-    private static final String CACHE_DIR_NAME = "images";
-
-    private static final Cache<Drawable> CACHE = new Cache<>(1L, ChronoUnit.HOURS);
 
     private RemoteImageContract.Presenter presenter;
 
@@ -53,16 +43,11 @@ public class RemoteImageActivity extends AppCompatActivity implements RemoteImag
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        File imageCacheDir = new File(getExternalCacheDir(), CACHE_DIR_NAME);
-        if (!imageCacheDir.exists()) {
-            imageCacheDir.mkdirs();
-        }
+        setContentView(R.layout.activity_remote_image);
 
         presenter = new RemoteImagePresenter(this);
         presenter.doCreate();
 
-        setContentView(R.layout.activity_remote_image);
         ButterKnife.bind(this);
 
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -106,8 +91,11 @@ public class RemoteImageActivity extends AppCompatActivity implements RemoteImag
     protected void onDestroy() {
         super.onDestroy();
         presenter.doDestroy();
+    }
 
-        CACHE.clear();
+    @Override
+    public Context context() {
+        return this;
     }
 
     @Override
@@ -118,6 +106,12 @@ public class RemoteImageActivity extends AppCompatActivity implements RemoteImag
 
             onImagePageSelected(container.getCurrentItem());
         }
+    }
+
+    @Override
+    public void imageLoadFailed(String imageSrc) {
+        final String message = getString(R.string.error_load_image_file, imageSrc);
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     @OnClick({
@@ -154,12 +148,8 @@ public class RemoteImageActivity extends AppCompatActivity implements RemoteImag
 
     public static class PlaceholderFragment extends Fragment {
 
-        private String imageSrc;
-
         @BindView(R.id.iv_section)
         ImageView ivSection;
-
-        private Disposable dispLoadImage;
 
         @Nullable
         @Override
@@ -171,42 +161,20 @@ public class RemoteImageActivity extends AppCompatActivity implements RemoteImag
 
             final Bundle bundle = getArguments();
             if (bundle != null) {
-                imageSrc = bundle.getString(KEY_IMAGE_SRC);
+                final String imageSrc = bundle.getString(KEY_IMAGE_SRC);
 
-                dispLoadImage = Single.<Drawable>create(
-                        emitter -> {
-                            Context context = getContext();
-                            try {
-                                Drawable drawable = null;
-                                if (context != null) {
-                                    String path = new File(getContext().getExternalCacheDir(), CACHE_DIR_NAME).getAbsolutePath();
-                                    RemoteImageLoader loader = new RemoteImageLoader(path, CACHE);
-                                    drawable = loader.loadImageWithCache(imageSrc);
-                                }
-                                emitter.onSuccess(drawable);
-                            } catch (Exception e) {
-                                emitter.onError(e);
-                            }
-                        })
-                        .retry(2)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(drawable -> {
+                if (!Strings.isNullOrEmpty(imageSrc)) {
+                    RemoteImageActivity activity = (RemoteImageActivity) getActivity();
+                    if (activity != null && activity.presenter != null) {
+                        activity.presenter.loadImageAsDrawable(imageSrc, drawable -> {
                             if (drawable != null) {
                                 ivSection.setImageDrawable(drawable);
                             }
                         });
+                    }
+                }
             }
             return view;
-        }
-
-        @Override
-        public void onDestroyView() {
-            super.onDestroyView();
-
-            if (dispLoadImage != null) {
-                dispLoadImage.dispose();
-            }
         }
 
         @NonNull

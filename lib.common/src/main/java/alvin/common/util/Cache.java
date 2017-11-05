@@ -1,5 +1,6 @@
 package alvin.common.util;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -20,24 +21,26 @@ public class Cache<T> {
 
     private final Integer maxSize;
 
-    public Cache(Long expired, ChronoUnit unit) {
-        this.expired = expired;
-        this.unit = unit;
-        this.maxSize = Integer.MAX_VALUE;
+    public Cache(Integer maxSize) {
+        this(maxSize, Long.MAX_VALUE, ChronoUnit.FOREVER);
     }
 
-    public Cache(Integer maxSize) {
-        this.expired = Long.MAX_VALUE;
-        this.unit = ChronoUnit.FOREVER;
+    public Cache(Long expired, ChronoUnit unit) {
+        this(Integer.MAX_VALUE, expired, unit);
+    }
+
+    public Cache(Integer maxSize, Long expired, ChronoUnit unit) {
+        this.expired = expired;
+        this.unit = unit;
         this.maxSize = maxSize;
     }
 
     public void put(String key, T cache) {
         cacheMap.put(key, new Entry<>(cache));
-        trim();
+        trim().clear();
     }
 
-    private synchronized void trim() {
+    private synchronized Map<String, Entry<T>> trim() {
         Set<String> exceptKeys = new HashSet<>(trimBySize());
         exceptKeys.addAll(trimByTime());
 
@@ -50,7 +53,8 @@ public class Cache<T> {
 
         Map<String, Entry<T>> oldCacheMap = this.cacheMap;
         this.cacheMap = newCacheMap;
-        oldCacheMap.clear();
+
+        return oldCacheMap;
     }
 
     private Collection<String> trimByTime() {
@@ -94,24 +98,36 @@ public class Cache<T> {
         return Optional.of(entry.getValue());
     }
 
+    public boolean isEmpty() {
+        return cacheMap.isEmpty();
+    }
+
+    public Integer maxSize() {
+        return maxSize;
+    }
+
+    public Duration expired() {
+        return Duration.of(expired, unit);
+    }
+
     public void clear() {
         cacheMap.clear();
     }
 
-    public boolean contains(String key) {
-        return cacheMap.containsKey(key);
+    public int size() {
+        return cacheMap.size();
     }
 
     static class Entry<T> {
         private T value;
         private LocalDateTime timestamp;
 
-        public Entry(T value) {
+        Entry(T value) {
             this.value = value;
             this.timestamp = LocalDateTime.now();
         }
 
-        public T getValue() {
+        T getValue() {
             return value;
         }
 
@@ -119,7 +135,10 @@ public class Cache<T> {
             return timestamp;
         }
 
-        public boolean isExpired(long expired, ChronoUnit unit) {
+        boolean isExpired(long expired, ChronoUnit unit) {
+            if (unit == ChronoUnit.FOREVER) {
+                return false;
+            }
             LocalDateTime expiredTime = timestamp.plus(expired, unit);
             return LocalDateTime.now().isAfter(expiredTime);
         }

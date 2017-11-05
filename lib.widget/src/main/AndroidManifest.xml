@@ -1,2 +1,1 @@
-<manifest package="alvin.lib.widget"
-          xmlns:android="http://schemas.android.com/apk/res/android"/>
+<manifest package="alvin.lib.widget" />

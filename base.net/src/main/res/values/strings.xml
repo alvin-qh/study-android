@@ -36,6 +36,7 @@
     <string name="error_get_weather">Cannot get weather</string>
     <string name="error_socket_connect">Socket connect failed</string>
     <string name="error_socket_load_data">Cannot load data from remote</string>
+    <string name="error_load_image_file">Cannot load image from %1$s</string>
 
     <string name="label_city_name">City</string>
     <string name="label_timezone">Timezone</string>
