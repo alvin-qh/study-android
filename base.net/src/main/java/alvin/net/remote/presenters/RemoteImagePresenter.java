@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import alvin.common.rx.RxManager;
+import alvin.common.rx.RxSubscribe;
 import alvin.common.util.ApplicationConfig;
 import alvin.common.util.Cache;
 import alvin.net.remote.RemoteImageContract;
 import alvin.net.remote.images.RemoteImageLoader;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class RemoteImagePresenter implements RemoteImageContract.Presenter {
@@ -25,9 +25,10 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
 
     private final WeakReference<RemoteImageContract.View> viewRef;
     private final List<String> imageUrls = new ArrayList<>();
-
-    private Disposable dispLoadImageUrls;
-    private Disposable dispLoadImageDrawables;
+    private final RxManager rxManager = RxManager.newBuilder()
+            .withSubscribeOn(Schedulers::io)
+            .withObserveOn(AndroidSchedulers::mainThread)
+            .build();
 
     private RemoteImageLoader imageLoader;
 
@@ -66,7 +67,10 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
     }
 
     private void loadImageUrls() {
-        dispLoadImageUrls = Single.<List<String>>create(
+        RxSubscribe<List<String>> subscribe = rxManager.createSubscribe();
+
+        subscribe.single(
+                null,
                 emitter -> {
                     ApplicationConfig config = ApplicationConfig.getInstance();
                     List<String> urls = new ArrayList<>();
@@ -81,14 +85,13 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
                     } while (url != null);
 
                     emitter.onSuccess(urls);
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(urls -> {
+                },
+                urls -> {
                     imageUrls.clear();
                     imageUrls.addAll(urls);
                     withView(RemoteImageContract.View::imageSrcLoaded);
-                });
+                }
+        );
     }
 
     @Override
@@ -97,12 +100,8 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
 
     @Override
     public void doDestroy() {
-        if (dispLoadImageUrls != null) {
-            dispLoadImageUrls.dispose();
-        }
-        if (dispLoadImageDrawables != null) {
-            dispLoadImageDrawables.dispose();
-        }
+        rxManager.clear();
+
         if (imageLoader != null) {
             imageLoader.dispose();
         }
@@ -120,18 +119,19 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
 
     @Override
     public void loadImageAsDrawable(String url, Consumer<Drawable> callback) {
-        dispLoadImageDrawables = Single.<Drawable>create(
+        RxSubscribe<Drawable> subscribe = rxManager.createSubscribe();
+
+        subscribe.single(
+                null,
                 emitter -> {
                     try {
                         emitter.onSuccess(imageLoader.load(url));
                     } catch (IOException e) {
                         emitter.onError(e);
                     }
-                })
-                .retry(3)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(callback::accept,
-                        throwable -> withView(view -> view.imageLoadFailed(url)));
+                },
+                callback::accept,
+                throwable -> withView(view -> view.imageLoadFailed(url))
+        );
     }
 }

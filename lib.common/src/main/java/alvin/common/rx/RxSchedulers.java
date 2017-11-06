@@ -16,7 +16,7 @@ public final class RxSchedulers {
         return DATABASE_SCHEDULER;
     }
 
-    public static Scheduler socketClient() {
+    public static Scheduler newSingleThread() {
         return Schedulers.from(Executors.newSingleThreadExecutor());
     }
 }

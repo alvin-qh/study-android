@@ -1,13 +1,11 @@
 package alvin.kotlin.dbflow.presenters
 
-import alvin.common.rx.RxSchedulers
+import alvin.kotlin.common.rx.RxManager
 import alvin.kotlin.dbflow.DBFlowContract
 import alvin.kotlin.dbflow.domain.models.Person
 import alvin.kotlin.dbflow.domain.repositories.PersonRepository
-import io.reactivex.Single
-import io.reactivex.SingleEmitter
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import java.lang.ref.WeakReference
 
 class DBFlowPresenter(val view: DBFlowContract.View) : DBFlowContract.Presenter {
@@ -16,7 +14,10 @@ class DBFlowPresenter(val view: DBFlowContract.View) : DBFlowContract.Presenter 
 
     private val viewRef = WeakReference<DBFlowContract.View>(view)
 
-    private var disposable: Disposable? = null
+    private val rxManager = RxManager.newBuilder()
+            .withSubscribeOn { Schedulers.io() }
+            .withObserveOn { AndroidSchedulers.mainThread() }
+            .build()
 
     override fun doCreated() {
     }
@@ -26,12 +27,15 @@ class DBFlowPresenter(val view: DBFlowContract.View) : DBFlowContract.Presenter 
     }
 
     override fun doDestroyed() {
-        disposable?.dispose()
+        rxManager.clear()
     }
 
     override fun reloadPersons() {
-        disposable = Single
-                .create { emitter: SingleEmitter<List<Person>> ->
+        val subscribe = rxManager.createSubscribe<List<Person>>()
+
+        subscribe.single(
+                null,
+                { emitter ->
                     withView { view ->
                         try {
                             emitter.onSuccess(personRepository.findByGender(view.getQueryGender()))
@@ -39,20 +43,18 @@ class DBFlowPresenter(val view: DBFlowContract.View) : DBFlowContract.Presenter 
                             emitter.onError(e)
                         }
                     }
-                }
-                .subscribeWith(null)
-                .subscribeOn(RxSchedulers.database())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ persons ->
-                    withView { view -> view.showPersons(persons) }
-                }, {
-                    withView { view -> view.showPersonLoadError() }
-                })
+                },
+                { persons -> withView { view -> view.showPersons(persons) } },
+                { withView { view -> view.showPersonLoadError() } }
+        )
     }
 
     override fun savePerson(person: Person) {
-        disposable = Single
-                .create { emitter: SingleEmitter<Person> ->
+        val subscribe = rxManager.createSubscribe<Person>()
+
+        subscribe.single(
+                null,
+                { emitter ->
                     try {
                         personRepository.create(person)
                         emitter.onSuccess(person)
@@ -60,19 +62,18 @@ class DBFlowPresenter(val view: DBFlowContract.View) : DBFlowContract.Presenter 
                         e.printStackTrace()
                         emitter.onError(e)
                     }
-                }
-                .subscribeOn(RxSchedulers.database())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ p ->
-                    withView { view -> view.personCreated(p) }
-                }, {
-                    withView { view -> view.showPersonCreateError() }
-                })
+                },
+                { p -> withView { view -> view.personCreated(p) } },
+                { withView { view -> view.showPersonEditError() } }
+        )
     }
 
     override fun updatePerson(person: Person) {
-        disposable = Single
-                .create { emitter: SingleEmitter<Person> ->
+        val subscribe = rxManager.createSubscribe<Person>()
+
+        subscribe.single(
+                null,
+                { emitter ->
                     try {
                         personRepository.update(person)
                         emitter.onSuccess(person)
@@ -80,14 +81,10 @@ class DBFlowPresenter(val view: DBFlowContract.View) : DBFlowContract.Presenter 
                         e.printStackTrace()
                         emitter.onError(e)
                     }
-                }
-                .subscribeOn(RxSchedulers.database())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ p ->
-                    withView { view -> view.personUpdated(p) }
-                }, {
-                    withView { view -> view.showPersonCreateError() }
-                })
+                },
+                { p -> withView { view -> view.personUpdated(p) } },
+                { withView { view -> view.showPersonEditError() } }
+        )
     }
 
     override fun deletePerson(person: Person) {

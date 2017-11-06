@@ -7,7 +7,7 @@ object DBFlowContract {
 
     interface View {
         fun personCreated(result: Person)
-        fun showPersonCreateError()
+        fun showPersonEditError()
         fun getQueryGender(): Gender?
         fun showPersons(persons: List<Person>?)
         fun showPersonLoadError()

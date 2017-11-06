@@ -85,7 +85,7 @@ class DBFlowMainActivity : AppCompatActivity(), DBFlowContract.View {
         presenter.reloadPersons()
     }
 
-    override fun showPersonCreateError() {
+    override fun showPersonEditError() {
     }
 
     override fun showPersons(persons: List<Person>?) {
