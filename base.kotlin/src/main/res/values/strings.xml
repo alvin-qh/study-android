@@ -23,4 +23,11 @@
 
     <string name="btn_confirm">Confirm</string>
     <string name="btn_cancel">Cancel</string>
+
+    <string name="msg_person_updated">Person information updated</string>
+    <string name="msg_person_created">Person information created</string>
+    <string name="msg_person_deleted">Person information deleted</string>
+
+    <string name="error_load_persons">Cannot load persons, error caused</string>
+    <string name="error_update_persons">Cannot modify persons, error caused</string>
 </resources>

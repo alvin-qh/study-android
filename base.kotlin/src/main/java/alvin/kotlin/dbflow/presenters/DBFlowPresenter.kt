@@ -31,64 +31,72 @@ class DBFlowPresenter(val view: DBFlowContract.View) : DBFlowContract.Presenter 
     }
 
     override fun reloadPersons() {
-        val subscribe = rxManager.createSubscribe<List<Person>>()
+        val subscriber = rxManager.single<List<Person>>(null, { emitter ->
+            withView { view ->
+                try {
+                    emitter.onSuccess(personRepository.findByGender(view.getQueryGender()))
+                } catch (e: Exception) {
+                    emitter.onError(e)
+                }
+            }
+        })
 
-        subscribe.single(
-                null,
-                { emitter ->
-                    withView { view ->
-                        try {
-                            emitter.onSuccess(personRepository.findByGender(view.getQueryGender()))
-                        } catch (e: Exception) {
-                            emitter.onError(e)
-                        }
-                    }
-                },
-                { persons -> withView { view -> view.showPersons(persons) } },
-                { withView { view -> view.showPersonLoadError() } }
-        )
+        subscriber.subscribe({ persons ->
+            withView { view -> view.showPersons(persons) }
+        }, {
+            withView { view -> view.showPersonLoadError() }
+        })
     }
 
     override fun savePerson(person: Person) {
-        val subscribe = rxManager.createSubscribe<Person>()
+        val subscriber = rxManager.single<Person>(null, { emitter ->
+            try {
+                personRepository.create(person)
+                emitter.onSuccess(person)
+            } catch (e: Exception) {
+                emitter.onError(e)
+            }
+        })
 
-        subscribe.single(
-                null,
-                { emitter ->
-                    try {
-                        personRepository.create(person)
-                        emitter.onSuccess(person)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        emitter.onError(e)
-                    }
-                },
-                { p -> withView { view -> view.personCreated(p) } },
-                { withView { view -> view.showPersonEditError() } }
-        )
+        subscriber.subscribe({ p ->
+            withView { view -> view.personCreated(p) }
+        }, {
+            withView { view -> view.showPersonEditError() }
+        })
     }
 
     override fun updatePerson(person: Person) {
-        val subscribe = rxManager.createSubscribe<Person>()
+        val subscriber = rxManager.single<Person>(null, { emitter ->
+            try {
+                personRepository.update(person)
+                emitter.onSuccess(person)
+            } catch (e: Exception) {
+                emitter.onError(e)
+            }
+        })
 
-        subscribe.single(
-                null,
-                { emitter ->
-                    try {
-                        personRepository.update(person)
-                        emitter.onSuccess(person)
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        emitter.onError(e)
-                    }
-                },
-                { p -> withView { view -> view.personUpdated(p) } },
-                { withView { view -> view.showPersonEditError() } }
-        )
+        subscriber.subscribe({ p ->
+            withView { view -> view.personUpdated(p) }
+        }, {
+            withView { view -> view.showPersonEditError() }
+        })
     }
 
     override fun deletePerson(person: Person) {
+        val subscriber = rxManager.single<Person>(null, { emitter ->
+            try {
+                personRepository.delete(person)
+                emitter.onSuccess(person)
+            } catch (e: Exception) {
+                emitter.onError(e)
+            }
+        })
 
+        subscriber.subscribe({ p ->
+            withView { view -> view.personDeleted(p) }
+        }, {
+            withView { view -> view.showPersonEditError() }
+        })
     }
 
     private fun withView(todo: (view: DBFlowContract.View) -> Unit) {

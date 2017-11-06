@@ -11,9 +11,9 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.Toast
 import butterknife.ButterKnife
 import butterknife.OnClick
-import com.raizlabs.android.dbflow.kotlinextensions.delete
 import kotlinx.android.synthetic.main.activity_dbflow_main.*
 
 class DBFlowMainActivity : AppCompatActivity(), DBFlowContract.View {
@@ -26,19 +26,28 @@ class DBFlowMainActivity : AppCompatActivity(), DBFlowContract.View {
 
         ButterKnife.bind(this)
 
+        initializeListView()
+
+        rg_gender.setOnCheckedChangeListener({ _, _ ->
+            presenter.reloadPersons()
+        })
+
+        presenter = DBFlowPresenter(this)
+        presenter.doCreated()
+    }
+
+    private fun initializeListView() {
         val adapter = PersonListAdapter(this, emptyList())
         rv_persons.adapter = adapter
         rv_persons.itemAnimator = DefaultItemAnimator()
         rv_persons.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        adapter.onItemEditListener = { person -> onPersonEdit(person) }
-
-        adapter.onItemDeleteListener = { person -> onPersonDelete(person) }
-
-        presenter = DBFlowPresenter(this)
-        presenter.doCreated()
-
-        rg_gender.setOnCheckedChangeListener({ _, _ -> presenter.reloadPersons() })
+        adapter.onItemEditListener = { person ->
+            onPersonEdit(person)
+        }
+        adapter.onItemDeleteListener = { person ->
+            onPersonDelete(person)
+        }
     }
 
     private fun onPersonDelete(person: Person) {
@@ -83,9 +92,11 @@ class DBFlowMainActivity : AppCompatActivity(), DBFlowContract.View {
 
     override fun personCreated(result: Person) {
         presenter.reloadPersons()
+        Toast.makeText(this, R.string.msg_person_created, Toast.LENGTH_SHORT).show()
     }
 
     override fun showPersonEditError() {
+        Toast.makeText(this, R.string.error_update_persons, Toast.LENGTH_SHORT).show()
     }
 
     override fun showPersons(persons: List<Person>?) {
@@ -96,6 +107,7 @@ class DBFlowMainActivity : AppCompatActivity(), DBFlowContract.View {
     }
 
     override fun showPersonLoadError() {
+        Toast.makeText(this, R.string.error_load_persons, Toast.LENGTH_LONG).show()
     }
 
     override fun getQueryGender(): Gender? {
@@ -107,6 +119,12 @@ class DBFlowMainActivity : AppCompatActivity(), DBFlowContract.View {
     }
 
     override fun personUpdated(person: Person) {
+        Toast.makeText(this, R.string.msg_person_updated, Toast.LENGTH_SHORT).show()
+        presenter.reloadPersons()
+    }
+
+    override fun personDeleted(person: Person) {
+        Toast.makeText(this, R.string.msg_person_deleted, Toast.LENGTH_SHORT).show()
         presenter.reloadPersons()
     }
 }

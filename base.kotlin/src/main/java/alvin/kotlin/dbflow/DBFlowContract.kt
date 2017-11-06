@@ -12,6 +12,7 @@ object DBFlowContract {
         fun showPersons(persons: List<Person>?)
         fun showPersonLoadError()
         fun personUpdated(person: Person)
+        fun personDeleted(person: Person)
     }
 
     interface Presenter {

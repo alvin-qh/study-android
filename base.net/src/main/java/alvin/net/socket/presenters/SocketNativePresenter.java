@@ -11,14 +11,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.function.Consumer;
 
+import alvin.common.rx.CompletableSubscriber;
+import alvin.common.rx.ObservableSubscriber;
 import alvin.common.rx.RxManager;
 import alvin.common.rx.RxSchedulers;
-import alvin.common.rx.RxSubscribe;
+import alvin.common.rx.SingleSubscriber;
 import alvin.net.socket.SocketContract;
 import alvin.net.socket.models.CommandAck;
 import alvin.net.socket.net.SocketNative;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.internal.functions.Functions;
 import io.reactivex.schedulers.Schedulers;
 
 public class SocketNativePresenter implements SocketContract.Presenter {
@@ -50,9 +53,7 @@ public class SocketNativePresenter implements SocketContract.Presenter {
     }
 
     private void doConnect(Consumer<SocketNative> consumer) {
-        final RxSubscribe<SocketNative> subscribe = rxSendManager.createSubscribe();
-
-        subscribe.single(
+        final SingleSubscriber<SocketNative> subscriber = rxSendManager.single(
                 null,
                 emitter -> {
                     try {
@@ -60,7 +61,10 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                     } catch (IOException e) {
                         emitter.onError(e);
                     }
-                },
+                }
+        );
+
+        subscriber.subscribe(
                 socket -> {
                     this.socket = socket;
                     withView(SocketContract.View::connectReady);
@@ -72,9 +76,7 @@ public class SocketNativePresenter implements SocketContract.Presenter {
 
     private void startReceive() {
         if (socket != null && !socket.isClosed()) {
-            final RxSubscribe<CommandAck> subscribe = rxReceiverManager.createSubscribe();
-
-            subscribe.observable(
+            final ObservableSubscriber<CommandAck> subscriber = rxReceiverManager.observable(
                     observable -> observable.retry(3),
                     emitter -> {
                         try {
@@ -90,7 +92,10 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                             socket.close();
                             emitter.onError(e);
                         }
-                    },
+                    }
+            );
+
+            subscriber.subscribe(
                     this::responseReceived,
                     throwable -> {
                         withView(SocketContract.View::showConnectError);
@@ -135,9 +140,7 @@ public class SocketNativePresenter implements SocketContract.Presenter {
     @Override
     public void readRemoteDatetime() {
         if (socket != null && !socket.isClosed()) {
-            final RxSubscribe<CommandAck> subscribe = rxSendManager.createSubscribe();
-
-            subscribe.completable(
+            final CompletableSubscriber subscriber = rxSendManager.completable(
                     completable -> completable.retry(3),
                     emitter -> {
                         try {
@@ -147,7 +150,11 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                             socket.close();
                             emitter.onError(e);
                         }
-                    },
+                    }
+            );
+
+            subscriber.subscribe(
+                    Functions.EMPTY_ACTION,
                     throwable -> withView(SocketContract.View::showRemoteError)
             );
         }
@@ -156,10 +163,8 @@ public class SocketNativePresenter implements SocketContract.Presenter {
     @Override
     public void disconnect() {
         if (socket != null && !socket.isClosed()) {
-            final RxSubscribe<CommandAck> subscribe = rxSendManager.createSubscribe();
-
-            subscribe.completable(
-                    null,
+            final CompletableSubscriber subscriber = rxSendManager.completable(
+                    completable -> completable.retry(3),
                     emitter -> {
                         try {
                             socket.disconnect();
@@ -168,7 +173,11 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                             socket.close();
                             emitter.onError(e);
                         }
-                    },
+                    }
+            );
+
+            subscriber.subscribe(
+                    Functions.EMPTY_ACTION,
                     throwable -> withView(SocketContract.View::showRemoteError)
             );
         }

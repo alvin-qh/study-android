@@ -6,7 +6,7 @@ import java.lang.ref.WeakReference;
 import java.util.function.Consumer;
 
 import alvin.common.rx.RxManager;
-import alvin.common.rx.RxSubscribe;
+import alvin.common.rx.SingleSubscriber;
 import alvin.net.http.WeatherContract;
 import alvin.net.http.models.LiveWeather;
 import alvin.net.http.services.WeatherService;
@@ -46,9 +46,7 @@ public class WeatherRxPresenter implements WeatherContract.Presenter {
 
     @Override
     public void showLiveWeather() {
-        final RxSubscribe<LiveWeather> subscribe = rxManager.createSubscribe();
-
-        subscribe.single(
+        final SingleSubscriber<LiveWeather> subscriber = rxManager.single(
                 single -> single.retry(3),
                 emitter -> {
                     try {
@@ -57,7 +55,10 @@ public class WeatherRxPresenter implements WeatherContract.Presenter {
                     } catch (Exception e) {
                         emitter.onError(e);
                     }
-                },
+                }
+        );
+
+        subscriber.subscribe(
                 weather -> withView(view -> view.showLiveWeather(weather)),
                 throwable -> withView(WeatherContract.View::showWeatherError)
         );

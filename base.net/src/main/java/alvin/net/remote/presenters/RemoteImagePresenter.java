@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import alvin.common.rx.RxManager;
-import alvin.common.rx.RxSubscribe;
+import alvin.common.rx.SingleSubscriber;
 import alvin.common.util.ApplicationConfig;
 import alvin.common.util.Cache;
 import alvin.net.remote.RemoteImageContract;
@@ -25,6 +25,7 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
 
     private final WeakReference<RemoteImageContract.View> viewRef;
     private final List<String> imageUrls = new ArrayList<>();
+
     private final RxManager rxManager = RxManager.newBuilder()
             .withSubscribeOn(Schedulers::io)
             .withObserveOn(AndroidSchedulers::mainThread)
@@ -67,10 +68,8 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
     }
 
     private void loadImageUrls() {
-        RxSubscribe<List<String>> subscribe = rxManager.createSubscribe();
-
-        subscribe.single(
-                null,
+        final SingleSubscriber<List<String>> subscriber = rxManager.single(
+                single -> single.retry(3),
                 emitter -> {
                     ApplicationConfig config = ApplicationConfig.getInstance();
                     List<String> urls = new ArrayList<>();
@@ -85,7 +84,10 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
                     } while (url != null);
 
                     emitter.onSuccess(urls);
-                },
+                }
+        );
+
+        subscriber.subscribe(
                 urls -> {
                     imageUrls.clear();
                     imageUrls.addAll(urls);
@@ -119,17 +121,18 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
 
     @Override
     public void loadImageAsDrawable(String url, Consumer<Drawable> callback) {
-        RxSubscribe<Drawable> subscribe = rxManager.createSubscribe();
-
-        subscribe.single(
-                null,
+        final SingleSubscriber<Drawable> subscriber = rxManager.single(
+                single -> single.retry(3),
                 emitter -> {
                     try {
                         emitter.onSuccess(imageLoader.load(url));
                     } catch (IOException e) {
                         emitter.onError(e);
                     }
-                },
+                }
+        );
+
+        subscriber.subscribe(
                 callback::accept,
                 throwable -> withView(view -> view.imageLoadFailed(url))
         );

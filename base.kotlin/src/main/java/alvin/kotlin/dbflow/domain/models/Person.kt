@@ -21,9 +21,9 @@ data class Person(
         @Column(name = "birthday", typeConverter = LocalDateConvert::class)
         var birthday: LocalDate? = null
 ) {
-        constructor(
-                name: String?,
-                gender: Gender?,
-                birthday: LocalDate?
-        ) : this(0, name, gender, birthday)
+    constructor(
+            name: String?,
+            gender: Gender?,
+            birthday: LocalDate?
+    ) : this(0, name, gender, birthday)
 }
