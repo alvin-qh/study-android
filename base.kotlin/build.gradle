@@ -24,6 +24,7 @@ dependencies {
     implementation libs.main.kotlin
     implementation libs.main.dbflow
     implementation libs.main.dbflowKotlin
+    implementation libs.main.rx
 
     kapt libs.annotation.butterKnife
     kapt libs.annotation.dbflow

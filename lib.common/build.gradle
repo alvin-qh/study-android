@@ -9,6 +9,7 @@ dependencies {
     implementation libs.main.guava
     implementation libs.main.androidAnnotation
     implementation libs.main.apacheCommons.codec
+    implementation libs.main.rx
 
     testImplementation libs.test.java
 }

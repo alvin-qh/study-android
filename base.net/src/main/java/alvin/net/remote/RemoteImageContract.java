@@ -7,6 +7,9 @@ import java.util.function.Consumer;
 
 public final class RemoteImageContract {
 
+    private RemoteImageContract() {
+    }
+
     public interface View {
         Context context();
 

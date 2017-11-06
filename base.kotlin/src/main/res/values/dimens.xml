@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="large_font">40sp</dimen>
-    <dimen name="small_font">20sp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="font_size_large">40sp</dimen>
+    <dimen name="font_size_small">20sp</dimen>
+    <dimen name="font_size_edit">14sp</dimen>
+    <dimen name="font_size_button">16sp</dimen>
+
+    <dimen name="margin_fab">16dp</dimen>
+
+    <dimen name="height_button">40dp</dimen>
 </resources>

@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
+import alvin.common.rx.RxSchedulers;
 import alvin.net.socket.SocketContract;
 import alvin.net.socket.models.CommandAck;
 import alvin.net.socket.net.SocketNative;
@@ -26,7 +27,7 @@ import io.reactivex.schedulers.Schedulers;
 public class SocketNativePresenter implements SocketContract.Presenter {
 
     private final WeakReference<SocketContract.View> viewRef;
-    private final Scheduler scheduler = Schedulers.from(Executors.newSingleThreadExecutor());
+    private final Scheduler scheduler = RxSchedulers.socketClient();
 
     private SocketNative socket;
 

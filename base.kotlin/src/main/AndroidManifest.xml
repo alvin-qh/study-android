@@ -28,7 +28,7 @@
 
         <activity
             android:name=".dbflow.DBFlowMainActivity"
-            android:label="@string/app_name"
+            android:label="@string/title_dbflow"
             android:parentActivityName=".MainActivity" />
     </application>
 

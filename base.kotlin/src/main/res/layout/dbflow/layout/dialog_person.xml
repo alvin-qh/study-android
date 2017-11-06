@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingBottom="20dp"
     android:paddingEnd="20dp"
     android:paddingStart="20dp"
     android:paddingTop="20dp"
-    android:paddingBottom="20dp"
     android:theme="@style/AppTheme.Dialog.Custom">
 
     <LinearLayout
@@ -24,12 +24,12 @@
             android:textAlignment="textEnd" />
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/text_name"
+            android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_name"
             android:inputType="text"
-            android:textSize="@dimen/edit_font_size" />
+            android:textSize="@dimen/font_size_edit" />
     </LinearLayout>
 
     <LinearLayout
@@ -47,20 +47,20 @@
             android:textAlignment="textEnd" />
 
         <RadioGroup
-            android:id="@+id/radio_gender"
+            android:id="@+id/rg_gender"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <android.support.v7.widget.AppCompatRadioButton
-                android:id="@+id/radio_gender_male"
+                android:id="@+id/rb_gender_male"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="@string/label_gender_male" />
 
             <android.support.v7.widget.AppCompatRadioButton
-                android:id="@+id/radio_gender_female"
+                android:id="@+id/rb_gender_female"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -84,13 +84,13 @@
 
 
         <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/text_birthday"
+            android:id="@+id/et_birthday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="@string/hint_birthday"
             android:inputType="none"
-            android:textSize="@dimen/edit_font_size" />
+            android:textSize="@dimen/font_size_edit" />
 
         <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/btn_calendar"
@@ -105,7 +105,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height"
+        android:layout_height="@dimen/height_button"
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
@@ -119,7 +119,7 @@
             android:gravity="center"
             android:text="@string/btn_cancel"
             android:textColor="@color/color_dialog_button_default"
-            android:textSize="@dimen/button_font_size" />
+            android:textSize="@dimen/font_size_button" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_confirm"
@@ -132,7 +132,7 @@
             android:lines="1"
             android:text="@string/btn_confirm"
             android:textColor="@color/color_dialog_button_primary"
-            android:textSize="@dimen/button_font_size" />
+            android:textSize="@dimen/font_size_button" />
     </LinearLayout>
 
 </LinearLayout>

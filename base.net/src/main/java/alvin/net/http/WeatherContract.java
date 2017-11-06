@@ -6,6 +6,9 @@ import alvin.net.http.models.LiveWeather;
 
 public final class WeatherContract {
 
+    private WeatherContract() {
+    }
+
     public interface View {
         void showLiveWeather(@Nonnull LiveWeather weather);
 

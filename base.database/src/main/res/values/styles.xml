@@ -32,6 +32,6 @@
     <style name="AppTheme.Widget" />
 
     <style name="AppTheme.Widget.ListViewItem">
-        <item name="android:background">@drawable/list_item</item>
+        <item name="android:background">@drawable/list_item_background</item>
     </style>
 </resources>

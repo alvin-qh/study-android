@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
     android:orientation="horizontal">
 
     <android.support.v7.widget.AppCompatTextView
@@ -14,7 +15,7 @@
         android:paddingEnd="20dp"
         android:paddingStart="20dp"
         android:paddingTop="10dp"
-        android:textSize="@dimen/large_font"
+        android:textSize="@dimen/font_size_large"
         tools:text="1" />
 
     <View
@@ -30,50 +31,43 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:textSize="@dimen/font_size_small"
+            tools:text="Alvin" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#9e939393" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tv_name"
+                android:id="@+id/tv_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
-                android:textSize="@dimen/small_font"
-                tools:text="Alvin" />
+                android:textSize="@dimen/font_size_small"
+                tools:text="Male" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#9e939393" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_birthday"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/tv_gender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:textSize="@dimen/small_font"
-                    tools:text="Gender" />
-
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/tv_birthday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:textSize="@dimen/small_font"
-                    tools:text="1981-03-17" />
-            </LinearLayout>
-
+                android:layout_marginStart="20dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:textSize="@dimen/font_size_small"
+                tools:text="1981-03-17" />
         </LinearLayout>
 
     </LinearLayout>

@@ -10,7 +10,7 @@ import java.time.LocalDate
 @Table(name = "person", database = MainDatabase::class)
 data class Person(
         @PrimaryKey(autoincrement = true)
-        var id: Int? = null,
+        var id: Int = 0,
 
         @Column(name = "name")
         var name: String? = null,
@@ -20,4 +20,10 @@ data class Person(
 
         @Column(name = "birthday", typeConverter = LocalDateConvert::class)
         var birthday: LocalDate? = null
-)
+) {
+        constructor(
+                name: String?,
+                gender: Gender?,
+                birthday: LocalDate?
+        ) : this(0, name, gender, birthday)
+}

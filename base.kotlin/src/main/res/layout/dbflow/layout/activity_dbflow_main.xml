@@ -23,43 +23,41 @@
             android:layout_marginEnd="10dp"
             android:checked="true"
             android:text="@string/label_all"
-            android:textSize="@dimen/small_font" />
+            android:textSize="@dimen/font_size_small" />
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/rb_male"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text="@string/label_male"
-            android:textSize="@dimen/small_font" />
+            android:text="@string/label_gender_male"
+            android:textSize="@dimen/font_size_small" />
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/rb_female"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text="@string/label_female"
-            android:textSize="@dimen/small_font" />
+            android:text="@string/label_gender_female"
+            android:textSize="@dimen/font_size_small" />
     </RadioGroup>
 
-    <android.support.v7.widget.ListViewCompat
-        android:id="@+id/lv_persons"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_persons"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rg_gender">
-
-    </android.support.v7.widget.ListViewCompat>
+        app:layout_constraintTop_toBottomOf="@id/rg_gender" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_margin="@dimen/margin_fab"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        app:srcCompat="@drawable/ic_add" />
 
 </android.support.constraint.ConstraintLayout>

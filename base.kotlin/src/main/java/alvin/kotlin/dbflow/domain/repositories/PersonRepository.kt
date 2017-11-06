@@ -40,9 +40,11 @@ class PersonRepository(
         return Optional.ofNullable(p)
     }
 
-    fun findByGender(gender: Gender): List<Person> {
-        return SQLite.select().from(Person::class.java)
-                .where(Person_Table.gender.eq(gender))
-                .queryList()
+    fun findByGender(gender: Gender?): List<Person> {
+        var query = SQLite.select().from(Person::class.java).where()
+        if (gender != null) {
+            query = query.and(Person_Table.gender.eq(gender))
+        }
+        return query.queryList()
     }
 }

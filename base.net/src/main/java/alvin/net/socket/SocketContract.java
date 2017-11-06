@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 
 public final class SocketContract {
 
+    private SocketContract() {
+    }
+
     public interface View {
         void showConnectError();
 

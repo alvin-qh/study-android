@@ -43,7 +43,7 @@ public class FormDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = View.inflate(getContext(), R.layout.dialog_add_person, null);
+        View view = View.inflate(getContext(), R.layout.dialog_person, null);
         setContentView(view);
 
         ButterKnife.bind(this);
@@ -68,14 +68,14 @@ public class FormDialog extends Dialog {
     }
 
     @OnClick(R.id.btn_confirm)
-    public void onConfirmClick(Button button) {
+    public void onConfirmClick(Button b) {
         if (onConfirmClickListener != null) {
-            onConfirmClickListener.onClick(button);
+            onConfirmClickListener.onClick(b);
         }
     }
 
     @OnClick(R.id.btn_cancel)
-    public void onCancelClick(Button button) {
+    public void onCancelClick(Button b) {
         this.dismiss();
     }
 

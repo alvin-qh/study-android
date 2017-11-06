@@ -100,6 +100,9 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
         if (dispLoadImageUrls != null) {
             dispLoadImageUrls.dispose();
         }
+        if (dispLoadImageDrawables != null) {
+            dispLoadImageDrawables.dispose();
+        }
         if (imageLoader != null) {
             imageLoader.dispose();
         }
@@ -117,7 +120,7 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
 
     @Override
     public void loadImageAsDrawable(String url, Consumer<Drawable> callback) {
-        Single.<Drawable>create(
+        dispLoadImageDrawables = Single.<Drawable>create(
                 emitter -> {
                     try {
                         emitter.onSuccess(imageLoader.load(url));
