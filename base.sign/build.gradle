@@ -1,0 +1,16 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    defaultConfig {
+        applicationId "alvin.base.sign"
+    }
+}
+
+dependencies {
+    implementation libs.main.butterKnife
+    implementation libs.main.kotlin
+
+    kapt libs.annotation.butterKnife
+}
