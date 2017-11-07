@@ -1,4 +1,4 @@
-package alvin.database.models;
+package alvin.base.database.models;
 
 public enum Gender {
     MALE, FEMALE

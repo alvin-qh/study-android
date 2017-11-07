@@ -1,4 +1,4 @@
-package alvin.database.dbflow.converts;
+package alvin.base.database.dbflow.converts;
 
 
 import com.google.common.base.Strings;

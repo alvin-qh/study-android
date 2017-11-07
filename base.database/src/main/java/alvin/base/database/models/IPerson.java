@@ -1,4 +1,4 @@
-package alvin.database.models;
+package alvin.base.database.models;
 
 import java.time.LocalDate;
 

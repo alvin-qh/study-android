@@ -1,4 +1,4 @@
-package alvin.database.views;
+package alvin.base.database.views;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,11 +13,11 @@ import android.widget.RadioGroup;
 import java.time.LocalDate;
 import java.util.List;
 
-import alvin.database.R;
-import alvin.database.models.Gender;
-import alvin.database.models.IPerson;
-import alvin.database.views.adapters.PersonAdapter;
-import alvin.database.views.dialogs.FormDialog;
+import alvin.base.database.R;
+import alvin.base.database.models.Gender;
+import alvin.base.database.models.IPerson;
+import alvin.base.database.views.adapters.PersonAdapter;
+import alvin.base.database.views.dialogs.FormDialog;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

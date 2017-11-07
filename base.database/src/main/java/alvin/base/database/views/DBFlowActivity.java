@@ -1,4 +1,4 @@
-package alvin.database.views;
+package alvin.base.database.views;
 
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
@@ -8,12 +8,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import alvin.database.R;
-import alvin.database.dbflow.FlowDatabase;
-import alvin.database.dbflow.models.Person;
-import alvin.database.dbflow.repositories.PersonDBFlowRepository;
-import alvin.database.models.Gender;
-import alvin.database.models.IPerson;
+import alvin.base.database.R;
+import alvin.base.database.dbflow.FlowDatabase;
+import alvin.base.database.dbflow.models.Person;
+import alvin.base.database.dbflow.repositories.PersonDBFlowRepository;
+import alvin.base.database.models.Gender;
+import alvin.base.database.models.IPerson;
 
 
 public class DBFlowActivity extends FrameActivity {

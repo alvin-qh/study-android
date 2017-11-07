@@ -1,4 +1,4 @@
-package alvin.database.dbflow.models;
+package alvin.base.database.dbflow.models;
 
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
@@ -7,10 +7,10 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.time.LocalDate;
 
-import alvin.database.dbflow.FlowDatabase;
-import alvin.database.dbflow.converts.LocalDateConvert;
-import alvin.database.models.Gender;
-import alvin.database.models.IPerson;
+import alvin.base.database.dbflow.FlowDatabase;
+import alvin.base.database.dbflow.converts.LocalDateConvert;
+import alvin.base.database.models.Gender;
+import alvin.base.database.models.IPerson;
 
 @Table(database = FlowDatabase.class, name = "user")
 public class Person extends BaseModel implements IPerson {
@@ -27,14 +27,7 @@ public class Person extends BaseModel implements IPerson {
     @Column(typeConverter = LocalDateConvert.class)
     private LocalDate birthday;
 
-    public Person() {
-    }
-
-    public Person(int id, String name, Gender gender, LocalDate birthday) {
-        this.id = id;
-        this.name = name;
-        this.gender = gender;
-        this.birthday = birthday;
+    Person() {
     }
 
     public Person(String name, Gender gender, LocalDate birthday) {

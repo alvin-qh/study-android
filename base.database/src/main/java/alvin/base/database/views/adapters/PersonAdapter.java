@@ -1,4 +1,4 @@
-package alvin.database.views.adapters;
+package alvin.base.database.views.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,8 +12,8 @@ import android.widget.TextView;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import alvin.database.R;
-import alvin.database.models.IPerson;
+import alvin.base.database.R;
+import alvin.base.database.models.IPerson;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

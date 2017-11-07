@@ -1,4 +1,4 @@
-package alvin.database.dbflow.repositories;
+package alvin.base.database.dbflow.repositories;
 
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -7,9 +7,9 @@ import com.raizlabs.android.dbflow.sql.language.Where;
 import java.util.List;
 import java.util.Optional;
 
-import alvin.database.dbflow.models.Person;
-import alvin.database.dbflow.models.Person_Table;
-import alvin.database.models.Gender;
+import alvin.base.database.dbflow.models.Person;
+import alvin.base.database.dbflow.models.Person_Table;
+import alvin.base.database.models.Gender;
 
 public class PersonDBFlowRepository {
     private final DatabaseDefinition database;

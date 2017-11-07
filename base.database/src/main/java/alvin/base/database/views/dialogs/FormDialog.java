@@ -1,4 +1,4 @@
-package alvin.database.views.dialogs;
+package alvin.base.database.views.dialogs;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -17,8 +17,8 @@ import com.google.common.base.Strings;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import alvin.database.R;
-import alvin.database.models.Gender;
+import alvin.base.database.R;
+import alvin.base.database.models.Gender;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -36,7 +36,7 @@ public class FormDialog extends Dialog {
 
     private View.OnClickListener onConfirmClickListener;
 
-    public FormDialog(@NonNull Context context, @StyleRes int themeResId) {
+    FormDialog(@NonNull Context context, @StyleRes int themeResId) {
         super(context, themeResId);
     }
 
@@ -51,7 +51,7 @@ public class FormDialog extends Dialog {
     }
 
     @OnClick(R.id.btn_calendar)
-    public void onCalendarButtonClick(ImageButton b) {
+    void onCalendarButtonClick(ImageButton b) {
         DatePickerDialog dialog;
 
         String date = editBirthday.getText().toString();
@@ -68,14 +68,14 @@ public class FormDialog extends Dialog {
     }
 
     @OnClick(R.id.btn_confirm)
-    public void onConfirmClick(Button b) {
+    void onConfirmClick(Button b) {
         if (onConfirmClickListener != null) {
             onConfirmClickListener.onClick(b);
         }
     }
 
     @OnClick(R.id.btn_cancel)
-    public void onCancelClick(Button b) {
+    void onCancelClick(Button b) {
         this.dismiss();
     }
 

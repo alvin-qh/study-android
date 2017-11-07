@@ -1,4 +1,4 @@
-package alvin.database.sqlite;
+package alvin.base.database.sqlite;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
