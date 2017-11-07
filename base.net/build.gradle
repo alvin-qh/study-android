@@ -1,6 +1,6 @@
 android {
     defaultConfig {
-        applicationId "alvin.net"
+        applicationId "alvin.base.net"
     }
 
     sourceSets {

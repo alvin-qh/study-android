@@ -1,7 +1,7 @@
 
 android {
     defaultConfig {
-        applicationId "alvin.preferences"
+        applicationId "alvin.base.preferences"
     }
 }
 

@@ -1,7 +1,7 @@
 
 android {
     defaultConfig {
-        applicationId "alvin.mvp"
+        applicationId "alvin.base.mvp"
     }
 }
 

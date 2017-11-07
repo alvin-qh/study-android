@@ -1,7 +1,7 @@
 
 android {
     defaultConfig {
-        applicationId "alvin.java8"
+        applicationId "alvin.base.java8"
     }
 }
 

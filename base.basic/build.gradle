@@ -1,6 +1,6 @@
 android {
     defaultConfig {
-        applicationId "alvin.basic"
+        applicationId "alvin.base.basic"
     }
 }
 

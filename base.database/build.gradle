@@ -1,7 +1,7 @@
 
 android {
     defaultConfig {
-        applicationId "alvin.database"
+        applicationId "alvin.base.database"
     }
 
     sourceSets {
