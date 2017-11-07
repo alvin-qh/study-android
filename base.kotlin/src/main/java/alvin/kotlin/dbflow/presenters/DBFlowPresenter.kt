@@ -31,7 +31,7 @@ class DBFlowPresenter(val view: DBFlowContract.View) : DBFlowContract.Presenter 
     }
 
     override fun reloadPersons() {
-        val subscriber = rxManager.single<List<Person>>(null, { emitter ->
+        val subscriber = rxManager.single<List<Person>> { emitter ->
             withView { view ->
                 try {
                     emitter.onSuccess(personRepository.findByGender(view.getQueryGender()))
@@ -39,7 +39,7 @@ class DBFlowPresenter(val view: DBFlowContract.View) : DBFlowContract.Presenter 
                     emitter.onError(e)
                 }
             }
-        })
+        }
 
         subscriber.subscribe({ persons ->
             withView { view -> view.showPersons(persons) }
@@ -49,14 +49,14 @@ class DBFlowPresenter(val view: DBFlowContract.View) : DBFlowContract.Presenter 
     }
 
     override fun savePerson(person: Person) {
-        val subscriber = rxManager.single<Person>(null, { emitter ->
+        val subscriber = rxManager.single<Person> { emitter ->
             try {
                 personRepository.create(person)
                 emitter.onSuccess(person)
             } catch (e: Exception) {
                 emitter.onError(e)
             }
-        })
+        }
 
         subscriber.subscribe({ p ->
             withView { view -> view.personCreated(p) }
@@ -66,14 +66,14 @@ class DBFlowPresenter(val view: DBFlowContract.View) : DBFlowContract.Presenter 
     }
 
     override fun updatePerson(person: Person) {
-        val subscriber = rxManager.single<Person>(null, { emitter ->
+        val subscriber = rxManager.single<Person> { emitter ->
             try {
                 personRepository.update(person)
                 emitter.onSuccess(person)
             } catch (e: Exception) {
                 emitter.onError(e)
             }
-        })
+        }
 
         subscriber.subscribe({ p ->
             withView { view -> view.personUpdated(p) }
@@ -83,14 +83,14 @@ class DBFlowPresenter(val view: DBFlowContract.View) : DBFlowContract.Presenter 
     }
 
     override fun deletePerson(person: Person) {
-        val subscriber = rxManager.single<Person>(null, { emitter ->
+        val subscriber = rxManager.single<Person> { emitter ->
             try {
                 personRepository.delete(person)
                 emitter.onSuccess(person)
             } catch (e: Exception) {
                 emitter.onError(e)
             }
-        })
+        }
 
         subscriber.subscribe({ p ->
             withView { view -> view.personDeleted(p) }

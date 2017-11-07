@@ -2,6 +2,7 @@ package alvin.common.rx;
 
 import android.support.annotation.NonNull;
 
+import alvin.common.exceptions.Throwables;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.annotations.SchedulerSupport;
@@ -98,5 +99,15 @@ public class SingleSubscriber<T> extends RxSubscribe {
                 subscriber.onError(e);
             }
         });
+    }
+
+    @NonNull
+    public final SingleSubscriber<T> config(@NonNull final Consumer<Single<T>> singleConsumer) {
+        try {
+            singleConsumer.accept(this.single);
+            return this;
+        } catch (Exception e) {
+            throw Throwables.propagate(e);
+        }
     }
 }

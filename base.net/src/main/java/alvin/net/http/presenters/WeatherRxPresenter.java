@@ -47,7 +47,6 @@ public class WeatherRxPresenter implements WeatherContract.Presenter {
     @Override
     public void showLiveWeather() {
         final SingleSubscriber<LiveWeather> subscriber = rxManager.single(
-                single -> single.retry(3),
                 emitter -> {
                     try {
                         LiveWeather weather = weatherService.liveWeather();
@@ -58,9 +57,11 @@ public class WeatherRxPresenter implements WeatherContract.Presenter {
                 }
         );
 
-        subscriber.subscribe(
-                weather -> withView(view -> view.showLiveWeather(weather)),
-                throwable -> withView(WeatherContract.View::showWeatherError)
-        );
+        subscriber
+                .config(single -> single.retry(3))
+                .subscribe(
+                        weather -> withView(view -> view.showLiveWeather(weather)),
+                        throwable -> withView(WeatherContract.View::showWeatherError)
+                );
     }
 }

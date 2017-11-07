@@ -119,7 +119,7 @@ public class SocketNetty implements Closeable, AutoCloseable {
             this.listener.onCommandReceived(context, ack);
             break;
         default:
-            throw new RuntimeException("Invalid command");
+            throw new SocketNetworkException(SocketErrorStatus.READ, "Invalid command");
         }
     }
 

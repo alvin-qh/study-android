@@ -14,14 +14,14 @@ public abstract class RxSubscribe implements Disposable {
     }
 
     @NonNull
-    protected Disposable registerDisposable(@NonNull Disposable disposable) {
+    Disposable registerDisposable(@NonNull Disposable disposable) {
         this.disposable = disposable;
         rxManager.register(disposable);
         return disposable;
     }
 
     @Nullable
-    protected Disposable unregisterDisposable() {
+    Disposable unregisterDisposable() {
         if (disposable != null) {
             rxManager.unregister(disposable);
         }

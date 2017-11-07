@@ -17,7 +17,6 @@ import io.reactivex.Single;
 import io.reactivex.SingleOnSubscribe;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 public class RxManager {
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -25,91 +24,92 @@ public class RxManager {
     private final Supplier<Scheduler> subscribeOnSupplier;
     private final Supplier<Scheduler> observeOnSupplier;
 
-    private RxManager(Supplier<Scheduler> subscribeOnSupplier,
-                      Supplier<Scheduler> observeOnSupplier) {
+    private RxManager(@Nullable Supplier<Scheduler> subscribeOnSupplier,
+                      @Nullable Supplier<Scheduler> observeOnSupplier) {
         this.subscribeOnSupplier = subscribeOnSupplier;
         this.observeOnSupplier = observeOnSupplier;
     }
 
-    Scheduler getSubscribeOn() {
+    @Nullable
+    private Scheduler getSubscribeOn() {
         if (subscribeOnSupplier == null) {
             return null;
         }
         return subscribeOnSupplier.get();
     }
 
-    Scheduler getObserveOn() {
+    @Nullable
+    private Scheduler getObserveOn() {
         if (observeOnSupplier == null) {
             return null;
         }
         return observeOnSupplier.get();
     }
 
-    Disposable register(Disposable disposable) {
+    final void register(@NonNull Disposable disposable) {
         compositeDisposable.add(disposable);
-        return disposable;
     }
 
-    Disposable unregister(Disposable disposable) {
+    final void unregister(@NonNull Disposable disposable) {
         compositeDisposable.remove(disposable);
-        return disposable;
     }
 
-    public <T> SingleSubscriber<T> withSingle(Single<T> single) {
+    @Nonnull
+    public <T> SingleSubscriber<T> withSingle(@NonNull final Single<T> single) {
         return new SingleSubscriber<>(this, single);
     }
 
-    public <T> SingleSubscriber<T> single(@Nullable final Consumer<Single<T>> singleConsumer,
-                                          @NonNull final SingleOnSubscribe<T> source) {
-        final Single<T> single = Single.create(source)
-                .subscribeOn(getSubscribeOn()).observeOn(getObserveOn());
+    @Nonnull
+    public <T> SingleSubscriber<T> single(@NonNull final SingleOnSubscribe<T> source) {
 
-        try {
-            if (singleConsumer != null) {
-                singleConsumer.accept(single);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        final Single<T> single = Single.create(source);
+        final Scheduler subscribeOn = getSubscribeOn();
+        if (subscribeOn != null) {
+            single.subscribeOn(subscribeOn);
+        }
+        final Scheduler observeOn = getObserveOn();
+        if (observeOn != null) {
+            single.observeOn(observeOn);
         }
 
         return new SingleSubscriber<>(this, single);
     }
 
-    public <T> ObservableSubscriber<T> withObservable(Observable<T> observable) {
+    @Nonnull
+    public <T> ObservableSubscriber<T> withObservable(@NonNull final Observable<T> observable) {
         return new ObservableSubscriber<>(this, observable);
     }
 
-    public <T> ObservableSubscriber<T> observable(@Nullable final Consumer<Observable<T>> observableConsumer,
-                                                  @NonNull final ObservableOnSubscribe<T> source) {
-        final Observable<T> observable = Observable.create(source)
-                .subscribeOn(getSubscribeOn()).observeOn(getObserveOn());
-
-        try {
-            if (observableConsumer != null) {
-                observableConsumer.accept(observable);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+    @Nonnull
+    public <T> ObservableSubscriber<T> observable(@NonNull final ObservableOnSubscribe<T> source) {
+        final Observable<T> observable = Observable.create(source);
+        final Scheduler subscribeOn = getSubscribeOn();
+        if (subscribeOn != null) {
+            observable.subscribeOn(subscribeOn);
+        }
+        final Scheduler observeOn = getObserveOn();
+        if (observeOn != null) {
+            observable.observeOn(observeOn);
         }
 
         return new ObservableSubscriber<>(this, observable);
     }
 
-    public CompletableSubscriber withCompletable(Completable completable) {
+    @Nonnull
+    public CompletableSubscriber withCompletable(@NonNull final Completable completable) {
         return new CompletableSubscriber(this, completable);
     }
 
-    public CompletableSubscriber completable(@Nullable final Consumer<Completable> completableConsumer,
-                                             @NonNull final CompletableOnSubscribe source) {
-        final Completable completable = Completable.create(source)
-                .subscribeOn(getSubscribeOn()).observeOn(getObserveOn());
-
-        try {
-            if (completableConsumer != null) {
-                completableConsumer.accept(completable);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+    @Nonnull
+    public CompletableSubscriber completable(@NonNull final CompletableOnSubscribe source) {
+        final Completable completable = Completable.create(source);
+        final Scheduler subscribeOn = getSubscribeOn();
+        if (subscribeOn != null) {
+            completable.subscribeOn(subscribeOn);
+        }
+        final Scheduler observeOn = getObserveOn();
+        if (observeOn != null) {
+            completable.observeOn(observeOn);
         }
 
         return new CompletableSubscriber(this, completable);
@@ -119,6 +119,7 @@ public class RxManager {
         compositeDisposable.clear();
     }
 
+    @Nonnull
     public static Builder newBuilder() {
         return new Builder();
     }
@@ -142,6 +143,7 @@ public class RxManager {
             return this;
         }
 
+        @NonNull
         public RxManager build() {
             return new RxManager(subscribeOnSupplier, observeOnSupplier);
         }

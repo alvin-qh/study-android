@@ -54,7 +54,6 @@ public class SocketNativePresenter implements SocketContract.Presenter {
 
     private void doConnect(Consumer<SocketNative> consumer) {
         final SingleSubscriber<SocketNative> subscriber = rxSendManager.single(
-                null,
                 emitter -> {
                     try {
                         emitter.onSuccess(new SocketNative());
@@ -77,7 +76,6 @@ public class SocketNativePresenter implements SocketContract.Presenter {
     private void startReceive() {
         if (socket != null && !socket.isClosed()) {
             final ObservableSubscriber<CommandAck> subscriber = rxReceiverManager.observable(
-                    observable -> observable.retry(3),
                     emitter -> {
                         try {
                             while (!socket.isClosed()) {
@@ -95,14 +93,16 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                     }
             );
 
-            subscriber.subscribe(
-                    this::responseReceived,
-                    throwable -> {
-                        withView(SocketContract.View::showConnectError);
-                        withView(SocketContract.View::disconnected);
-                    },
-                    () -> withView(SocketContract.View::disconnected)
-            );
+            subscriber
+                    .config(observable -> observable.retry(3))
+                    .subscribe(
+                            this::responseReceived,
+                            throwable -> {
+                                withView(SocketContract.View::showConnectError);
+                                withView(SocketContract.View::disconnected);
+                            },
+                            () -> withView(SocketContract.View::disconnected)
+                    );
         }
     }
 
@@ -141,7 +141,6 @@ public class SocketNativePresenter implements SocketContract.Presenter {
     public void readRemoteDatetime() {
         if (socket != null && !socket.isClosed()) {
             final CompletableSubscriber subscriber = rxSendManager.completable(
-                    completable -> completable.retry(3),
                     emitter -> {
                         try {
                             socket.getRemoteTime();
@@ -153,10 +152,12 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                     }
             );
 
-            subscriber.subscribe(
-                    Functions.EMPTY_ACTION,
-                    throwable -> withView(SocketContract.View::showRemoteError)
-            );
+            subscriber
+                    .config(completable -> completable.retry(3))
+                    .subscribe(
+                            Functions.EMPTY_ACTION,
+                            throwable -> withView(SocketContract.View::showRemoteError)
+                    );
         }
     }
 
@@ -164,7 +165,6 @@ public class SocketNativePresenter implements SocketContract.Presenter {
     public void disconnect() {
         if (socket != null && !socket.isClosed()) {
             final CompletableSubscriber subscriber = rxSendManager.completable(
-                    completable -> completable.retry(3),
                     emitter -> {
                         try {
                             socket.disconnect();
@@ -176,10 +176,12 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                     }
             );
 
-            subscriber.subscribe(
-                    Functions.EMPTY_ACTION,
-                    throwable -> withView(SocketContract.View::showRemoteError)
-            );
+            subscriber
+                    .config(completable -> completable.retry(3))
+                    .subscribe(
+                            Functions.EMPTY_ACTION,
+                            throwable -> withView(SocketContract.View::showRemoteError)
+                    );
         }
     }
 }

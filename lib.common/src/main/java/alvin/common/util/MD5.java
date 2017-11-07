@@ -9,6 +9,8 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import alvin.common.exceptions.Throwables;
+
 
 public class MD5 {
 
@@ -87,7 +89,7 @@ public class MD5 {
         try {
             return MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+            throw Throwables.propagate(e);
         }
     }
 }

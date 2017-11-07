@@ -2,6 +2,8 @@ package alvin.kotlin.common.rx;
 
 import android.support.annotation.NonNull;
 
+import org.jetbrains.annotations.NotNull;
+
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.annotations.SchedulerSupport;
@@ -78,7 +80,6 @@ public class SingleSubscriber<T> extends RxSubscribe {
         );
     }
 
-    @NonNull
     @SchedulerSupport(SchedulerSupport.NONE)
     public final void subscribe(@NonNull final SingleObserver<? super T> subscriber) {
         single.subscribe(new SingleObserver<T>() {
@@ -100,5 +101,11 @@ public class SingleSubscriber<T> extends RxSubscribe {
                 subscriber.onError(e);
             }
         });
+    }
+
+    @NotNull
+    public final SingleSubscriber<T> config(@NonNull final Function1<Single<T>, Unit> singleFn) {
+        singleFn.invoke(this.single);
+        return this;
     }
 }

@@ -69,7 +69,6 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
 
     private void loadImageUrls() {
         final SingleSubscriber<List<String>> subscriber = rxManager.single(
-                single -> single.retry(3),
                 emitter -> {
                     ApplicationConfig config = ApplicationConfig.getInstance();
                     List<String> urls = new ArrayList<>();
@@ -87,13 +86,15 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
                 }
         );
 
-        subscriber.subscribe(
-                urls -> {
-                    imageUrls.clear();
-                    imageUrls.addAll(urls);
-                    withView(RemoteImageContract.View::imageSrcLoaded);
-                }
-        );
+        subscriber
+                .config(single -> single.retry(3))
+                .subscribe(
+                        urls -> {
+                            imageUrls.clear();
+                            imageUrls.addAll(urls);
+                            withView(RemoteImageContract.View::imageSrcLoaded);
+                        }
+                );
     }
 
     @Override
@@ -122,7 +123,6 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
     @Override
     public void loadImageAsDrawable(String url, Consumer<Drawable> callback) {
         final SingleSubscriber<Drawable> subscriber = rxManager.single(
-                single -> single.retry(3),
                 emitter -> {
                     try {
                         emitter.onSuccess(imageLoader.load(url));
@@ -132,9 +132,11 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
                 }
         );
 
-        subscriber.subscribe(
-                callback::accept,
-                throwable -> withView(view -> view.imageLoadFailed(url))
-        );
+        subscriber
+                .config(single -> single.retry(3))
+                .subscribe(
+                        callback::accept,
+                        throwable -> withView(view -> view.imageLoadFailed(url))
+                );
     }
 }

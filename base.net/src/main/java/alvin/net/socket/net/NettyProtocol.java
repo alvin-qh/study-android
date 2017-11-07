@@ -14,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
+import alvin.common.exceptions.Throwables;
 import alvin.net.socket.models.Command;
 import alvin.net.socket.models.CommandAck;
 import io.netty.buffer.ByteBuf;
@@ -54,8 +55,8 @@ public class NettyProtocol {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(data);
             return md.digest();
-        } catch (NoSuchAlgorithmException ignore) {
-            throw new RuntimeException(ignore);
+        } catch (NoSuchAlgorithmException e) {
+            throw Throwables.propagate(e);
         }
     }
 

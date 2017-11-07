@@ -134,4 +134,10 @@ public class ObservableSubscriber<T> extends RxSubscribe {
             }
         });
     }
+
+    @NonNull
+    public final ObservableSubscriber<T> config(@NonNull final Function1<Observable<T>, Unit> observableFn) {
+        observableFn.invoke(this.observable);
+        return this;
+    }
 }

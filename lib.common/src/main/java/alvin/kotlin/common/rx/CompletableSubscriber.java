@@ -91,4 +91,10 @@ public class CompletableSubscriber extends RxSubscribe {
                 }
         ));
     }
+
+    @NonNull
+    public final CompletableSubscriber config(@NonNull final Function1<Completable, Unit> completableFn) {
+        completableFn.invoke(this.completable);
+        return this;
+    }
 }

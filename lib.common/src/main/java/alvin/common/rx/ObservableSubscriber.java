@@ -2,6 +2,7 @@ package alvin.common.rx;
 
 import android.support.annotation.NonNull;
 
+import alvin.common.exceptions.Throwables;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.annotations.SchedulerSupport;
@@ -133,5 +134,15 @@ public class ObservableSubscriber<T> extends RxSubscribe {
                 observer.onComplete();
             }
         });
+    }
+
+    @NonNull
+    public final ObservableSubscriber<T> config(@NonNull final Consumer<Observable<T>> observableConsumer) {
+        try {
+            observableConsumer.accept(this.observable);
+            return this;
+        } catch (Exception e) {
+            throw Throwables.propagate(e);
+        }
     }
 }

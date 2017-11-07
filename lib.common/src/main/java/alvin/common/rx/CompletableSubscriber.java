@@ -2,6 +2,7 @@ package alvin.common.rx;
 
 import android.support.annotation.NonNull;
 
+import alvin.common.exceptions.Throwables;
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
 import io.reactivex.annotations.SchedulerSupport;
@@ -89,5 +90,15 @@ public class CompletableSubscriber extends RxSubscribe {
                     Functions.ERROR_CONSUMER.accept(throwable);
                 }
         ));
+    }
+
+    @NonNull
+    public final CompletableSubscriber config(@NonNull final Consumer<Completable> completableConsumer) {
+        try {
+            completableConsumer.accept(this.completable);
+            return this;
+        } catch (Exception e) {
+            throw Throwables.propagate(e);
+        }
     }
 }
