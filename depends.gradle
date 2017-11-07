@@ -6,7 +6,8 @@ ext {
                             "com.android.support:support-v4:${versions.sdk}",
                             "com.android.support:design:${versions.sdk}",
                             "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
-                            "com.android.support:multidex:${versions.multidex}"
+                            "com.android.support:multidex:${versions.multidex}",
+                            "com.android.support:percent:${versions.sdk}"
                     ],
                     apacheCommons    : [
                             codec: "commons-codec:commons-codec:${versions.apacheCommons.codec}"

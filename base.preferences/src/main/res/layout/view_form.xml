@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingTop="40sp"
     tools:showIn="@layout/activity_preferences_original">
 
     <LinearLayout
@@ -77,28 +78,23 @@
             android:text="@string/label_birthday"
             android:textAlignment="textEnd" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/text_birthday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/hint_birthday"
+            android:inputType="none"
+            android:textSize="@dimen/edit_font_size" />
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/text_birthday"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_birthday"
-                android:inputType="none"
-                android:textSize="@dimen/edit_font_size" />
-
-            <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/btn_calendar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:background="@null"
-                android:src="@android:drawable/ic_menu_my_calendar"
-                android:tint="@color/colorGray" />
-        </RelativeLayout>
-
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/btn_calendar"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/colorAccent"
+            android:scaleType="centerInside"
+            android:src="@android:drawable/ic_menu_my_calendar"
+            android:tint="@color/color_white" />
     </LinearLayout>
 
     <LinearLayout

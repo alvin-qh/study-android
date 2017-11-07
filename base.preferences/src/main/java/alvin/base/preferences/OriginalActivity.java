@@ -63,7 +63,10 @@ public class OriginalActivity extends AppCompatActivity {
             radioGender.check(R.id.radio_gender_male);
         }
 
-        editBirthday.setText(person.getBirthday().format(DateTimeFormatter.ISO_DATE));
+        LocalDate birthday = person.getBirthday();
+        if (birthday != null) {
+            editBirthday.setText(birthday.format(DateTimeFormatter.ISO_DATE));
+        }
     }
 
     @OnClick(R.id.btn_calendar)
@@ -113,6 +116,6 @@ public class OriginalActivity extends AppCompatActivity {
         PersonRepository repository = new PersonRepository(this);
         repository.save(new Person(name, gender, birthday));
 
-        Toast.makeText(this, getString(R.string.save_success), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.message_success), Toast.LENGTH_LONG).show();
     }
 }

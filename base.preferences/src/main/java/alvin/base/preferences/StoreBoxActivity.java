@@ -118,6 +118,6 @@ public class StoreBoxActivity extends AppCompatActivity {
         }
         person.setBirthday(birthday);
 
-        Toast.makeText(this, getString(R.string.save_success), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.message_success), Toast.LENGTH_LONG).show();
     }
 }

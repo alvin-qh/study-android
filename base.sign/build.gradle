@@ -8,17 +8,17 @@ android {
     }
 
     signingConfigs {
-        releaseConfig {
+        release {
             keyAlias 'study-android'
             keyPassword '123456789'
-            storeFile file('/Users/alvin/Workspace/Study/study-android/.keystore/study-android.keystore')
+            storeFile file('../.keystore/study-android.keystore')
             storePassword '123456789'
         }
     }
 
     buildTypes {
         release {
-            signingConfig signingConfigs.releaseConfig
+            signingConfig signingConfigs.release
             zipAlignEnabled true
         }
     }

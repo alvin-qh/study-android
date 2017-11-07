@@ -22,12 +22,12 @@
 
         <activity
             android:name=".OriginalActivity"
-            android:label="@string/origin_activity_name"
+            android:label="@string/title_origin"
             android:parentActivityName=".OriginalActivity" />
 
         <activity
             android:name=".StoreBoxActivity"
-            android:label="@string/store_box_activity_name"
+            android:label="@string/title_store_box"
             android:parentActivityName=".OriginalActivity" />
     </application>
 
