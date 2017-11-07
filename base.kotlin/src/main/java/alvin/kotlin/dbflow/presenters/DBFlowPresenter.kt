@@ -1,6 +1,6 @@
 package alvin.kotlin.dbflow.presenters
 
-import alvin.kotlin.common.rx.RxManager
+import alvin.kotlin.lib.common.rx.RxManager
 import alvin.kotlin.dbflow.DBFlowContract
 import alvin.kotlin.dbflow.domain.models.Person
 import alvin.kotlin.dbflow.domain.repositories.PersonRepository

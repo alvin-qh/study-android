@@ -15,7 +15,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
 
-import alvin.common.util.MD5;
+import alvin.lib.common.util.MD5;
 import alvin.net.socket.models.Command;
 import alvin.net.socket.models.CommandAck;
 

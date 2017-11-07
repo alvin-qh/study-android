@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 import java.lang.ref.WeakReference;
 import java.util.function.Consumer;
 
-import alvin.common.rx.RxManager;
-import alvin.common.rx.SingleSubscriber;
+import alvin.lib.common.rx.RxManager;
+import alvin.lib.common.rx.SingleSubscriber;
 import alvin.net.http.WeatherContract;
 import alvin.net.http.models.LiveWeather;
 import alvin.net.http.services.WeatherService;

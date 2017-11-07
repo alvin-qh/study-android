@@ -1,7 +1,7 @@
 package alvin.net.socket.net;
 
 
-import alvin.common.util.ApplicationConfig;
+import alvin.lib.common.util.ApplicationConfig;
 
 public class NetworkConfig {
 

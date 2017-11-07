@@ -14,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
-import alvin.common.exceptions.Throwables;
+import alvin.lib.common.exceptions.Throwables;
 import alvin.net.socket.models.Command;
 import alvin.net.socket.models.CommandAck;
 import io.netty.buffer.ByteBuf;

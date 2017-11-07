@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import alvin.common.rx.RxManager;
-import alvin.common.rx.SingleSubscriber;
-import alvin.common.util.ApplicationConfig;
-import alvin.common.util.Cache;
+import alvin.lib.common.rx.RxManager;
+import alvin.lib.common.rx.SingleSubscriber;
+import alvin.lib.common.util.ApplicationConfig;
+import alvin.lib.common.util.Cache;
 import alvin.net.remote.RemoteImageContract;
 import alvin.net.remote.images.RemoteImageLoader;
 import io.reactivex.android.schedulers.AndroidSchedulers;
