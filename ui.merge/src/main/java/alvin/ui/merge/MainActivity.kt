@@ -1,4 +1,4 @@
-package alvin.merge
+package alvin.ui.merge
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -10,6 +10,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        ButterKnife.bind(this);
+        ButterKnife.bind(this)
     }
 }

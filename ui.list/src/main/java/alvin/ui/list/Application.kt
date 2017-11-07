@@ -1,4 +1,4 @@
-package alvin.list
+package alvin.ui.list
 
 import android.support.multidex.MultiDexApplication
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="alvin.butterknife.MainActivity">
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
 
         <fragment
             android:id="@+id/frag_butter_knife"
-            android:name="alvin.butterknife.ButterKnifeFragment"
+            android:name="alvin.ui.butterknife.ButterKnifeFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
