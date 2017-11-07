@@ -6,11 +6,26 @@ android {
     defaultConfig {
         applicationId "alvin.base.sign"
     }
+
+    signingConfigs {
+        releaseConfig {
+            keyAlias 'study-android'
+            keyPassword '123456789'
+            storeFile file('/Users/alvin/Workspace/Study/study-android/.keystore/study-android.keystore')
+            storePassword '123456789'
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.releaseConfig
+            zipAlignEnabled true
+        }
+    }
 }
 
 dependencies {
     implementation libs.main.butterKnife
     implementation libs.main.kotlin
-
     kapt libs.annotation.butterKnife
 }
