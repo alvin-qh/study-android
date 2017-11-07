@@ -1,4 +1,4 @@
-package alvin.preferences.domain.models;
+package alvin.base.preferences.domain.models;
 
 import java.time.LocalDate;
 

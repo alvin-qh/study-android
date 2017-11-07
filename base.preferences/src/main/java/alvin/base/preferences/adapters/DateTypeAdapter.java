@@ -1,4 +1,4 @@
-package alvin.preferences.adapters;
+package alvin.base.preferences.adapters;
 
 import android.support.annotation.Nullable;
 

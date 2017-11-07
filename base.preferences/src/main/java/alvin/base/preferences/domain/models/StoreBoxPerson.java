@@ -1,12 +1,12 @@
-package alvin.preferences.domain.models;
+package alvin.base.preferences.domain.models;
 
 import net.orange_box.storebox.annotations.method.KeyByString;
 import net.orange_box.storebox.annotations.method.TypeAdapter;
 
 import java.time.LocalDate;
 
-import alvin.preferences.adapters.DateTypeAdapter;
-import alvin.preferences.adapters.GenderTypeAdapter;
+import alvin.base.preferences.adapters.DateTypeAdapter;
+import alvin.base.preferences.adapters.GenderTypeAdapter;
 
 public interface StoreBoxPerson {
     @KeyByString("name")

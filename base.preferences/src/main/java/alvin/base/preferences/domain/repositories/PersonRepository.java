@@ -1,12 +1,12 @@
-package alvin.preferences.domain.repositories;
+package alvin.base.preferences.domain.repositories;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.time.LocalDate;
 
-import alvin.preferences.domain.models.Gender;
-import alvin.preferences.domain.models.Person;
+import alvin.base.preferences.domain.models.Gender;
+import alvin.base.preferences.domain.models.Person;
 
 public class PersonRepository {
 

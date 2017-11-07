@@ -1,4 +1,4 @@
-package alvin.preferences.adapters;
+package alvin.base.preferences.adapters;
 
 import android.support.annotation.Nullable;
 
@@ -6,7 +6,7 @@ import com.google.common.base.Strings;
 
 import net.orange_box.storebox.adapters.base.BaseStringTypeAdapter;
 
-import alvin.preferences.domain.models.Gender;
+import alvin.base.preferences.domain.models.Gender;
 
 public class GenderTypeAdapter extends BaseStringTypeAdapter<Gender> {
 

@@ -1,4 +1,4 @@
-package alvin.preferences;
+package alvin.base.preferences;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,12 +19,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btn_preferences_original)
-    public void onOriginalClick(Button elem) {
+    public void onOriginalClick(Button b) {
         startActivity(new Intent(this, OriginalActivity.class));
     }
 
     @OnClick(R.id.btn_preferences_storebox)
-    public void onStoreBoxClick(Button elem) {
+    public void onStoreBoxClick(Button b) {
         startActivity(new Intent(this, StoreBoxActivity.class));
     }
 }
