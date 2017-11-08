@@ -1,33 +1,30 @@
 package alvin.base.mvp.basic.views;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import alvin.base.mvp.R;
-import alvin.base.mvp.basic.domain.services.BasicService;
-import butterknife.ButterKnife;
+import alvin.base.mvp.basic.di.BasicMainActivityModule;
+import alvin.base.mvp.basic.di.DaggerBasicMainActivityComponent;
+import alvin.base.mvp.basic.presenters.BasicPresenter;
+import alvin.base.mvp.common.BaseActivity;
+import alvin.base.mvp.common.Constract;
 
 @Singleton
-public class BasicMainActivity extends AppCompatActivity {
+public class BasicMainActivity extends BaseActivity implements Constract.View {
 
     @Inject
-    BasicService service;
+    BasicPresenter presenter;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void inject() {
+        DaggerBasicMainActivityComponent.builder()
+                .basicMainActivityModule(new BasicMainActivityModule(this))
+                .build()
+                .inject(this);
+    }
 
-        setContentView(R.layout.activity_basic_main);
-
-        ButterKnife.bind(this);
-
-//        DaggerBasicMainActivityComponent.builder()
-//                .basicMainActivityModule(new BasicMainActivityModule(this))
-//                .build()
-//                .inject(this);
+    @Override
+    protected Constract.Presenter getPresenter() {
+        return presenter;
     }
 }

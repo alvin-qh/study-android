@@ -63,7 +63,7 @@ public class FormDialog extends Dialog {
                     birthday.getYear(), birthday.getMonthValue() - 1, birthday.getDayOfMonth());
         }
         dialog.setOnDateSetListener((view, year, month, dayOfMonth) ->
-                editBirthday.setText(LocalDate.of(year, month, dayOfMonth).format(DateTimeFormatter.ISO_DATE)));
+                editBirthday.setText(LocalDate.of(year, month + 1, dayOfMonth).format(DateTimeFormatter.ISO_DATE)));
         dialog.show();
     }
 

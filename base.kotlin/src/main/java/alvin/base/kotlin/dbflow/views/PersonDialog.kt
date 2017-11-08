@@ -69,7 +69,7 @@ class PersonDialog(context: Context?, themeResId: Int) :
         }
 
         dialog.setOnDateSetListener { _, year, month, dayOfMonth ->
-            date = LocalDate.of(year, month, dayOfMonth).format(DateTimeFormatter.ISO_DATE)
+            date = LocalDate.of(year, month + 1, dayOfMonth).format(DateTimeFormatter.ISO_DATE)
             et_birthday.setText(date)
         }
         dialog.show()

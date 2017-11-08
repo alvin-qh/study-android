@@ -1,7 +1,7 @@
 package alvin.base.kotlin.dbflow.domain.models
 
 import alvin.base.kotlin.dbflow.domain.MainDatabase
-import alvin.base.kotlin.dbflow.domain.converts.LocalDateConvert
+import alvin.lib.common.dbflow.converts.LocalDateConvert
 import com.raizlabs.android.dbflow.annotation.Column
 import com.raizlabs.android.dbflow.annotation.PrimaryKey
 import com.raizlabs.android.dbflow.annotation.Table

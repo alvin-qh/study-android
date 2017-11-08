@@ -3,6 +3,8 @@ package alvin.base.mvp;
 import android.app.Activity;
 import android.support.multidex.MultiDexApplication;
 
+import com.raizlabs.android.dbflow.config.FlowManager;
+
 import javax.inject.Inject;
 
 import alvin.base.mvp.di.ApplicationModule;
@@ -19,6 +21,8 @@ public class Application extends MultiDexApplication implements HasActivityInjec
     @Override
     public void onCreate() {
         super.onCreate();
+
+        FlowManager.init(this);
 
         DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))

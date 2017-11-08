@@ -3,16 +3,6 @@ android {
     defaultConfig {
         applicationId "alvin.base.mvp"
     }
-
-    sourceSets {
-        main {
-            res.srcDirs = [
-                    'src/main/res/layout/basic',
-                    'src/main/res/layout',
-                    'src/main/res'
-            ]
-        }
-    }
 }
 
 dependencies {
@@ -21,6 +11,7 @@ dependencies {
     implementation libs.main.butterKnife
     implementation libs.main.dbflow
     implementation libs.main.dagger
+    implementation libs.main.rx
 
     annotationProcessor libs.annotation.butterKnife
     annotationProcessor libs.annotation.dbflow

@@ -8,9 +8,9 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 import java.time.LocalDate;
 
 import alvin.base.database.dbflow.FlowDatabase;
-import alvin.base.database.dbflow.converts.LocalDateConvert;
 import alvin.base.database.models.Gender;
 import alvin.base.database.models.IPerson;
+import alvin.lib.common.dbflow.converts.LocalDateConvert;
 
 @Table(database = FlowDatabase.class, name = "user")
 public class Person extends BaseModel implements IPerson {

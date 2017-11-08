@@ -1,29 +1,25 @@
 package alvin.base.mvp.android.views;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import javax.inject.Inject;
 
-import alvin.base.mvp.R;
-import butterknife.ButterKnife;
+import alvin.base.mvp.common.BaseActivity;
+import alvin.base.mvp.common.Constract;
 import dagger.android.AndroidInjection;
 
-public class AndroidMainActivity extends AppCompatActivity {
+public class AndroidMainActivity extends BaseActivity {
 
     @Inject
     Context context;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected Constract.Presenter getPresenter() {
+        return null;
+    }
 
-        setContentView(R.layout.activity_basic_main);
-
-        ButterKnife.bind(this);
-
+    @Override
+    protected void inject() {
         AndroidInjection.inject(this);
     }
 }

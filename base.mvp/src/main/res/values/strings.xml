@@ -4,6 +4,6 @@
     <string name="title_basic">Dagger Basic</string>
 
     <string name="btn_basic">Dagger Basic</string>
-
-    <string name="message_basic">Dagger basic message</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_delete">x</string>
 </resources>

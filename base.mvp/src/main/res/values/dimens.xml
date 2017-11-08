@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="font_size_list_item_message">18sp</dimen>
+    <dimen name="font_size_list_item_timestamp">9sp</dimen>
+    <dimen name="font_size_btn_delete">10sp</dimen>
+</resources>
