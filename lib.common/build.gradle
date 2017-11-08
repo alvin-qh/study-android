@@ -11,6 +11,7 @@ dependencies {
     implementation libs.main.apacheCommons.codec
     implementation libs.main.rx
     implementation libs.main.kotlin
+    implementation libs.main.dagger
 
     testImplementation libs.test.java
 }

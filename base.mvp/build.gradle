@@ -3,6 +3,16 @@ android {
     defaultConfig {
         applicationId "alvin.base.mvp"
     }
+
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res/layout/basic',
+                    'src/main/res/layout',
+                    'src/main/res'
+            ]
+        }
+    }
 }
 
 dependencies {

@@ -14,7 +14,11 @@ public class ApplicationConfig {
     private final Properties properties = new Properties();
 
     private ApplicationConfig(Context context) throws IOException {
-        try (InputStream in = context.getAssets().open("application.properties")) {
+        this(context, "application.properties");
+    }
+
+    private ApplicationConfig(Context context, String filename) throws IOException {
+        try (InputStream in = context.getAssets().open(filename)) {
             properties.load(in);
         }
     }
@@ -40,6 +44,10 @@ public class ApplicationConfig {
 
     public static void initialize(Context context) throws IOException {
         instance = new ApplicationConfig(context);
+    }
+
+    public static void initialize(Context context, String filename) throws IOException {
+        instance = new ApplicationConfig(context, filename);
     }
 
     public static ApplicationConfig getInstance() {

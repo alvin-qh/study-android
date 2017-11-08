@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">base.mvp</string>
+    <string name="app_name">Dagger MVP Demo</string>
+
+    <string name="title_basic">Dagger Basic</string>
+
+    <string name="btn_basic">Dagger Basic</string>
+
+    <string name="message_basic">Dagger basic message</string>
 </resources>
