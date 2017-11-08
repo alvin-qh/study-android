@@ -13,17 +13,12 @@ import kotlin.jvm.functions.Function1;
 
 public class CompletableSubscriber extends RxSubscribe {
 
-    private final Completable completable;
+    private Completable completable;
 
     CompletableSubscriber(@NonNull RxManager rxManager,
                           @NonNull Completable completable) {
         super(rxManager);
         this.completable = completable;
-    }
-
-    @NonNull
-    public Completable getCompletable() {
-        return completable;
     }
 
     @NonNull
@@ -93,8 +88,8 @@ public class CompletableSubscriber extends RxSubscribe {
     }
 
     @NonNull
-    public final CompletableSubscriber config(@NonNull final Function1<Completable, Unit> completableFn) {
-        completableFn.invoke(this.completable);
+    public final CompletableSubscriber config(@NonNull final Function1<Completable, Completable> configFn) {
+        this.completable = configFn.invoke(this.completable);
         return this;
     }
 }

@@ -1,32 +1,31 @@
 package alvin.base.kotlin.dbflow.presenters
 
-import alvin.base.kotlin.lib.common.rx.RxManager
 import alvin.base.kotlin.dbflow.DBFlowContract
 import alvin.base.kotlin.dbflow.domain.models.Person
 import alvin.base.kotlin.dbflow.domain.repositories.PersonRepository
+import alvin.base.kotlin.lib.common.rx.RxManager
+import alvin.lib.mvp.PresenterAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.lang.ref.WeakReference
 
-class DBFlowPresenter(val view: DBFlowContract.View) : DBFlowContract.Presenter {
+class DBFlowPresenter(val view: DBFlowContract.View) :
+        PresenterAdapter<DBFlowContract.View>(view),
+        DBFlowContract.Presenter {
 
     private val personRepository = PersonRepository()
-
-    private val viewRef = WeakReference<DBFlowContract.View>(view)
 
     private val rxManager = RxManager.newBuilder()
             .withSubscribeOn { Schedulers.io() }
             .withObserveOn { AndroidSchedulers.mainThread() }
             .build()
 
-    override fun doCreated() {
-    }
-
-    override fun doStarted() {
+    override fun started() {
+        super.started()
         reloadPersons()
     }
 
-    override fun doDestroyed() {
+    override fun destroyed() {
+        super.destroyed();
         rxManager.clear()
     }
 

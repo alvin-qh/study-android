@@ -4,29 +4,23 @@ import android.support.annotation.NonNull;
 
 import java.time.LocalDateTime;
 
-public final class SocketContract {
+import alvin.lib.mvp.IPresenter;
+import alvin.lib.mvp.IView;
 
-    private SocketContract() {
-    }
+public interface SocketContract {
 
-    public interface View {
+    interface View extends IView {
+
         void showConnectError();
 
         void showRemoteDatetime(@NonNull LocalDateTime time);
-
-        void showRemoteError();
 
         void connectReady();
 
         void disconnected();
     }
 
-    public interface Presenter {
-        void doStarted();
-
-        void doStop();
-
-        void doDestroy();
+    interface Presenter extends IPresenter {
 
         void readRemoteDatetime();
 

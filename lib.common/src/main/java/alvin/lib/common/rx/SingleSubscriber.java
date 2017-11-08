@@ -9,11 +9,12 @@ import io.reactivex.annotations.SchedulerSupport;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiConsumer;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.internal.functions.Functions;
 
 public class SingleSubscriber<T> extends RxSubscribe {
 
-    private final Single<T> single;
+    private Single<T> single;
 
     SingleSubscriber(@NonNull RxManager rxManager,
                      @NonNull Single<T> single) {
@@ -63,7 +64,6 @@ public class SingleSubscriber<T> extends RxSubscribe {
     }
 
     @NonNull
-    @SchedulerSupport(SchedulerSupport.NONE)
     public final Disposable subscribe(@NonNull final Consumer<? super T> onSuccess,
                                       @NonNull final Consumer<? super Throwable> onError) {
         return registerDisposable(single.subscribe(
@@ -102,9 +102,9 @@ public class SingleSubscriber<T> extends RxSubscribe {
     }
 
     @NonNull
-    public final SingleSubscriber<T> config(@NonNull final Consumer<Single<T>> singleConsumer) {
+    public final SingleSubscriber<T> config(@NonNull final Function<Single<T>, Single<T>> configFn) {
         try {
-            singleConsumer.accept(this.single);
+            this.single = configFn.apply(this.single);
             return this;
         } catch (Exception e) {
             throw Throwables.propagate(e);

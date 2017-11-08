@@ -1,15 +1,15 @@
 package alvin.base.mvp.android.di;
 
 import alvin.base.mvp.android.views.AndroidMainActivity;
+import alvin.lib.common.di.scopes.Session;
 import dagger.Subcomponent;
 import dagger.android.AndroidInjector;
 
-@Subcomponent(modules = {AndroidMainActivityModule.class})
-public interface AndroidMainActivityComponent {
-
-    void inject(AndroidMainActivity activity);
+@Session
+@Subcomponent
+public interface AndroidMainActivityComponent extends AndroidInjector<AndroidMainActivity> {
 
     @Subcomponent.Builder
-    public abstract class Builder extends AndroidInjector.Builder<AndroidMainActivity> {
+    abstract class Builder extends AndroidInjector.Builder<AndroidMainActivity> {
     }
 }

@@ -9,21 +9,17 @@ import io.reactivex.annotations.SchedulerSupport;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.internal.functions.Functions;
 
 public class ObservableSubscriber<T> extends RxSubscribe {
 
-    private final Observable<T> observable;
+    private Observable<T> observable;
 
     ObservableSubscriber(@NonNull RxManager rxManager,
                          @NonNull Observable<T> observable) {
         super(rxManager);
         this.observable = observable;
-    }
-
-    @NonNull
-    public Observable<T> getObservable() {
-        return observable;
     }
 
     @NonNull
@@ -137,9 +133,9 @@ public class ObservableSubscriber<T> extends RxSubscribe {
     }
 
     @NonNull
-    public final ObservableSubscriber<T> config(@NonNull final Consumer<Observable<T>> observableConsumer) {
+    public final ObservableSubscriber<T> config(@NonNull final Function<Observable<T>, Observable<T>> configFn) {
         try {
-            observableConsumer.accept(this.observable);
+            this.observable = configFn.apply(this.observable);
             return this;
         } catch (Exception e) {
             throw Throwables.propagate(e);

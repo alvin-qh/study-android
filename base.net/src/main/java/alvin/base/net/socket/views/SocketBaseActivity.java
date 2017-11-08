@@ -1,5 +1,6 @@
 package alvin.base.net.socket.views;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,20 +15,22 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import alvin.base.net.R;
-import alvin.base.net.socket.SocketContract;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public abstract class SocketBaseActivity extends AppCompatActivity implements SocketContract.View {
+import static alvin.base.net.socket.SocketContract.Presenter;
+import static alvin.base.net.socket.SocketContract.View;
+
+public abstract class SocketBaseActivity extends AppCompatActivity implements View {
 
     @BindView(R.id.text_time)
     TextView textTime;
 
-    private SocketContract.Presenter presenter;
+    private Presenter presenter;
     private Timer timer;
 
-    protected abstract SocketContract.Presenter getPresenter();
+    protected abstract Presenter getPresenter();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public abstract class SocketBaseActivity extends AppCompatActivity implements So
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.doStarted();
+        presenter.started();
     }
 
     @Override
@@ -51,13 +54,13 @@ public abstract class SocketBaseActivity extends AppCompatActivity implements So
         if (timer != null) {
             timer.cancel();
         }
-        presenter.doStop();
+        presenter.stoped();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.doDestroy();
+        presenter.destroyed();
     }
 
     @Override
@@ -74,7 +77,7 @@ public abstract class SocketBaseActivity extends AppCompatActivity implements So
     }
 
     @Override
-    public void showRemoteError() {
+    public void showDefaultError(Throwable t) {
         if (timer != null) {
             timer.cancel();
         }
@@ -103,5 +106,10 @@ public abstract class SocketBaseActivity extends AppCompatActivity implements So
     @Override
     public void disconnected() {
         Toast.makeText(this, R.string.string_network_disconnected, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public Context context() {
+        return this;
     }
 }

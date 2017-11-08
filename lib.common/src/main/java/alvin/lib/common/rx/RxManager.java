@@ -62,14 +62,15 @@ public class RxManager {
     @Nonnull
     public <T> SingleSubscriber<T> single(@NonNull final SingleOnSubscribe<T> source) {
 
-        final Single<T> single = Single.create(source);
+        Single<T> single = Single.create(source);
+
         final Scheduler subscribeOn = getSubscribeOn();
         if (subscribeOn != null) {
-            single.subscribeOn(subscribeOn);
+            single = single.subscribeOn(subscribeOn);
         }
         final Scheduler observeOn = getObserveOn();
         if (observeOn != null) {
-            single.observeOn(observeOn);
+            single = single.observeOn(observeOn);
         }
 
         return new SingleSubscriber<>(this, single);
@@ -82,14 +83,15 @@ public class RxManager {
 
     @Nonnull
     public <T> ObservableSubscriber<T> observable(@NonNull final ObservableOnSubscribe<T> source) {
-        final Observable<T> observable = Observable.create(source);
+        Observable<T> observable = Observable.create(source);
+
         final Scheduler subscribeOn = getSubscribeOn();
         if (subscribeOn != null) {
-            observable.subscribeOn(subscribeOn);
+            observable = observable.subscribeOn(subscribeOn);
         }
         final Scheduler observeOn = getObserveOn();
         if (observeOn != null) {
-            observable.observeOn(observeOn);
+            observable = observable.observeOn(observeOn);
         }
 
         return new ObservableSubscriber<>(this, observable);
@@ -102,14 +104,15 @@ public class RxManager {
 
     @Nonnull
     public CompletableSubscriber completable(@NonNull final CompletableOnSubscribe source) {
-        final Completable completable = Completable.create(source);
+        Completable completable = Completable.create(source);
+
         final Scheduler subscribeOn = getSubscribeOn();
         if (subscribeOn != null) {
-            completable.subscribeOn(subscribeOn);
+            completable = completable.subscribeOn(subscribeOn);
         }
         final Scheduler observeOn = getObserveOn();
         if (observeOn != null) {
-            completable.observeOn(observeOn);
+            completable = completable.observeOn(observeOn);
         }
 
         return new CompletableSubscriber(this, completable);

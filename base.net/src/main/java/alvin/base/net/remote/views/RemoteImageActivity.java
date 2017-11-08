@@ -46,7 +46,7 @@ public class RemoteImageActivity extends AppCompatActivity implements RemoteImag
         setContentView(R.layout.activity_remote_image);
 
         presenter = new RemoteImagePresenter(this);
-        presenter.doCreate();
+        presenter.created();
 
         ButterKnife.bind(this);
 
@@ -78,19 +78,19 @@ public class RemoteImageActivity extends AppCompatActivity implements RemoteImag
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.doStart();
+        presenter.started();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        presenter.doStop();
+        presenter.stoped();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.doDestroy();
+        presenter.destroyed();
     }
 
     @Override

@@ -15,17 +15,12 @@ import kotlin.jvm.functions.Function2;
 
 public class SingleSubscriber<T> extends RxSubscribe {
 
-    private final Single<T> single;
+    private Single<T> single;
 
     SingleSubscriber(@NonNull RxManager rxManager,
                      @NonNull Single<T> single) {
         super(rxManager);
         this.single = single;
-    }
-
-    @NonNull
-    public Single<T> single() {
-        return single;
     }
 
     @NonNull
@@ -104,8 +99,8 @@ public class SingleSubscriber<T> extends RxSubscribe {
     }
 
     @NotNull
-    public final SingleSubscriber<T> config(@NonNull final Function1<Single<T>, Unit> singleFn) {
-        singleFn.invoke(this.single);
+    public final SingleSubscriber<T> config(@NonNull final Function1<Single<T>, Single<T>> singleFn) {
+        this.single = singleFn.invoke(this.single);
         return this;
     }
 }

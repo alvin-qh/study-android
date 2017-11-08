@@ -6,6 +6,7 @@ import alvin.base.kotlin.dbflow.domain.models.Person
 import alvin.base.kotlin.dbflow.presenters.DBFlowPresenter
 import alvin.base.kotlin.dbflow.views.PersonDialog
 import alvin.base.kotlin.dbflow.views.PersonListAdapter
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
@@ -28,12 +29,12 @@ class DBFlowMainActivity : AppCompatActivity(), DBFlowContract.View {
 
         initializeListView()
 
-        rg_gender.setOnCheckedChangeListener({ _, _ ->
+        rg_gender.setOnCheckedChangeListener { _, _ ->
             presenter.reloadPersons()
-        })
+        }
 
         presenter = DBFlowPresenter(this)
-        presenter.doCreated()
+        presenter.created()
     }
 
     private fun initializeListView() {
@@ -72,12 +73,12 @@ class DBFlowMainActivity : AppCompatActivity(), DBFlowContract.View {
 
     override fun onStart() {
         super.onStart()
-        presenter.doStarted()
+        presenter.started()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.doDestroyed()
+        presenter.destroyed()
     }
 
     @OnClick(R.id.fab)
@@ -126,5 +127,9 @@ class DBFlowMainActivity : AppCompatActivity(), DBFlowContract.View {
     override fun personDeleted(person: Person) {
         Toast.makeText(this, R.string.msg_person_deleted, Toast.LENGTH_SHORT).show()
         presenter.reloadPersons()
+    }
+
+    override fun context(): Context {
+        return this
     }
 }

@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 
-public class LiveWeather {
+import alvin.lib.mvp.IModel;
+
+public class LiveWeather implements IModel {
 
     @JsonProperty("basic")
     private Location location;

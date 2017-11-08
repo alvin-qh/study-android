@@ -63,15 +63,16 @@ public class RxManager {
     @NonNull
     public <T> SingleSubscriber<T> single(@NonNull final Function1<SingleEmitter<T>, Unit> source) {
 
-        final Single<T> single = Single.create(source::invoke);
+        Single<T> single = Single.create(source::invoke);
+
         final Scheduler subscribeOn = getSubscribeOn();
         if (subscribeOn != null) {
-            single.subscribeOn(subscribeOn);
+            single = single.subscribeOn(subscribeOn);
         }
 
         final Scheduler observeOn = getObserveOn();
         if (observeOn != null) {
-            single.observeOn(observeOn);
+            single = single.observeOn(observeOn);
         }
 
         return new SingleSubscriber<>(this, single);
@@ -85,15 +86,16 @@ public class RxManager {
     @NonNull
     public <T> ObservableSubscriber<T> observable(@NonNull final Function1<ObservableEmitter<T>, Unit> source) {
 
-        final Observable<T> observable = Observable.create(source::invoke);
+        Observable<T> observable = Observable.create(source::invoke);
+
         final Scheduler subscribeOn = getSubscribeOn();
         if (subscribeOn != null) {
-            observable.subscribeOn(subscribeOn);
+            observable = observable.subscribeOn(subscribeOn);
         }
 
         final Scheduler observeOn = getObserveOn();
         if (observeOn != null) {
-            observable.observeOn(observeOn);
+            observable = observable.observeOn(observeOn);
         }
 
         return new ObservableSubscriber<>(this, observable);
@@ -107,14 +109,15 @@ public class RxManager {
     @NonNull
     public CompletableSubscriber completable(@NonNull final Function1<CompletableEmitter, Unit> source) {
 
-        final Completable completable = Completable.create(source::invoke);
+        Completable completable = Completable.create(source::invoke);
+
         final Scheduler subscribeOn = getSubscribeOn();
         if (subscribeOn != null) {
-            completable.subscribeOn(subscribeOn);
+            completable = completable.subscribeOn(subscribeOn);
         }
         final Scheduler observeOn = getObserveOn();
         if (observeOn != null) {
-            completable.observeOn(observeOn);
+            completable = completable.observeOn(observeOn);
         }
 
         return new CompletableSubscriber(this, completable);

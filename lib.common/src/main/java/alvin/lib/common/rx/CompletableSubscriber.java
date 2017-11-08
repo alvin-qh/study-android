@@ -9,21 +9,17 @@ import io.reactivex.annotations.SchedulerSupport;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.internal.functions.Functions;
 
 public class CompletableSubscriber extends RxSubscribe {
 
-    private final Completable completable;
+    private Completable completable;
 
     CompletableSubscriber(@NonNull RxManager rxManager,
                           @NonNull Completable completable) {
         super(rxManager);
         this.completable = completable;
-    }
-
-    @NonNull
-    public Completable getCompletable() {
-        return completable;
     }
 
     @NonNull
@@ -93,9 +89,9 @@ public class CompletableSubscriber extends RxSubscribe {
     }
 
     @NonNull
-    public final CompletableSubscriber config(@NonNull final Consumer<Completable> completableConsumer) {
+    public final CompletableSubscriber config(@NonNull final Function<Completable, Completable> configFn) {
         try {
-            completableConsumer.accept(this.completable);
+            this.completable = configFn.apply(this.completable);
             return this;
         } catch (Exception e) {
             throw Throwables.propagate(e);

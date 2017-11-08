@@ -13,17 +13,12 @@ import kotlin.jvm.functions.Function1;
 
 public class ObservableSubscriber<T> extends RxSubscribe {
 
-    private final Observable<T> observable;
+    private Observable<T> observable;
 
     ObservableSubscriber(@NonNull RxManager rxManager,
                          @NonNull Observable<T> observable) {
         super(rxManager);
         this.observable = observable;
-    }
-
-    @NonNull
-    public Observable<T> getObservable() {
-        return observable;
     }
 
     @SchedulerSupport(SchedulerSupport.NONE)
@@ -136,8 +131,8 @@ public class ObservableSubscriber<T> extends RxSubscribe {
     }
 
     @NonNull
-    public final ObservableSubscriber<T> config(@NonNull final Function1<Observable<T>, Unit> observableFn) {
-        observableFn.invoke(this.observable);
+    public final ObservableSubscriber<T> config(@NonNull final Function1<Observable<T>, Observable<T>> configFn) {
+        this.observable = configFn.invoke(this.observable);
         return this;
     }
 }

@@ -2,28 +2,31 @@ package alvin.base.net.remote.presenters;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import alvin.base.net.remote.images.RemoteImageLoader;
 import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.SingleSubscriber;
 import alvin.lib.common.util.ApplicationConfig;
 import alvin.lib.common.util.Cache;
-import alvin.base.net.remote.RemoteImageContract;
-import alvin.base.net.remote.images.RemoteImageLoader;
+import alvin.lib.mvp.PresenterAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class RemoteImagePresenter implements RemoteImageContract.Presenter {
+import static alvin.base.net.remote.RemoteImageContract.Presenter;
+import static alvin.base.net.remote.RemoteImageContract.View;
+
+public class RemoteImagePresenter extends PresenterAdapter<View> implements Presenter {
+
     private static final String CACHE_DIR_NAME = "images";
 
-    private final WeakReference<RemoteImageContract.View> viewRef;
     private final List<String> imageUrls = new ArrayList<>();
 
     private final RxManager rxManager = RxManager.newBuilder()
@@ -33,19 +36,14 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
 
     private RemoteImageLoader imageLoader;
 
-    public RemoteImagePresenter(RemoteImageContract.View view) {
-        this.viewRef = new WeakReference<>(view);
-    }
-
-    private void withView(Consumer<RemoteImageContract.View> consumer) {
-        RemoteImageContract.View view = viewRef.get();
-        if (view != null) {
-            consumer.accept(view);
-        }
+    public RemoteImagePresenter(@NonNull View view) {
+        super(view);
     }
 
     @Override
-    public void doCreate() {
+    public void created() {
+        super.created();
+
         withView(view -> {
             File cacheFileDir = createCacheFileDir(view.context());
             this.imageLoader = new RemoteImageLoader(
@@ -63,7 +61,8 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
     }
 
     @Override
-    public void doStart() {
+    public void started() {
+        super.started();
         loadImageUrls();
     }
 
@@ -86,24 +85,19 @@ public class RemoteImagePresenter implements RemoteImageContract.Presenter {
                 }
         );
 
-        subscriber
-                .config(single -> single.retry(3))
+        subscriber.config(single -> single.retry(3))
                 .subscribe(
                         urls -> {
                             imageUrls.clear();
                             imageUrls.addAll(urls);
-                            withView(RemoteImageContract.View::imageSrcLoaded);
+                            withView(View::imageSrcLoaded);
                         }
                 );
     }
 
     @Override
-    public void doStop() {
-    }
-
-    @Override
-    public void doDestroy() {
-        rxManager.clear();
+    public void destroyed() {
+        super.destroyed();
 
         if (imageLoader != null) {
             imageLoader.dispose();

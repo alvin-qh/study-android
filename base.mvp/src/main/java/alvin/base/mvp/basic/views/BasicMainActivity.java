@@ -8,8 +8,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import alvin.base.mvp.R;
-import alvin.base.mvp.basic.di.BasicMainActivityModule;
-import alvin.base.mvp.basic.di.DaggerBasicMainActivityComponent;
 import alvin.base.mvp.basic.domain.services.BasicService;
 import butterknife.ButterKnife;
 
@@ -27,9 +25,9 @@ public class BasicMainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        DaggerBasicMainActivityComponent.builder()
-                .basicMainActivityModule(new BasicMainActivityModule(this))
-                .build()
-                .inject(this);
+//        DaggerBasicMainActivityComponent.builder()
+//                .basicMainActivityModule(new BasicMainActivityModule(this))
+//                .build()
+//                .inject(this);
     }
 }

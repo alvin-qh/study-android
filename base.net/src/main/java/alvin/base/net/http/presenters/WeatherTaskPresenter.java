@@ -11,37 +11,48 @@ import alvin.base.net.http.WeatherContract;
 import alvin.base.net.http.models.LiveWeather;
 import alvin.base.net.http.services.WeatherException;
 import alvin.base.net.http.services.WeatherService;
+import alvin.lib.mvp.PresenterAdapter;
 
-public class WeatherTaskPresenter implements WeatherContract.Presenter {
+import static alvin.base.net.http.WeatherContract.Presenter;
+import static alvin.base.net.http.WeatherContract.View;
+
+public class WeatherTaskPresenter extends PresenterAdapter<View> implements Presenter {
 
     private final WeatherService weatherService = new WeatherService();
-    private final WeakReference<WeatherContract.View> viewRef;
 
-    public WeatherTaskPresenter(WeatherContract.View view) {
-        this.viewRef = new WeakReference<>(view);
+    private AsyncTask<?, ?, ?> task;
+
+    public WeatherTaskPresenter(@NonNull View view) {
+        super(view);
     }
 
     @Override
-    public void doCreate() {
+    public void getLiveWeather() {
+        task = new WeatherTask(getViewRef(), weatherService).execute();
     }
 
     @Override
-    public void doDestroy() {
-        viewRef.clear();
+    public void started() {
+        super.started();
+        getLiveWeather();
     }
 
     @Override
-    public void showLiveWeather() {
-        new WeatherTask(viewRef, weatherService).execute();
+    public void destroyed() {
+        super.destroyed();
+
+        if (task != null) {
+            task.cancel(true);
+        }
     }
 
     private static class WeatherTask extends AsyncTask<Void, Void, LiveWeather> {
-        private final WeakReference<WeatherContract.View> viewRef;
+        private final WeakReference<View> viewRef;
         private final WeatherService weatherService;
 
         private Exception exception;
 
-        WeatherTask(@NonNull WeakReference<WeatherContract.View> viewRef,
+        WeatherTask(@NonNull WeakReference<View> viewRef,
                     @NonNull WeatherService weatherService) {
             this.viewRef = viewRef;
             this.weatherService = weatherService;
@@ -64,7 +75,7 @@ public class WeatherTaskPresenter implements WeatherContract.Presenter {
 
             if (view != null) {
                 if (exception != null) {
-                    view.showWeatherError();
+                    view.showDefaultError(exception);
                 } else {
                     view.showLiveWeather(weather);
                 }

@@ -2,50 +2,44 @@ package alvin.base.net.http.presenters;
 
 import android.support.annotation.NonNull;
 
-import java.lang.ref.WeakReference;
-import java.util.function.Consumer;
-
-import alvin.lib.common.rx.RxManager;
-import alvin.lib.common.rx.SingleSubscriber;
-import alvin.base.net.http.WeatherContract;
 import alvin.base.net.http.models.LiveWeather;
 import alvin.base.net.http.services.WeatherService;
+import alvin.lib.common.rx.RxManager;
+import alvin.lib.common.rx.SingleSubscriber;
+import alvin.lib.mvp.PresenterAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class WeatherRxPresenter implements WeatherContract.Presenter {
+import static alvin.base.net.http.WeatherContract.Presenter;
+import static alvin.base.net.http.WeatherContract.View;
+
+public class WeatherRxPresenter extends PresenterAdapter<View> implements Presenter {
 
     private final WeatherService weatherService = new WeatherService();
-    private final WeakReference<WeatherContract.View> viewRef;
 
     private final RxManager rxManager = RxManager.newBuilder()
             .withSubscribeOn(Schedulers::io)
             .withObserveOn(AndroidSchedulers::mainThread)
             .build();
 
-    public WeatherRxPresenter(@NonNull WeatherContract.View view) {
-        this.viewRef = new WeakReference<>(view);
-    }
-
-    private void withView(Consumer<WeatherContract.View> consumer) {
-        WeatherContract.View view = viewRef.get();
-        if (view != null) {
-            consumer.accept(view);
-        }
+    public WeatherRxPresenter(@NonNull View view) {
+        super(view);
     }
 
     @Override
-    public void doCreate() {
+    public void started() {
+        super.started();
+        getLiveWeather();
     }
 
     @Override
-    public void doDestroy() {
+    public void destroyed() {
+        super.destroyed();
         rxManager.clear();
-        viewRef.clear();
     }
 
     @Override
-    public void showLiveWeather() {
+    public void getLiveWeather() {
         final SingleSubscriber<LiveWeather> subscriber = rxManager.single(
                 emitter -> {
                     try {
@@ -61,7 +55,7 @@ public class WeatherRxPresenter implements WeatherContract.Presenter {
                 .config(single -> single.retry(3))
                 .subscribe(
                         weather -> withView(view -> view.showLiveWeather(weather)),
-                        throwable -> withView(WeatherContract.View::showWeatherError)
+                        throwable -> withView(view -> view.showDefaultError(throwable))
                 );
     }
 }

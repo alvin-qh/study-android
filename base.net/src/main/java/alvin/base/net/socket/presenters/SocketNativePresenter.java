@@ -6,27 +6,28 @@ import com.google.common.base.Strings;
 
 import java.io.EOFException;
 import java.io.IOException;
-import java.lang.ref.WeakReference;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.function.Consumer;
 
+import alvin.base.net.socket.models.CommandAck;
+import alvin.base.net.socket.net.SocketNative;
 import alvin.lib.common.rx.CompletableSubscriber;
 import alvin.lib.common.rx.ObservableSubscriber;
 import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.RxSchedulers;
 import alvin.lib.common.rx.SingleSubscriber;
-import alvin.base.net.socket.SocketContract;
-import alvin.base.net.socket.models.CommandAck;
-import alvin.base.net.socket.net.SocketNative;
+import alvin.lib.mvp.PresenterAdapter;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.internal.functions.Functions;
 import io.reactivex.schedulers.Schedulers;
 
-public class SocketNativePresenter implements SocketContract.Presenter {
+import static alvin.base.net.socket.SocketContract.Presenter;
+import static alvin.base.net.socket.SocketContract.View;
 
-    private final WeakReference<SocketContract.View> viewRef;
+public class SocketNativePresenter extends PresenterAdapter<View> implements Presenter {
+
     private final Scheduler scheduler = RxSchedulers.newSingleThread();
 
     private final RxManager rxReceiverManager = RxManager.newBuilder()
@@ -41,15 +42,8 @@ public class SocketNativePresenter implements SocketContract.Presenter {
 
     private SocketNative socket;
 
-    public SocketNativePresenter(@NonNull SocketContract.View view) {
-        this.viewRef = new WeakReference<>(view);
-    }
-
-    private void withView(Consumer<SocketContract.View> consumer) {
-        SocketContract.View view = viewRef.get();
-        if (view != null) {
-            consumer.accept(view);
-        }
+    public SocketNativePresenter(@NonNull View view) {
+        super(view);
     }
 
     private void doConnect(Consumer<SocketNative> consumer) {
@@ -66,10 +60,10 @@ public class SocketNativePresenter implements SocketContract.Presenter {
         subscriber.subscribe(
                 socket -> {
                     this.socket = socket;
-                    withView(SocketContract.View::connectReady);
+                    withView(View::connectReady);
                     consumer.accept(socket);
                 },
-                throwable -> withView(SocketContract.View::showConnectError)
+                throwable -> withView(View::showConnectError)
         );
     }
 
@@ -98,10 +92,10 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                     .subscribe(
                             this::responseReceived,
                             throwable -> {
-                                withView(SocketContract.View::showConnectError);
-                                withView(SocketContract.View::disconnected);
+                                withView(View::showConnectError);
+                                withView(View::disconnected);
                             },
-                            () -> withView(SocketContract.View::disconnected)
+                            () -> withView(View::disconnected)
                     );
         }
     }
@@ -121,18 +115,20 @@ public class SocketNativePresenter implements SocketContract.Presenter {
     }
 
     @Override
-    public void doStarted() {
+    public void started() {
+        super.started();
         doConnect(s -> startReceive());
     }
 
     @Override
-    public void doStop() {
+    public void stoped() {
+        super.stoped();
         disconnect();
     }
 
     @Override
-    public void doDestroy() {
-        viewRef.clear();
+    public void destroyed() {
+        super.destroyed();
         rxSendManager.clear();
         rxReceiverManager.clear();
     }
@@ -156,7 +152,7 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                     .config(completable -> completable.retry(3))
                     .subscribe(
                             Functions.EMPTY_ACTION,
-                            throwable -> withView(SocketContract.View::showRemoteError)
+                            throwable -> withView(view -> view.showDefaultError(throwable))
                     );
         }
     }
@@ -180,7 +176,7 @@ public class SocketNativePresenter implements SocketContract.Presenter {
                     .config(completable -> completable.retry(3))
                     .subscribe(
                             Functions.EMPTY_ACTION,
-                            throwable -> withView(SocketContract.View::showRemoteError)
+                            throwable -> withView(view -> view.showDefaultError(throwable))
                     );
         }
     }

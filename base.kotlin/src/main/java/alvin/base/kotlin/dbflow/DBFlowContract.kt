@@ -2,10 +2,12 @@ package alvin.base.kotlin.dbflow
 
 import alvin.base.kotlin.dbflow.domain.models.Gender
 import alvin.base.kotlin.dbflow.domain.models.Person
+import alvin.lib.mvp.IPresenter
+import alvin.lib.mvp.IView
 
 object DBFlowContract {
 
-    interface View {
+    interface View : IView {
         fun personCreated(result: Person)
         fun showPersonEditError()
         fun getQueryGender(): Gender?
@@ -15,10 +17,7 @@ object DBFlowContract {
         fun personDeleted(person: Person)
     }
 
-    interface Presenter {
-        fun doCreated()
-        fun doStarted()
-        fun doDestroyed()
+    interface Presenter : IPresenter {
         fun reloadPersons()
         fun savePerson(person: Person)
         fun updatePerson(person: Person)

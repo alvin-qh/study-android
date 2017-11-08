@@ -1,5 +1,6 @@
 package alvin.base.net.http.views;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -13,14 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import alvin.base.net.R;
-import alvin.base.net.http.WeatherContract;
 import alvin.base.net.http.models.LiveWeather;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public abstract class HttpBaseActivity extends AppCompatActivity implements WeatherContract.View {
-    private WeatherContract.Presenter presenter;
+import static alvin.base.net.http.WeatherContract.Presenter;
+import static alvin.base.net.http.WeatherContract.View;
+
+public abstract class HttpBaseActivity extends AppCompatActivity implements View {
+    private Presenter presenter;
 
     @BindView(R.id.text_weather)
     TextView textWeather;
@@ -33,26 +36,26 @@ public abstract class HttpBaseActivity extends AppCompatActivity implements Weat
         ButterKnife.bind(this);
 
         presenter = getPresenter();
-        presenter.doCreate();
+        presenter.created();
     }
 
-    protected abstract WeatherContract.Presenter getPresenter();
+    protected abstract Presenter getPresenter();
 
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.showLiveWeather();
+        presenter.started();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.doDestroy();
+        presenter.destroyed();
     }
 
     @OnClick(R.id.btn_refresh)
     public void onRefreshButtonClick(Button b) {
-        presenter.showLiveWeather();
+        presenter.getLiveWeather();
     }
 
     @Override
@@ -143,7 +146,12 @@ public abstract class HttpBaseActivity extends AppCompatActivity implements Weat
     }
 
     @Override
-    public void showWeatherError() {
+    public void showDefaultError(Throwable t) {
         Toast.makeText(this, R.string.error_get_weather, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public Context context() {
+        return this;
     }
 }

@@ -6,50 +6,45 @@ import android.support.annotation.NonNull;
 
 import com.google.common.base.Strings;
 
-import java.lang.ref.WeakReference;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.function.Consumer;
 
-import alvin.base.net.socket.SocketContract;
 import alvin.base.net.socket.models.Command;
 import alvin.base.net.socket.models.CommandAck;
 import alvin.base.net.socket.net.ChannelContext;
 import alvin.base.net.socket.net.SocketNetty;
 import alvin.base.net.socket.net.SocketNetworkException;
+import alvin.lib.mvp.PresenterAdapter;
 
-public class SocketNettyPresenter implements SocketContract.Presenter, SocketNetty.OnNetworkFutureListener {
-    private final WeakReference<SocketContract.View> viewRef;
+import static alvin.base.net.socket.SocketContract.Presenter;
+import static alvin.base.net.socket.SocketContract.View;
+
+public class SocketNettyPresenter extends PresenterAdapter<View> implements Presenter, SocketNetty.OnNetworkFutureListener {
 
     private SocketNetty socket;
     private Handler mainThreadHandler;
 
-    public SocketNettyPresenter(@NonNull SocketContract.View view) {
-        this.viewRef = new WeakReference<>(view);
-    }
-
-    private void withView(Consumer<SocketContract.View> consumer) {
-        SocketContract.View view = viewRef.get();
-        if (view != null) {
-            consumer.accept(view);
-        }
+    public SocketNettyPresenter(@NonNull View view) {
+        super(view);
     }
 
     @Override
-    public void doStarted() {
+    public void started() {
+        super.started();
         this.mainThreadHandler = new Handler(Looper.getMainLooper());
         this.socket = new SocketNetty(this);
     }
 
     @Override
-    public void doStop() {
+    public void stoped() {
+        super.stoped();
         mainThreadHandler.removeCallbacksAndMessages(null);
         disconnect();
     }
 
     @Override
-    public void doDestroy() {
-        viewRef.clear();
+    public void destroyed() {
+        super.destroyed();
     }
 
     @Override
@@ -68,12 +63,12 @@ public class SocketNettyPresenter implements SocketContract.Presenter, SocketNet
 
     @Override
     public void onConnected(ChannelContext context) {
-        withView(SocketContract.View::connectReady);
+        withView(View::connectReady);
     }
 
     @Override
     public void onDisconnected(ChannelContext context) {
-        withView(SocketContract.View::disconnected);
+        withView(View::disconnected);
     }
 
     @Override
@@ -106,10 +101,10 @@ public class SocketNettyPresenter implements SocketContract.Presenter, SocketNet
                     view.showConnectError();
                     break;
                 default:
-                    view.showRemoteError();
+                    view.showDefaultError(t);
                 }
             } else {
-                view.showRemoteError();
+                view.showDefaultError(t);
             }
         }));
     }

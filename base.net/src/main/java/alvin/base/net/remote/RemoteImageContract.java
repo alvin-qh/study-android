@@ -1,32 +1,22 @@
 package alvin.base.net.remote;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 import java.util.function.Consumer;
 
-public final class RemoteImageContract {
+import alvin.lib.mvp.IPresenter;
+import alvin.lib.mvp.IView;
 
-    private RemoteImageContract() {
-    }
+public interface RemoteImageContract {
 
-    public interface View {
-        Context context();
+    interface View extends IView {
 
         void imageSrcLoaded();
 
         void imageLoadFailed(String imageSrc);
     }
 
-    public interface Presenter {
-
-        void doCreate();
-
-        void doStart();
-
-        void doStop();
-
-        void doDestroy();
+    interface Presenter extends IPresenter {
 
         String getImageSrcAt(int position);
 

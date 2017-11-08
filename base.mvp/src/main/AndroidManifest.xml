@@ -25,6 +25,7 @@
             android:name=".basic.views.BasicMainActivity"
             android:label="@string/title_basic"
             android:parentActivityName=".MainActivity" />
+        <activity android:name=".android.views.AndroidMainActivity" />
 
     </application>
 </manifest>
