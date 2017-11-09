@@ -19,9 +19,9 @@
             android:id="@+id/tv_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
+            android:layout_weight="1"
             android:textSize="@dimen/font_size_list_item_message"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,12 +51,11 @@
         tools:text="2017-12-11 13:00:00" />
 
     <View
+        style="@style/Widget.Line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:background="@color/colorAccent"
         app:layout_constraintTop_toBottomOf="@id/tv_timestamp" />
-
 
 </android.support.constraint.ConstraintLayout>

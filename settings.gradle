@@ -1,1 +1,13 @@
-include ':base.basic', ':base.java8', ':ui.butterknife', ':base.preferences', ':base.database', ':base.kotlin', ':base.mvp', ':base.net', ':ui.merge', ':lib.common', ':lib.widget', ':ui.list', ':base.sign'
+include ':lib.common',
+//        ':base.basic',
+//        ':base.java8',
+//        ':base.preferences',
+//        ':base.sign',
+//        ':base.database',
+//        ':base.net',
+//        ':base.kotlin',
+        ':base.mvp',
+//        ':ui.butterknife',
+//        ':ui.list',
+//        ':ui.merge',
+        ':lib.widget'

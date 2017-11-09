@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,13 +9,35 @@
     android:paddingEnd="20dp"
     android:paddingStart="20dp"
     android:paddingTop="30dp"
-    android:theme="@style/AppTheme.Fragment">
+    android:theme="@style/AppTheme.Fragment"
+    tools:background="#0e0e0e">
 
     <LinearLayout
         android:id="@+id/ll_singleton_server"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_singleton_service" />
+
+        <TextView
+            android:id="@+id/tv_singleton_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            tools:text="SingletonService@12345" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_session_server"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/ll_singleton_server">
 
         <TextView
             android:layout_width="wrap_content"

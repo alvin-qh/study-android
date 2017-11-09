@@ -5,10 +5,18 @@ import alvin.lib.mvp.IView;
 
 public interface ScopeContract {
 
-    interface View extends IView {
+    interface ScopeActivityView extends IView {
         void showSingletonService(String name);
     }
 
-    interface Presenter extends IPresenter {
+    interface ScopeFragmentView extends ScopeActivityView {
+        void showSessionService(String name);
+    }
+
+    interface ScopeActivityPresenter extends IPresenter {
+    }
+
+    interface ScopeFragmentPresenter extends IPresenter {
+
     }
 }

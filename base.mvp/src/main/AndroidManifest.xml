@@ -27,13 +27,13 @@
             android:parentActivityName=".MainActivity" />
 
         <activity
-            android:name=".android.views.AndroidMainActivity"
-            android:label="@string/title_basic"
+            android:name=".scope.views.ScopeActivity"
+            android:label="@string/title_scope"
             android:parentActivityName=".MainActivity" />
 
         <activity
-            android:name=".scope.views.ScopeMainActivity"
-            android:label="@string/title_scope"
+            android:name=".android.views.AndroidMainActivity"
+            android:label="@string/title_android"
             android:parentActivityName=".MainActivity" />
 
     </application>

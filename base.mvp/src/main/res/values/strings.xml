@@ -10,6 +10,6 @@
     <string name="btn_save">Save</string>
     <string name="btn_delete">x</string>
 
-    <string name="label_singleton_service">Singleton Service</string>
-    <string name="label_session_service">Session Service</string>
+    <string name="label_singleton_service">Activity</string>
+    <string name="label_session_service">Fragment</string>
 </resources>

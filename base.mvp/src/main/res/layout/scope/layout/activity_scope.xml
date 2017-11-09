@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/AppTheme.Fragment"
-    tools:context=".scope.views.ScopeMainActivity">
+    tools:context=".scope.views.ScopeActivity">
 
     <LinearLayout
         android:id="@+id/ll_singleton_server"
@@ -34,18 +34,18 @@
 
     <fragment
         android:id="@+id/frg_session_1"
-        android:name="alvin.base.mvp.scope.views.SessionFragment"
+        android:name="alvin.base.mvp.scope.views.ScopeFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/ll_singleton_server"
-        tools:layout="@layout/fragment_session" />
+        tools:layout="@layout/fragment_scope" />
 
     <fragment
         android:id="@+id/frg_session_2"
-        android:name="alvin.base.mvp.scope.views.SessionFragment"
+        android:name="alvin.base.mvp.scope.views.ScopeFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/frg_session_1"
-        tools:layout="@layout/fragment_session" />
+        tools:layout="@layout/fragment_scope" />
 
 </android.support.constraint.ConstraintLayout>

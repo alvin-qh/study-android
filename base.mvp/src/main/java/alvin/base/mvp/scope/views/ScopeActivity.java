@@ -10,14 +10,15 @@ import javax.inject.Inject;
 
 import alvin.base.mvp.R;
 import alvin.base.mvp.scope.ScopeContract;
-import alvin.base.mvp.scope.di.DaggerScopeSingletonComponent;
-import alvin.base.mvp.scope.di.ScopeSingletonComponent;
-import alvin.base.mvp.scope.di.ScopeSingletonModule;
+import alvin.base.mvp.scope.di.DaggerScopeActivityComponent;
+import alvin.base.mvp.scope.di.ScopeActivityComponent;
+import alvin.base.mvp.scope.di.ScopeActivityModule;
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ScopeMainActivity extends AppCompatActivity implements ScopeContract.View {
+public class ScopeActivity extends AppCompatActivity
+        implements ScopeContract.ScopeActivityView {
 
     @BindView(R.id.tv_singleton_service)
     TextView tvSingletonService;
@@ -28,33 +29,32 @@ public class ScopeMainActivity extends AppCompatActivity implements ScopeContrac
     @BindColor(R.color.color_green)
     int colorGreen;
 
-    SessionFragment fragment1;
+    ScopeFragment fragment1;
 
-    SessionFragment fragment2;
+    ScopeFragment fragment2;
 
     @Inject
-    ScopeContract.Presenter presenter;
+    ScopeContract.ScopeActivityPresenter presenter;
 
-    private ScopeSingletonComponent singletonComponent;
+    private ScopeActivityComponent component;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_scope_main);
+        component = DaggerScopeActivityComponent.builder()
+                .scopeActivityModule(new ScopeActivityModule(this))
+                .build();
+        component.inject(this);
 
+        setContentView(R.layout.activity_scope);
         ButterKnife.bind(this);
 
-        fragment1 = (SessionFragment) getFragmentManager().findFragmentById(R.id.frg_session_1);
+        fragment1 = (ScopeFragment) getFragmentManager().findFragmentById(R.id.frg_session_1);
         fragment1.setBackground(colorBlue);
 
-        fragment2 = (SessionFragment) getFragmentManager().findFragmentById(R.id.frg_session_2);
+        fragment2 = (ScopeFragment) getFragmentManager().findFragmentById(R.id.frg_session_2);
         fragment2.setBackground(colorGreen);
-
-        singletonComponent = DaggerScopeSingletonComponent.builder()
-                .scopeSingletonModule(new ScopeSingletonModule(this))
-                .build();
-        singletonComponent.inject(this);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class ScopeMainActivity extends AppCompatActivity implements ScopeContrac
         tvSingletonService.setText(name);
     }
 
-    public ScopeSingletonComponent getSingletonComponent() {
-        return singletonComponent;
+    public ScopeActivityComponent component() {
+        return component;
     }
 }
