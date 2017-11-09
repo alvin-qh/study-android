@@ -12,7 +12,6 @@ dependencies {
     implementation libs.main.rx
     implementation libs.main.kotlin
     implementation libs.main.dagger
-    implementation libs.main.dbflow
 
     testImplementation libs.test.java
 }

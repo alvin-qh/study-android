@@ -1,4 +1,4 @@
-package alvin.base.mvp.common;
+package alvin.base.mvp.common.views;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -14,19 +14,20 @@ import java.util.Collections;
 import java.util.List;
 
 import alvin.base.mvp.R;
-import alvin.base.mvp.domain.models.Message;
+import alvin.base.mvp.common.Contract;
+import alvin.base.mvp.common.domain.models.Message;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
-    private final Constract.Presenter presenter;
+    private final Contract.Presenter presenter;
 
     private List<Message> messages = Collections.emptyList();
 
     MessageListAdapter(@NonNull Context context,
-                       @NonNull Constract.Presenter presenter) {
+                       @NonNull Contract.Presenter presenter) {
         this.inflater = LayoutInflater.from(context);
         this.presenter = presenter;
         this.messages = messages;

@@ -4,11 +4,11 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import alvin.base.mvp.domain.models.Message;
+import alvin.base.mvp.common.domain.models.Message;
 import alvin.lib.mvp.IPresenter;
 import alvin.lib.mvp.IView;
 
-public interface Constract {
+public interface Contract {
 
     interface View extends IView {
 

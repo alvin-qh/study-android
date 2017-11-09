@@ -4,8 +4,8 @@ import android.content.Context;
 
 import javax.inject.Inject;
 
-import alvin.base.mvp.common.BaseActivity;
-import alvin.base.mvp.common.Constract;
+import alvin.base.mvp.common.Contract;
+import alvin.base.mvp.common.views.BaseActivity;
 import dagger.android.AndroidInjection;
 
 public class AndroidMainActivity extends BaseActivity {
@@ -14,7 +14,7 @@ public class AndroidMainActivity extends BaseActivity {
     Context context;
 
     @Override
-    protected Constract.Presenter getPresenter() {
+    protected Contract.Presenter getPresenter() {
         return null;
     }
 

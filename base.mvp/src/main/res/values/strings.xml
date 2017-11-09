@@ -2,8 +2,14 @@
     <string name="app_name">Dagger MVP Demo</string>
 
     <string name="title_basic">Dagger Basic</string>
+    <string name="title_scope">Dagger Scopes</string>
+    <string name="title_android">Dagger for Android</string>
 
     <string name="btn_basic">Dagger Basic</string>
+    <string name="btn_scope">Dagger Scope</string>
     <string name="btn_save">Save</string>
     <string name="btn_delete">x</string>
+
+    <string name="label_singleton_service">Singleton Service</string>
+    <string name="label_session_service">Session Service</string>
 </resources>

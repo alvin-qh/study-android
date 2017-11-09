@@ -5,15 +5,15 @@ import javax.inject.Singleton;
 
 import alvin.base.mvp.basic.di.BasicMainActivityModule;
 import alvin.base.mvp.basic.di.DaggerBasicMainActivityComponent;
-import alvin.base.mvp.basic.presenters.BasicPresenter;
-import alvin.base.mvp.common.BaseActivity;
-import alvin.base.mvp.common.Constract;
+import alvin.base.mvp.common.Contract;
+import alvin.base.mvp.common.views.BaseActivity;
+
 
 @Singleton
-public class BasicMainActivity extends BaseActivity implements Constract.View {
+public class BasicMainActivity extends BaseActivity implements Contract.View {
 
     @Inject
-    BasicPresenter presenter;
+    Contract.Presenter presenter;
 
     @Override
     protected void inject() {
@@ -24,7 +24,7 @@ public class BasicMainActivity extends BaseActivity implements Constract.View {
     }
 
     @Override
-    protected Constract.Presenter getPresenter() {
+    protected Contract.Presenter getPresenter() {
         return presenter;
     }
 }

@@ -1,5 +1,7 @@
 package alvin.base.mvp.basic.domain.repositories;
 
+import android.support.annotation.NonNull;
+
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
@@ -8,21 +10,16 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
-import alvin.base.mvp.domain.models.Message;
-import alvin.base.mvp.domain.models.Message_Table;
+import alvin.base.mvp.common.domain.models.Message;
+import alvin.base.mvp.common.domain.models.Message_Table;
 import alvin.lib.common.collect.Collections2;
+import alvin.lib.common.dbflow.repositories.BaseRepository;
 
-public class MessageRepository {
-
-    private final DatabaseDefinition database;
+public class MessageRepository extends BaseRepository<Message> {
 
     @Inject
-    public MessageRepository(DatabaseDefinition database) {
-        this.database = database;
-    }
-
-    public void save(Message message) {
-        database.executeTransaction(db -> message.save());
+    public MessageRepository(@NonNull DatabaseDefinition database) {
+        super(database);
     }
 
     public List<Message> findAll() {
@@ -37,9 +34,5 @@ public class MessageRepository {
                         .where(Message_Table.id.eq(messageId))
                         .queryList()
         );
-    }
-
-    public void delete(Message message) {
-        database.executeTransaction(db -> message.delete());
     }
 }

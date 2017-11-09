@@ -1,4 +1,4 @@
-package alvin.base.mvp.common;
+package alvin.base.mvp.common.views;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,15 +14,13 @@ import android.widget.EditText;
 import java.util.List;
 
 import alvin.base.mvp.R;
-import alvin.base.mvp.domain.models.Message;
+import alvin.base.mvp.common.Contract;
+import alvin.base.mvp.common.domain.models.Message;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static alvin.base.mvp.common.Constract.Presenter;
-import static alvin.base.mvp.common.Constract.View;
-
-public abstract class BaseActivity extends AppCompatActivity implements View {
+public abstract class BaseActivity extends AppCompatActivity implements Contract.View {
 
     @BindView(R.id.et_message)
     EditText etMessage;
@@ -31,7 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View {
     RecyclerView rvMessageListView;
 
     private MessageListAdapter listAdapter;
-    private Presenter presenter;
+    private Contract.Presenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,7 +82,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View {
         presenter.createMessage(etMessage.getText().toString());
     }
 
-    protected abstract Presenter getPresenter();
+    protected abstract Contract.Presenter getPresenter();
 
     protected abstract void inject();
 }

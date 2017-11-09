@@ -1,4 +1,4 @@
-package alvin.base.mvp.di;
+package alvin.base.mvp.common.di;
 
 import android.content.Context;
 

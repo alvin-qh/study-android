@@ -8,17 +8,15 @@ import java.util.List;
 import javax.inject.Inject;
 
 import alvin.base.mvp.basic.domain.repositories.MessageRepository;
-import alvin.base.mvp.domain.models.Message;
+import alvin.base.mvp.common.Contract;
+import alvin.base.mvp.common.domain.models.Message;
 import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.RxSchedulers;
 import alvin.lib.common.rx.SingleSubscriber;
 import alvin.lib.mvp.PresenterAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-import static alvin.base.mvp.common.Constract.Presenter;
-import static alvin.base.mvp.common.Constract.View;
-
-public class BasicPresenter extends PresenterAdapter<View> implements Presenter {
+public class BasicPresenter extends PresenterAdapter<Contract.View> implements Contract.Presenter {
 
     private final RxManager rxManager = RxManager.newBuilder()
             .withSubscribeOn(RxSchedulers::database)
@@ -28,7 +26,7 @@ public class BasicPresenter extends PresenterAdapter<View> implements Presenter 
     private final MessageRepository messageRepository;
 
     @Inject
-    public BasicPresenter(@NonNull View view,
+    public BasicPresenter(@NonNull Contract.View view,
                           @NonNull MessageRepository messageRepository) {
         super(view);
         this.messageRepository = messageRepository;

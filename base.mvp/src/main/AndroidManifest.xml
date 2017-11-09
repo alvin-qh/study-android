@@ -25,7 +25,16 @@
             android:name=".basic.views.BasicMainActivity"
             android:label="@string/title_basic"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".android.views.AndroidMainActivity" />
+
+        <activity
+            android:name=".android.views.AndroidMainActivity"
+            android:label="@string/title_basic"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".scope.views.ScopeMainActivity"
+            android:label="@string/title_scope"
+            android:parentActivityName=".MainActivity" />
 
     </application>
 </manifest>
