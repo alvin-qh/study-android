@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/AppTheme.Fragment"
-    tools:context=".scope.views.ScopeActivity">
+    tools:context=".scope.views.DependencyActivity">
 
     <LinearLayout
-        android:id="@+id/ll_singleton_server"
+        android:id="@+id/ll_activity_scope"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/color_red"
@@ -22,30 +22,28 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_singleton_service" />
+            android:text="@string/label_activity_scope" />
 
         <TextView
-            android:id="@+id/tv_singleton_service"
+            android:id="@+id/tv_activity_scope"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            tools:text="SingletonService@12345" />
+            tools:text="ActivityService@12345" />
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/frg_session_1"
-        android:name="alvin.base.mvp.scope.views.ScopeFragment"
+    <FrameLayout
+        android:id="@+id/frg_scope_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ll_singleton_server"
+        app:layout_constraintTop_toBottomOf="@id/ll_activity_scope"
         tools:layout="@layout/fragment_scope" />
 
-    <fragment
-        android:id="@+id/frg_session_2"
-        android:name="alvin.base.mvp.scope.views.ScopeFragment"
+    <FrameLayout
+        android:id="@+id/frg_scope_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/frg_session_1"
+        app:layout_constraintTop_toBottomOf="@id/frg_scope_1"
         tools:layout="@layout/fragment_scope" />
 
 </android.support.constraint.ConstraintLayout>

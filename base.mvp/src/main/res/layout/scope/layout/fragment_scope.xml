@@ -13,7 +13,7 @@
     tools:background="#0e0e0e">
 
     <LinearLayout
-        android:id="@+id/ll_singleton_server"
+        android:id="@+id/ll_activity_scope"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -21,23 +21,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_singleton_service" />
+            android:text="@string/label_activity_scope" />
 
         <TextView
-            android:id="@+id/tv_singleton_service"
+            android:id="@+id/tv_activity_scope"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            tools:text="SingletonService@12345" />
+            tools:text="ActivityService@12345" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_session_server"
+        android:id="@+id/ll_fragment_scope"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/ll_singleton_server">
+        app:layout_constraintTop_toBottomOf="@id/ll_activity_scope">
 
         <TextView
             android:layout_width="wrap_content"
@@ -45,7 +45,7 @@
             android:text="@string/label_session_service" />
 
         <TextView
-            android:id="@+id/tv_session_service"
+            android:id="@+id/tv_fragment_scope"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"

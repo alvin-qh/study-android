@@ -4,10 +4,10 @@ import javax.inject.Inject;
 
 import alvin.base.mvp.scope.di.Scopes;
 
-@Scopes.Activity
-public class ScopeActivityService {
+@Scopes.Fragment
+public class FragmentScopeService {
 
     @Inject
-    public ScopeActivityService() {
+    public FragmentScopeService() {
     }
 }

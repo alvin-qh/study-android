@@ -8,9 +8,11 @@
 
     <string name="btn_basic">Dagger Basic</string>
     <string name="btn_scope">Dagger Scope</string>
+    <string name="btn_dependency">Scope by dependency</string>
+    <string name="btn_subcomponent">Scope by subcomponent</string>
     <string name="btn_save">Save</string>
     <string name="btn_delete">x</string>
 
-    <string name="label_singleton_service">Activity</string>
+    <string name="label_activity_scope">Activity</string>
     <string name="label_session_service">Fragment</string>
 </resources>

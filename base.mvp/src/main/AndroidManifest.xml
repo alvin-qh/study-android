@@ -32,7 +32,7 @@
             android:parentActivityName=".MainActivity" />
 
         <activity
-            android:name=".scope.views.ScopeActivity"
+            android:name=".scope.views.DependencyActivity"
             android:label="@string/title_scope_dependence"
             android:parentActivityName=".scope.ScopeMainActivity" />
 
@@ -40,6 +40,8 @@
             android:name=".android.views.AndroidMainActivity"
             android:label="@string/title_android"
             android:parentActivityName=".MainActivity" />
+
+        <activity android:name=".scope.views.SubcomponentActivity" />
 
     </application>
 </manifest>

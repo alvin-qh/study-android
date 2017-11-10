@@ -13,46 +13,42 @@ import javax.inject.Inject;
 
 import alvin.base.mvp.R;
 import alvin.base.mvp.scope.ScopeContract;
-import alvin.base.mvp.scope.di.DaggerScopeFragmentComponent;
-import alvin.base.mvp.scope.di.ScopeFragmentModule;
+import alvin.base.mvp.scope.di.SubcomponentComponents;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class ScopeFragment extends Fragment
-        implements ScopeContract.ScopeFragmentView {
+public class SubcomponentFragment extends Fragment implements ScopeContract.FragmentView {
 
     private Unbinder unbinder;
 
-    @BindView(R.id.tv_singleton_service)
-    TextView tvSingletonService;
+    @BindView(R.id.tv_activity_scope)
+    TextView tvActivityScope;
 
-    @BindView(R.id.tv_session_service)
-    TextView tvSessionService;
+    @BindView(R.id.tv_fragment_scope)
+    TextView tvFragmentScope;
 
     @Inject
-    ScopeContract.ScopeFragmentPresenter presenter;
+    ScopeContract.FragmentPresenter presenter;
 
+    private Integer backgroundColor;
+
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
-        final ScopeActivity activity = (ScopeActivity) getActivity();
-        DaggerScopeFragmentComponent.builder()
-                .scopeActivityComponent(activity.component())
-                .scopeFragmentModule(new ScopeFragmentModule(this))
-                .build().inject(this);
-
         final View view = inflater.inflate(R.layout.fragment_scope, container, false);
         unbinder = ButterKnife.bind(this, view);
 
+        final SubcomponentActivity activity = (SubcomponentActivity) getActivity();
+        activity.component().subcomponentFragmentComponentBuilder()
+                .fragmentModule(new SubcomponentComponents.SubcomponentFragmentModule(this))
+                .build().inject(this);
+
+        if (backgroundColor != null) {
+            view.setBackgroundColor(backgroundColor);
+        }
+
         return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        presenter.started();
     }
 
     public void setBackground(int color) {
@@ -60,14 +56,19 @@ public class ScopeFragment extends Fragment
         if (view != null) {
             view.setBackgroundColor(color);
         }
+        backgroundColor = color;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        presenter.started();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (unbinder != null) {
-            unbinder.unbind();
-        }
+        unbinder.unbind();
     }
 
     @Override
@@ -76,12 +77,12 @@ public class ScopeFragment extends Fragment
     }
 
     @Override
-    public void showSingletonService(String name) {
-        tvSingletonService.setText(name);
+    public void showActivityScopeService(String name) {
+        tvActivityScope.setText(name);
     }
 
     @Override
-    public void showSessionService(String name) {
-        tvSessionService.setText(name);
+    public void showFragmentScopeService(String name) {
+        tvFragmentScope.setText(name);
     }
 }

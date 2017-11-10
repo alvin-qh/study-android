@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import alvin.base.mvp.basic.views.BasicMainActivity;
-import alvin.base.mvp.scope.views.ScopeActivity;
+import alvin.base.mvp.scope.ScopeMainActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             intent = new Intent(this, BasicMainActivity.class);
             break;
         case R.id.btn_scope:
-            intent = new Intent(this, ScopeActivity.class);
+            intent = new Intent(this, ScopeMainActivity.class);
             break;
         default:
             intent = null;
