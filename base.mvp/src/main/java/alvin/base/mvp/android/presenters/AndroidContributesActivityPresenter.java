@@ -8,8 +8,9 @@ import javax.inject.Named;
 import alvin.base.mvp.android.di.Names;
 import alvin.base.mvp.basic.domain.repositories.MessageRepository;
 import alvin.base.mvp.common.Contract;
+import alvin.base.mvp.common.presenters.BaseActivityPresenter;
 
-public class AndroidContributesActivityPresenter extends AndroidActivityPresenter {
+public class AndroidContributesActivityPresenter extends BaseActivityPresenter {
 
     @Inject
     public AndroidContributesActivityPresenter(@NonNull @Named(Names.CONTRIBUTES) Contract.View view,

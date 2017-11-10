@@ -1,4 +1,4 @@
-package alvin.base.mvp.android.presenters;
+package alvin.base.mvp.common.presenters;
 
 import android.support.annotation.NonNull;
 
@@ -14,7 +14,7 @@ import alvin.lib.common.rx.SingleSubscriber;
 import alvin.lib.mvp.PresenterAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public abstract class AndroidActivityPresenter extends PresenterAdapter<Contract.View> implements Contract.Presenter {
+public abstract class BaseActivityPresenter extends PresenterAdapter<Contract.View> implements Contract.Presenter {
 
     private final RxManager rxManager = RxManager.newBuilder()
             .withSubscribeOn(RxSchedulers::database)
@@ -23,8 +23,8 @@ public abstract class AndroidActivityPresenter extends PresenterAdapter<Contract
 
     private final MessageRepository messageRepository;
 
-    public AndroidActivityPresenter(@NonNull Contract.View view,
-                                    @NonNull MessageRepository messageRepository) {
+    public BaseActivityPresenter(@NonNull Contract.View view,
+                                 @NonNull MessageRepository messageRepository) {
         super(view);
         this.messageRepository = messageRepository;
     }

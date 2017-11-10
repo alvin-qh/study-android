@@ -3,7 +3,7 @@ package alvin.base.mvp.basic.di;
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
-import alvin.base.mvp.basic.presenters.BasicPresenter;
+import alvin.base.mvp.basic.presenters.BasicMainActivityPresenter;
 import alvin.base.mvp.common.Contract;
 import alvin.base.mvp.common.db.MessageDatabase;
 import dagger.Binds;
@@ -33,6 +33,6 @@ public class BasicMainActivityModule {
     public interface BindingModule {
 
         @Binds
-        Contract.Presenter bindsPresenter(BasicPresenter presenter);
+        Contract.Presenter bindsPresenter(BasicMainActivityPresenter presenter);
     }
 }
