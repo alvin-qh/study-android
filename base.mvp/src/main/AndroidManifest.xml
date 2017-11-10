@@ -37,11 +37,25 @@
             android:parentActivityName=".scope.ScopeMainActivity" />
 
         <activity
+            android:name=".scope.views.SubcomponentActivity"
+            android:label="@string/title_scope_subcomponent"
+            android:parentActivityName=".scope.ScopeMainActivity" />
+
+
+        <activity
             android:name=".android.views.AndroidMainActivity"
             android:label="@string/title_android"
             android:parentActivityName=".MainActivity" />
 
-        <activity android:name=".scope.views.SubcomponentActivity" />
+        <activity
+            android:name=".android.views.AndroidSubcomponentActivity"
+            android:label="@string/title_android_subcomponent"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".android.views.AndroidContributesActivity"
+            android:label="@string/title_android_contributes"
+            android:parentActivityName=".android.views.AndroidMainActivity" />
 
     </application>
 </manifest>

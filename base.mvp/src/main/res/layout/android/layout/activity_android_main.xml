@@ -8,23 +8,16 @@
     tools:context=".MainActivity">
 
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_basic"
+        android:id="@+id/btn_subcomponent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_basic" />
+        android:text="@string/btn_android_subcomponent" />
 
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_scope"
+        android:id="@+id/btn_contributes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_scope"
-        app:layout_constraintTop_toBottomOf="@id/btn_basic" />
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_android"
-        app:layout_constraintTop_toBottomOf="@id/btn_scope" />
+        android:text="@string/btn_android_contributes"
+        app:layout_constraintTop_toBottomOf="@id/btn_subcomponent" />
 
 </android.support.constraint.ConstraintLayout>

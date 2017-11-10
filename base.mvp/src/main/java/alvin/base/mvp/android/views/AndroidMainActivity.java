@@ -1,25 +1,45 @@
 package alvin.base.mvp.android.views;
 
-import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 
-import javax.inject.Inject;
+import alvin.base.mvp.R;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-import alvin.base.mvp.common.Contract;
-import alvin.base.mvp.common.views.BaseActivity;
-import dagger.android.AndroidInjection;
-
-public class AndroidMainActivity extends BaseActivity {
-
-    @Inject
-    Context context;
+public class AndroidMainActivity extends AppCompatActivity {
 
     @Override
-    protected Contract.Presenter getPresenter() {
-        return null;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_android_main);
+        ButterKnife.bind(this);
     }
 
-    @Override
-    protected void inject() {
-        AndroidInjection.inject(this);
+    @OnClick({
+            R.id.btn_subcomponent,
+            R.id.btn_contributes
+    })
+    public void onButtonsClick(Button b) {
+        Intent intent;
+
+        switch (b.getId()) {
+        case R.id.btn_subcomponent:
+            intent = new Intent(this, AndroidSubcomponentActivity.class);
+            break;
+        case R.id.btn_contributes:
+            intent = new Intent(this, AndroidContributesActivity.class);
+            break;
+        default:
+            intent = null;
+        }
+
+        if (intent != null) {
+            startActivity(intent);
+        }
     }
 }

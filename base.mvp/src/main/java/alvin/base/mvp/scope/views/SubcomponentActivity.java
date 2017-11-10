@@ -65,6 +65,12 @@ public class SubcomponentActivity extends AppCompatActivity implements ScopeCont
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        presenter.started();
+    }
+
+    @Override
     public Context context() {
         return this;
     }
@@ -75,5 +81,6 @@ public class SubcomponentActivity extends AppCompatActivity implements ScopeCont
 
     @Override
     public void showActivityScopeService(String name) {
+        tvSingletonService.setText(name);
     }
 }
