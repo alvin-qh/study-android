@@ -3,6 +3,16 @@ apply plugin: 'java-library'
 sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
+checkstyleMain {
+    outputs.upToDateWhen { false }
+    configFile = checkstyleConfigs.main
+}
+
+checkstyleTest {
+    outputs.upToDateWhen { false }
+    configFile = checkstyleConfigs.test
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 

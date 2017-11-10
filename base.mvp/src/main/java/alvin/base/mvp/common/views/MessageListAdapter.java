@@ -69,7 +69,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
         @BindView(R.id.btn_delete)
         ImageButton btnDelete;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
 
             ButterKnife.bind(this, itemView);

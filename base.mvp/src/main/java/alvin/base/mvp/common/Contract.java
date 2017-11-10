@@ -17,7 +17,7 @@ public interface Contract {
 
     interface Presenter extends IPresenter {
 
-        void createMessage(@NonNull final String message);
+        void createMessage(@NonNull String message);
 
         void deleteMessage(int messageId);
     }

@@ -36,6 +36,11 @@ buildscript {
                 testRunner      : '1.0.1',
                 testEspresso    : '3.0.1'
         ]
+
+        checkstyleConfigs = [
+                main: file("${rootProject.rootDir}/.assets/checkstyle/checkstyle.xml"),
+                test: file("${rootProject.rootDir}/.assets/checkstyle/checkstyle-test.xml")
+        ]
     }
 
     repositories {
@@ -58,6 +63,7 @@ buildscript {
 }
 
 allprojects {
+
     repositories {
         jcenter()
         mavenCentral()
@@ -71,6 +77,20 @@ allprojects {
 subprojects {
 //  apply plugin: 'me.tatarka.retrolambda'  // Plugin support by java 8, Enable if SDK version < 24
 //  apply plugin: 'com.jakewharton.butterknife'
+
+    apply plugin: 'checkstyle'
+
+    checkstyle {
+        toolVersion '8.4'
+        ignoreFailures false
+        showViolations true
+    }
+
+    tasks.withType(Checkstyle) {
+        reports {
+            html.destination rootProject.file("build/reports/checkstyle.html")
+        }
+    }
 
     if (project.name.startsWith("lib.common")) {
         return
@@ -135,6 +155,40 @@ subprojects {
         lintOptions {
             abortOnError false
         }
+    }
+
+    // For android project
+    task checkstyleMain(type: Checkstyle) {
+        outputs.upToDateWhen { false }
+
+        source 'src/main'
+
+        include '**/*.java'
+
+        exclude '**/gen/**'
+        exclude '**/R.java'
+        exclude '**/BuildConfig.java'
+
+        classpath = files()
+        configFile = checkstyleConfigs.main
+    }
+
+    task checkstyleTest(type: Checkstyle) {
+        outputs.upToDateWhen { false }
+
+        source 'src/main'
+
+        include '**/*.java'
+
+        exclude '**/gen/**'
+        exclude '**/R.java'
+        exclude '**/BuildConfig.java'
+
+        classpath = files()
+        configFile = checkstyleConfigs.test
+    }
+
+    task checkstyle(dependsOn: [checkstyleMain, checkstyleTest]) {
     }
 }
 

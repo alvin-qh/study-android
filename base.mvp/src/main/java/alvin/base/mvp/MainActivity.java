@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
             R.id.btn_scope
     })
     public void onButtonsClick(Button b) {
-        Intent intent = null;
+        Intent intent;
 
         switch (b.getId()) {
         case R.id.btn_basic:
@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         case R.id.btn_scope:
             intent = new Intent(this, ScopeActivity.class);
             break;
+        default:
+            intent = null;
         }
 
         if (intent != null) {

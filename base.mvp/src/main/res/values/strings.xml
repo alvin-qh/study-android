@@ -3,6 +3,7 @@
 
     <string name="title_basic">Dagger Basic</string>
     <string name="title_scope">Dagger Scopes</string>
+    <string name="title_scope_dependence">Dagger Scopes</string>
     <string name="title_android">Dagger for Android</string>
 
     <string name="btn_basic">Dagger Basic</string>

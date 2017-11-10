@@ -36,8 +36,8 @@ org.gradle.daemon=true
 
 ### Enable instant build
 
-![Enable instant run](.assets/instant-run.jpg)
+![Enable instant run](.assets/images/instant-run.jpg)
 
 ### Setup compiler options
 
-![Compiler options](.assets/compiler.jpg)
+![Compiler options](.assets/images/compiler.jpg)

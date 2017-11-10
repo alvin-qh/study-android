@@ -29,10 +29,6 @@ public class ScopeActivity extends AppCompatActivity
     @BindColor(R.color.color_green)
     int colorGreen;
 
-    ScopeFragment fragment1;
-
-    ScopeFragment fragment2;
-
     @Inject
     ScopeContract.ScopeActivityPresenter presenter;
 
@@ -50,10 +46,10 @@ public class ScopeActivity extends AppCompatActivity
         setContentView(R.layout.activity_scope);
         ButterKnife.bind(this);
 
-        fragment1 = (ScopeFragment) getFragmentManager().findFragmentById(R.id.frg_session_1);
+        ScopeFragment fragment1 = (ScopeFragment) getFragmentManager().findFragmentById(R.id.frg_session_1);
         fragment1.setBackground(colorBlue);
 
-        fragment2 = (ScopeFragment) getFragmentManager().findFragmentById(R.id.frg_session_2);
+        ScopeFragment fragment2 = (ScopeFragment) getFragmentManager().findFragmentById(R.id.frg_session_2);
         fragment2.setBackground(colorGreen);
     }
 

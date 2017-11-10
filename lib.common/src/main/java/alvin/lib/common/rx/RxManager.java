@@ -18,7 +18,7 @@ import io.reactivex.SingleOnSubscribe;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class RxManager {
+public final class RxManager {
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     private final Supplier<Scheduler> subscribeOnSupplier;
@@ -46,11 +46,11 @@ public class RxManager {
         return observeOnSupplier.get();
     }
 
-    final void register(@NonNull Disposable disposable) {
+    void register(@NonNull Disposable disposable) {
         compositeDisposable.add(disposable);
     }
 
-    final void unregister(@NonNull Disposable disposable) {
+    void unregister(@NonNull Disposable disposable) {
         compositeDisposable.remove(disposable);
     }
 
@@ -127,7 +127,7 @@ public class RxManager {
         return new Builder();
     }
 
-    public static class Builder {
+    public static final class Builder {
         private Supplier<Scheduler> subscribeOnSupplier;
         private Supplier<Scheduler> observeOnSupplier;
 

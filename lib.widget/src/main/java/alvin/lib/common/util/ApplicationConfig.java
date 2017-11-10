@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class ApplicationConfig {
+public final class ApplicationConfig {
     private static ApplicationConfig instance;
 
     private final Properties properties = new Properties();

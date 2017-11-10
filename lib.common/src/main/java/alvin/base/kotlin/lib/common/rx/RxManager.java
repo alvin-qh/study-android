@@ -19,7 +19,7 @@ import kotlin.Unit;
 import kotlin.jvm.functions.Function0;
 import kotlin.jvm.functions.Function1;
 
-public class RxManager {
+public final class RxManager {
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     private final Function0<Scheduler> subscribeOnSupplier;
@@ -47,11 +47,11 @@ public class RxManager {
         return Preconditions.checkNotNull(observeOnSupplier.invoke(), "observe is null");
     }
 
-    final void register(@NonNull Disposable disposable) {
+    void register(@NonNull Disposable disposable) {
         compositeDisposable.add(disposable);
     }
 
-    final void unregister(@NonNull Disposable disposable) {
+    void unregister(@NonNull Disposable disposable) {
         compositeDisposable.remove(disposable);
     }
 
@@ -132,7 +132,7 @@ public class RxManager {
         return new Builder();
     }
 
-    public static class Builder {
+    public static final class Builder {
         private Function0<Scheduler> subscribeOnSupplier;
         private Function0<Scheduler> observeOnSupplier;
 
