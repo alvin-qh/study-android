@@ -4,6 +4,11 @@
 
 ### Define component
 
+Component is an object manager, it management all objects should be injected.
+
+Component also management scopes of each injection object
+
+
 Define component interface
 
 ```java
@@ -12,6 +17,8 @@ public interface MyComponent {
     void inject(MyClass target);
 }
 ```
+
+Use MyComponent::inject method, it can inject 
 
 Define one class with construct mark with `@Inject` annotation
 
@@ -25,7 +32,6 @@ public class MyService {
     
     ...
 }
-
 ```
 
 ### Compile
@@ -69,7 +75,6 @@ public class MyModule {
         return new MyProcessor(admin);
     }
 }
-
 ```
 > Constructor with arguments of module not necessary
 
