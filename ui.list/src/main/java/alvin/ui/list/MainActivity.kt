@@ -19,15 +19,9 @@ class MainActivity : AppCompatActivity() {
 
     @OnClick(R.id.btn_list, R.id.btn_grid)
     fun onButtonClick(b: Button) {
-        var intent: Intent? = null
-
-        when (b.id) {
-            R.id.btn_list -> {
-                intent = Intent(this, ListMainActivity::class.java)
-            }
-            R.id.btn_grid -> {
-                intent = null
-            }
+        val intent: Intent? = when (b.id) {
+            R.id.btn_list -> Intent(this, ListMainActivity::class.java)
+            else -> null
         }
 
         if (intent != null) {

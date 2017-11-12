@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".list.views.ListByRecyclerViewActivity">
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_list_view"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_list_view"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_recycler_view"
-        app:layout_constraintTop_toBottomOf="@id/btn_list_view" />
+        android:scrollbars="vertical" />
 
 </android.support.constraint.ConstraintLayout>
