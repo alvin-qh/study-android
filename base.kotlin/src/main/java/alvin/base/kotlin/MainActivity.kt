@@ -1,7 +1,8 @@
 package alvin.base.kotlin
 
 import alvin.base.kotlin.butterknife.ButterKnifeMainActivity
-import alvin.base.kotlin.dbflow.DBFlowMainActivity
+import alvin.base.kotlin.dagger.views.DaggerMainActivity
+import alvin.base.kotlin.dbflow.views.DBFlowMainActivity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -27,6 +28,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.btn_dbflow -> {
                     intent = Intent(this, DBFlowMainActivity::class.java)
                 }
+                R.id.btn_dagger -> {
+                    intent = Intent(this, DaggerMainActivity::class.java)
+                }
             }
 
             if (intent != null) {
@@ -34,7 +38,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        this.btn_butter_knife.setOnClickListener(listener)
-        this.btn_dbflow.setOnClickListener(listener)
+        arrayOf(btn_butter_knife, btn_dbflow, btn_dagger).forEach { id ->
+            id.setOnClickListener(listener)
+        }
     }
 }

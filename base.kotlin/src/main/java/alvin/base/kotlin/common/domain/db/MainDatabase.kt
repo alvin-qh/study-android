@@ -1,4 +1,4 @@
-package alvin.base.kotlin.dbflow.domain
+package alvin.base.kotlin.common.domain.db
 
 import com.raizlabs.android.dbflow.annotation.Database
 

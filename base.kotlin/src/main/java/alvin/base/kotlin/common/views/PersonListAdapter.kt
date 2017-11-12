@@ -1,8 +1,8 @@
-package alvin.base.kotlin.dbflow.views
+package alvin.base.kotlin.common.views
 
 import alvin.base.kotlin.R
-import alvin.base.kotlin.dbflow.domain.models.Gender
-import alvin.base.kotlin.dbflow.domain.models.Person
+import alvin.base.kotlin.common.domain.modules.Gender
+import alvin.base.kotlin.common.domain.modules.Person
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,7 +11,8 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_item_person.view.*
 import java.time.format.DateTimeFormatter
 
-class PersonListAdapter(
+class PersonListAdapter
+constructor(
         context: Context,
         private var persons: List<Person>
 ) : RecyclerView.Adapter<PersonListAdapter.ViewHolder>() {

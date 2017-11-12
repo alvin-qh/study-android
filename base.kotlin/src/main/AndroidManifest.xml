@@ -5,8 +5,8 @@
 
     <application
         android:name=".Application"
-        android:fullBackupContent="true"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -27,8 +27,13 @@
             android:parentActivityName=".MainActivity" />
 
         <activity
-            android:name=".dbflow.DBFlowMainActivity"
+            android:name=".dbflow.views.DBFlowMainActivity"
             android:label="@string/title_dbflow"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".dagger.views.DaggerMainActivity"
+            android:label="@string/title_dagger"
             android:parentActivityName=".MainActivity" />
     </application>
 

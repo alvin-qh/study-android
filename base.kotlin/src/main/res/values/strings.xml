@@ -3,11 +3,13 @@
 
     <string name="title_kotlin">Kotlin</string>
     <string name="title_dbflow">DBFlow</string>
+    <string name="title_dagger">Dagger</string>
     <string name="title_form_dialog">Edit</string>
 
     <string name="button_ok">OK</string>
     <string name="button_butter_knife">ButterKnife</string>
     <string name="button_dbflow">DBFlow</string>
+    <string name="button_dagger">Dagger</string>
 
     <string name="string_hello">Hello %1$s</string>
 

@@ -1,7 +1,7 @@
-package alvin.base.kotlin.dbflow.views
+package alvin.base.kotlin.common.views
 
 import alvin.base.kotlin.R
-import alvin.base.kotlin.dbflow.domain.models.Gender
+import alvin.base.kotlin.common.domain.modules.Gender
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Context

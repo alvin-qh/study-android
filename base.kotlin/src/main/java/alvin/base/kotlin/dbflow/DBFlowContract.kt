@@ -1,7 +1,7 @@
 package alvin.base.kotlin.dbflow
 
-import alvin.base.kotlin.dbflow.domain.models.Gender
-import alvin.base.kotlin.dbflow.domain.models.Person
+import alvin.base.kotlin.common.domain.modules.Gender
+import alvin.base.kotlin.common.domain.modules.Person
 import alvin.lib.mvp.IPresenter
 import alvin.lib.mvp.IView
 

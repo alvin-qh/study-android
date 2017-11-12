@@ -1,11 +1,12 @@
-package alvin.base.kotlin.dbflow
+package alvin.base.kotlin.dbflow.views
 
 import alvin.base.kotlin.R
-import alvin.base.kotlin.dbflow.domain.models.Gender
-import alvin.base.kotlin.dbflow.domain.models.Person
+import alvin.base.kotlin.common.domain.modules.Gender
+import alvin.base.kotlin.common.domain.modules.Person
+import alvin.base.kotlin.common.views.PersonDialog
+import alvin.base.kotlin.common.views.PersonListAdapter
+import alvin.base.kotlin.dbflow.DBFlowContract
 import alvin.base.kotlin.dbflow.presenters.DBFlowPresenter
-import alvin.base.kotlin.dbflow.views.PersonDialog
-import alvin.base.kotlin.dbflow.views.PersonListAdapter
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -15,7 +16,7 @@ import android.view.View
 import android.widget.Toast
 import butterknife.ButterKnife
 import butterknife.OnClick
-import kotlinx.android.synthetic.main.activity_dbflow_main.*
+import kotlinx.android.synthetic.main.activity_dagger_main.*
 
 class DBFlowMainActivity : AppCompatActivity(), DBFlowContract.View {
 

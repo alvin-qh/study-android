@@ -1,23 +1,19 @@
-package alvin.base.kotlin.dbflow.presenters
+package alvin.base.kotlin.dagger.presenters
 
 import alvin.base.kotlin.common.domain.modules.Person
-import alvin.base.kotlin.dbflow.DBFlowContract
-import alvin.base.kotlin.dbflow.domain.repositories.PersonRepository
+import alvin.base.kotlin.dagger.domain.repositories.PersonRepository
+import alvin.base.kotlin.dagger.views.DaggerMainActivity
 import alvin.base.kotlin.lib.common.rx.RxManager
+import alvin.lib.mvp.IPresenter
 import alvin.lib.mvp.PresenterAdapter
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class DBFlowPresenter(val view: DBFlowContract.View) :
-        PresenterAdapter<DBFlowContract.View>(view),
-        DBFlowContract.Presenter {
-
-    private val personRepository = PersonRepository()
-
-    private val rxManager = RxManager.newBuilder()
-            .withSubscribeOn { Schedulers.io() }
-            .withObserveOn { AndroidSchedulers.mainThread() }
-            .build()
+class DaggerPresenter
+@Inject constructor(view: DaggerMainActivity,
+                    private val personRepository: PersonRepository,
+                    private val rxManager: RxManager) :
+        PresenterAdapter<DaggerMainActivity>(view),
+        IPresenter {
 
     override fun started() {
         super.started()
@@ -29,7 +25,7 @@ class DBFlowPresenter(val view: DBFlowContract.View) :
         rxManager.clear()
     }
 
-    override fun reloadPersons() {
+    fun reloadPersons() {
         val subscriber = rxManager.single<List<Person>> { emitter ->
             withView { view ->
                 try {
@@ -47,7 +43,7 @@ class DBFlowPresenter(val view: DBFlowContract.View) :
         })
     }
 
-    override fun savePerson(person: Person) {
+    fun savePerson(person: Person) {
         val subscriber = rxManager.single<Person> { emitter ->
             try {
                 personRepository.create(person)
@@ -64,7 +60,7 @@ class DBFlowPresenter(val view: DBFlowContract.View) :
         })
     }
 
-    override fun updatePerson(person: Person) {
+    fun updatePerson(person: Person) {
         val subscriber = rxManager.single<Person> { emitter ->
             try {
                 personRepository.update(person)
@@ -81,7 +77,7 @@ class DBFlowPresenter(val view: DBFlowContract.View) :
         })
     }
 
-    override fun deletePerson(person: Person) {
+    fun deletePerson(person: Person) {
         val subscriber = rxManager.single<Person> { emitter ->
             try {
                 personRepository.delete(person)
@@ -96,12 +92,5 @@ class DBFlowPresenter(val view: DBFlowContract.View) :
         }, {
             withView { view -> view.showPersonEditError() }
         })
-    }
-
-    private fun withView(todo: (view: DBFlowContract.View) -> Unit) {
-        val view = viewRef.get()
-        if (view != null) {
-            todo(view)
-        }
     }
 }
