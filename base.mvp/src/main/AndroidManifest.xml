@@ -57,5 +57,12 @@
             android:label="@string/title_android_contributes"
             android:parentActivityName=".android.views.AndroidMainActivity" />
 
+        <activity
+            android:name=".multibindings.views.MultibindingsMainActivity"
+            android:label="@string/title_multibindings"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.Multibindings" />
+
     </application>
 </manifest>
+

@@ -14,7 +14,33 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="Widget" parent="android:Widget"/>
+    <style name="AppTheme.Multibindings" parent="AppTheme">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="AppTheme.Multibindings.TableRow">
+        <item name="android:paddingStart">1dp</item>
+        <item name="android:paddingEnd">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+    </style>
+
+    <style name="AppTheme.Multibindings.TableRow.Odd">
+        <item name="android:background">@color/color_light_gray</item>
+    </style>
+
+    <style name="AppTheme.Multibindings.TableRow.Even">
+        <item name="android:background">@color/color_heavy_gray</item>
+    </style>
+
+    <style name="AppTheme.Multibindings.TableRow.TextView">
+        <item name="android:paddingStart">5dp</item>
+        <item name="android:paddingEnd">5dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:background">@drawable/background_textview</item>
+    </style>
+
+    <style name="Widget" parent="android:Widget" />
 
     <style name="Widget.Line">
         <item name="android:background">#aaa</item>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow
+    style="@style/AppTheme.Multibindings.TableRow.Odd"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_map_key"
+        style="@style/AppTheme.Multibindings.TableRow.TextView"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAlignment="textEnd"
+        android:textStyle="bold"
+        tools:text="Map Key" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_map_value"
+        style="@style/AppTheme.Multibindings.TableRow.TextView"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        tools:text="Map Value" />
+</TableRow>

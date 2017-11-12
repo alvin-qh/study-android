@@ -8,6 +8,8 @@
     <string name="title_android">Dagger for Android</string>
     <string name="title_android_subcomponent">Dagger for Android with Subcomponent</string>
     <string name="title_android_contributes">Dagger for Android with Contributes</string>
+    <string name="title_multibindings">Multibindings</string>
+    <string name="title_multibindings_set">Multibindings with Set</string>
 
     <string name="btn_basic">Dagger Basic</string>
     <string name="btn_scope">Dagger Scope</string>
@@ -16,9 +18,12 @@
     <string name="btn_subcomponent">Scope by subcomponent</string>
     <string name="btn_android_subcomponent">Android by Subcomponent</string>
     <string name="btn_android_contributes">Android by Contributes</string>
+    <string name="btn_multibindings">Multibindings</string>
+    <string name="btn_multibindings_set">Multibindings with Set</string>
     <string name="btn_save">Save</string>
     <string name="btn_delete">x</string>
 
     <string name="label_activity_scope">Activity</string>
     <string name="label_session_service">Fragment</string>
+    <string name="label_multibindings_set">Set Bindings</string>
 </resources>

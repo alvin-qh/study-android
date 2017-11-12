@@ -10,6 +10,7 @@ android {
                     'src/main/res/layout/common',
                     'src/main/res/layout/scope',
                     'src/main/res/layout/android',
+                    'src/main/res/layout/multibindings',
                     'src/main/res/layout',
                     'src/main/res'
             ]
