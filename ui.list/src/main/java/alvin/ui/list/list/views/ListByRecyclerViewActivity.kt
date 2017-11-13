@@ -60,37 +60,74 @@ constructor(
         private var fileItems: List<FileItem>
 ) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
+    companion object {
+        val HEADER = 1
+        val ITEM = 2
+        val FOOTER = 3
+    }
+
     private val inflater = LayoutInflater.from(context)
 
     fun update(fileItems: List<FileItem>? = null) {
         if (fileItems != null) {
-            this.fileItems = fileItems;
+            this.fileItems = fileItems
         }
         notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val fileItem = fileItems[position]
+        when (holder.viewType) {
+            HEADER -> {
+            }
+            ITEM -> {
+                if (holder is ViewItemHolder) {
+                    val fileItem = fileItems[position - 1]
 
-        holder.ivLogo.setImageResource(when (fileItem.type) {
-            FileType.FILE -> R.drawable.ic_file
-            else -> R.drawable.ic_folder
-        })
-        holder.tvFilename.text = fileItem.name
+                    holder.ivLogo.setImageResource(when (fileItem.type) {
+                        FileType.FILE -> R.drawable.ic_file
+                        else -> R.drawable.ic_folder
+                    })
+                    holder.tvFilename.text = fileItem.name
+                }
+            }
+            FOOTER -> {
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (position) {
+            0 -> HEADER
+            fileItems.size + 1 -> FOOTER
+            else -> ITEM
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerViewAdapter.ViewHolder {
-        val view = inflater.inflate(R.layout.view_file_item, parent, false)
-        return ViewHolder(view)
+        return when (viewType) {
+            HEADER -> ViewHeaderHolder(inflater.inflate(R.layout.view_list_header, parent, false))
+            FOOTER -> ViewFooterHolder(inflater.inflate(R.layout.view_list_footer, parent, false))
+            ITEM -> ViewItemHolder(inflater.inflate(R.layout.view_file_item, parent, false))
+            else -> throw IllegalArgumentException("Invalid item type")
+        }
     }
 
     override fun getItemCount(): Int {
-        return fileItems.size
+        return fileItems.size + 2   // SUPPRESS
     }
 
-    class ViewHolder
-    constructor(view: View) : RecyclerView.ViewHolder(view) {
+    open class ViewHolder
+    constructor(view: View, val viewType: Int) : RecyclerView.ViewHolder(view)
+
+    class ViewHeaderHolder
+    constructor(view: View) : ViewHolder(view, HEADER)
+
+    class ViewItemHolder
+    constructor(view: View) : ViewHolder(view, ITEM) {
         val ivLogo = view.iv_logo!!
         val tvFilename = view.tv_file_name!!
     }
+
+    class ViewFooterHolder
+    constructor(view: View) : ViewHolder(view, FOOTER)
 }

@@ -26,6 +26,14 @@ class ListByListViewActivity : AppCompatActivity() {
     }
 
     private fun createListView() {
+        val inflater = LayoutInflater.from(this)
+
+        val viewHeader = inflater.inflate(R.layout.view_list_header, list_view, false)
+        list_view.addHeaderView(viewHeader)
+
+        val viewFooter = inflater.inflate(R.layout.view_list_footer, list_view, false)
+        list_view.addFooterView(viewFooter)
+
         val adapter = ListViewAdapter(this, listOf(
                 FileItem(1L, FileType.FILE, "README.md"),
                 FileItem(2L, FileType.DIRECTORY, "Project"),
