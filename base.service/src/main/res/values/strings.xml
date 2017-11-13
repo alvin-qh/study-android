@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">base.service</string>
+    <string name="app_name">Service Demo</string>
+
+    <string name="title_basic_service">Basic Service</string>
+
+    <string name="btn_basic_service">Basic Service</string>
 </resources>
