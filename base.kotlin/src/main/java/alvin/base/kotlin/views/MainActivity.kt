@@ -1,6 +1,7 @@
-package alvin.base.kotlin
+package alvin.base.kotlin.views
 
-import alvin.base.kotlin.butterknife.ButterKnifeActivity
+import alvin.base.kotlin.R
+import alvin.base.kotlin.butterknife.views.ButterKnifeActivity
 import alvin.base.kotlin.dagger.views.DaggerActivity
 import alvin.base.kotlin.dbflow.views.DBFlowActivity
 import android.content.Intent

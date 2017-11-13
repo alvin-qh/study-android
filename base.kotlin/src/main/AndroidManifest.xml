@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -22,19 +22,19 @@
         </activity>
 
         <activity
-            android:name=".butterknife.ButterKnifeActivity"
+            android:name=".butterknife.views.ButterKnifeActivity"
             android:label="@string/title_kotlin"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".views.MainActivity" />
 
         <activity
             android:name=".dbflow.views.DBFlowActivity"
             android:label="@string/title_dbflow"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".views.MainActivity" />
 
         <activity
             android:name=".dagger.views.DaggerActivity"
             android:label="@string/title_dagger"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".views.MainActivity" />
     </application>
 
 </manifest>

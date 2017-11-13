@@ -1,4 +1,4 @@
-package alvin.base.kotlin.butterknife
+package alvin.base.kotlin.butterknife.views
 
 import alvin.base.kotlin.R
 import android.os.Bundle
