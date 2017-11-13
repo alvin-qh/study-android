@@ -30,7 +30,6 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
                        @NonNull Contract.Presenter presenter) {
         this.inflater = LayoutInflater.from(context);
         this.presenter = presenter;
-        this.messages = messages;
     }
 
     public void update(List<Message> messages) {
@@ -40,7 +39,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.view_list_item, parent, false);
+        View view = inflater.inflate(R.layout.common_view_list_item, parent, false);
         return new ViewHolder(view);
     }
 

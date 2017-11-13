@@ -7,8 +7,8 @@ import java.time.LocalDate;
 
 import javax.inject.Singleton;
 
-import alvin.base.mvp.android.di.AndroidContributesActivityModule;
-import alvin.base.mvp.android.views.AndroidContributesActivity;
+import alvin.base.mvp.android.contributes.ContributesModule;
+import alvin.base.mvp.android.contributes.views.ContributesActivity;
 import alvin.base.mvp.common.db.MessageDatabase;
 import alvin.base.mvp.common.qualifiers.BirthdayMap;
 import alvin.base.mvp.common.qualifiers.NameSet;
@@ -55,8 +55,8 @@ interface ApplicationModule {
     interface ViewsRegisterModule {
 
         // @SomeScopes
-        @ContributesAndroidInjector(modules = {AndroidContributesActivityModule.class})
-        AndroidContributesActivity androidMainActivity();
+        @ContributesAndroidInjector(modules = {ContributesModule.class})
+        ContributesActivity androidMainActivity();
 
         @ContributesAndroidInjector(modules = {alvin.base.mvp.multibindings.di.MultibindingsModule.class})
         MultibindingsMainActivity multibindingsMainActivity();

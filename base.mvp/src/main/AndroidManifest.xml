@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".main.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -22,45 +22,45 @@
         </activity>
 
         <activity
-            android:name=".basic.views.BasicMainActivity"
+            android:name=".basic.views.BasicActivity"
             android:label="@string/title_basic"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".main.view.MainActivity" />
 
         <activity
-            android:name=".scope.ScopeMainActivity"
+            android:name=".scope.views.ScopeActivity"
             android:label="@string/title_scope"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".main.view.MainActivity" />
 
         <activity
-            android:name=".scope.views.DependencyActivity"
+            android:name=".scope.dependency.views.DependencyActivity"
             android:label="@string/title_scope_dependence"
-            android:parentActivityName=".scope.ScopeMainActivity" />
+            android:parentActivityName=".scope.views.ScopeActivity" />
 
         <activity
-            android:name=".scope.views.SubcomponentActivity"
+            android:name=".scope.subcomponent.views.SubcomponentActivity"
             android:label="@string/title_scope_subcomponent"
-            android:parentActivityName=".scope.ScopeMainActivity" />
+            android:parentActivityName=".scope.views.ScopeActivity" />
 
 
         <activity
-            android:name=".android.views.AndroidMainActivity"
+            android:name=".android.views.AndroidActivity"
             android:label="@string/title_android"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".main.view.MainActivity" />
 
         <activity
-            android:name=".android.views.AndroidSubcomponentActivity"
+            android:name=".android.subcomponent.views.SubcomponentActivity"
             android:label="@string/title_android_subcomponent"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".android.views.AndroidActivity" />
 
         <activity
-            android:name=".android.views.AndroidContributesActivity"
+            android:name=".android.contributes.views.ContributesActivity"
             android:label="@string/title_android_contributes"
-            android:parentActivityName=".android.views.AndroidMainActivity" />
+            android:parentActivityName=".android.views.AndroidActivity" />
 
         <activity
             android:name=".multibindings.views.MultibindingsMainActivity"
             android:label="@string/title_multibindings"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".main.view.MainActivity"
             android:theme="@style/AppTheme.Multibindings" />
 
     </application>

@@ -35,7 +35,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Contract
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_base);
+        setContentView(R.layout.common_activity);
 
         ButterKnife.bind(this);
 

@@ -36,7 +36,7 @@ public class MultibindingsMainActivity extends AppCompatActivity implements IVie
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_multibindings_main);
+        setContentView(R.layout.multibindings_activity);
 
         ButterKnife.bind(this);
 
@@ -66,7 +66,10 @@ public class MultibindingsMainActivity extends AppCompatActivity implements IVie
         for (int i = 0; iter.hasNext(); i++) {
             Map.Entry<String, LocalDate> entry = iter.next();
 
-            int layout = i % 2 == 0 ? R.layout.template_table_row_even : R.layout.template_table_row_odd;
+            int layout = i % 2 == 0 ?
+                    R.layout.multibindings_template_table_row_even :
+                    R.layout.multibindings_template_table_row_odd;
+
             TableRow row = (TableRow) inflater.inflate(layout, tableLayout, false);
 
             TableRowView rowView = new TableRowView(row);
