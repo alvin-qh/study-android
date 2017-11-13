@@ -3,7 +3,7 @@ package alvin.base.mvp.android.contributes;
 import javax.inject.Named;
 
 import alvin.base.mvp.android.contributes.views.ContributesActivity;
-import alvin.base.mvp.android.contributes.presenters.AndroidContributesActivityPresenter;
+import alvin.base.mvp.android.contributes.presenters.ContributesPresenter;
 import alvin.base.mvp.android.qualifiers.Names;
 import alvin.base.mvp.common.Contract;
 import dagger.Binds;
@@ -16,7 +16,7 @@ public class ContributesModule {
     public interface BindingModule {
         @Binds
         @Named(Names.CONTRIBUTES)
-        Contract.Presenter bindPresenter(AndroidContributesActivityPresenter presenter);
+        Contract.Presenter bindPresenter(ContributesPresenter presenter);
 
         @Binds
         @Named(Names.CONTRIBUTES)

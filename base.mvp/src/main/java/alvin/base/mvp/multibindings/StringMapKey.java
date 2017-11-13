@@ -1,4 +1,4 @@
-package alvin.base.mvp.multibindings.di;
+package alvin.base.mvp.multibindings;
 
 import dagger.MapKey;
 

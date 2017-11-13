@@ -19,15 +19,14 @@ import java.util.Set;
 import javax.inject.Inject;
 
 import alvin.base.mvp.R;
-import alvin.base.mvp.multibindings.presenters.MultibindingsPresenter;
-import alvin.lib.mvp.IView;
+import alvin.base.mvp.multibindings.MultibindingsContracts;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.AndroidInjection;
 
-public class MultibindingsMainActivity extends AppCompatActivity implements IView {
+public class MultibindingsActivity extends AppCompatActivity implements MultibindingsContracts.View {
 
-    @Inject MultibindingsPresenter presenter;
+    @Inject MultibindingsContracts.Presenter presenter;
 
     @BindView(R.id.tv_name_set) TextView tvNameSet;
 

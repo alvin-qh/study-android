@@ -12,8 +12,8 @@ import alvin.base.mvp.android.contributes.views.ContributesActivity;
 import alvin.base.mvp.common.db.MessageDatabase;
 import alvin.base.mvp.common.qualifiers.BirthdayMap;
 import alvin.base.mvp.common.qualifiers.NameSet;
-import alvin.base.mvp.multibindings.di.StringMapKey;
-import alvin.base.mvp.multibindings.views.MultibindingsMainActivity;
+import alvin.base.mvp.multibindings.StringMapKey;
+import alvin.base.mvp.multibindings.views.MultibindingsActivity;
 import dagger.Module;
 import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
@@ -56,9 +56,9 @@ interface ApplicationModule {
 
         // @SomeScopes
         @ContributesAndroidInjector(modules = {ContributesModule.class})
-        ContributesActivity androidMainActivity();
+        ContributesActivity contributesActivity();
 
-        @ContributesAndroidInjector(modules = {alvin.base.mvp.multibindings.di.MultibindingsModule.class})
-        MultibindingsMainActivity multibindingsMainActivity();
+        @ContributesAndroidInjector(modules = {alvin.base.mvp.multibindings.MultibindingsModule.class})
+        MultibindingsActivity multibindingsActivity();
     }
 }

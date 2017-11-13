@@ -1,4 +1,4 @@
-package alvin.base.mvp.android.subcomponent.presenters;
+package alvin.base.mvp.android.contributes.presenters;
 
 import android.support.annotation.NonNull;
 
@@ -10,11 +10,11 @@ import alvin.base.mvp.basic.domain.repositories.MessageRepository;
 import alvin.base.mvp.common.Contract;
 import alvin.base.mvp.common.presenters.BaseActivityPresenter;
 
-public class AndroidSubcomponentActivityPresenter extends BaseActivityPresenter {
+public class ContributesPresenter extends BaseActivityPresenter {
 
     @Inject
-    public AndroidSubcomponentActivityPresenter(@NonNull @Named(Names.SUBCOMPONENT) Contract.View view,
-                                                @NonNull MessageRepository messageRepository) {
+    public ContributesPresenter(@NonNull @Named(Names.CONTRIBUTES) Contract.View view,
+                                @NonNull MessageRepository messageRepository) {
         super(view, messageRepository);
     }
 }

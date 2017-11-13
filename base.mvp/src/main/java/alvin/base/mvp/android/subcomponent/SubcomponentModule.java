@@ -5,7 +5,7 @@ import android.app.Activity;
 import javax.inject.Named;
 
 import alvin.base.mvp.android.qualifiers.Names;
-import alvin.base.mvp.android.subcomponent.presenters.AndroidSubcomponentActivityPresenter;
+import alvin.base.mvp.android.subcomponent.presenters.SubcomponentPresenter;
 import alvin.base.mvp.android.subcomponent.views.SubcomponentActivity;
 import alvin.base.mvp.common.Contract;
 import dagger.Binds;
@@ -29,7 +29,7 @@ public class SubcomponentModule {
 
         @Binds
         @Named(Names.SUBCOMPONENT)
-        abstract Contract.Presenter bindPresenter(AndroidSubcomponentActivityPresenter presenter);
+        abstract Contract.Presenter bindPresenter(SubcomponentPresenter presenter);
 
         @Binds
         @Named(Names.SUBCOMPONENT)

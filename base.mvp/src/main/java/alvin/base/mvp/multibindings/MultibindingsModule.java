@@ -1,4 +1,4 @@
-package alvin.base.mvp.multibindings.di;
+package alvin.base.mvp.multibindings;
 
 import com.google.common.collect.Sets;
 
@@ -7,6 +7,9 @@ import java.util.Set;
 
 import alvin.base.mvp.common.qualifiers.BirthdayMap;
 import alvin.base.mvp.common.qualifiers.NameSet;
+import alvin.base.mvp.multibindings.presenters.MultibindingsPresenter;
+import alvin.base.mvp.multibindings.views.MultibindingsActivity;
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import dagger.multibindings.ElementsIntoSet;
@@ -31,4 +34,10 @@ public abstract class MultibindingsModule {
     static LocalDate allenBirthday() {
         return LocalDate.of(1979, 12, 1);   // SUPPRESS
     }
+
+    @Binds
+    public abstract MultibindingsContracts.Presenter presenter(MultibindingsPresenter presenter);
+
+    @Binds
+    public abstract MultibindingsContracts.View view(MultibindingsActivity activity);
 }

@@ -8,7 +8,7 @@ import android.widget.Button;
 import alvin.base.mvp.R;
 import alvin.base.mvp.android.views.AndroidActivity;
 import alvin.base.mvp.basic.views.BasicActivity;
-import alvin.base.mvp.multibindings.views.MultibindingsMainActivity;
+import alvin.base.mvp.multibindings.views.MultibindingsActivity;
 import alvin.base.mvp.scope.views.ScopeActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             intent = new Intent(this, AndroidActivity.class);
             break;
         case R.id.btn_multibindings:
-            intent = new Intent(this, MultibindingsMainActivity.class);
+            intent = new Intent(this, MultibindingsActivity.class);
             break;
         default:
             intent = null;

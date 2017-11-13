@@ -58,7 +58,7 @@
             android:parentActivityName=".android.views.AndroidActivity" />
 
         <activity
-            android:name=".multibindings.views.MultibindingsMainActivity"
+            android:name=".multibindings.views.MultibindingsActivity"
             android:label="@string/title_multibindings"
             android:parentActivityName=".main.view.MainActivity"
             android:theme="@style/AppTheme.Multibindings" />
