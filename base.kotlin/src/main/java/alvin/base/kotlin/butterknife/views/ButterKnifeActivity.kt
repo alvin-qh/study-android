@@ -6,13 +6,13 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import butterknife.ButterKnife
 import butterknife.OnClick
-import kotlinx.android.synthetic.main.activity_butter_knife_main.*
+import kotlinx.android.synthetic.main.butterknife_activity.*
 
 class ButterKnifeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_butter_knife_main)
+        setContentView(R.layout.butterknife_activity)
 
         ButterKnife.bind(this)
     }

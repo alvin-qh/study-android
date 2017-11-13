@@ -6,19 +6,6 @@ android {
     defaultConfig {
         applicationId "alvin.base.kotlin"
     }
-
-    sourceSets {
-        main {
-            res.srcDirs = [
-                    'src/main/res/layout/common',
-                    'src/main/res/layout/butterknife',
-                    'src/main/res/layout/dbflow',
-                    'src/main/res/layout/dagger',
-                    'src/main/res/layout',
-                    'src/main/res'
-            ]
-        }
-    }
 }
 
 dependencies {

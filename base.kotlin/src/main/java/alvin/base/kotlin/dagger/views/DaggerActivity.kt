@@ -16,7 +16,7 @@ import android.widget.Toast
 import butterknife.ButterKnife
 import butterknife.OnClick
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_dbflow_main.*
+import kotlinx.android.synthetic.main.dbflow_activity.*
 import javax.inject.Inject
 
 class DaggerActivity : AppCompatActivity(), DaggerContracts.View {
@@ -26,7 +26,7 @@ class DaggerActivity : AppCompatActivity(), DaggerContracts.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dagger_main)
+        setContentView(R.layout.dagger_activity)
 
         ButterKnife.bind(this)
 

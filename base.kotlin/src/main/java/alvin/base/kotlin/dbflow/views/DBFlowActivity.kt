@@ -16,7 +16,7 @@ import android.view.View
 import android.widget.Toast
 import butterknife.ButterKnife
 import butterknife.OnClick
-import kotlinx.android.synthetic.main.activity_dagger_main.*
+import kotlinx.android.synthetic.main.dagger_activity.*
 
 class DBFlowActivity : AppCompatActivity(), DBFlowContract.View {
 
@@ -24,7 +24,7 @@ class DBFlowActivity : AppCompatActivity(), DBFlowContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dbflow_main)
+        setContentView(R.layout.dbflow_activity)
 
         ButterKnife.bind(this)
 
