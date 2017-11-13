@@ -22,17 +22,17 @@
         </activity>
 
         <activity
-            android:name=".butterknife.ButterKnifeMainActivity"
+            android:name=".butterknife.ButterKnifeActivity"
             android:label="@string/title_kotlin"
             android:parentActivityName=".MainActivity" />
 
         <activity
-            android:name=".dbflow.views.DBFlowMainActivity"
+            android:name=".dbflow.views.DBFlowActivity"
             android:label="@string/title_dbflow"
             android:parentActivityName=".MainActivity" />
 
         <activity
-            android:name=".dagger.views.DaggerMainActivity"
+            android:name=".dagger.views.DaggerActivity"
             android:label="@string/title_dagger"
             android:parentActivityName=".MainActivity" />
     </application>

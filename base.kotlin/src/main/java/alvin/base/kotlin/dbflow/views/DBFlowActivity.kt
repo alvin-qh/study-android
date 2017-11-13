@@ -1,12 +1,12 @@
-package alvin.base.kotlin.dagger.views
+package alvin.base.kotlin.dbflow.views
 
 import alvin.base.kotlin.R
 import alvin.base.kotlin.common.domain.modules.Gender
 import alvin.base.kotlin.common.domain.modules.Person
 import alvin.base.kotlin.common.views.PersonDialog
 import alvin.base.kotlin.common.views.PersonListAdapter
-import alvin.base.kotlin.dagger.presenters.DaggerPresenter
-import alvin.lib.mvp.IView
+import alvin.base.kotlin.dbflow.DBFlowContract
+import alvin.base.kotlin.dbflow.presenters.DBFlowPresenter
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -16,18 +16,15 @@ import android.view.View
 import android.widget.Toast
 import butterknife.ButterKnife
 import butterknife.OnClick
-import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_dbflow_main.*
-import javax.inject.Inject
+import kotlinx.android.synthetic.main.activity_dagger_main.*
 
-class DaggerMainActivity : AppCompatActivity(), IView {
+class DBFlowActivity : AppCompatActivity(), DBFlowContract.View {
 
-    @Inject
-    lateinit var presenter: DaggerPresenter
+    private lateinit var presenter: DBFlowContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dagger_main)
+        setContentView(R.layout.activity_dbflow_main)
 
         ButterKnife.bind(this)
 
@@ -37,7 +34,7 @@ class DaggerMainActivity : AppCompatActivity(), IView {
             presenter.reloadPersons()
         }
 
-        AndroidInjection.inject(this)
+        presenter = DBFlowPresenter(this)
         presenter.created()
     }
 
@@ -95,27 +92,27 @@ class DaggerMainActivity : AppCompatActivity(), IView {
         dlg.show()
     }
 
-    fun personCreated(result: Person) {
+    override fun personCreated(result: Person) {
         presenter.reloadPersons()
         Toast.makeText(this, R.string.msg_person_created, Toast.LENGTH_SHORT).show()
     }
 
-    fun showPersonEditError() {
+    override fun showPersonEditError() {
         Toast.makeText(this, R.string.error_update_persons, Toast.LENGTH_SHORT).show()
     }
 
-    fun showPersons(persons: List<Person>?) {
+    override fun showPersons(persons: List<Person>?) {
         if (persons != null) {
             val adapter = rv_persons.adapter as PersonListAdapter
             adapter.update(persons)
         }
     }
 
-    fun showPersonLoadError() {
+    override fun showPersonLoadError() {
         Toast.makeText(this, R.string.error_load_persons, Toast.LENGTH_LONG).show()
     }
 
-    fun getQueryGender(): Gender? {
+    override fun getQueryGender(): Gender? {
         return when (rg_gender.checkedRadioButtonId) {
             R.id.rb_male -> Gender.MALE
             R.id.rb_female -> Gender.FEMALE
@@ -123,12 +120,12 @@ class DaggerMainActivity : AppCompatActivity(), IView {
         }
     }
 
-    fun personUpdated(person: Person) {
+    override fun personUpdated(person: Person) {
         Toast.makeText(this, R.string.msg_person_updated, Toast.LENGTH_SHORT).show()
         presenter.reloadPersons()
     }
 
-    fun personDeleted(person: Person) {
+    override fun personDeleted(person: Person) {
         Toast.makeText(this, R.string.msg_person_deleted, Toast.LENGTH_SHORT).show()
         presenter.reloadPersons()
     }

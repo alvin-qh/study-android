@@ -1,8 +1,8 @@
 package alvin.base.kotlin
 
-import alvin.base.kotlin.butterknife.ButterKnifeMainActivity
-import alvin.base.kotlin.dagger.views.DaggerMainActivity
-import alvin.base.kotlin.dbflow.views.DBFlowMainActivity
+import alvin.base.kotlin.butterknife.ButterKnifeActivity
+import alvin.base.kotlin.dagger.views.DaggerActivity
+import alvin.base.kotlin.dbflow.views.DBFlowActivity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -19,20 +19,12 @@ class MainActivity : AppCompatActivity() {
         ButterKnife.bind(this)
 
         val listener = View.OnClickListener { b ->
-            var intent: Intent? = null
-
-            when (b.id) {
-                R.id.btn_butter_knife -> {
-                    intent = Intent(this, ButterKnifeMainActivity::class.java)
-                }
-                R.id.btn_dbflow -> {
-                    intent = Intent(this, DBFlowMainActivity::class.java)
-                }
-                R.id.btn_dagger -> {
-                    intent = Intent(this, DaggerMainActivity::class.java)
-                }
+            val intent: Intent? = when (b.id) {
+                R.id.btn_butter_knife -> Intent(this, ButterKnifeActivity::class.java)
+                R.id.btn_dbflow -> Intent(this, DBFlowActivity::class.java)
+                R.id.btn_dagger -> Intent(this, DaggerActivity::class.java)
+                else -> null
             }
-
             if (intent != null) {
                 startActivity(intent)
             }

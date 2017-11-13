@@ -1,8 +1,8 @@
 package alvin.base.kotlin
 
 import alvin.base.kotlin.common.domain.db.MainDatabase
-import alvin.base.kotlin.dagger.DaggerMainModule
-import alvin.base.kotlin.dagger.views.DaggerMainActivity
+import alvin.base.kotlin.dagger.DaggerModule
+import alvin.base.kotlin.dagger.views.DaggerActivity
 import com.raizlabs.android.dbflow.config.DatabaseDefinition
 import com.raizlabs.android.dbflow.config.FlowManager
 import dagger.Module
@@ -11,25 +11,24 @@ import dagger.android.ContributesAndroidInjector
 import javax.inject.Singleton
 
 @Module(includes = arrayOf(
-        ApplicationModule.PersistModule::class,
-        ApplicationModule.ViewsRegisterModule::class
+        PersistModule::class,
+        ViewsRegisterModule::class
 ))
-internal interface ApplicationModule {
+internal interface ApplicationModule
 
-    @Module
-    class PersistModule {
+@Module
+internal class PersistModule {
 
-        @Singleton
-        @Provides
-        internal fun databaseDefinition(): DatabaseDefinition {
-            return FlowManager.getDatabase(MainDatabase::class.java)
-        }
+    @Singleton
+    @Provides
+    internal fun databaseDefinition(): DatabaseDefinition {
+        return FlowManager.getDatabase(MainDatabase::class.java)
     }
+}
 
-    @Module
-    interface ViewsRegisterModule {
+@Module
+interface ViewsRegisterModule {
 
-        @ContributesAndroidInjector(modules = arrayOf(DaggerMainModule::class))
-        fun daggerMainActivity(): DaggerMainActivity
-    }
+    @ContributesAndroidInjector(modules = arrayOf(DaggerModule::class))
+    fun daggerMainActivity(): DaggerActivity
 }

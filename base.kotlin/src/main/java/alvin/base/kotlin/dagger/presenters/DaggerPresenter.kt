@@ -1,19 +1,18 @@
 package alvin.base.kotlin.dagger.presenters
 
 import alvin.base.kotlin.common.domain.modules.Person
+import alvin.base.kotlin.dagger.DaggerContracts
 import alvin.base.kotlin.dagger.domain.repositories.PersonRepository
-import alvin.base.kotlin.dagger.views.DaggerMainActivity
 import alvin.base.kotlin.lib.common.rx.RxManager
-import alvin.lib.mvp.IPresenter
 import alvin.lib.mvp.PresenterAdapter
 import javax.inject.Inject
 
 class DaggerPresenter
-@Inject constructor(view: DaggerMainActivity,
+@Inject constructor(view: DaggerContracts.View,
                     private val personRepository: PersonRepository,
                     private val rxManager: RxManager) :
-        PresenterAdapter<DaggerMainActivity>(view),
-        IPresenter {
+        PresenterAdapter<DaggerContracts.View>(view),
+        DaggerContracts.Presenter {
 
     override fun started() {
         super.started()
@@ -21,11 +20,11 @@ class DaggerPresenter
     }
 
     override fun destroyed() {
-        super.destroyed();
+        super.destroyed()
         rxManager.clear()
     }
 
-    fun reloadPersons() {
+    override fun reloadPersons() {
         val subscriber = rxManager.single<List<Person>> { emitter ->
             withView { view ->
                 try {
@@ -38,12 +37,12 @@ class DaggerPresenter
 
         subscriber.subscribe({ persons ->
             withView { view -> view.showPersons(persons) }
-        }, {
-            withView { view -> view.showPersonLoadError() }
+        }, { throwable ->
+            withView { view -> view.showDefaultError(throwable) }
         })
     }
 
-    fun savePerson(person: Person) {
+    override fun savePerson(person: Person) {
         val subscriber = rxManager.single<Person> { emitter ->
             try {
                 personRepository.create(person)
@@ -55,12 +54,12 @@ class DaggerPresenter
 
         subscriber.subscribe({ p ->
             withView { view -> view.personCreated(p) }
-        }, {
-            withView { view -> view.showPersonEditError() }
+        }, { throwable ->
+            withView { view -> view.showDefaultError(throwable) }
         })
     }
 
-    fun updatePerson(person: Person) {
+    override fun updatePerson(person: Person) {
         val subscriber = rxManager.single<Person> { emitter ->
             try {
                 personRepository.update(person)
@@ -72,12 +71,12 @@ class DaggerPresenter
 
         subscriber.subscribe({ p ->
             withView { view -> view.personUpdated(p) }
-        }, {
-            withView { view -> view.showPersonEditError() }
+        }, { throwable ->
+            withView { view -> view.showDefaultError(throwable) }
         })
     }
 
-    fun deletePerson(person: Person) {
+    override fun deletePerson(person: Person) {
         val subscriber = rxManager.single<Person> { emitter ->
             try {
                 personRepository.delete(person)
@@ -89,8 +88,8 @@ class DaggerPresenter
 
         subscriber.subscribe({ p ->
             withView { view -> view.personDeleted(p) }
-        }, {
-            withView { view -> view.showPersonEditError() }
+        }, { throwable ->
+            withView { view -> view.showDefaultError(throwable) }
         })
     }
 }

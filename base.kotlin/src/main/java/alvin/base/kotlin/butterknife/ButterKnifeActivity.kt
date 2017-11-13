@@ -8,7 +8,7 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import kotlinx.android.synthetic.main.activity_butter_knife_main.*
 
-class ButterKnifeMainActivity : AppCompatActivity() {
+class ButterKnifeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

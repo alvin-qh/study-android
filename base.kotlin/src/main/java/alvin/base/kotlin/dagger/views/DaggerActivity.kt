@@ -1,12 +1,11 @@
-package alvin.base.kotlin.dbflow.views
+package alvin.base.kotlin.dagger.views
 
 import alvin.base.kotlin.R
 import alvin.base.kotlin.common.domain.modules.Gender
 import alvin.base.kotlin.common.domain.modules.Person
 import alvin.base.kotlin.common.views.PersonDialog
 import alvin.base.kotlin.common.views.PersonListAdapter
-import alvin.base.kotlin.dbflow.DBFlowContract
-import alvin.base.kotlin.dbflow.presenters.DBFlowPresenter
+import alvin.base.kotlin.dagger.DaggerContracts
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -16,15 +15,18 @@ import android.view.View
 import android.widget.Toast
 import butterknife.ButterKnife
 import butterknife.OnClick
-import kotlinx.android.synthetic.main.activity_dagger_main.*
+import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.activity_dbflow_main.*
+import javax.inject.Inject
 
-class DBFlowMainActivity : AppCompatActivity(), DBFlowContract.View {
+class DaggerActivity : AppCompatActivity(), DaggerContracts.View {
 
-    private lateinit var presenter: DBFlowContract.Presenter
+    @Inject
+    lateinit var presenter: DaggerContracts.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_dbflow_main)
+        setContentView(R.layout.activity_dagger_main)
 
         ButterKnife.bind(this)
 
@@ -34,7 +36,8 @@ class DBFlowMainActivity : AppCompatActivity(), DBFlowContract.View {
             presenter.reloadPersons()
         }
 
-        presenter = DBFlowPresenter(this)
+        AndroidInjection.inject(this)
+
         presenter.created()
     }
 
@@ -92,13 +95,15 @@ class DBFlowMainActivity : AppCompatActivity(), DBFlowContract.View {
         dlg.show()
     }
 
-    override fun personCreated(result: Person) {
+    override fun personCreated(person: Person) {
         presenter.reloadPersons()
         Toast.makeText(this, R.string.msg_person_created, Toast.LENGTH_SHORT).show()
     }
 
-    override fun showPersonEditError() {
-        Toast.makeText(this, R.string.error_update_persons, Toast.LENGTH_SHORT).show()
+    override fun showDefaultError(t: Throwable?) {
+        if (t != null) {
+            Toast.makeText(this, t.message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun showPersons(persons: List<Person>?) {
@@ -106,10 +111,6 @@ class DBFlowMainActivity : AppCompatActivity(), DBFlowContract.View {
             val adapter = rv_persons.adapter as PersonListAdapter
             adapter.update(persons)
         }
-    }
-
-    override fun showPersonLoadError() {
-        Toast.makeText(this, R.string.error_load_persons, Toast.LENGTH_LONG).show()
     }
 
     override fun getQueryGender(): Gender? {
