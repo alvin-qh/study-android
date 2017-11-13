@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".list.views.ListByListViewActivity">
+    tools:context=".list.views.ByListViewActivity">
 
     <android.support.v7.widget.ListViewCompat
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
-        tools:listfooter="@layout/view_list_footer"
-        tools:listheader="@layout/view_list_header"
-        tools:listitem="@layout/view_file_item" />
+        tools:listfooter="@layout/list_view_list_footer"
+        tools:listheader="@layout/list_view_list_header"
+        tools:listitem="@layout/list_view_file_item" />
 
     <!-- If use ListView and need divider line, use this config
     <android.support.v7.widget.ListViewCompat

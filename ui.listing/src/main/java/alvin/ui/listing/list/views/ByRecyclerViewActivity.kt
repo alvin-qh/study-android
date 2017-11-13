@@ -1,8 +1,8 @@
-package alvin.ui.list.list.views
+package alvin.ui.listing.list.views
 
-import alvin.ui.list.R
-import alvin.ui.list.list.domain.models.FileItem
-import alvin.ui.list.list.domain.models.FileType
+import alvin.ui.listing.R
+import alvin.ui.listing.list.domain.models.FileItem
+import alvin.ui.listing.list.domain.models.FileType
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -13,14 +13,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import butterknife.ButterKnife
-import kotlinx.android.synthetic.main.activity_list_by_recycler_view.*
-import kotlinx.android.synthetic.main.view_file_item.view.*
+import kotlinx.android.synthetic.main.list_activity_by_recycler_view.*
+import kotlinx.android.synthetic.main.list_view_file_item.view.*
 
-class ListByRecyclerViewActivity : AppCompatActivity() {
+class ByRecyclerViewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_by_recycler_view)
+        setContentView(R.layout.list_activity_by_recycler_view)
 
         ButterKnife.bind(this)
 
@@ -105,9 +105,9 @@ constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerViewAdapter.ViewHolder {
         return when (viewType) {
-            HEADER -> ViewHeaderHolder(inflater.inflate(R.layout.view_list_header, parent, false))
-            FOOTER -> ViewFooterHolder(inflater.inflate(R.layout.view_list_footer, parent, false))
-            ITEM -> ViewItemHolder(inflater.inflate(R.layout.view_file_item, parent, false))
+            HEADER -> ViewHeaderHolder(inflater.inflate(R.layout.list_view_list_header, parent, false))
+            FOOTER -> ViewFooterHolder(inflater.inflate(R.layout.list_view_list_footer, parent, false))
+            ITEM -> ViewItemHolder(inflater.inflate(R.layout.list_view_file_item, parent, false))
             else -> throw IllegalArgumentException("Invalid item type")
         }
     }

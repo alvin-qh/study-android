@@ -1,6 +1,6 @@
-package alvin.ui.list
+package alvin.ui.listing
 
-import alvin.ui.list.list.views.ListMainActivity
+import alvin.ui.listing.list.views.ListMainActivity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

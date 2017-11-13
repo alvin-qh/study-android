@@ -8,6 +8,6 @@ include ':lib.common',
 //        ':base.kotlin',
 //        ':base.mvp',
 //        ':ui.butterknife',
-        ':ui.list',
+        ':ui.listing',
 //        ':ui.merge',
         ':lib.widget'

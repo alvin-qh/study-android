@@ -1,4 +1,4 @@
-package alvin.ui.list.list.domain.models
+package alvin.ui.listing.list.domain.models
 
 enum class FileType {
     DIRECTORY, FILE

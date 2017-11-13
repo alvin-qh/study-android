@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="alvin.ui.list"
+    package="alvin.ui.listing"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:name=".Application"
+        android:name="alvin.ui.listing.Application"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="alvin.ui.listing.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -22,19 +22,19 @@
         </activity>
 
         <activity
-            android:name=".list.views.ListMainActivity"
+            android:name="alvin.ui.listing.list.views.ListMainActivity"
             android:label="@string/title_list_demos"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName="alvin.ui.listing.MainActivity" />
 
         <activity
-            android:name=".list.views.ListByListViewActivity"
+            android:name="alvin.ui.listing.list.views.ByListViewActivity"
             android:label="@string/title_list_view_demo"
-            android:parentActivityName=".list.views.ListMainActivity" />
+            android:parentActivityName="alvin.ui.listing.list.views.ListMainActivity" />
 
         <activity
-            android:name=".list.views.ListByRecyclerViewActivity"
+            android:name="alvin.ui.listing.list.views.ByRecyclerViewActivity"
             android:label="@string/title_recycler_view_demo"
-            android:parentActivityName=".list.views.ListMainActivity" />
+            android:parentActivityName="alvin.ui.listing.list.views.ListMainActivity" />
     </application>
 
 </manifest>

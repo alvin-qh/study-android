@@ -1,8 +1,8 @@
-package alvin.ui.list.list.views
+package alvin.ui.listing.list.views
 
-import alvin.ui.list.R
-import alvin.ui.list.list.domain.models.FileItem
-import alvin.ui.list.list.domain.models.FileType
+import alvin.ui.listing.R
+import alvin.ui.listing.list.domain.models.FileItem
+import alvin.ui.listing.list.domain.models.FileType
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -11,14 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import butterknife.ButterKnife
-import kotlinx.android.synthetic.main.activity_list_by_list_view.*
-import kotlinx.android.synthetic.main.view_file_item.view.*
+import kotlinx.android.synthetic.main.list_activity_by_list_view.*
+import kotlinx.android.synthetic.main.list_view_file_item.view.*
 
-class ListByListViewActivity : AppCompatActivity() {
+class ByListViewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list_by_list_view)
+        setContentView(R.layout.list_activity_by_list_view)
 
         ButterKnife.bind(this)
 
@@ -28,10 +28,10 @@ class ListByListViewActivity : AppCompatActivity() {
     private fun createListView() {
         val inflater = LayoutInflater.from(this)
 
-        val viewHeader = inflater.inflate(R.layout.view_list_header, list_view, false)
+        val viewHeader = inflater.inflate(R.layout.list_view_list_header, list_view, false)
         list_view.addHeaderView(viewHeader)
 
-        val viewFooter = inflater.inflate(R.layout.view_list_footer, list_view, false)
+        val viewFooter = inflater.inflate(R.layout.list_view_list_footer, list_view, false)
         list_view.addFooterView(viewFooter)
 
         val adapter = ListViewAdapter(this, listOf(
@@ -72,7 +72,7 @@ constructor(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = convertView ?: inflater.inflate(R.layout.view_file_item, parent, false)
+        val view = convertView ?: inflater.inflate(R.layout.list_view_file_item, parent, false)
 
         var holder: ViewHolder? = view.tag as? ViewHolder
         if (holder == null) {
