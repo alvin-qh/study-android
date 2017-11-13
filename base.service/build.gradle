@@ -1,0 +1,26 @@
+android {
+    defaultConfig {
+        applicationId "alvin.base.service"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation libs.main.butterKnife
+    implementation libs.main.jackson
+    implementation libs.main.okhttp
+    implementation libs.main.dbflow
+    implementation libs.main.dagger
+    implementation libs.main.rx
+
+    annotationProcessor libs.annotation.butterKnife
+    annotationProcessor libs.annotation.dbflow
+    annotationProcessor libs.annotation.dagger
+}

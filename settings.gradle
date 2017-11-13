@@ -1,4 +1,4 @@
-include ':lib.common',
+include ':lib.common', ':base.service',
 //        ':base.basic',
 //        ':base.java8',
 //        ':base.preferences',
@@ -8,6 +8,6 @@ include ':lib.common',
 //        ':base.kotlin',
 //        ':base.mvp',
 //        ':ui.butterknife',
-        ':ui.listing',
+//        ':ui.listing',
 //        ':ui.merge',
         ':lib.widget'
