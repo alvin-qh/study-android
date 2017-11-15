@@ -24,6 +24,7 @@ buildscript {
                 apacheCommons   : [
                         codec: '1.11'
                 ],
+                stetho          : '1.5.0',
 
                 testJunit       : '4.12',
                 testHamcrest    : '1.3',
@@ -113,6 +114,7 @@ subprojects {
         implementation fileTree(dir: 'libs', include: ['*.jar'])
 
         implementation libs.main.common
+        implementation libs.main.stetho
 
         testImplementation libs.test.android
     }
