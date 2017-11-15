@@ -15,6 +15,7 @@ import java.io.IOException;
 import alvin.lib.common.util.ApplicationConfig;
 import alvin.base.net.status.network.NetworkCallback;
 import alvin.base.net.status.receivers.NetStatusBroadcastReceiver;
+import alvin.lib.common.util.Applications;
 
 public class Application extends MultiDexApplication {
 
@@ -46,6 +47,8 @@ public class Application extends MultiDexApplication {
             Toast.makeText(this, R.string.error_cannot_load_config_file, Toast.LENGTH_LONG).show();
             System.exit(-1);
         }
+
+        Applications.startStethoIfDebuging(this);
     }
 
 

@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".main.views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -36,49 +36,49 @@
         -->
 
         <activity
-            android:name=".status.StatusMainActivity"
+            android:name=".status.views.StatusActivity"
             android:label="@string/title_network_status"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".main.views.MainActivity" />
 
         <activity
-            android:name=".http.HttpMainActivity"
+            android:name=".http.views.HttpActivity"
             android:label="@string/title_http"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".main.views.MainActivity" />
 
         <activity
-            android:name=".http.views.HttpTaskActivity"
+            android:name=".http.task.views.TaskActivity"
             android:label="@string/title_http_async_task"
-            android:parentActivityName=".http.HttpMainActivity" />
+            android:parentActivityName=".http.views.HttpActivity" />
 
         <activity
-            android:name=".http.views.HttpRxActivity"
+            android:name=".http.rx.views.RxActivity"
             android:label="@string/title_http_rx_java"
-            android:parentActivityName=".http.HttpMainActivity" />
+            android:parentActivityName=".http.views.HttpActivity" />
 
         <activity
-            android:name=".socket.SocketMainActivity"
+            android:name=".socket.views.SocketActivity"
             android:label="@string/title_socket"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".main.views.MainActivity" />
 
         <activity
-            android:name=".socket.views.SocketNativeActivity"
+            android:name=".socket.jnative.views.NativeActivity"
             android:label="@string/title_socket_native"
-            android:parentActivityName=".socket.SocketMainActivity" />
+            android:parentActivityName=".socket.views.SocketActivity" />
 
         <activity
-            android:name=".socket.views.SocketNettyActivity"
+            android:name=".socket.netty.views.NettyActivity"
             android:label="@string/title_socket_netty"
-            android:parentActivityName=".socket.SocketMainActivity" />
+            android:parentActivityName=".socket.views.SocketActivity" />
 
         <activity
-            android:name=".remote.RemoteMainActivity"
+            android:name=".remote.views.RemoteActivity"
             android:label="@string/title_remote"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".main.views.MainActivity" />
 
         <activity
-            android:name=".remote.views.RemoteImageActivity"
+            android:name=".remote.image.views.ImageActivity"
             android:label="@string/title_remote_image"
-            android:parentActivityName=".remote.RemoteMainActivity" />
+            android:parentActivityName=".remote.views.RemoteActivity" />
 
     </application>
 

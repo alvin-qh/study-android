@@ -2,19 +2,6 @@ android {
     defaultConfig {
         applicationId "alvin.base.net"
     }
-
-    sourceSets {
-        main {
-            res.srcDirs = [
-                    'src/main/res/layout/status',
-                    'src/main/res/layout/http',
-                    'src/main/res/layout/socket',
-                    'src/main/res/layout/remote',
-                    'src/main/res/layout',
-                    'src/main/res'
-            ]
-        }
-    }
 }
 
 

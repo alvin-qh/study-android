@@ -37,7 +37,7 @@ public final class NetStatusEventHandler {
         return INSTANCE;
     }
 
-    private static class MessageHandler extends Handler {
+    private static final class MessageHandler extends Handler {
         private final Set<OnNetStatusChangedListener> netStatusChangedListeners;
 
         private MessageHandler(Set<OnNetStatusChangedListener> netStatusChangedListeners) {
