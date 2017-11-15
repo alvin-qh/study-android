@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="40sp"
-    tools:showIn="@layout/activity_preferences_original">
+    tools:showIn="@layout/original_activity_preferences">
 
     <LinearLayout
         android:layout_width="match_parent"

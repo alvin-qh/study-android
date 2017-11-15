@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
+        android:name=".Application"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".main.views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -21,14 +22,14 @@
         </activity>
 
         <activity
-            android:name=".OriginalActivity"
+            android:name=".original.views.OriginalActivity"
             android:label="@string/title_origin"
-            android:parentActivityName=".OriginalActivity" />
+            android:parentActivityName=".main.views.MainActivity" />
 
         <activity
-            android:name=".StoreBoxActivity"
+            android:name=".storebox.views.StoreBoxActivity"
             android:label="@string/title_store_box"
-            android:parentActivityName=".OriginalActivity" />
+            android:parentActivityName=".main.views.MainActivity" />
     </application>
 
 </manifest>

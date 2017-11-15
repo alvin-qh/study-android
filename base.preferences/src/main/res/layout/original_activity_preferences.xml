@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".OriginalActivity">
+        tools:context=".original.views.OriginalActivity">
 
-    <include layout="@layout/view_form"/>
+    <include layout="@layout/_view_included_form"/>
 </android.support.design.widget.CoordinatorLayout>

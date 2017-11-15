@@ -1,6 +1,8 @@
-package alvin.base.preferences.domain.models;
+package alvin.base.preferences.original.domain.models;
 
 import java.time.LocalDate;
+
+import alvin.base.preferences.common.domain.models.Gender;
 
 public class Person {
     private final String name;

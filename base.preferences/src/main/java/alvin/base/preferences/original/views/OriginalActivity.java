@@ -1,4 +1,4 @@
-package alvin.base.preferences;
+package alvin.base.preferences.original.views;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -11,19 +11,19 @@ import android.widget.Toast;
 
 import com.google.common.base.Strings;
 
-import net.orange_box.storebox.StoreBox;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import alvin.base.preferences.domain.models.Gender;
-import alvin.base.preferences.domain.models.StoreBoxPerson;
+import alvin.base.preferences.R;
+import alvin.base.preferences.common.domain.models.Gender;
+import alvin.base.preferences.original.domain.models.Person;
+import alvin.base.preferences.original.domain.repositories.PersonRepository;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class StoreBoxActivity extends AppCompatActivity {
+public class OriginalActivity extends AppCompatActivity {
 
     @BindView(R.id.text_name)
     EditText editName;
@@ -37,7 +37,7 @@ public class StoreBoxActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preferences_store_box);
+        setContentView(R.layout.original_activity_preferences);
 
         ButterKnife.bind(this);
 
@@ -48,26 +48,25 @@ public class StoreBoxActivity extends AppCompatActivity {
     }
 
     private void initializeData() {
-        StoreBoxPerson person = StoreBox.create(this, StoreBoxPerson.class);
+        PersonRepository repository = new PersonRepository(this);
+        Person person = repository.load();
+
         editName.setText(person.getName());
 
-        Gender gender = person.getGender();
-        if (gender == null) {
+        switch (person.getGender()) {
+        case MALE:
             radioGender.check(R.id.radio_gender_male);
-        } else {
-            switch (gender) {
-            case MALE:
-                radioGender.check(R.id.radio_gender_male);
-                break;
-            case FEMALE:
-                radioGender.check(R.id.radio_gender_female);
-                break;
-            }
+            break;
+        case FEMALE:
+            radioGender.check(R.id.radio_gender_female);
+            break;
+        default:
+            radioGender.check(R.id.radio_gender_male);
         }
 
         LocalDate birthday = person.getBirthday();
         if (birthday != null) {
-            editBirthday.setText(person.getBirthday().format(DateTimeFormatter.ISO_DATE));
+            editBirthday.setText(birthday.format(DateTimeFormatter.ISO_DATE));
         }
     }
 
@@ -90,8 +89,7 @@ public class StoreBoxActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_save)
     public void onSaveClick(Button elem) {
-        StoreBoxPerson person = StoreBox.create(this, StoreBoxPerson.class);
-        person.setName(editName.getText().toString());
+        String name = editName.getText().toString();
 
         Gender gender;
         switch (radioGender.getCheckedRadioButtonId()) {
@@ -105,7 +103,6 @@ public class StoreBoxActivity extends AppCompatActivity {
             gender = Gender.MALE;
             break;
         }
-        person.setGender(gender);
 
         LocalDate birthday = null;
         String date = editBirthday.getText().toString();
@@ -116,7 +113,9 @@ public class StoreBoxActivity extends AppCompatActivity {
                 Toast.makeText(this, getString(R.string.error_error_date_format), Toast.LENGTH_LONG).show();
             }
         }
-        person.setBirthday(birthday);
+
+        PersonRepository repository = new PersonRepository(this);
+        repository.save(new Person(name, gender, birthday));
 
         Toast.makeText(this, getString(R.string.message_success), Toast.LENGTH_LONG).show();
     }
