@@ -22,8 +22,8 @@ public class DependencyPresenter extends PresenterAdapter<DependencyContracts.Vi
     }
 
     @Override
-    public void started() {
-        super.started();
+    public void onStart() {
+        super.onStart();
 
         withView(view -> view.showActivityScopeService(ObjectNames.simpleName(activityScopeService)));
     }

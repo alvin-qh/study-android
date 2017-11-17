@@ -32,14 +32,14 @@ public class TaskPresenter extends PresenterAdapter<View> implements Presenter {
     }
 
     @Override
-    public void started() {
-        super.started();
+    public void onStart() {
+        super.onStart();
         getLiveWeather();
     }
 
     @Override
-    public void destroyed() {
-        super.destroyed();
+    public void onDestroy() {
+        super.onDestroy();
 
         if (task != null) {
             task.cancel(true);

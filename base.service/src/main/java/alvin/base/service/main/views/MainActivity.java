@@ -1,4 +1,4 @@
-package alvin.base.service.views;
+package alvin.base.service.main.views;
 
 import android.content.Intent;
 import android.os.Bundle;

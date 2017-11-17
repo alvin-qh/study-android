@@ -26,8 +26,8 @@ public class FragmentPresenter extends PresenterAdapter<FragmentContracts.View>
     }
 
     @Override
-    public void started() {
-        super.started();
+    public void onStart() {
+        super.onStart();
 
         withView(view -> view.showActivityScopeService(ObjectNames.simpleName(activityScopeService)));
         withView(view -> view.showFragmentScopeService(ObjectNames.simpleName(fragmentScopeService)));

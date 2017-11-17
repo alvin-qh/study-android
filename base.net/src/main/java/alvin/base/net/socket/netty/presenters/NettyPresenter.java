@@ -29,22 +29,22 @@ public class NettyPresenter extends PresenterAdapter<SocketContract.View>
     }
 
     @Override
-    public void started() {
-        super.started();
+    public void onStart() {
+        super.onStart();
         this.mainThreadHandler = new Handler(Looper.getMainLooper());
         this.socket = new SocketNetty(this);
     }
 
     @Override
-    public void stoped() {
-        super.stoped();
+    public void onStop() {
+        super.onStop();
         mainThreadHandler.removeCallbacksAndMessages(null);
         disconnect();
     }
 
     @Override
-    public void destroyed() {
-        super.destroyed();
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     @Override

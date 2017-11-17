@@ -36,7 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View {
         ButterKnife.bind(this);
 
         presenter = getPresenter();
-        presenter.created();
+        presenter.onCreate();
     }
 
     protected abstract Presenter getPresenter();
@@ -44,13 +44,13 @@ public abstract class BaseActivity extends AppCompatActivity implements View {
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.started();
+        presenter.onStart();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.destroyed();
+        presenter.onDestroy();
     }
 
     @OnClick(R.id.btn_refresh)

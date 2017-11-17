@@ -57,19 +57,19 @@ public abstract class BaseActivity extends AppCompatActivity implements Contract
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.started();
+        presenter.onStart();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        presenter.stoped();
+        presenter.onStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.destroyed();
+        presenter.onDestroy();
     }
 
     @Override

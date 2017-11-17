@@ -30,8 +30,8 @@ public abstract class BaseActivityPresenter extends PresenterAdapter<Contract.Vi
     }
 
     @Override
-    public void started() {
-        super.started();
+    public void onStart() {
+        super.onStart();
 
         final SingleSubscriber<List<Message>> subscribe = rxManager.single(emitter -> {
             try {

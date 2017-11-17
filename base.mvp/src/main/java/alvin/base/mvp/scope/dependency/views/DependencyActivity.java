@@ -69,7 +69,7 @@ public class DependencyActivity extends AppCompatActivity implements DependencyC
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.started();
+        presenter.onStart();
     }
 
     @Override

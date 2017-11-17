@@ -38,7 +38,7 @@ class DaggerActivity : AppCompatActivity(), DaggerContracts.View {
 
         AndroidInjection.inject(this)
 
-        presenter.created()
+        presenter.onCreate()
     }
 
     private fun initializeListView() {
@@ -77,12 +77,12 @@ class DaggerActivity : AppCompatActivity(), DaggerContracts.View {
 
     override fun onStart() {
         super.onStart()
-        presenter.started()
+        presenter.onStart()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.destroyed()
+        presenter.onDestroy()
     }
 
     @OnClick(R.id.fab)

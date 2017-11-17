@@ -22,8 +22,8 @@ public class SubcomponentPresenter extends PresenterAdapter<SubcomponentContract
     }
 
     @Override
-    public void started() {
-        super.started();
+    public void onStart() {
+        super.onStart();
 
         withView(view -> view.showActivityScopeService(ObjectNames.simpleName(activityScopeService)));
     }

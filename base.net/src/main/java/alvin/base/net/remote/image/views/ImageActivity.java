@@ -46,7 +46,7 @@ public class ImageActivity extends AppCompatActivity implements ImageContract.Vi
         setContentView(R.layout.remote_image_activity);
 
         presenter = new ImagePresenter(this);
-        presenter.created();
+        presenter.onCreate();
 
         ButterKnife.bind(this);
 
@@ -78,19 +78,19 @@ public class ImageActivity extends AppCompatActivity implements ImageContract.Vi
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.started();
+        presenter.onStart();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        presenter.stoped();
+        presenter.onStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.destroyed();
+        presenter.onDestroy();
     }
 
     @Override

@@ -69,7 +69,7 @@ public class SubcomponentActivity extends AppCompatActivity implements Subcompon
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.started();
+        presenter.onStart();
     }
 
     @Override

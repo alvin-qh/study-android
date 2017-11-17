@@ -32,8 +32,8 @@ public class MultibindingsPresenter
     }
 
     @Override
-    public void started() {
-        super.started();
+    public void onStart() {
+        super.onStart();
 
         withView(view -> view.showNameSet(nameSet));
         withView(view -> view.showBirthdayMap(birthdayMap));

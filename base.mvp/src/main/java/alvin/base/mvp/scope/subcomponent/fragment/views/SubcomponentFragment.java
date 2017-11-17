@@ -63,7 +63,7 @@ public class SubcomponentFragment extends Fragment implements FragmentContracts.
     @Override
     public void onStart() {
         super.onStart();
-        presenter.started();
+        presenter.onStart();
     }
 
     @Override

@@ -120,20 +120,20 @@ public class NativePresenter extends PresenterAdapter<SocketContract.View>
     }
 
     @Override
-    public void started() {
-        super.started();
+    public void onStart() {
+        super.onStart();
         doConnect(s -> startReceive());
     }
 
     @Override
-    public void stoped() {
-        super.stoped();
+    public void onStop() {
+        super.onStop();
         disconnect();
     }
 
     @Override
-    public void destroyed() {
-        super.destroyed();
+    public void onDestroy() {
+        super.onDestroy();
         rxSendManager.clear();
         rxReceiverManager.clear();
     }

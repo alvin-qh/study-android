@@ -46,7 +46,7 @@ public class MultibindingsActivity extends AppCompatActivity implements Multibin
     protected void onStart() {
         super.onStart();
 
-        presenter.started();
+        presenter.onStart();
     }
 
     @Override

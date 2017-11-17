@@ -28,14 +28,14 @@ public class RxPresenter extends PresenterAdapter<View> implements Presenter {
     }
 
     @Override
-    public void started() {
-        super.started();
+    public void onStart() {
+        super.onStart();
         getLiveWeather();
     }
 
     @Override
-    public void destroyed() {
-        super.destroyed();
+    public void onDestroy() {
+        super.onDestroy();
         rxManager.clear();
     }
 

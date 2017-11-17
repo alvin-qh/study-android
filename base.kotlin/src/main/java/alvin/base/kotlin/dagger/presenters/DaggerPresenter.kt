@@ -14,13 +14,13 @@ class DaggerPresenter
         PresenterAdapter<DaggerContracts.View>(view),
         DaggerContracts.Presenter {
 
-    override fun started() {
-        super.started()
+    override fun onStart() {
+        super.onStart()
         reloadPersons()
     }
 
-    override fun destroyed() {
-        super.destroyed()
+    override fun onDestroy() {
+        super.onDestroy()
         rxManager.clear()
     }
 

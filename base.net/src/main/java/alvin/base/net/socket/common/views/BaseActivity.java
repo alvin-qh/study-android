@@ -46,7 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View {
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.started();
+        presenter.onStart();
     }
 
     @Override
@@ -55,13 +55,13 @@ public abstract class BaseActivity extends AppCompatActivity implements View {
         if (timer != null) {
             timer.cancel();
         }
-        presenter.stoped();
+        presenter.onStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.destroyed();
+        presenter.onDestroy();
     }
 
     @Override

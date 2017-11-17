@@ -42,8 +42,8 @@ public class ImagePresenter extends PresenterAdapter<View> implements Presenter 
     }
 
     @Override
-    public void created() {
-        super.created();
+    public void onCreate() {
+        super.onCreate();
 
         withView(view -> {
             File cacheFileDir = createCacheFileDir(view.context());
@@ -62,8 +62,8 @@ public class ImagePresenter extends PresenterAdapter<View> implements Presenter 
     }
 
     @Override
-    public void started() {
-        super.started();
+    public void onStart() {
+        super.onStart();
         loadImageUrls();
     }
 
@@ -97,8 +97,8 @@ public class ImagePresenter extends PresenterAdapter<View> implements Presenter 
     }
 
     @Override
-    public void destroyed() {
-        super.destroyed();
+    public void onDestroy() {
+        super.onDestroy();
 
         if (imageLoader != null) {
             imageLoader.dispose();

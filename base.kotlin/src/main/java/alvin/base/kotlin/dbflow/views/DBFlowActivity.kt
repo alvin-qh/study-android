@@ -35,7 +35,7 @@ class DBFlowActivity : AppCompatActivity(), DBFlowContract.View {
         }
 
         presenter = DBFlowPresenter(this)
-        presenter.created()
+        presenter.onCreate()
     }
 
     private fun initializeListView() {
@@ -74,12 +74,12 @@ class DBFlowActivity : AppCompatActivity(), DBFlowContract.View {
 
     override fun onStart() {
         super.onStart()
-        presenter.started()
+        presenter.onStart()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.destroyed()
+        presenter.onDestroy()
     }
 
     @OnClick(R.id.fab)

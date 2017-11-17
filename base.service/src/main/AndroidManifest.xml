@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.MainActivity">
+        <activity android:name=".main.views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
         <activity
             android:name=".basic.views.BasicActivity"
             android:label="@string/title_basic_service"
-            android:parentActivityName=".views.MainActivity" />
+            android:parentActivityName=".main.views.MainActivity" />
 
         <service android:name=".basic.services.BasicService" />
     </application>

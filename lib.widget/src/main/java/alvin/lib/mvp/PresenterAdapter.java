@@ -20,23 +20,23 @@ public abstract class PresenterAdapter<View extends IView> implements IPresenter
         }
     }
 
-    public void created() {
+    public void onCreate() {
     }
 
-    public void destroyed() {
+    public void onDestroy() {
         viewRef.clear();
     }
 
-    public void paused() {
+    public void onPause() {
     }
 
-    public void resumed() {
+    public void onResume() {
     }
 
-    public void started() {
+    public void onStart() {
     }
 
-    public void stoped() {
+    public void onStop() {
     }
 
     protected WeakReference<View> getViewRef() {

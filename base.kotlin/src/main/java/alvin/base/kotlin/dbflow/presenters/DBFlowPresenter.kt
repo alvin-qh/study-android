@@ -19,13 +19,13 @@ class DBFlowPresenter(val view: DBFlowContract.View) :
             .withObserveOn { AndroidSchedulers.mainThread() }
             .build()
 
-    override fun started() {
-        super.started()
+    override fun onStart() {
+        super.onStart()
         reloadPersons()
     }
 
-    override fun destroyed() {
-        super.destroyed();
+    override fun onDestroy() {
+        super.onDestroy();
         rxManager.clear()
     }
 

@@ -2,15 +2,15 @@ package alvin.lib.mvp;
 
 public interface IPresenter {
 
-    void created();
+    void onCreate();
 
-    void destroyed();
+    void onDestroy();
 
-    void paused();
+    void onPause();
 
-    void resumed();
+    void onResume();
 
-    void started();
+    void onStart();
 
-    void stoped();
+    void onStop();
 }

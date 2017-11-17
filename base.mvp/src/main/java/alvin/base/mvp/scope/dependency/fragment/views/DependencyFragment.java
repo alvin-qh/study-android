@@ -58,7 +58,7 @@ public class DependencyFragment extends Fragment implements FragmentContracts.Vi
     public void onStart() {
         super.onStart();
 
-        presenter.started();
+        presenter.onStart();
     }
 
     public void setBackground(int color) {
