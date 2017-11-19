@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".basic.views.BasicActivity">
+    tools:context=".lifecycle.views.LifecycleActivity">
 
     <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/ll_buttons_bar"
@@ -22,14 +22,25 @@
             android:id="@+id/btn_start_service"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_start_service" />
+            android:text="@string/btn_start" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_stop_service"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:text="@string/btn_stop_service" />
+            android:text="@string/btn_stop" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_bind_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_bind" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_unbind_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_unbind" />
 
     </android.support.v7.widget.LinearLayoutCompat>
 
@@ -37,20 +48,41 @@
         android:id="@+id/rg_service_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/ll_buttons_bar">
 
         <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/rb_started"
+            android:id="@+id/rb_created"
+            style="@style/AppTheme.Widget.OvalRadioButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:enabled="false"
+            android:text="@string/rb_service_created" />
 
         <android.support.v7.widget.AppCompatRadioButton
             android:id="@+id/rb_destroyed"
+            style="@style/AppTheme.Widget.OvalRadioButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:checked="true"
+            android:enabled="false"
+            android:text="@string/rb_service_destroyed" />
 
     </RadioGroup>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_service_start_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="150sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_buttons_bar"
+        tools:text="0" />
 
 </android.support.constraint.ConstraintLayout>

@@ -21,6 +21,10 @@ public final class Collections2 {
         return collection == null || collection.isEmpty();
     }
 
+    public static <T> boolean notNullOrEmpty(@Nullable Collection<T> collection) {
+        return !nullOrEmpty(collection);
+    }
+
     @NonNull
     public static <K, V> Map<K, V> toMap(@NonNull Stream<V> stream,
                                          @NonNull Function<? super V, ? extends K> keyMapFn) {

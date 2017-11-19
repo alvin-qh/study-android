@@ -1,9 +1,17 @@
 <resources>
     <string name="app_name">Service Demo</string>
 
-    <string name="title_basic_service">Basic Service</string>
+    <string name="title_lifecycle_service">Lifecycle</string>
 
-    <string name="btn_basic_service">Basic Service</string>
-    <string name="btn_start_service">Start Service</string>
-    <string name="btn_stop_service">Stop Service</string>
+    <string name="btn_lifecycle_service">Lifecycle</string>
+    <string name="btn_start">Start</string>
+    <string name="btn_bind">Bind</string>
+    <string name="btn_unbind">Unbind</string>
+    <string name="btn_stop">Stop</string>
+
+    <string name="rb_service_created">Created</string>
+    <string name="rb_service_started">Started</string>
+    <string name="rb_service_bind">Bind</string>
+    <string name="rb_service_unbind">Unbind</string>
+    <string name="rb_service_destroyed">Destroyed</string>
 </resources>

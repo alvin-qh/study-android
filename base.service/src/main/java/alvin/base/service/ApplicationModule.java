@@ -1,19 +1,17 @@
 package alvin.base.service;
 
-import alvin.base.service.basic.BasicModule;
-import alvin.base.service.persists.PersistModule;
+import alvin.base.service.lifecycle.LifecycleModule;
 import dagger.Module;
 import dagger.android.AndroidInjectionModule;
 
 @Module(includes = {
         AndroidInjectionModule.class,
-        ApplicationModule.SubModules.class,
-        PersistModule.class
+        ApplicationModule.SubModules.class
 })
 interface ApplicationModule {
 
     @Module(includes = {
-            BasicModule.class
+            LifecycleModule.class
     })
     interface SubModules { }
 }

@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import alvin.base.service.R;
-import alvin.base.service.basic.views.BasicActivity;
+import alvin.base.service.lifecycle.views.LifecycleActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
 
         ButterKnife.bind(this);
     }
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (b.getId()) {
         case R.id.btn_basic_service:
-            intent = new Intent(this, BasicActivity.class);
+            intent = new Intent(this, LifecycleActivity.class);
             break;
         default:
             intent = null;

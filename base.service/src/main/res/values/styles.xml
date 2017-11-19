@@ -9,4 +9,13 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="AppTheme.Widget" parent="AppTheme" />
+
+    <style name="AppTheme.Widget.OvalRadioButton" parent="AppTheme.Widget">
+        <item name="android:button">@null</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:textColor">@drawable/radio_text</item>
+        <item name="android:drawableTop">@drawable/radio_oval</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
 </resources>
