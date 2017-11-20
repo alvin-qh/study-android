@@ -26,7 +26,6 @@ public class IntentActivity extends AppCompatActivity implements IntentContracts
     @Inject IntentContracts.Presenter presenter;
 
     @BindView(R.id.rg_service_status) RadioGroup rgServiceStatus;
-
     @BindView(R.id.sv_time) ScrollView svTime;
     @BindView(R.id.tv_time) TextView tvTime;
 
