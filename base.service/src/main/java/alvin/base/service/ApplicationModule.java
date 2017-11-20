@@ -1,6 +1,7 @@
 package alvin.base.service;
 
 import alvin.base.service.bind.BindModule;
+import alvin.base.service.intent.IntentModule;
 import alvin.base.service.lifecycle.LifecycleModule;
 import alvin.base.service.working.WorkingModule;
 import dagger.Module;
@@ -15,7 +16,8 @@ interface ApplicationModule {
     @Module(includes = {
             LifecycleModule.class,
             WorkingModule.class,
-            BindModule.class
+            BindModule.class,
+            IntentModule.class
     })
     interface SubModules { }
 }

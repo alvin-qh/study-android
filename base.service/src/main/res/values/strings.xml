@@ -4,6 +4,7 @@
     <string name="title_lifecycle_service">Lifecycle</string>
     <string name="title_working_service">Working</string>
     <string name="title_binding_service">Binding</string>
+    <string name="title_intent_service">Intent</string>
 
     <string name="btn_lifecycle_service">Lifecycle</string>
     <string name="btn_start">Start</string>
@@ -14,6 +15,8 @@
     <string name="btn_disconnect">Disconnect</string>
     <string name="btn_working_service">Working Service</string>
     <string name="btn_bind_service">Bind Service</string>
+    <string name="btn_intent_service">Intent Service</string>
+    <string name="btn_work">Work</string>
 
     <string name="rb_service_created">Created</string>
     <string name="rb_service_started">Started</string>

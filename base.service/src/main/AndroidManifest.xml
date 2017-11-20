@@ -37,9 +37,15 @@
             android:label="@string/title_binding_service"
             android:parentActivityName=".main.views.MainActivity" />
 
+        <activity
+            android:name=".intent.views.IntentActivity"
+            android:label="@string/title_intent_service"
+            android:parentActivityName=".main.views.MainActivity" />
+
         <service android:name=".lifecycle.services.LifecycleService" />
         <service android:name=".working.services.WorkingService" />
         <service android:name=".bind.services.BindService" />
+        <service android:name=".intent.services.IntentService" />
 
     </application>
 </manifest>

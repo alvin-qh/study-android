@@ -18,8 +18,8 @@ import java.util.Deque;
 
 import javax.inject.Inject;
 
+import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.base.service.lifecycle.LifecycleContracts;
-import alvin.base.service.lifecycle.broadcasts.LifecycleBroadcasts;
 import alvin.base.service.lifecycle.services.LifecycleService;
 import alvin.lib.mvp.PresenterAdapter;
 
@@ -47,10 +47,10 @@ public class LifecyclePresenter extends PresenterAdapter<LifecycleContracts.View
                     final String action = intent.getAction();
                     if (!Strings.isNullOrEmpty(action)) {
                         switch (action) {
-                        case LifecycleBroadcasts.ACTION_SERVICE_CREATED:
+                        case ServiceBroadcasts.ACTION_SERVICE_CREATED:
                             withView(LifecycleContracts.View::serviceCreated);
                             break;
-                        case LifecycleBroadcasts.ACTION_SERVICE_DESTROYED:
+                        case ServiceBroadcasts.ACTION_SERVICE_DESTROYED:
                             withView(LifecycleContracts.View::serviceDestroyed);
                             break;
                         default:
@@ -61,8 +61,8 @@ public class LifecyclePresenter extends PresenterAdapter<LifecycleContracts.View
             };
 
             IntentFilter filter = new IntentFilter();
-            filter.addAction(LifecycleBroadcasts.ACTION_SERVICE_CREATED);
-            filter.addAction(LifecycleBroadcasts.ACTION_SERVICE_DESTROYED);
+            filter.addAction(ServiceBroadcasts.ACTION_SERVICE_CREATED);
+            filter.addAction(ServiceBroadcasts.ACTION_SERVICE_DESTROYED);
             context.registerReceiver(receiver, filter);
         }
     }

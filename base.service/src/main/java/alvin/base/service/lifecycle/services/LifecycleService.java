@@ -9,7 +9,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import alvin.base.service.lifecycle.broadcasts.LifecycleBroadcasts;
+import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.base.service.lifecycle.presenters.LifecyclePresenter;
 import dagger.android.AndroidInjection;
 
@@ -23,15 +23,12 @@ public class LifecycleService extends Service {
     /**
      * When service is bind.
      * <p>
-     *     The instance of {@link IBinder} must be returned.
-     *     The instance of {@link IBinder} is a communication of this service
-     * </p>
-     *
-     * <p>
-     *  - If service has not been created, created the service, and onCreate method will be called.
-     *
-     *  - If service has been created, increase the <b>Reference Counter</b> of this service.
-     * </p>
+     * The instance of {@link IBinder} must be returned.
+     * The instance of {@link IBinder} is a communication of this service
+     * <ul>
+     * <li>If service has not been created, created the service, and onCreate method will be called.</li>
+     * <li>If service has been created, increase the <b>Reference Counter</b> of this service.</li>
+     * </ul>
      *
      * @see LifecyclePresenter#bindService(Context)
      */
@@ -45,17 +42,15 @@ public class LifecycleService extends Service {
 
     /**
      * Unbind this service.
-     *
      * <p>
-     *      Decrease the <b>Reference Counter</b> of this service, if <b>Reference Counter</b> is
-     *      zero, then:
-     *      <ul>
-     *          <li>If service was started by {@link Context#startService(Intent)}, the service
-     *          will be destroyed after {@link Context#stopService(Intent)} has been called</li>
-     *          <li>If service was started by {@link Context#bindService(Intent, ServiceConnection, int)},
-     *          the service will destroyed immediately</li>
-     *      </ul>
-     * </p>
+     * Decrease the <b>Reference Counter</b> of this service, if <b>Reference Counter</b> is
+     * zero, then:
+     * <ul>
+     * <li>If service was started by {@link Context#startService(Intent)}, the service
+     * will be destroyed after {@link Context#stopService(Intent)} has been called</li>
+     * <li>If service was started by {@link Context#bindService(Intent, ServiceConnection, int)},
+     * the service will destroyed immediately</li>
+     * </ul>
      *
      * @see LifecyclePresenter#unbindService(Context)
      */
@@ -70,10 +65,9 @@ public class LifecycleService extends Service {
     /**
      * When service is created.
      * <p>
-     *     If {@link Context#startService(Intent)} or
-     *     {@link Context#bindService(Intent, ServiceConnection, int)} is called first time, the
-     *     service will be created, and this method will be called once time.
-     * </p>
+     * If {@link Context#startService(Intent)} or
+     * {@link Context#bindService(Intent, ServiceConnection, int)} is called first time, the
+     * service will be created, and this method will be called once time.
      */
     @Override
     public void onCreate() {
@@ -81,7 +75,7 @@ public class LifecycleService extends Service {
 
         AndroidInjection.inject(this);
 
-        sendBroadcast(new Intent(LifecycleBroadcasts.ACTION_SERVICE_CREATED));
+        sendBroadcast(new Intent(ServiceBroadcasts.ACTION_SERVICE_CREATED));
 
         Log.d(TAG, "Service is created");
     }
@@ -89,14 +83,11 @@ public class LifecycleService extends Service {
     /**
      * When service has been started.
      * <p>
-     *     If {@link Context#startService(Intent)} called, this method will be call once, and
-     *     some arguments can pass by {@link Intent} object.
-     * </p>
-     *
+     * If {@link Context#startService(Intent)} called, this method will be call once, and
+     * some arguments can pass by {@link Intent} object.
      * <p>
-     *     Service can be started many times, but can be created only once before service destroyed,
-     *     so this method will be called many times too.
-     * </p>
+     * Service can be started many times, but can be created only once before service destroyed,
+     * so this method will be called many times too.
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -128,17 +119,15 @@ public class LifecycleService extends Service {
 
     /**
      * When service was destroyed.
-     *
      * <p>
-     *     If the <b>Reference Counter</b> is zero and Service is stoped, the service should be
-     *     destroyed.
-     * </p>
+     * If the <b>Reference Counter</b> is zero and Service is stoped, the service should be
+     * destroyed.
      */
     @Override
     public void onDestroy() {
         super.onDestroy();
 
-        sendBroadcast(new Intent(LifecycleBroadcasts.ACTION_SERVICE_DESTROYED));
+        sendBroadcast(new Intent(ServiceBroadcasts.ACTION_SERVICE_DESTROYED));
 
         Log.d(TAG, "Service is destroyed");
     }
