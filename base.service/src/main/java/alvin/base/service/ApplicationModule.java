@@ -1,6 +1,7 @@
 package alvin.base.service;
 
 import alvin.base.service.lifecycle.LifecycleModule;
+import alvin.base.service.working.WorkingModule;
 import dagger.Module;
 import dagger.android.AndroidInjectionModule;
 
@@ -11,7 +12,8 @@ import dagger.android.AndroidInjectionModule;
 interface ApplicationModule {
 
     @Module(includes = {
-            LifecycleModule.class
+            LifecycleModule.class,
+            WorkingModule.class
     })
     interface SubModules { }
 }

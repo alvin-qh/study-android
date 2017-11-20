@@ -11,21 +11,24 @@ import dagger.android.ContributesAndroidInjector;
 public interface LifecycleModule {
 
     @ContributesAndroidInjector(modules = {ViewModule.class})
-    LifecycleActivity basicServiceActivity();
+    LifecycleActivity lifecycleActivity();
 
     @ContributesAndroidInjector(modules = {ServiceModule.class})
-    LifecycleService basicService();
+    LifecycleService lifecycleService();
 
-    @Module
-    interface ViewModule {
+    @Module(includes = {ViewModule.BindModule.class})
+    class ViewModule {
 
-        @Binds
-        LifecycleContracts.Presenter bindBasicServiceActivityPresenter(
-                LifecyclePresenter presenter);
+        @Module
+        public interface BindModule {
+            @Binds
+            LifecycleContracts.Presenter bindBasicServiceActivityPresenter(
+                    LifecyclePresenter presenter);
 
-        @Binds
-        LifecycleContracts.View bindBasicServiceActivityView(
-                LifecycleActivity activity);
+            @Binds
+            LifecycleContracts.View bindBasicServiceActivityView(
+                    LifecycleActivity activity);
+        }
     }
 
     @Module

@@ -26,7 +26,14 @@
             android:label="@string/title_lifecycle_service"
             android:parentActivityName=".main.views.MainActivity" />
 
+        <activity
+            android:name=".working.view.WorkingActivity"
+            android:label="@string/title_working_service"
+            android:parentActivityName=".main.views.MainActivity" />
+
         <service android:name=".lifecycle.services.LifecycleService" />
+
+        <service android:name=".working.services.WorkingService" />
 
     </application>
 </manifest>

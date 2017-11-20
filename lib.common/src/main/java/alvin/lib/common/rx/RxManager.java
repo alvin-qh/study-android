@@ -4,6 +4,7 @@ package alvin.lib.common.rx;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
@@ -95,6 +96,25 @@ public final class RxManager {
         }
 
         return new ObservableSubscriber<>(this, observable);
+    }
+
+    @Nonnull
+    public <T> ObservableSubscriber<T> interval(long initialDelay, long period,
+                                                @NonNull TimeUnit unit,
+                                                @NonNull final ObservableOnSubscribe<T> source) {
+        Observable<Long> observable = Observable.interval(initialDelay, period, unit);
+
+        final Scheduler subscribeOn = getSubscribeOn();
+        if (subscribeOn != null) {
+            observable = observable.subscribeOn(subscribeOn);
+        }
+        final Scheduler observeOn = getObserveOn();
+        if (observeOn != null) {
+            observable = observable.observeOn(observeOn);
+        }
+
+        return new ObservableSubscriber<>(this,
+                observable.flatMap(ignore -> Observable.create(source)));
     }
 
     @Nonnull

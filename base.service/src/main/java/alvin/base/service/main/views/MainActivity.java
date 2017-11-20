@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import alvin.base.service.R;
 import alvin.base.service.lifecycle.views.LifecycleActivity;
+import alvin.base.service.working.view.WorkingActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -21,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick({
-            R.id.btn_basic_service
+            R.id.btn_basic_service,
+            R.id.btn_working_service
     })
     public void onButtonsClick(Button b) {
         Intent intent;
@@ -29,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         switch (b.getId()) {
         case R.id.btn_basic_service:
             intent = new Intent(this, LifecycleActivity.class);
+            break;
+        case R.id.btn_working_service:
+            intent = new Intent(this, WorkingActivity.class);
             break;
         default:
             intent = null;

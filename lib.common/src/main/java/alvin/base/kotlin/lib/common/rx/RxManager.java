@@ -6,6 +6,10 @@ import android.support.annotation.Nullable;
 
 import com.google.common.base.Preconditions;
 
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.Nonnull;
+
 import io.reactivex.Completable;
 import io.reactivex.CompletableEmitter;
 import io.reactivex.Observable;
@@ -99,6 +103,25 @@ public final class RxManager {
         }
 
         return new ObservableSubscriber<>(this, observable);
+    }
+
+    @Nonnull
+    public <T> ObservableSubscriber<T> interval(long initialDelay, long period,
+                                                @NonNull TimeUnit unit,
+                                                @NonNull final Function1<ObservableEmitter<T>, Unit> source) {  // SUPPRESS
+        Observable<Long> observable = Observable.interval(initialDelay, period, unit);
+
+        final Scheduler subscribeOn = getSubscribeOn();
+        if (subscribeOn != null) {
+            observable = observable.subscribeOn(subscribeOn);
+        }
+        final Scheduler observeOn = getObserveOn();
+        if (observeOn != null) {
+            observable = observable.observeOn(observeOn);
+        }
+
+        return new ObservableSubscriber<>(this,
+                observable.flatMap(ignore -> Observable.create(source::invoke)));
     }
 
     @NonNull
