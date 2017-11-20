@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".main.views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -31,9 +32,14 @@
             android:label="@string/title_working_service"
             android:parentActivityName=".main.views.MainActivity" />
 
-        <service android:name=".lifecycle.services.LifecycleService" />
+        <activity
+            android:name=".bind.views.BindActivity"
+            android:label="@string/title_binding_service"
+            android:parentActivityName=".main.views.MainActivity" />
 
+        <service android:name=".lifecycle.services.LifecycleService" />
         <service android:name=".working.services.WorkingService" />
+        <service android:name=".bind.services.BindService" />
 
     </application>
 </manifest>

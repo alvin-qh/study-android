@@ -10,6 +10,7 @@ import alvin.lib.mvp.IView;
 public interface WorkingContracts {
 
     interface View extends IView {
+
         void showTime(LocalDateTime time);
 
         void serviceStarted();
@@ -22,6 +23,7 @@ public interface WorkingContracts {
     }
 
     interface Presenter extends IPresenter {
+
         void startService(Context context);
 
         void stopService(Context context);

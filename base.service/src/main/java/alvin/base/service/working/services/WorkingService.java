@@ -95,11 +95,7 @@ public class WorkingService extends Service {
                     }
                 });
 
-        subscriber.subscribe(
-                time -> listeners.forEach(listener -> listener.onTimeMessage(time)),
-                throwable -> { },
-                () -> { }
-        );
+        subscriber.subscribe(time -> listeners.forEach(listener -> listener.onTimeMessage(time)));
     }
 
     public void addOnServiceCallbackListener(@NonNull OnServiceCallbackListener listener) {
