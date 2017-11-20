@@ -72,8 +72,8 @@ public class WorkingService extends Service {
     public void onDestroy() {
         super.onDestroy();
 
-        rxManager.clear();
         serviceRef.clear();
+        rxManager.clear();
     }
 
     public static boolean isAvailable() {
