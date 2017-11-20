@@ -21,7 +21,8 @@ import dagger.android.AndroidInjection;
 
 public class IntentActivity extends AppCompatActivity implements IntentContracts.View {
 
-    public static final float ONE_SECOND_MS_FLOAT = 1000f;
+    private static final float ONE_SECOND_MS_FLOAT = 1000f;
+
     @Inject IntentContracts.Presenter presenter;
 
     @BindView(R.id.rg_service_status) RadioGroup rgServiceStatus;
