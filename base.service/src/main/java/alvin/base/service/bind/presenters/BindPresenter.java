@@ -35,19 +35,33 @@ public class BindPresenter extends PresenterAdapter<BindContracts.View>
             intent.putExtra(BindService.EXTRA_ARG_ZONE, "Asia/Shanghai");
 
             connection = new ServiceConnection() {
+
+                /**
+                 * When service is connected, this method will be callback.
+                 * The service name and IBinder instance will be given.
+                 *
+                 * @see BindService.ServiceBinder#addTimeCallback(Consumer)
+                 */
                 @Override
                 public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
                     if (iBinder instanceof BindService.ServiceBinder) {
                         binder = (BindService.ServiceBinder) iBinder;
+
+                        // set callback method to binder,
                         binder.addTimeCallback(timeConsumer);
                     }
                 }
 
+                /**
+                 * Only service is killed unexpected, this method will be callback.
+                 */
                 @Override
                 public void onServiceDisconnected(ComponentName componentName) {
                     binder.remoteTimeCallback(timeConsumer);
                 }
             };
+
+            // Bind service
             context.bindService(intent, connection, Context.BIND_AUTO_CREATE);
         }
         withView(BindContracts.View::serviceBind);

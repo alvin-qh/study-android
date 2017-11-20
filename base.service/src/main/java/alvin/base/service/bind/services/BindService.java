@@ -1,6 +1,7 @@
 package alvin.base.service.bind.services;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
@@ -19,6 +20,7 @@ import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
+import alvin.base.service.bind.presenters.BindPresenter;
 import alvin.lib.common.rx.ObservableSubscriber;
 import alvin.lib.common.rx.RxManager;
 import dagger.android.AndroidInjection;
@@ -35,6 +37,10 @@ public class BindService extends Service {
     private final ServiceBinder binder = new ServiceBinder();
     private final Set<Consumer<LocalDateTime>> timeCallback = new HashSet<>();
 
+    /**
+     * If on one to start this service, This method will be invoke when this service
+     * has been bind first time.
+     */
     @Override
     public void onCreate() {
         super.onCreate();
@@ -50,7 +56,7 @@ public class BindService extends Service {
         super.onDestroy();
 
         available = false;
-        timeCallback.clear();
+        timeCallback.clear();   // clear all callback functions, stop callback
         rxManager.clear();
     }
 
@@ -64,9 +70,15 @@ public class BindService extends Service {
                     }
                 });
 
-        subscriber.subscribe(time -> timeCallback.forEach(consumer -> consumer.accept(time)));
+        subscriber.subscribe(time ->
+                // call every callback functions and pass result
+                timeCallback.forEach(consumer -> consumer.accept(time))
+        );
     }
 
+    /**
+     * When service has been bind, return an object of IBinder.
+     */
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -76,15 +88,27 @@ public class BindService extends Service {
         } else {
             this.zoneId = ZoneId.of(zoneId);
         }
+
+        // return the instance of IBinder interface
         return binder;
     }
 
-
     public class ServiceBinder extends Binder {
+
+        /**
+         * Add a callback function to service.
+         *
+         * @see BindPresenter#bindService(Context)
+         */
         public void addTimeCallback(@NonNull Consumer<LocalDateTime> consumer) {
             timeCallback.add(consumer);
         }
 
+        /**
+         * Remove callback function from service.
+         *
+         * @see BindPresenter#unbindService(Context)
+         */
         public void remoteTimeCallback(@NonNull Consumer<LocalDateTime> consumer) {
             timeCallback.remove(consumer);
         }

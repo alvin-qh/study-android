@@ -80,6 +80,10 @@ public class LifecyclePresenter extends PresenterAdapter<LifecycleContracts.View
         final Intent intent = new Intent(context, LifecycleService.class)
                 .putExtra(LifecycleService.EXTRA_ARGUMENTS_MODE, Service.START_REDELIVER_INTENT);
 
+        // Start the service and pass the arguments from intent object.
+        // Service can be start many times, but Service#onCreate method only be called one time,
+        // and Service#onStartCommand method should be called many times.
+        // Started service can be stoped by Context#stopService.
         context.startService(intent);
         startedCount = 1;
 
@@ -89,11 +93,20 @@ public class LifecyclePresenter extends PresenterAdapter<LifecycleContracts.View
     @Override
     public void bindService(Context context) {
         ServiceConnection conn = new ServiceConnection() {
+
+            /**
+             * Callback when service is connected, the {@link IBinder} instance will be passed,
+             *
+             * @see LifecycleService#onBind(Intent)
+             */
             @Override
             public void onServiceConnected(ComponentName componentName, IBinder binder) {
                 Log.i(TAG, "The service was connected");
             }
 
+            /**
+             * Callback only service will be killed unexpected.
+             */
             @Override
             public void onServiceDisconnected(ComponentName componentName) {
                 Log.i(TAG, "The service was accidentally disconnected");
@@ -101,6 +114,9 @@ public class LifecyclePresenter extends PresenterAdapter<LifecycleContracts.View
         };
 
         final Intent intent = new Intent(context, LifecycleService.class);
+
+        // Bind service, the Service#onBind method will be called one time, and Reference Counter
+        // should be increase
         context.bindService(intent, conn, Context.BIND_AUTO_CREATE);
         connStack.push(conn);
 
@@ -111,6 +127,9 @@ public class LifecyclePresenter extends PresenterAdapter<LifecycleContracts.View
     public void unbindService(Context context) {
         if (!connStack.isEmpty()) {
             ServiceConnection conn = connStack.pop();
+
+            // Unbind service, the Service#onUnbind method will be called one time, and Reference Counter
+            // should be decrease
             context.unbindService(conn);
         }
 
@@ -119,6 +138,7 @@ public class LifecyclePresenter extends PresenterAdapter<LifecycleContracts.View
 
     @Override
     public void stopService(Context context) {
+        // Stop service, if Reference Counter is zero, the service should been destroyed.
         context.stopService(new Intent(context, LifecycleService.class));
 
         startedCount = 0;
