@@ -23,7 +23,7 @@ import alvin.lib.common.rx.RxManager;
 import dagger.android.AndroidInjection;
 
 public class WorkingService extends Service {
-    public static final String EXTERN_ARG_ZONE = "zone";
+    public static final String EXTRA_ARG_ZONE = "zone";
 
     @Inject
     RxManager rxManager;
@@ -60,7 +60,7 @@ public class WorkingService extends Service {
     }
 
     private void getZoneIdFromIntent(Intent intent) {
-        final String zoneId = intent.getStringExtra(EXTERN_ARG_ZONE);
+        final String zoneId = intent.getStringExtra(EXTRA_ARG_ZONE);
         if (Strings.isNullOrEmpty(zoneId)) {
             this.zoneId = ZoneOffset.systemDefault();
         } else {

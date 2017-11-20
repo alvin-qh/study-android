@@ -27,7 +27,7 @@ public class WorkingPresenter extends PresenterAdapter<WorkingContracts.View>
     @Override
     public void startService(Context context) {
         Intent intent = new Intent(context, WorkingService.class);
-        intent.putExtra(WorkingService.EXTERN_ARG_ZONE, "Asia/Shanghai");
+        intent.putExtra(WorkingService.EXTRA_ARG_ZONE, "Asia/Shanghai");
         context.startService(intent);
 
         withView(WorkingContracts.View::serviceStarted);
