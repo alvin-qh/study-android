@@ -9,6 +9,7 @@ import alvin.base.service.R;
 import alvin.base.service.bind.views.BindActivity;
 import alvin.base.service.intent.views.IntentActivity;
 import alvin.base.service.lifecycle.views.LifecycleActivity;
+import alvin.base.service.remote.views.RemoteActivity;
 import alvin.base.service.working.view.WorkingActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -27,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
             R.id.btn_basic_service,
             R.id.btn_working_service,
             R.id.btn_bind_service,
-            R.id.btn_intent_service
+            R.id.btn_intent_service,
+            R.id.btn_remote_service
     })
     public void onButtonsClick(Button b) {
         Intent intent;
@@ -44,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
             break;
         case R.id.btn_intent_service:
             intent = new Intent(this, IntentActivity.class);
+            break;
+        case R.id.btn_remote_service:
+            intent = new Intent(this, RemoteActivity.class);
             break;
         default:
             intent = null;

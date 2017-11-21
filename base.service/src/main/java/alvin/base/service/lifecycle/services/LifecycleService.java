@@ -13,6 +13,13 @@ import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.base.service.lifecycle.presenters.LifecyclePresenter;
 import dagger.android.AndroidInjection;
 
+/**
+ * Service must be registered in AndroidManifest.xml.
+ * <p>
+ * <pre>
+ * &lt;service android:name=".lifecycle.services.LifecycleService" /&gt;
+ * </pre>
+ */
 public class LifecycleService extends Service {
     private static final String TAG = LifecycleService.class.getSimpleName();
 

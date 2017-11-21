@@ -1,4 +1,4 @@
-package alvin.base.service.intent.views;
+package alvin.base.service.remote.views;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,26 +6,24 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
-import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import javax.inject.Inject;
 
 import alvin.base.service.R;
-import alvin.base.service.intent.IntentContracts;
+import alvin.base.service.remote.RemoteContracts;
+import alvin.base.service.remote.aidls.models.JobResponse;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dagger.android.AndroidInjection;
 
-public class IntentActivity extends AppCompatActivity implements IntentContracts.View {
+public class RemoteActivity extends AppCompatActivity implements RemoteContracts.View {
+    public static final float ONE_SECOND_MS_FLOAT = 1000f;
 
-    private static final float ONE_SECOND_MS_FLOAT = 1000f;
+    @Inject RemoteContracts.Presenter presenter;
 
-    @Inject IntentContracts.Presenter presenter;
-
-    @BindView(R.id.rg_service_status) RadioGroup rgServiceStatus;
     @BindView(R.id.sv_job_response) ScrollView svJobResponse;
     @BindView(R.id.tv_job_response) TextView tvJobResponse;
 
@@ -34,7 +32,8 @@ public class IntentActivity extends AppCompatActivity implements IntentContracts
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.intent_activity);
+
+        setContentView(R.layout.remote_activity);
 
         ButterKnife.bind(this);
 
@@ -47,21 +46,14 @@ public class IntentActivity extends AppCompatActivity implements IntentContracts
     protected void onStart() {
         super.onStart();
 
-        presenter.registerReceiver(this);
-        presenter.onStart();
+        presenter.bindService(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        presenter.unregisterReceiver(this);
-        presenter.onStop();
-    }
-
-    @OnClick(R.id.btn_work)
-    public void onWorkButtonClick(Button b) {
-        presenter.workOnce(this);
+        presenter.unbindService(this);
     }
 
     @Override
@@ -70,25 +62,22 @@ public class IntentActivity extends AppCompatActivity implements IntentContracts
     }
 
     @Override
-    public void serviceCreated() {
-        rgServiceStatus.check(R.id.rb_created);
+    public void jobStarted(String name) {
+        tvJobResponse.append(String.format("\nJob %s is started", name));
     }
 
     @Override
-    public void serviceDestroyed() {
-        rgServiceStatus.check(R.id.rb_destroyed);
-    }
+    public void jobFinished(JobResponse response) {
+        tvJobResponse.append(String.format("\nJob %s is finished, time spend %ss\n",
+                response.getName(), response.getTimeSpend() / ONE_SECOND_MS_FLOAT));
 
-    @Override
-    public void onJobStart(String jobName) {
-        tvJobResponse.append(String.format("\n%s is started", jobName));
         handler.post(() -> svJobResponse.fullScroll(ScrollView.FOCUS_DOWN));
     }
 
-    @Override
-    public void onJobFinish(String jobName, long timeSpend) {
-        tvJobResponse.append(String.format("\n%s is finished, time spend %ss\n",
-                jobName, timeSpend / ONE_SECOND_MS_FLOAT));
+    @OnClick(R.id.btn_work)
+    public void onWorkButtonClick(Button b) {
+        presenter.startWork();
+
         handler.post(() -> svJobResponse.fullScroll(ScrollView.FOCUS_DOWN));
     }
 }

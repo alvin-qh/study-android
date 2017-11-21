@@ -3,6 +3,8 @@
     package="alvin.base.service"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="alvin.base.service.permission.REMOTE_SERVICE" />
+
     <application
         android:name=".Application"
         android:allowBackup="true"
@@ -42,10 +44,27 @@
             android:label="@string/title_intent_service"
             android:parentActivityName=".main.views.MainActivity" />
 
+        <activity
+            android:name=".remote.views.RemoteActivity"
+            android:label="@string/title_remote_service"
+            android:parentActivityName=".main.views.MainActivity" />
+
         <service android:name=".lifecycle.services.LifecycleService" />
+
         <service android:name=".working.services.WorkingService" />
+
         <service android:name=".bind.services.BindService" />
+
         <service android:name=".intent.services.IntentService" />
 
+        <service
+            android:name=".remote.services.RemoteService"
+            android:exported="true"
+            android:permission="alvin.base.service.permission.REMOTE_SERVICE"
+            android:process="alvin.base.service.remote.services.RemoteService">
+            <intent-filter>
+                <action android:name="alvin.base.service.remote.aidls.IRemoteBinder" />
+            </intent-filter>
+        </service>
     </application>
 </manifest>
