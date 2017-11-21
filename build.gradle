@@ -4,10 +4,10 @@ apply from: 'depends.gradle'
 buildscript {
     ext {
         versions = [
-                buildTool       : '3.0.0',
+                buildTool       : '3.0.1',
                 multidex        : '1.0.1',
                 retrolambda     : '3.7.0',
-                sdk             : '27.0.0',
+                sdk             : '27.0.1',
                 constraintLayout: '1.0.2',
                 butterKnife     : '8.8.1',
                 guava           : '23.3-android',
@@ -121,7 +121,7 @@ subprojects {
 
     android {
         compileSdkVersion 27
-        buildToolsVersion "27"
+        buildToolsVersion versions.sdk
 
         defaultConfig {
             multiDexEnabled true

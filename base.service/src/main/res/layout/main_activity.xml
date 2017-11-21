@@ -41,4 +41,11 @@
         android:text="@string/btn_remote_service"
         app:layout_constraintTop_toBottomOf="@id/btn_intent_service" />
 
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_foreground_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_foreground_service"
+        app:layout_constraintTop_toBottomOf="@id/btn_remote_service" />
+
 </android.support.constraint.ConstraintLayout>

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -17,9 +16,9 @@ import alvin.base.service.remote.aidls.models.JobResponse;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.AndroidInjection;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class RemoteActivity extends AppCompatActivity implements RemoteContracts.View {
+public class RemoteActivity extends DaggerAppCompatActivity implements RemoteContracts.View {
     public static final float ONE_SECOND_MS_FLOAT = 1000f;
 
     @Inject RemoteContracts.Presenter presenter;
@@ -36,8 +35,6 @@ public class RemoteActivity extends AppCompatActivity implements RemoteContracts
         setContentView(R.layout.remote_activity);
 
         ButterKnife.bind(this);
-
-        AndroidInjection.inject(this);
 
         handler = new Handler(getMainLooper());
     }

@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import alvin.base.service.R;
 import alvin.base.service.bind.views.BindActivity;
+import alvin.base.service.foreground.views.ForegroundActivity;
 import alvin.base.service.intent.views.IntentActivity;
 import alvin.base.service.lifecycle.views.LifecycleActivity;
 import alvin.base.service.remote.views.RemoteActivity;
@@ -29,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
             R.id.btn_working_service,
             R.id.btn_bind_service,
             R.id.btn_intent_service,
-            R.id.btn_remote_service
+            R.id.btn_remote_service,
+            R.id.btn_foreground_service
     })
     public void onButtonsClick(Button b) {
         Intent intent;
@@ -49,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
             break;
         case R.id.btn_remote_service:
             intent = new Intent(this, RemoteActivity.class);
+            break;
+        case R.id.btn_foreground_service:
+            intent = new Intent(this, ForegroundActivity.class);
             break;
         default:
             intent = null;

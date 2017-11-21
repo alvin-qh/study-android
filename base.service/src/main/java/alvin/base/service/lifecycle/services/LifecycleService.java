@@ -1,6 +1,5 @@
 package alvin.base.service.lifecycle.services;
 
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -11,7 +10,7 @@ import android.util.Log;
 
 import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.base.service.lifecycle.presenters.LifecyclePresenter;
-import dagger.android.AndroidInjection;
+import dagger.android.DaggerService;
 
 /**
  * Service must be registered in AndroidManifest.xml.
@@ -20,7 +19,7 @@ import dagger.android.AndroidInjection;
  * &lt;service android:name=".lifecycle.services.LifecycleService" /&gt;
  * </pre>
  */
-public class LifecycleService extends Service {
+public class LifecycleService extends DaggerService {
     private static final String TAG = LifecycleService.class.getSimpleName();
 
     public static final String EXTRA_ARGUMENTS_MODE = "mode";
@@ -80,8 +79,6 @@ public class LifecycleService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        AndroidInjection.inject(this);
-
         sendBroadcast(new Intent(ServiceBroadcasts.ACTION_SERVICE_CREATED));
 
         Log.d(TAG, "Service is created");
@@ -139,6 +136,11 @@ public class LifecycleService extends Service {
         Log.d(TAG, "Service is destroyed");
     }
 
+    /**
+     * Use id of service can terminate service itself.
+     *
+     * @see android.app.Service#onStartCommand(Intent, int, int)
+     */
     public void stopMySelf() {
         stopSelf(serviceStartId);
     }

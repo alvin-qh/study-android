@@ -49,6 +49,11 @@
             android:label="@string/title_remote_service"
             android:parentActivityName=".main.views.MainActivity" />
 
+        <activity
+            android:name=".foreground.views.ForegroundActivity"
+            android:label="@string/title_foreground_service"
+            android:parentActivityName=".main.views.MainActivity" />
+
         <service android:name=".lifecycle.services.LifecycleService" />
 
         <service android:name=".working.services.WorkingService" />
@@ -66,5 +71,7 @@
                 <action android:name="alvin.base.service.remote.aidls.IRemoteBinder" />
             </intent-filter>
         </service>
+
+        <service android:name=".foreground.services.ForegroundService" />
     </application>
 </manifest>

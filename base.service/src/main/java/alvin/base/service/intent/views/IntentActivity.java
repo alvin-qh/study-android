@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
@@ -18,8 +17,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dagger.android.AndroidInjection;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class IntentActivity extends AppCompatActivity implements IntentContracts.View {
+public class IntentActivity extends DaggerAppCompatActivity implements IntentContracts.View {
 
     private static final float ONE_SECOND_MS_FLOAT = 1000f;
 

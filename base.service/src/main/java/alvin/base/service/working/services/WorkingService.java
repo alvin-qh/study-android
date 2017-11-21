@@ -1,6 +1,5 @@
 package alvin.base.service.working.services;
 
-import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
@@ -20,9 +19,9 @@ import javax.inject.Inject;
 
 import alvin.lib.common.rx.ObservableSubscriber;
 import alvin.lib.common.rx.RxManager;
-import dagger.android.AndroidInjection;
+import dagger.android.DaggerService;
 
-public class WorkingService extends Service {
+public class WorkingService extends DaggerService {
     public static final String EXTRA_ARG_ZONE = "zone";
 
     @Inject
@@ -44,8 +43,6 @@ public class WorkingService extends Service {
     public void onCreate() {
         super.onCreate();
         serviceRef = new WeakReference<>(this);
-
-        AndroidInjection.inject(this);
     }
 
     @Override

@@ -3,10 +3,12 @@ package alvin.base.service;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import dagger.android.AndroidInjector;
 
 @Singleton
 @Component(modules = ApplicationModule.class)
-public interface ApplicationComponent {
+public interface ApplicationComponent extends AndroidInjector<Application> {
 
-    void inject(Application app);
+    @Component.Builder
+    abstract class Builder extends AndroidInjector.Builder<Application> { }
 }

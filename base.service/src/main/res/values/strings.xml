@@ -6,6 +6,7 @@
     <string name="title_binding_service">Binding</string>
     <string name="title_intent_service">Intent</string>
     <string name="title_remote_service">Remote</string>
+    <string name="title_foreground_service">Foreground</string>
 
     <string name="btn_lifecycle_service">Lifecycle</string>
     <string name="btn_start">Start</string>
@@ -19,10 +20,13 @@
     <string name="btn_intent_service">Intent Service</string>
     <string name="btn_work">Work</string>
     <string name="btn_remote_service">Remote Service</string>
+    <string name="btn_foreground_service">Foreground Service</string>
 
     <string name="rb_service_created">Created</string>
     <string name="rb_service_started">Started</string>
     <string name="rb_service_bind">Bind</string>
     <string name="rb_service_unbind">Unbind</string>
     <string name="rb_service_destroyed">Destroyed</string>
+
+    <string name="notification_channel">notification_channel_01</string>
 </resources>

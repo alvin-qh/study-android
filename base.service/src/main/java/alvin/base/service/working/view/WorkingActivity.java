@@ -3,7 +3,6 @@ package alvin.base.service.working.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -17,9 +16,9 @@ import alvin.base.service.working.WorkingContracts;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.AndroidInjection;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class WorkingActivity extends AppCompatActivity implements WorkingContracts.View {
+public class WorkingActivity extends DaggerAppCompatActivity implements WorkingContracts.View {
 
     @Inject WorkingContracts.Presenter presenter;
 
@@ -38,8 +37,6 @@ public class WorkingActivity extends AppCompatActivity implements WorkingContrac
         setContentView(R.layout.working_activity);
 
         ButterKnife.bind(this);
-
-        AndroidInjection.inject(this);
     }
 
     @Override

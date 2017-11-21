@@ -1,6 +1,5 @@
 package alvin.base.service.bind.services;
 
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
@@ -23,9 +22,9 @@ import javax.inject.Inject;
 import alvin.base.service.bind.presenters.BindPresenter;
 import alvin.lib.common.rx.ObservableSubscriber;
 import alvin.lib.common.rx.RxManager;
-import dagger.android.AndroidInjection;
+import dagger.android.DaggerService;
 
-public class BindService extends Service {
+public class BindService extends DaggerService {
     public static final String EXTRA_ARG_ZONE = "zone";
 
     @Inject RxManager rxManager;
@@ -44,8 +43,6 @@ public class BindService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        AndroidInjection.inject(this);
 
         available = true;
         startWorking();

@@ -3,7 +3,6 @@ package alvin.base.service.lifecycle.views;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -15,9 +14,9 @@ import alvin.base.service.lifecycle.LifecycleContracts;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.AndroidInjection;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class LifecycleActivity extends AppCompatActivity implements LifecycleContracts.View {
+public class LifecycleActivity extends DaggerAppCompatActivity implements LifecycleContracts.View {
 
     @Inject LifecycleContracts.Presenter presenter;
 
@@ -31,8 +30,6 @@ public class LifecycleActivity extends AppCompatActivity implements LifecycleCon
 
         setContentView(R.layout.lifecycle_activity);
         ButterKnife.bind(this);
-
-        AndroidInjection.inject(this);
     }
 
     @Override

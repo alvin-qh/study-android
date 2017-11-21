@@ -1,6 +1,5 @@
 package alvin.base.service.remote.services;
 
-import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.RemoteException;
@@ -19,7 +18,7 @@ import alvin.base.service.remote.aidls.IRemoteBinder;
 import alvin.base.service.remote.aidls.models.Job;
 import alvin.base.service.remote.aidls.models.JobResponse;
 import alvin.base.service.remote.tasks.Task;
-import dagger.android.AndroidInjection;
+import dagger.android.DaggerService;
 
 /**
  * Config this service as remote service.
@@ -47,7 +46,7 @@ import dagger.android.AndroidInjection;
  * Remote service config must have an {@code <intent-filter>} elements, the action name must be
  * the full name of AIDL class name which return from {@link RemoteService#onBind(Intent)} method
  */
-public class RemoteService extends Service {
+public class RemoteService extends DaggerService {
     private static final String TAG = RemoteService.class.getSimpleName();
 
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -102,13 +101,6 @@ public class RemoteService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return binder;
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-        AndroidInjection.inject(this);
     }
 
     @Override

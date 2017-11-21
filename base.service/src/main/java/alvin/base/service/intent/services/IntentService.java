@@ -12,9 +12,9 @@ import javax.inject.Inject;
 
 import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.base.service.intent.tasks.Task;
-import dagger.android.AndroidInjection;
+import dagger.android.DaggerIntentService;
 
-public class IntentService extends android.app.IntentService {
+public class IntentService extends DaggerIntentService {
     public static final String EXTRA_ARG_NAME = "name";
 
     private static Set<OnJobStatusChangeListener> listeners = new HashSet<>();
@@ -30,8 +30,6 @@ public class IntentService extends android.app.IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        AndroidInjection.inject(this);
 
         sendBroadcast(new Intent(ServiceBroadcasts.ACTION_SERVICE_CREATED));
 
