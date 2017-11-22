@@ -11,6 +11,7 @@ import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.base.service.foreground.ForegroundContracts;
 import alvin.base.service.foreground.services.ForegroundService;
 import alvin.lib.common.util.IntentFilters;
+import alvin.lib.common.util.Version;
 import alvin.lib.mvp.PresenterAdapter;
 
 public class ForegroundPresenter extends PresenterAdapter<ForegroundContracts.View>
@@ -18,9 +19,13 @@ public class ForegroundPresenter extends PresenterAdapter<ForegroundContracts.Vi
 
     private BroadcastReceiver receiver;
 
+    private Version version;
+
     @Inject
-    public ForegroundPresenter(@NonNull ForegroundContracts.View view) {
+    public ForegroundPresenter(@NonNull ForegroundContracts.View view,
+                               @NonNull Version version) {
         super(view);
+        this.version = version;
     }
 
     @Override
@@ -29,15 +34,18 @@ public class ForegroundPresenter extends PresenterAdapter<ForegroundContracts.Vi
             receiver = new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
-                    switch (intent.getAction()) {
-                    case ServiceBroadcasts.ACTION_SERVICE_CREATED:
-                        withView(ForegroundContracts.View::serviceCreated);
-                        break;
-                    case ServiceBroadcasts.ACTION_SERVICE_DESTROYED:
-                        withView(ForegroundContracts.View::serviceDestroyed);
-                        break;
-                    default:
-                        break;
+                    final String action = intent.getAction();
+                    if (action != null) {
+                        switch (action) {
+                        case ServiceBroadcasts.ACTION_SERVICE_CREATED:
+                            withView(ForegroundContracts.View::serviceCreated);
+                            break;
+                        case ServiceBroadcasts.ACTION_SERVICE_DESTROYED:
+                            withView(ForegroundContracts.View::serviceDestroyed);
+                            break;
+                        default:
+                            break;
+                        }
                     }
                 }
             };
@@ -61,7 +69,12 @@ public class ForegroundPresenter extends PresenterAdapter<ForegroundContracts.Vi
     @Override
     public void startService(Context context) {
         Intent intent = new Intent(context, ForegroundService.class);
-        context.startService(intent);
+
+        if (version.isEqualOrGreatThan()) {
+            context.startForegroundService(intent);
+        } else {
+            context.startService(intent);
+        }
     }
 
     @Override
