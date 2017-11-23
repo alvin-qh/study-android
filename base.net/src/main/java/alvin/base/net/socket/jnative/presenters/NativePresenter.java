@@ -18,14 +18,14 @@ import alvin.lib.common.rx.ObservableSubscriber;
 import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.RxSchedulers;
 import alvin.lib.common.rx.SingleSubscriber;
-import alvin.lib.mvp.PresenterAdapter;
+import alvin.lib.mvp.ViewPresenterAdapter;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.internal.functions.Functions;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class NativePresenter extends PresenterAdapter<SocketContract.View>
+public class NativePresenter extends ViewPresenterAdapter<SocketContract.View>
         implements SocketContract.Presenter {
 
     private static final int RETRY_TIMES = 3;
@@ -157,7 +157,7 @@ public class NativePresenter extends PresenterAdapter<SocketContract.View>
                     .config(completable -> completable.retry(RETRY_TIMES))
                     .subscribe(
                             Functions.EMPTY_ACTION,
-                            throwable -> withView(view -> view.showDefaultError(throwable))
+                            throwable -> withView(view -> view.showException(throwable))
                     );
         }
     }
@@ -181,7 +181,7 @@ public class NativePresenter extends PresenterAdapter<SocketContract.View>
                     .config(completable -> completable.retry(RETRY_TIMES))
                     .subscribe(
                             Functions.EMPTY_ACTION,
-                            throwable -> withView(view -> view.showDefaultError(throwable))
+                            throwable -> withView(view -> view.showException(throwable))
                     );
         }
     }

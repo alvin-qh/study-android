@@ -1,6 +1,5 @@
 package alvin.base.net.remote.image.views;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +18,8 @@ import android.widget.Toast;
 
 import com.google.common.base.Strings;
 
+import java.io.File;
+
 import alvin.base.net.R;
 import alvin.base.net.remote.image.ImageContract;
 import alvin.base.net.remote.image.presenters.ImagePresenter;
@@ -28,6 +29,7 @@ import butterknife.OnClick;
 
 public class ImageActivity extends AppCompatActivity implements ImageContract.View {
     private static final String KEY_IMAGE_SRC = "key_image_src";
+    private static final String CACHE_DIR_NAME = "images";
 
     private ImageContract.Presenter presenter;
 
@@ -45,7 +47,9 @@ public class ImageActivity extends AppCompatActivity implements ImageContract.Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.remote_image_activity);
 
-        presenter = new ImagePresenter(this);
+        final File imageCacheDir = new File(getExternalCacheDir(), CACHE_DIR_NAME);
+        presenter = new ImagePresenter(this, imageCacheDir);
+
         presenter.onCreate();
 
         ButterKnife.bind(this);
@@ -91,11 +95,6 @@ public class ImageActivity extends AppCompatActivity implements ImageContract.Vi
     protected void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
-    }
-
-    @Override
-    public Context context() {
-        return this;
     }
 
     @Override

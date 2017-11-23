@@ -1,6 +1,5 @@
 package alvin.base.net.remote.image.presenters;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
@@ -16,16 +15,15 @@ import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.SingleSubscriber;
 import alvin.lib.common.util.ApplicationConfig;
 import alvin.lib.common.util.Cache;
-import alvin.lib.mvp.PresenterAdapter;
+import alvin.lib.mvp.ViewPresenterAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static alvin.base.net.remote.image.ImageContract.Presenter;
 import static alvin.base.net.remote.image.ImageContract.View;
 
-public class ImagePresenter extends PresenterAdapter<View> implements Presenter {
+public class ImagePresenter extends ViewPresenterAdapter<View> implements Presenter {
 
-    private static final String CACHE_DIR_NAME = "images";
     private static final int RETRY_TIMES = 3;
 
     private final List<String> imageUrls = new ArrayList<>();
@@ -37,8 +35,11 @@ public class ImagePresenter extends PresenterAdapter<View> implements Presenter 
 
     private ImageLoader imageLoader;
 
-    public ImagePresenter(@NonNull View view) {
+    private final File imageCacheDir;
+
+    public ImagePresenter(@NonNull View view, File imageCacheDir) {
         super(view);
+        this.imageCacheDir = imageCacheDir;
     }
 
     @Override
@@ -46,17 +47,18 @@ public class ImagePresenter extends PresenterAdapter<View> implements Presenter 
         super.onCreate();
 
         withView(view -> {
-            File cacheFileDir = createCacheFileDir(view.context());
+            File cacheFileDir = createCacheFileDir();
             this.imageLoader = new ImageLoader(
                     cacheFileDir.getAbsolutePath(),
                     new Cache<>(1L, ChronoUnit.HOURS));
         });
     }
 
-    private File createCacheFileDir(Context context) {
-        File imageCacheDir = new File(context.getExternalCacheDir(), CACHE_DIR_NAME);
+    private File createCacheFileDir() {
         if (!imageCacheDir.exists()) {
-            imageCacheDir.mkdirs();
+            if (!imageCacheDir.mkdirs()) {
+                throw new RuntimeException("Cannot create cache directory");
+            }
         }
         return imageCacheDir;
     }

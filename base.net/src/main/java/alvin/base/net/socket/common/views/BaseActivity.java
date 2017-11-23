@@ -1,10 +1,10 @@
 package alvin.base.net.socket.common.views;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,23 +15,23 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import alvin.base.net.R;
+import alvin.base.net.socket.SocketContract;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static alvin.base.net.socket.SocketContract.Presenter;
-import static alvin.base.net.socket.SocketContract.View;
+public abstract class BaseActivity extends AppCompatActivity implements SocketContract.View {
 
-public abstract class BaseActivity extends AppCompatActivity implements View {
+    private static final String TAG = BaseActivity.class.getSimpleName();
 
     public static final int ONE_SECOND = 1000;
     @BindView(R.id.text_time)
     TextView textTime;
 
-    private Presenter presenter;
+    private SocketContract.Presenter presenter;
     private Timer timer;
 
-    protected abstract Presenter getPresenter();
+    protected abstract SocketContract.Presenter getPresenter();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,7 +78,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View {
     }
 
     @Override
-    public void showDefaultError(Throwable t) {
+    public void showException(@NonNull Throwable error) {
+        Log.e(TAG, "Exception caused", error);
+
         if (timer != null) {
             timer.cancel();
         }
@@ -107,10 +109,5 @@ public abstract class BaseActivity extends AppCompatActivity implements View {
     @Override
     public void disconnected() {
         Toast.makeText(this, R.string.string_network_disconnected, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public Context context() {
-        return this;
     }
 }

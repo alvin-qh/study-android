@@ -10,6 +10,8 @@ public interface WeatherContract {
 
     interface View extends IView {
         void showLiveWeather(@NonNull LiveWeather weather);
+
+        void showError(@NonNull Throwable error);
     }
 
     interface Presenter extends IPresenter {

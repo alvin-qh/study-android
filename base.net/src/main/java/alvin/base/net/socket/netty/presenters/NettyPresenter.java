@@ -15,10 +15,10 @@ import alvin.base.net.socket.common.models.CommandAck;
 import alvin.base.net.socket.netty.net.ChannelContext;
 import alvin.base.net.socket.netty.net.SocketNetty;
 import alvin.base.net.socket.netty.net.SocketNetworkException;
-import alvin.lib.mvp.PresenterAdapter;
+import alvin.lib.mvp.ViewPresenterAdapter;
 
 
-public class NettyPresenter extends PresenterAdapter<SocketContract.View>
+public class NettyPresenter extends ViewPresenterAdapter<SocketContract.View>
         implements SocketContract.Presenter, SocketNetty.OnNetworkFutureListener {
 
     private SocketNetty socket;
@@ -104,10 +104,10 @@ public class NettyPresenter extends PresenterAdapter<SocketContract.View>
                     view.showConnectError();
                     break;
                 default:
-                    view.showDefaultError(t);
+                    view.showException(t);
                 }
             } else {
-                view.showDefaultError(t);
+                view.showException(t);
             }
         }));
     }

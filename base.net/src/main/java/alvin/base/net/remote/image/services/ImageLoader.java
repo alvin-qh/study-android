@@ -23,11 +23,6 @@ public class ImageLoader {
     private final String cachePath;
     private final Cache<Drawable> cache;
 
-    public ImageLoader(String cachePath) {
-        this.cachePath = cachePath;
-        this.cache = null;
-    }
-
     public ImageLoader(String cachePath, Cache<Drawable> cache) {
         this.cachePath = cachePath;
         this.cache = cache;

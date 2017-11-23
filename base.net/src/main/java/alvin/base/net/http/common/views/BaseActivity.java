@@ -1,9 +1,9 @@
 package alvin.base.net.http.common.views;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,16 +14,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import alvin.base.net.R;
+import alvin.base.net.http.WeatherContract;
 import alvin.base.net.http.common.domain.models.LiveWeather;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static alvin.base.net.http.WeatherContract.Presenter;
-import static alvin.base.net.http.WeatherContract.View;
+public abstract class BaseActivity extends AppCompatActivity
+        implements WeatherContract.View {
+    
+    private static final String TAG = BaseActivity.class.getSimpleName();
 
-public abstract class BaseActivity extends AppCompatActivity implements View {
-    private Presenter presenter;
+    private WeatherContract.Presenter presenter;
 
     @BindView(R.id.text_weather)
     TextView textWeather;
@@ -39,7 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View {
         presenter.onCreate();
     }
 
-    protected abstract Presenter getPresenter();
+    protected abstract WeatherContract.Presenter getPresenter();
 
     @Override
     protected void onStart() {
@@ -146,12 +148,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View {
     }
 
     @Override
-    public void showDefaultError(Throwable t) {
+    public void showError(@NonNull Throwable error) {
+        Log.e(TAG, "Error caused", error);
         Toast.makeText(this, R.string.error_get_weather, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public Context context() {
-        return this;
     }
 }

@@ -11,24 +11,23 @@ import alvin.base.net.http.WeatherContract;
 import alvin.base.net.http.common.domain.models.LiveWeather;
 import alvin.base.net.http.common.domain.services.WeatherException;
 import alvin.base.net.http.common.domain.services.WeatherService;
-import alvin.lib.mvp.PresenterAdapter;
+import alvin.lib.mvp.ViewPresenterAdapter;
 
-import static alvin.base.net.http.WeatherContract.Presenter;
-import static alvin.base.net.http.WeatherContract.View;
-
-public class TaskPresenter extends PresenterAdapter<View> implements Presenter {
+public class TaskPresenter extends ViewPresenterAdapter<WeatherContract.View>
+        implements WeatherContract.Presenter {
 
     private final WeatherService weatherService = new WeatherService();
 
     private AsyncTask<?, ?, ?> task;
 
-    public TaskPresenter(@NonNull View view) {
+    public TaskPresenter(@NonNull WeatherContract.View view) {
         super(view);
     }
 
     @Override
     public void getLiveWeather() {
-        task = new WeatherTask(getViewRef(), weatherService).execute();
+        task = new WeatherTask(getViewReference(), weatherService);
+        task.execute();
     }
 
     @Override
@@ -47,12 +46,12 @@ public class TaskPresenter extends PresenterAdapter<View> implements Presenter {
     }
 
     private static class WeatherTask extends AsyncTask<Void, Void, LiveWeather> {
-        private final WeakReference<View> viewRef;
+        private final WeakReference<WeatherContract.View> viewRef;
         private final WeatherService weatherService;
 
         private Exception exception;
 
-        WeatherTask(@NonNull WeakReference<View> viewRef,
+        WeatherTask(@NonNull WeakReference<WeatherContract.View> viewRef,
                     @NonNull WeatherService weatherService) {
             this.viewRef = viewRef;
             this.weatherService = weatherService;
@@ -75,7 +74,7 @@ public class TaskPresenter extends PresenterAdapter<View> implements Presenter {
 
             if (view != null) {
                 if (exception != null) {
-                    view.showDefaultError(exception);
+                    view.showError(exception);
                 } else {
                     view.showLiveWeather(weather);
                 }

@@ -2,18 +2,18 @@ package alvin.base.net.http.rx.presenters;
 
 import android.support.annotation.NonNull;
 
+import alvin.base.net.http.WeatherContract;
 import alvin.base.net.http.common.domain.models.LiveWeather;
 import alvin.base.net.http.common.domain.services.WeatherService;
 import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.SingleSubscriber;
-import alvin.lib.mvp.PresenterAdapter;
+import alvin.lib.mvp.ViewPresenterAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-import static alvin.base.net.http.WeatherContract.Presenter;
-import static alvin.base.net.http.WeatherContract.View;
+public class RxPresenter extends ViewPresenterAdapter<WeatherContract.View>
+        implements WeatherContract.Presenter {
 
-public class RxPresenter extends PresenterAdapter<View> implements Presenter {
     private static final int RETRY_TIMES = 3;
 
     private final WeatherService weatherService = new WeatherService();
@@ -23,7 +23,7 @@ public class RxPresenter extends PresenterAdapter<View> implements Presenter {
             .withObserveOn(AndroidSchedulers::mainThread)
             .build();
 
-    public RxPresenter(@NonNull View view) {
+    public RxPresenter(@NonNull WeatherContract.View view) {
         super(view);
     }
 
@@ -56,7 +56,7 @@ public class RxPresenter extends PresenterAdapter<View> implements Presenter {
                 .config(single -> single.retry(RETRY_TIMES))
                 .subscribe(
                         weather -> withView(view -> view.showLiveWeather(weather)),
-                        throwable -> withView(view -> view.showDefaultError(throwable))
+                        throwable -> withView(view -> view.showError(throwable))
                 );
     }
 }
