@@ -1,8 +1,6 @@
 package alvin.base.mvp.domain.repositories;
 
-import android.support.annotation.NonNull;
-
-import com.raizlabs.android.dbflow.config.DatabaseDefinition;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -14,7 +12,9 @@ import alvin.lib.common.dbflow.repositories.BaseRepository;
 public class NameCardRepository extends BaseRepository<NameCard> {
 
     @Inject
-    public NameCardRepository(@NonNull DatabaseDefinition database) {
-        super();
+    public NameCardRepository() { }
+
+    public List<NameCard> findALl() {
+        return where().queryList();
     }
 }

@@ -1,6 +1,5 @@
 package alvin.base.mvp;
 
-import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
 import javax.inject.Singleton;
@@ -8,6 +7,7 @@ import javax.inject.Singleton;
 import alvin.base.mvp.domain.MainDatabase;
 import alvin.base.mvp.main.MainModule;
 import alvin.base.mvp.namecard.presenter.NameCardPresenter;
+import alvin.lib.common.dbflow.repositories.TransactionManager;
 import dagger.Module;
 import dagger.Provides;
 
@@ -19,7 +19,7 @@ public class ApplicationModule {
 
     @Singleton
     @Provides
-    DatabaseDefinition databaseDefinition() {
-        return FlowManager.getDatabase(MainDatabase.class);
+    TransactionManager transactionManager() {
+        return new TransactionManager(FlowManager.getDatabase(MainDatabase.class));
     }
 }

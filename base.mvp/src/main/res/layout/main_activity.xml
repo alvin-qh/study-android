@@ -6,18 +6,9 @@
     android:layout_height="match_parent"
     tools:layout_editor_absoluteY="62dp">
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_main"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_name_cards"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </android.support.v4.view.ViewPager>
-
-    </android.support.design.widget.TabLayout>
+        android:layout_height="match_parent" />
 
 </android.support.constraint.ConstraintLayout>
