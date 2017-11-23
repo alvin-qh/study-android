@@ -1,6 +1,6 @@
 package alvin.base.service.working.view;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Button;
@@ -13,6 +13,7 @@ import javax.inject.Inject;
 
 import alvin.base.service.R;
 import alvin.base.service.working.WorkingContracts;
+import alvin.base.service.working.services.WorkingService;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -40,65 +41,75 @@ public class WorkingActivity extends DaggerAppCompatActivity implements WorkingC
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        presenter.disconnectService();
+    protected void onDestroy() {
+        super.onDestroy();
+
+        presenter.onDestroy();
     }
 
     @Override
-    public Context context() {
-        return this;
+    protected void onStop() {
+        super.onStop();
+
+        disconnectService();
+        stopService();
     }
 
     @OnClick(R.id.btn_start_service)
     public void onStartButtonClick(Button b) {
-        presenter.startService(this);
-    }
+        Intent intent = new Intent(this, WorkingService.class);
+        intent.putExtra(WorkingService.EXTRA_ARG_ZONE, "Asia/Shanghai");
+        startService(intent);
 
-    @OnClick(R.id.btn_connect_service)
-    public void onConnectButtonClick(Button b) {
-        presenter.connectService();
-    }
-
-    @OnClick(R.id.btn_disconnect_service)
-    public void onDisconnectButtonClick(Button b) {
-        presenter.disconnectService();
-    }
-
-    @OnClick(R.id.btn_stop_service)
-    public void onStopButtonClick(Button b) {
-        presenter.stopService(this);
-    }
-
-    @Override
-    public void showTime(LocalDateTime time) {
-        tvTime.setText(time.format(formatter));
-    }
-
-    @Override
-    public void serviceStarted() {
         btnStartService.setEnabled(false);
         btnStopService.setEnabled(true);
         btnConnectService.setEnabled(true);
     }
 
-    @Override
-    public void onServiceConnected() {
-        btnConnectService.setEnabled(false);
-        btnDisconnectService.setEnabled(true);
+    @OnClick(R.id.btn_connect_service)
+    public void onConnectButtonClick(Button b) {
+        final WorkingService service = WorkingService.getServiceRef().get();
+        if (service != null) {
+            service.addOnServiceCallbackListener(presenter.getCallbackListener());
+
+            btnConnectService.setEnabled(false);
+            btnDisconnectService.setEnabled(true);
+        }
     }
 
-    @Override
-    public void onServiceDisconnected() {
-        btnConnectService.setEnabled(true);
-        btnDisconnectService.setEnabled(false);
+    @OnClick(R.id.btn_disconnect_service)
+    public void onDisconnectButtonClick(Button b) {
+        if (disconnectService()) {
+            btnConnectService.setEnabled(true);
+            btnDisconnectService.setEnabled(false);
+        }
     }
 
-    @Override
-    public void serviceStoped() {
+    private boolean disconnectService() {
+        final WorkingService service = WorkingService.getServiceRef().get();
+        if (service != null) {
+            service.removeOnServiceCallbackListener(presenter.getCallbackListener());
+        }
+        return service != null;
+    }
+
+    @OnClick(R.id.btn_stop_service)
+    public void onStopButtonClick(Button b) {
+        stopService();
+
         btnStartService.setEnabled(true);
         btnStopService.setEnabled(false);
         btnConnectService.setEnabled(false);
         btnDisconnectService.setEnabled(false);
+    }
+
+    private void stopService() {
+        Intent intent = new Intent(this, WorkingService.class);
+        stopService(intent);
+    }
+
+    @Override
+    public void showTime(LocalDateTime time) {
+        tvTime.setText(time.format(formatter));
     }
 }

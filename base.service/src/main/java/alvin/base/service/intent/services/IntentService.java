@@ -47,11 +47,13 @@ public class IntentService extends DaggerIntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        final String name = intent.getStringExtra(EXTRA_ARG_NAME);
+        if (intent != null) {
+            final String name = intent.getStringExtra(EXTRA_ARG_NAME);
 
-        handler.postDelayed(() -> listeners.forEach(l -> l.onStart(name)), 0);
-        final long timeSpend = task.work();
-        handler.postDelayed(() -> listeners.forEach(l -> l.onFinish(name, timeSpend)), 0);
+            handler.postDelayed(() -> listeners.forEach(l -> l.onStart(name)), 0);
+            final long timeSpend = task.work();
+            handler.postDelayed(() -> listeners.forEach(l -> l.onFinish(name, timeSpend)), 0);
+        }
     }
 
     public static void addOnJobStatusChangeListener(@NonNull OnJobStatusChangeListener l) {

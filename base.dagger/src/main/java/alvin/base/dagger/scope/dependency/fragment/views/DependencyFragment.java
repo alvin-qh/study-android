@@ -77,6 +77,13 @@ public class DependencyFragment extends Fragment implements FragmentContracts.Vi
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        presenter.onDestroy();
+    }
+
+    @Override
     public void showActivityScopeService(String name) {
         tvActivityScope.setText(name);
     }

@@ -1,6 +1,7 @@
 package alvin.base.service.foreground.views;
 
-import android.content.Context;
+import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Button;
@@ -8,7 +9,11 @@ import android.widget.Button;
 import javax.inject.Inject;
 
 import alvin.base.service.R;
+import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.base.service.foreground.ForegroundContracts;
+import alvin.base.service.foreground.services.ForegroundService;
+import alvin.lib.common.util.IntentFilters;
+import alvin.lib.common.util.Version;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -18,9 +23,12 @@ public class ForegroundActivity extends DaggerAppCompatActivity
         implements ForegroundContracts.View {
 
     @Inject ForegroundContracts.Presenter presenter;
+    @Inject Version version;
 
     @BindView(R.id.btn_start_service) Button btnStartService;
     @BindView(R.id.btn_stop_service) Button btnStopService;
+
+    private BroadcastReceiver receiver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,30 +37,55 @@ public class ForegroundActivity extends DaggerAppCompatActivity
         setContentView(R.layout.foreground_activity);
 
         ButterKnife.bind(this);
+    }
 
-        presenter.startReceiver(this);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        presenter.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (receiver == null) {
+            receiver = presenter.getBroadcastReceiver();
+            registerReceiver(receiver,
+                    IntentFilters.newBuilder()
+                            .addAction(ServiceBroadcasts.ACTION_SERVICE_CREATED)
+                            .addAction(ServiceBroadcasts.ACTION_SERVICE_DESTROYED)
+                            .build()
+            );
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        presenter.stopReceiver(this);
-    }
-
-    @Override
-    public Context context() {
-        return this;
+        if (receiver != null) {
+            unregisterReceiver(receiver);
+            receiver = null;
+        }
     }
 
     @OnClick(R.id.btn_start_service)
     public void onStartServiceButtonClick(Button b) {
-        presenter.startService(this);
+        Intent intent = new Intent(this, ForegroundService.class);
+
+        if (version.isEqualOrGreatThan()) {
+            startForegroundService(intent);
+        } else {
+            startService(intent);
+        }
     }
 
     @OnClick(R.id.btn_stop_service)
     public void onStopServiceButtonClick(Button b) {
-        presenter.stopService(this);
+        Intent intent = new Intent(this, ForegroundService.class);
+        stopService(intent);
     }
 
     @Override

@@ -1,7 +1,8 @@
 package alvin.base.service.intent;
 
-import android.content.Context;
+import android.content.BroadcastReceiver;
 
+import alvin.base.service.intent.services.IntentService;
 import alvin.lib.mvp.IPresenter;
 import alvin.lib.mvp.IView;
 
@@ -20,10 +21,10 @@ public interface IntentContracts {
 
     interface Presenter extends IPresenter {
 
-        void registerReceiver(Context context);
+        BroadcastReceiver getBroadcastReceiver();
 
-        void workOnce(Context context);
+        String getJobName();
 
-        void unregisterReceiver(Context context);
+        IntentService.OnJobStatusChangeListener getListener();
     }
 }

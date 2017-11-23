@@ -19,6 +19,7 @@ import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
+import alvin.base.service.bind.BindContracts;
 import alvin.base.service.bind.presenters.BindPresenter;
 import alvin.lib.common.rx.ObservableSubscriber;
 import alvin.lib.common.rx.RxManager;
@@ -90,7 +91,7 @@ public class BindService extends DaggerService {
         return binder;
     }
 
-    public class ServiceBinder extends Binder {
+    public class ServiceBinder extends Binder implements BindContracts.ServiceBinder {
 
         /**
          * Add a callback function to service.

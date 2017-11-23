@@ -1,8 +1,12 @@
 package alvin.base.service.remote.views;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.widget.Button;
 import android.widget.ScrollView;
@@ -12,6 +16,7 @@ import javax.inject.Inject;
 
 import alvin.base.service.R;
 import alvin.base.service.remote.RemoteContracts;
+import alvin.base.service.remote.aidls.IRemoteBinder;
 import alvin.base.service.remote.aidls.models.JobResponse;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +30,8 @@ public class RemoteActivity extends DaggerAppCompatActivity implements RemoteCon
 
     @BindView(R.id.sv_job_response) ScrollView svJobResponse;
     @BindView(R.id.tv_job_response) TextView tvJobResponse;
+
+    private ServiceConnection conn;
 
     private Handler handler;
 
@@ -43,19 +50,36 @@ public class RemoteActivity extends DaggerAppCompatActivity implements RemoteCon
     protected void onStart() {
         super.onStart();
 
-        presenter.bindService(this);
+        if (conn == null) {
+            // Create intent with name of remote service action
+            Intent intent = new Intent("alvin.base.service.remote.aidls.IRemoteBinder");
+            // Set application package name of remote service
+            intent.setPackage("alvin.base.service");
+
+            // Make ServiceConnection instance to connect to service
+            conn = new ServiceConnection() {
+                @Override
+                public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+                    // Get IRemoteBinder instance from IRemoteBinder.Stub.asInterface method
+                    // This instance can use in client to connect service
+                    presenter.serviceBound(IRemoteBinder.Stub.asInterface(iBinder));
+                }
+
+                @Override
+                public void onServiceDisconnected(ComponentName componentName) {
+                    presenter.serviceUnbound();
+                }
+            };
+
+            bindService(intent, conn, Context.BIND_AUTO_CREATE);
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        presenter.unbindService(this);
-    }
-
-    @Override
-    public Context context() {
-        return this;
+        presenter.onStop();
     }
 
     @Override

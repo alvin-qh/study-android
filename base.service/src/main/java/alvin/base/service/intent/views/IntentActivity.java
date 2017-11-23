@@ -1,6 +1,7 @@
 package alvin.base.service.intent.views;
 
-import android.content.Context;
+import android.content.BroadcastReceiver;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,7 +13,10 @@ import android.widget.TextView;
 import javax.inject.Inject;
 
 import alvin.base.service.R;
+import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.base.service.intent.IntentContracts;
+import alvin.base.service.intent.services.IntentService;
+import alvin.lib.common.util.IntentFilters;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,6 +35,8 @@ public class IntentActivity extends DaggerAppCompatActivity implements IntentCon
 
     private Handler handler;
 
+    private BroadcastReceiver receiver;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +50,28 @@ public class IntentActivity extends DaggerAppCompatActivity implements IntentCon
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
 
-        presenter.registerReceiver(this);
+        if (receiver == null) {
+            receiver = presenter.getBroadcastReceiver();
+
+            registerReceiver(
+                    receiver,
+                    IntentFilters.newBuilder()
+                            .addAction(ServiceBroadcasts.ACTION_SERVICE_CREATED)
+                            .addAction(ServiceBroadcasts.ACTION_SERVICE_DESTROYED)
+                            .build()
+            );
+        }
+        IntentService.addOnJobStatusChangeListener(presenter.getListener());
+
         presenter.onStart();
     }
 
@@ -55,18 +79,19 @@ public class IntentActivity extends DaggerAppCompatActivity implements IntentCon
     protected void onStop() {
         super.onStop();
 
-        presenter.unregisterReceiver(this);
+        if (receiver != null) {
+            unregisterReceiver(receiver);
+            receiver = null;
+        }
+        IntentService.removeOnJobStatusChangeListener(presenter.getListener());
+
         presenter.onStop();
     }
 
     @OnClick(R.id.btn_work)
     public void onWorkButtonClick(Button b) {
-        presenter.workOnce(this);
-    }
-
-    @Override
-    public Context context() {
-        return this;
+        startService(new Intent(this, IntentService.class)
+                .putExtra(IntentService.EXTRA_ARG_NAME, presenter.getJobName()));
     }
 
     @Override

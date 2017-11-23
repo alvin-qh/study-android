@@ -1,8 +1,9 @@
 package alvin.base.service.bind;
 
-import android.content.Context;
+import android.support.annotation.NonNull;
 
 import java.time.LocalDateTime;
+import java.util.function.Consumer;
 
 import alvin.lib.mvp.IPresenter;
 import alvin.lib.mvp.IView;
@@ -12,16 +13,18 @@ public interface BindContracts {
     interface View extends IView {
 
         void showTime(LocalDateTime time);
+    }
 
-        void serviceBind();
+    interface Presenter extends IPresenter {
+        void serviceBind(ServiceBinder binder);
 
         void serviceUnbind();
     }
 
-    interface Presenter extends IPresenter {
+    interface ServiceBinder {
 
-        void bindService(Context context);
+        void addTimeCallback(@NonNull Consumer<LocalDateTime> consumer);
 
-        void unbindService(Context context);
+        void remoteTimeCallback(@NonNull Consumer<LocalDateTime> consumer);
     }
 }

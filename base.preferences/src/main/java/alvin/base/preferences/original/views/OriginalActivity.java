@@ -71,7 +71,7 @@ public class OriginalActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btn_calendar)
-    public void onCalendarClick(ImageButton button) {
+    public void onCalendarClick(ImageButton b) {
         DatePickerDialog dialog;
 
         String date = editBirthday.getText().toString();
@@ -88,7 +88,7 @@ public class OriginalActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btn_save)
-    public void onSaveClick(Button elem) {
+    public void onSaveClick(Button b) {
         String name = editName.getText().toString();
 
         Gender gender;

@@ -1,7 +1,8 @@
 package alvin.base.service.remote;
 
-import android.content.Context;
+import android.support.annotation.NonNull;
 
+import alvin.base.service.remote.aidls.IRemoteBinder;
 import alvin.base.service.remote.aidls.models.JobResponse;
 import alvin.lib.mvp.IPresenter;
 import alvin.lib.mvp.IView;
@@ -16,11 +17,10 @@ public interface RemoteContracts {
     }
 
     interface Presenter extends IPresenter {
-
-        void bindService(Context context);
-
-        void unbindService(Context context);
+        void serviceBound(@NonNull IRemoteBinder binder);
 
         void startWork();
+
+        void serviceUnbound();
     }
 }

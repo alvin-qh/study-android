@@ -50,6 +50,13 @@ public class SubcomponentActivity extends AppCompatActivity implements Subcompon
         bindFragments();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        presenter.onDestroy();
+    }
+
     private void bindFragments() {
         final FragmentManager fragmentManager = getFragmentManager();
         final FragmentTransaction transaction = fragmentManager.beginTransaction();

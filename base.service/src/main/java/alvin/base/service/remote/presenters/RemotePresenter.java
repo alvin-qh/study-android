@@ -1,11 +1,6 @@
 package alvin.base.service.remote.presenters;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
@@ -20,14 +15,13 @@ import alvin.base.service.remote.aidls.IOnJobStatusChangeListener;
 import alvin.base.service.remote.aidls.IRemoteBinder;
 import alvin.base.service.remote.aidls.models.Job;
 import alvin.base.service.remote.aidls.models.JobResponse;
-import alvin.lib.mvp.PresenterAdapter;
+import alvin.lib.mvp.ViewPresenterAdapter;
 
-public class RemotePresenter extends PresenterAdapter<RemoteContracts.View>
+public class RemotePresenter extends ViewPresenterAdapter<RemoteContracts.View>
         implements RemoteContracts.Presenter {
 
     private static final String TAG = RemotePresenter.class.getSimpleName();
 
-    private ServiceConnection conn;
     private IRemoteBinder binder;
 
     private int jobId = 1;
@@ -57,49 +51,32 @@ public class RemotePresenter extends PresenterAdapter<RemoteContracts.View>
     }
 
     @Override
-    public void bindService(Context context) {
-        if (conn == null) {
-            // Create intent with name of remote service action
-            Intent intent = new Intent("alvin.base.service.remote.aidls.IRemoteBinder");
-            // Set application package name of remote service
-            intent.setPackage("alvin.base.service");
+    public void onStop() {
+        super.onStop();
+        serviceUnbound();
+    }
 
-            // Make ServiceConnection instance to connect to service
-            conn = new ServiceConnection() {
-                @Override
-                public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-                    // Get IRemoteBinder instance from IRemoteBinder.Stub.asInterface method
-                    // This instance can use in client to connect service
-                    binder = IRemoteBinder.Stub.asInterface(iBinder);
-                    try {
-                        binder.addOnJobStatusChangeListener(getClass().getName(), listener);
-                    } catch (RemoteException e) {
-                        Log.e(TAG, "Cannot add listener", e);
-                    }
-                }
-
-                @Override
-                public void onServiceDisconnected(ComponentName componentName) {
-                    unbindService(context);
-                }
-            };
-
-            context.bindService(intent, conn, Context.BIND_AUTO_CREATE);
-
-            handler = new Handler(Looper.getMainLooper());
+    @Override
+    public void serviceBound(@NonNull IRemoteBinder binder) {
+        try {
+            binder.addOnJobStatusChangeListener(getClass().getName(), listener);
+            this.binder = binder;
+            this.handler = new Handler(Looper.getMainLooper());
+        } catch (RemoteException e) {
+            Log.e(TAG, "Cannot add listener", e);
         }
     }
 
     @Override
-    public void unbindService(Context context) {
-        if (conn != null) {
+    public void serviceUnbound() {
+        if (binder != null) {
             try {
                 binder.removeOnJobStatusChangeListener(getClass().getName());
+                handler.removeCallbacks(null);
             } catch (RemoteException e) {
                 Log.e(TAG, "Cannot remote listener", e);
             }
-            context.unbindService(conn);
-            conn = null;
+            binder = null;
         }
     }
 

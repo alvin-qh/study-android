@@ -72,6 +72,13 @@ public class DependencyActivity extends AppCompatActivity implements DependencyC
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        presenter.onDestroy();
+    }
+
+    @Override
     public void showActivityScopeService(String name) {
         tvSingletonService.setText(name);
     }

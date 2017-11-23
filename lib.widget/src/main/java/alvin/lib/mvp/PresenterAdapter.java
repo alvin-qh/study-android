@@ -1,5 +1,6 @@
 package alvin.lib.mvp;
 
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 
 import java.lang.ref.WeakReference;
@@ -25,6 +26,7 @@ abstract class PresenterAdapter<T> implements IPresenter {
     }
 
     @Override
+    @CallSuper
     public void onDestroy() {
         reference.clear();
     }

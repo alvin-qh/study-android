@@ -178,7 +178,8 @@ subprojects {
     task checkstyleTest(type: Checkstyle) {
         outputs.upToDateWhen { false }
 
-        source 'src/main'
+        source 'src/test'
+        source 'src/androidTest'
 
         include '**/*.java'
 

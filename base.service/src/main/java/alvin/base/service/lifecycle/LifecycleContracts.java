@@ -1,6 +1,9 @@
 package alvin.base.service.lifecycle;
 
-import android.content.Context;
+import android.content.BroadcastReceiver;
+import android.content.ServiceConnection;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import alvin.lib.mvp.IPresenter;
 import alvin.lib.mvp.IView;
@@ -16,16 +19,17 @@ public interface LifecycleContracts {
     }
 
     interface Presenter extends IPresenter {
-        void registerReceiver(Context context);
 
-        void unregisterReceiver(Context context);
+        @NonNull
+        BroadcastReceiver getReceiver();
 
-        void startService(Context context);
+        void serviceStarted();
 
-        void bindService(Context context);
+        void serviceStoped();
 
-        void unbindService(Context context);
+        void serviceBound(@NonNull ServiceConnection conn);
 
-        void stopService(Context context);
+        @Nullable
+        ServiceConnection unbindService();
     }
 }

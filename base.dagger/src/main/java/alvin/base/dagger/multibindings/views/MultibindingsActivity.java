@@ -48,6 +48,13 @@ public class MultibindingsActivity extends AppCompatActivity implements Multibin
         presenter.onStart();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        presenter.onDestroy();
+    }
+
     public void showNameSet(Set<String> names) {
         tvNameSet.setText(names.toString());
     }
