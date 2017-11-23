@@ -4,12 +4,12 @@ import alvin.base.kotlin.common.domain.modules.Person
 import alvin.base.kotlin.dbflow.DBFlowContract
 import alvin.base.kotlin.dbflow.domain.repositories.PersonRepository
 import alvin.base.kotlin.lib.common.rx.RxManager
-import alvin.lib.mvp.PresenterAdapter
+import alvin.lib.mvp.ViewPresenterAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class DBFlowPresenter(val view: DBFlowContract.View) :
-        PresenterAdapter<DBFlowContract.View>(view),
+        ViewPresenterAdapter<DBFlowContract.View>(view),
         DBFlowContract.Presenter {
 
     private val personRepository = PersonRepository()
@@ -96,12 +96,5 @@ class DBFlowPresenter(val view: DBFlowContract.View) :
         }, {
             withView { view -> view.showPersonEditError() }
         })
-    }
-
-    private fun withView(todo: (view: DBFlowContract.View) -> Unit) {
-        val view = viewRef.get()
-        if (view != null) {
-            todo(view)
-        }
     }
 }

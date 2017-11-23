@@ -4,14 +4,14 @@ import alvin.base.kotlin.common.domain.modules.Person
 import alvin.base.kotlin.dagger.DaggerContracts
 import alvin.base.kotlin.dagger.domain.repositories.PersonRepository
 import alvin.base.kotlin.lib.common.rx.RxManager
-import alvin.lib.mvp.PresenterAdapter
+import alvin.lib.mvp.ViewPresenterAdapter
 import javax.inject.Inject
 
 class DaggerPresenter
 @Inject constructor(view: DaggerContracts.View,
                     private val personRepository: PersonRepository,
                     private val rxManager: RxManager) :
-        PresenterAdapter<DaggerContracts.View>(view),
+        ViewPresenterAdapter<DaggerContracts.View>(view),
         DaggerContracts.Presenter {
 
     override fun onStart() {
@@ -38,7 +38,7 @@ class DaggerPresenter
         subscriber.subscribe({ persons ->
             withView { view -> view.showPersons(persons) }
         }, { throwable ->
-            withView { view -> view.showDefaultError(throwable) }
+            withView { view -> view.showException(throwable) }
         })
     }
 
@@ -55,7 +55,7 @@ class DaggerPresenter
         subscriber.subscribe({ p ->
             withView { view -> view.personCreated(p) }
         }, { throwable ->
-            withView { view -> view.showDefaultError(throwable) }
+            withView { view -> view.showException(throwable) }
         })
     }
 
@@ -72,7 +72,7 @@ class DaggerPresenter
         subscriber.subscribe({ p ->
             withView { view -> view.personUpdated(p) }
         }, { throwable ->
-            withView { view -> view.showDefaultError(throwable) }
+            withView { view -> view.showException(throwable) }
         })
     }
 
@@ -89,7 +89,7 @@ class DaggerPresenter
         subscriber.subscribe({ p ->
             withView { view -> view.personDeleted(p) }
         }, { throwable ->
-            withView { view -> view.showDefaultError(throwable) }
+            withView { view -> view.showException(throwable) }
         })
     }
 }

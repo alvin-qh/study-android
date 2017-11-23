@@ -7,7 +7,6 @@ import alvin.base.kotlin.common.views.PersonDialog
 import alvin.base.kotlin.common.views.PersonListAdapter
 import alvin.base.kotlin.dbflow.DBFlowContract
 import alvin.base.kotlin.dbflow.presenters.DBFlowPresenter
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
@@ -128,9 +127,5 @@ class DBFlowActivity : AppCompatActivity(), DBFlowContract.View {
     override fun personDeleted(person: Person) {
         Toast.makeText(this, R.string.msg_person_deleted, Toast.LENGTH_SHORT).show()
         presenter.reloadPersons()
-    }
-
-    override fun context(): Context {
-        return this
     }
 }

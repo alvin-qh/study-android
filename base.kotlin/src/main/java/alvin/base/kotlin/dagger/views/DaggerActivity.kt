@@ -6,11 +6,11 @@ import alvin.base.kotlin.common.domain.modules.Person
 import alvin.base.kotlin.common.views.PersonDialog
 import alvin.base.kotlin.common.views.PersonListAdapter
 import alvin.base.kotlin.dagger.DaggerContracts
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import butterknife.ButterKnife
@@ -20,6 +20,10 @@ import kotlinx.android.synthetic.main.dbflow_activity.*
 import javax.inject.Inject
 
 class DaggerActivity : AppCompatActivity(), DaggerContracts.View {
+
+    companion object {
+        val TAG = DaggerActivity::class.simpleName
+    }
 
     @Inject
     lateinit var presenter: DaggerContracts.Presenter
@@ -100,12 +104,6 @@ class DaggerActivity : AppCompatActivity(), DaggerContracts.View {
         Toast.makeText(this, R.string.msg_person_created, Toast.LENGTH_SHORT).show()
     }
 
-    override fun showDefaultError(t: Throwable?) {
-        if (t != null) {
-            Toast.makeText(this, t.message, Toast.LENGTH_SHORT).show()
-        }
-    }
-
     override fun showPersons(persons: List<Person>?) {
         if (persons != null) {
             val adapter = rv_persons.adapter as PersonListAdapter
@@ -131,7 +129,10 @@ class DaggerActivity : AppCompatActivity(), DaggerContracts.View {
         presenter.reloadPersons()
     }
 
-    override fun context(): Context {
-        return this
+    override fun showException(error: Throwable?) {
+        if (error != null) {
+            Log.e(TAG, "Exception cause", error)
+        }
+        Toast.makeText(this, R.string.error_exception_caused, Toast.LENGTH_LONG).show()
     }
 }

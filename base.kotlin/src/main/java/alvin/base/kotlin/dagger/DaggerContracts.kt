@@ -13,6 +13,7 @@ interface DaggerContracts {
         fun personCreated(person: Person)
         fun personUpdated(person: Person)
         fun personDeleted(person: Person)
+        fun showException(error: Throwable?)
     }
 
     interface Presenter : IPresenter {
