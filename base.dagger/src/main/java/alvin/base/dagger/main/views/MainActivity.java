@@ -1,4 +1,4 @@
-package alvin.base.dagger.main.view;
+package alvin.base.dagger.main.views;
 
 import android.content.Intent;
 import android.os.Bundle;

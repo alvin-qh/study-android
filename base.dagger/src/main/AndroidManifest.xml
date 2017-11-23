@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.view.MainActivity">
+        <activity android:name=".main.views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -24,12 +24,12 @@
         <activity
             android:name=".basic.views.BasicActivity"
             android:label="@string/title_basic"
-            android:parentActivityName=".main.view.MainActivity" />
+            android:parentActivityName=".main.views.MainActivity" />
 
         <activity
             android:name=".scope.views.ScopeActivity"
             android:label="@string/title_scope"
-            android:parentActivityName=".main.view.MainActivity" />
+            android:parentActivityName=".main.views.MainActivity" />
 
         <activity
             android:name=".scope.dependency.views.DependencyActivity"
@@ -44,7 +44,7 @@
         <activity
             android:name=".android.views.AndroidActivity"
             android:label="@string/title_android"
-            android:parentActivityName=".main.view.MainActivity" />
+            android:parentActivityName=".main.views.MainActivity" />
 
         <activity
             android:name=".android.subcomponent.views.SubcomponentActivity"
@@ -59,7 +59,7 @@
         <activity
             android:name=".multibindings.views.MultibindingsActivity"
             android:label="@string/title_multibindings"
-            android:parentActivityName=".main.view.MainActivity"
+            android:parentActivityName=".main.views.MainActivity"
             android:theme="@style/AppTheme.Multibindings" />
 
     </application>
