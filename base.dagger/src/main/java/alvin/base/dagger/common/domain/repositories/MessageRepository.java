@@ -1,28 +1,21 @@
 package alvin.base.dagger.common.domain.repositories;
 
-import android.support.annotation.NonNull;
-
-import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import alvin.base.dagger.common.domain.models.Message;
 import alvin.base.dagger.common.domain.models.Message_Table;
 import alvin.lib.common.collect.Collections2;
 import alvin.lib.common.dbflow.repositories.BaseRepository;
 
-@Singleton
 public class MessageRepository extends BaseRepository<Message> {
 
     @Inject
-    public MessageRepository(@NonNull DatabaseDefinition database) {
-        super(database);
-    }
+    public MessageRepository() { }
 
     public List<Message> findAll() {
         return SQLite.select().from(Message.class)

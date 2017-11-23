@@ -6,6 +6,7 @@ import com.raizlabs.android.dbflow.config.FlowManager;
 import alvin.base.dagger.basic.presenters.BasicPresenter;
 import alvin.base.dagger.common.Contract;
 import alvin.base.dagger.common.db.MessageDatabase;
+import alvin.lib.common.dbflow.repositories.TransactionManager;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -27,6 +28,11 @@ public class BasicModule {
     @Provides
     DatabaseDefinition databaseDefinition() {
         return FlowManager.getDatabase(MessageDatabase.class);
+    }
+
+    @Provides
+    TransactionManager transactionManager(DatabaseDefinition db) {
+        return new TransactionManager(db);
     }
 
     @Module

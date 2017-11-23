@@ -1,6 +1,5 @@
 package alvin.base.dagger;
 
-import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
 import java.time.LocalDate;
@@ -14,6 +13,7 @@ import alvin.base.dagger.common.qualifiers.BirthdayMap;
 import alvin.base.dagger.common.qualifiers.NameSet;
 import alvin.base.dagger.multibindings.StringMapKey;
 import alvin.base.dagger.multibindings.views.MultibindingsActivity;
+import alvin.lib.common.dbflow.repositories.TransactionManager;
 import dagger.Module;
 import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
@@ -30,21 +30,26 @@ interface ApplicationModule {
     @Module
     class PersistModule {
 
-        @Singleton @Provides
-        DatabaseDefinition databaseDefinition() {
-            return FlowManager.getDatabase(MessageDatabase.class);
+        @Singleton
+        @Provides
+        TransactionManager transactionManager() {
+            return new TransactionManager(FlowManager.getDatabase(MessageDatabase.class));
         }
     }
 
     @Module
     abstract class MultibindingsModule {
 
-        @Provides @IntoSet @NameSet
+        @Provides
+        @IntoSet
+        @NameSet
         static String name() {
             return "Alvin";
         }
 
-        @Provides @BirthdayMap @IntoMap
+        @Provides
+        @BirthdayMap
+        @IntoMap
         @StringMapKey("Alvin")
         static LocalDate allenBirthday() {
             return LocalDate.of(1981, 3, 17);   // SUPPRESS

@@ -1,26 +1,19 @@
 package alvin.base.database.dbflow.domain.repositories;
 
-import android.support.annotation.NonNull;
-
-import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.sql.language.Where;
 
 import java.util.List;
 import java.util.Optional;
 
+import alvin.base.database.common.domain.models.Gender;
 import alvin.base.database.dbflow.domain.models.Person;
 import alvin.base.database.dbflow.domain.models.Person_Table;
-import alvin.base.database.common.domain.models.Gender;
 import alvin.lib.common.dbflow.repositories.BaseRepository;
 
 /**
  * @see BaseRepository for more details
  */
 public class PersonDBFlowRepository extends BaseRepository<Person> {
-
-    public PersonDBFlowRepository(@NonNull DatabaseDefinition database) {
-        super(database);
-    }
 
     public Optional<Person> findById(int id) {
         return Optional.ofNullable(where(Person_Table.id.eq(id)).querySingle());
@@ -34,9 +27,7 @@ public class PersonDBFlowRepository extends BaseRepository<Person> {
         return where.queryList();
     }
 
-    @Override
-    public void delete(@NonNull Person person) {
-        super.delete(person);
+//    public void delete(@NonNull int id) {
 //      database.executeTransaction(db -> SQLite.delete().from(Person.class).where(Person_Table.id.eq(person.getId())));
-    }
+//    }
 }
