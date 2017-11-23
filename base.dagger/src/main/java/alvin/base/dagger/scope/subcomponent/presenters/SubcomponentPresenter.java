@@ -7,9 +7,9 @@ import javax.inject.Inject;
 import alvin.base.dagger.scope.domain.service.ActivityScopeService;
 import alvin.base.dagger.scope.subcomponent.SubcomponentContracts;
 import alvin.base.dagger.utils.ObjectNames;
-import alvin.lib.mvp.PresenterAdapter;
+import alvin.lib.mvp.ViewPresenterAdapter;
 
-public class SubcomponentPresenter extends PresenterAdapter<SubcomponentContracts.View>
+public class SubcomponentPresenter extends ViewPresenterAdapter<SubcomponentContracts.View>
         implements SubcomponentContracts.Presenter {
 
     private final ActivityScopeService activityScopeService;

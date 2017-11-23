@@ -2,7 +2,6 @@ package alvin.base.dagger.scope.dependency.views;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -70,11 +69,6 @@ public class DependencyActivity extends AppCompatActivity implements DependencyC
     protected void onStart() {
         super.onStart();
         presenter.onStart();
-    }
-
-    @Override
-    public Context context() {
-        return this;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package alvin.base.dagger.common.views;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -21,6 +22,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public abstract class BaseActivity extends AppCompatActivity implements Contract.View {
+
+    private static final String TAG = BaseActivity.class.getSimpleName();
 
     @BindView(R.id.et_message)
     EditText etMessage;
@@ -72,14 +75,15 @@ public abstract class BaseActivity extends AppCompatActivity implements Contract
         presenter.onDestroy();
     }
 
-    @Override
-    public Context context() {
-        return this;
-    }
-
     @OnClick(R.id.btn_save)
     public void onSaveButtonClick(Button b) {
         presenter.createMessage(etMessage.getText().toString());
+    }
+
+    @Override
+    public void showException(@NonNull Throwable error) {
+        Log.e(TAG, "Exception caused", error);
+        Toast.makeText(this, R.string.error_exception, Toast.LENGTH_LONG).show();
     }
 
     protected abstract Contract.Presenter getPresenter();

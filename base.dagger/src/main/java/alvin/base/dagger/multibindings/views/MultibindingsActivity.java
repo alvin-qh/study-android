@@ -1,6 +1,5 @@
 package alvin.base.dagger.multibindings.views;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -47,11 +46,6 @@ public class MultibindingsActivity extends AppCompatActivity implements Multibin
         super.onStart();
 
         presenter.onStart();
-    }
-
-    @Override
-    public Context context() {
-        return this;
     }
 
     public void showNameSet(Set<String> names) {

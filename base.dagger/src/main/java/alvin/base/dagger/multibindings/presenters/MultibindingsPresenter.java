@@ -11,11 +11,11 @@ import javax.inject.Inject;
 import alvin.base.dagger.common.qualifiers.BirthdayMap;
 import alvin.base.dagger.common.qualifiers.NameSet;
 import alvin.base.dagger.multibindings.MultibindingsContracts;
-import alvin.lib.mvp.PresenterAdapter;
+import alvin.lib.mvp.ViewPresenterAdapter;
 
 
 public class MultibindingsPresenter
-        extends PresenterAdapter<MultibindingsContracts.View>
+        extends ViewPresenterAdapter<MultibindingsContracts.View>
         implements MultibindingsContracts.Presenter {
 
     private final Set<String> nameSet;

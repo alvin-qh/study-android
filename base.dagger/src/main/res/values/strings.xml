@@ -27,4 +27,6 @@
     <string name="label_activity_scope">Activity</string>
     <string name="label_session_service">Fragment</string>
     <string name="label_multibindings_set">Set Bindings</string>
+
+    <string name="error_exception">Exception caused</string>
 </resources>

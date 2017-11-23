@@ -8,9 +8,9 @@ import alvin.base.dagger.scope.dependency.fragment.FragmentContracts;
 import alvin.base.dagger.scope.domain.service.ActivityScopeService;
 import alvin.base.dagger.scope.domain.service.FragmentScopeService;
 import alvin.base.dagger.utils.ObjectNames;
-import alvin.lib.mvp.PresenterAdapter;
+import alvin.lib.mvp.ViewPresenterAdapter;
 
-public class FragmentPresenter extends PresenterAdapter<FragmentContracts.View>
+public class FragmentPresenter extends ViewPresenterAdapter<FragmentContracts.View>
         implements FragmentContracts.Presenter {
 
     private final ActivityScopeService activityScopeService;

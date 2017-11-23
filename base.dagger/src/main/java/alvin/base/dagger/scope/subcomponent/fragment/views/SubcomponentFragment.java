@@ -1,7 +1,6 @@
 package alvin.base.dagger.scope.subcomponent.fragment.views;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,9 +11,9 @@ import android.widget.TextView;
 import javax.inject.Inject;
 
 import alvin.base.dagger.R;
+import alvin.base.dagger.scope.subcomponent.fragment.FragmentContracts;
 import alvin.base.dagger.scope.subcomponent.fragment.FragmentModule;
 import alvin.base.dagger.scope.subcomponent.views.SubcomponentActivity;
-import alvin.base.dagger.scope.subcomponent.fragment.FragmentContracts;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -70,11 +69,6 @@ public class SubcomponentFragment extends Fragment implements FragmentContracts.
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    @Override
-    public Context context() {
-        return getContext();
     }
 
     @Override

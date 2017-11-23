@@ -180,7 +180,7 @@
             <property name="protectedAllowed" value="true" />
             <property name="allowPublicImmutableFields" value="true" />
             <property name="publicMemberPattern" value=".*" />
-            <property name="ignoreAnnotationCanonicalNames" value="Inject,BindView,BindColor" />
+            <property name="ignoreAnnotationCanonicalNames" value="Inject,BindView,BindViews,BindString,BindDimen,BindColor" />
         </module>
 
         <!-- Miscellaneous other checks.                   -->

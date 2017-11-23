@@ -13,6 +13,8 @@ public interface Contract {
     interface View extends IView {
 
         void showMessages(@NonNull List<Message> messageList);
+
+        void showException(@NonNull Throwable error);
     }
 
     interface Presenter extends IPresenter {

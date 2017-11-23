@@ -1,12 +1,9 @@
 package alvin.base.net.socket;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
-import android.widget.Toast;
 
 import java.time.LocalDateTime;
 
-import alvin.base.net.R;
 import alvin.lib.mvp.IPresenter;
 import alvin.lib.mvp.IView;
 

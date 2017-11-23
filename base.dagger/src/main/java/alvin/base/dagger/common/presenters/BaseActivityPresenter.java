@@ -11,10 +11,11 @@ import alvin.base.dagger.common.domain.models.Message;
 import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.RxSchedulers;
 import alvin.lib.common.rx.SingleSubscriber;
-import alvin.lib.mvp.PresenterAdapter;
+import alvin.lib.mvp.ViewPresenterAdapter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
-public abstract class BaseActivityPresenter extends PresenterAdapter<Contract.View> implements Contract.Presenter {
+public abstract class BaseActivityPresenter extends ViewPresenterAdapter<Contract.View>
+        implements Contract.Presenter {
 
     private final RxManager rxManager = RxManager.newBuilder()
             .withSubscribeOn(RxSchedulers::database)
@@ -43,7 +44,7 @@ public abstract class BaseActivityPresenter extends PresenterAdapter<Contract.Vi
 
         subscribe.subscribe(
                 messageList -> withView(view -> view.showMessages(messageList)),
-                throwable -> withView(view -> view.showDefaultError(throwable))
+                throwable -> withView(view -> view.showException(throwable))
         );
     }
 
@@ -65,7 +66,7 @@ public abstract class BaseActivityPresenter extends PresenterAdapter<Contract.Vi
 
         subscribe.subscribe(
                 messageList -> withView(view -> view.showMessages(messageList)),
-                throwable -> withView(view -> view.showDefaultError(throwable))
+                throwable -> withView(view -> view.showException(throwable))
         );
     }
 
@@ -82,7 +83,7 @@ public abstract class BaseActivityPresenter extends PresenterAdapter<Contract.Vi
 
         subscribe.subscribe(
                 messageList -> withView(view -> view.showMessages(messageList)),
-                throwable -> withView(view -> view.showDefaultError(throwable))
+                throwable -> withView(view -> view.showException(throwable))
         );
     }
 }

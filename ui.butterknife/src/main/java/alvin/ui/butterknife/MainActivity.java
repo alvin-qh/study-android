@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @BindDimen(R.dimen.large_font_size)
     float dimenFontSize;
 
-    ButterKnifeFragment fragment;
+    private ButterKnifeFragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
