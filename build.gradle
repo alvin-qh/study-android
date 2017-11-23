@@ -5,7 +5,7 @@ buildscript {
     ext {
         versions = [
                 buildTool       : '3.0.1',
-                multidex        : '1.0.1',
+                multidex        : '1.0.2',
                 retrolambda     : '3.7.0',
                 sdk             : '27.0.1',
                 constraintLayout: '1.0.2',
