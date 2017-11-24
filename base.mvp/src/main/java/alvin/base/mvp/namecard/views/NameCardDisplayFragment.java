@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.common.base.Preconditions;
+
 import javax.inject.Inject;
 
 import alvin.base.mvp.R;
@@ -30,14 +32,18 @@ public class NameCardDisplayFragment extends DaggerFragment
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        final Bundle arguments = getArguments();
+        if (arguments != null) {
+            nameCard = arguments.getParcelable(ARGUMENT_NAME_CARD);
+        }
+        Preconditions.checkNotNull(nameCard, "nameCard != null");
+
         presenter.onCreate();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        loadArguments();
-
         presenter.onDestroy();
     }
 
@@ -48,6 +54,7 @@ public class NameCardDisplayFragment extends DaggerFragment
                              @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.name_card_fragment_display, container, false);
         unbinder = ButterKnife.bind(this, view);
+
         showNameCard();
         return view;
     }
@@ -65,23 +72,11 @@ public class NameCardDisplayFragment extends DaggerFragment
         }
     }
 
-    private void loadArguments() {
-        final Bundle bundle = getArguments();
-        if (bundle == null) {
-            throw new NullPointerException("bundle != null");
-        }
-
-        this.nameCard = bundle.getParcelable(ARGUMENT_NAME_CARD);
-        if (nameCard == null) {
-            throw new IllegalArgumentException("nameCardId cannot be 0");
-        }
-    }
-
     public static NameCardDisplayFragment create(NameCard nameCard) {
+        NameCardDisplayFragment fragment = new NameCardDisplayFragment();
+
         Bundle bundle = new Bundle();
         bundle.putParcelable(ARGUMENT_NAME_CARD, nameCard);
-
-        NameCardDisplayFragment fragment = new NameCardDisplayFragment();
         fragment.setArguments(bundle);
 
         return fragment;

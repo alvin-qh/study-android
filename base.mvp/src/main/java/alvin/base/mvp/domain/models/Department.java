@@ -71,4 +71,9 @@ public class Department extends BaseModel implements IModel, Parcelable {
         parcel.writeInt(id);
         parcel.writeString(name);
     }
+
+    @Override
+    public String toString() {
+        return name == null ? "" : name;
+    }
 }

@@ -35,7 +35,7 @@ public class NameCard extends BaseModel implements IModel, Parcelable {
 
     private String photo;
 
-    NameCard() {
+    public NameCard() {
     }
 
     public NameCard(int id, String name, Gender gender,

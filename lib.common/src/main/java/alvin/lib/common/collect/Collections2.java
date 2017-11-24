@@ -2,6 +2,7 @@ package alvin.lib.common.collect;
 
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -37,17 +38,28 @@ public final class Collections2 {
         return toMap(collection.stream(), keyMapFn);
     }
 
-    public static <T> Optional<T> first(Collection<T> collection) {
+    @NonNull
+    public static <T> Optional<T> first(@NonNull Collection<T> collection) {
         if (nullOrEmpty(collection)) {
             return Optional.empty();
         }
         return Optional.of(collection.iterator().next());
     }
 
-    public static <T> Optional<T> first(List<T> collection) {
+    @NonNull
+    public static <T> Optional<T> first(@NonNull List<T> collection) {
         if (nullOrEmpty(collection)) {
             return Optional.empty();
         }
         return Optional.of(collection.get(0));
+    }
+
+    @NonNull
+    public static <T> List<T> merge(@NonNull Collection<T> left,
+                                    @NonNull Collection<T> right) {
+        List<T> newList = new ArrayList<>();
+        newList.addAll(left);
+        newList.addAll(right);
+        return newList;
     }
 }

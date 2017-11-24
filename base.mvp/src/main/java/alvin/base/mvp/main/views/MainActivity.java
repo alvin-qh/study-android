@@ -20,6 +20,8 @@ import dagger.android.support.DaggerAppCompatActivity;
 public class MainActivity extends DaggerAppCompatActivity
         implements MainContracts.View {
 
+    private static final int PAGE_LIMIT = 3;
+    
     @Inject MainContracts.Presenter presenter;
 
     @BindView(R.id.vp_name_cards) ViewPager vpNameCards;
@@ -39,7 +41,7 @@ public class MainActivity extends DaggerAppCompatActivity
     }
 
     private void initViewPager() {
-        vpNameCards.setOffscreenPageLimit(3);
+        vpNameCards.setOffscreenPageLimit(PAGE_LIMIT);
 
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),
                 Collections.emptyList());

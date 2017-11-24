@@ -1,5 +1,8 @@
 package alvin.base.mvp.namecard;
 
+import java.util.List;
+
+import alvin.base.mvp.domain.models.Department;
 import alvin.lib.mvp.IPresenter;
 import alvin.lib.mvp.IView;
 
@@ -18,8 +21,10 @@ public interface NameCardContracts {
     }
 
     interface EditView extends IView {
+        void showDepartments(List<Department> departments);
     }
 
     interface EditPresenter extends IPresenter {
+        void getDepartments();
     }
 }

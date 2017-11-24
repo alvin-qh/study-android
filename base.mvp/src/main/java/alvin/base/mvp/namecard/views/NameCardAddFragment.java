@@ -6,11 +6,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import javax.inject.Inject;
 
 import alvin.base.mvp.R;
+import alvin.base.mvp.domain.models.NameCard;
 import alvin.base.mvp.namecard.NameCardContracts;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -43,8 +44,11 @@ public class NameCardAddFragment extends DaggerFragment
     }
 
     @OnClick(R.id.btn_name_card_add)
-    public void onNameCardAddButtonClick(Button b) {
-
+    public void onNameCardAddButtonClick(ImageButton b) {
+        NameCardEditDialog dialog = NameCardEditDialog.show(this, new NameCard());
+        dialog.setOnOKClickListener(view -> {
+            NameCard nameCard = dialog.getNameCard();
+        });
     }
 
     public static NameCardAddFragment create() {
