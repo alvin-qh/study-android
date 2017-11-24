@@ -1,5 +1,8 @@
 package alvin.base.mvp.domain.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
@@ -13,7 +16,7 @@ import alvin.lib.common.dbflow.converts.LocalDateConvert;
 import alvin.lib.mvp.IModel;
 
 @Table(database = MainDatabase.class, name = "name_card")
-public class NameCard extends BaseModel implements IModel {
+public class NameCard extends BaseModel implements IModel, Parcelable {
 
     @PrimaryKey(autoincrement = true)
     private int id;
@@ -45,6 +48,25 @@ public class NameCard extends BaseModel implements IModel {
         this.birthday = birthday;
         this.photo = photo;
     }
+
+    protected NameCard(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        department = in.readParcelable(Department.class.getClassLoader());
+        photo = in.readString();
+    }
+
+    public static final Creator<NameCard> CREATOR = new Creator<NameCard>() {
+        @Override
+        public NameCard createFromParcel(Parcel in) {
+            return new NameCard(in);
+        }
+
+        @Override
+        public NameCard[] newArray(int size) {
+            return new NameCard[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -92,5 +114,18 @@ public class NameCard extends BaseModel implements IModel {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeParcelable(department, i);
+        parcel.writeString(photo);
     }
 }

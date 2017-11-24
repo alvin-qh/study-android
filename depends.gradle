@@ -8,9 +8,10 @@ ext {
                             "com.android.support:appcompat-v7:${versions.sdk}",
                             "com.android.support:support-v4:${versions.sdk}",
                             "com.android.support:design:${versions.sdk}",
+                            "com.android.support:percent:${versions.sdk}",
+                            "com.android.support:cardview-v7:${versions.sdk}",
                             "com.android.support.constraint:constraint-layout:${versions.constraintLayout}",
-                            "com.android.support:multidex:${versions.multidex}",
-                            "com.android.support:percent:${versions.sdk}"
+                            "com.android.support:multidex:${versions.multidex}"
                     ],
 
                     /**

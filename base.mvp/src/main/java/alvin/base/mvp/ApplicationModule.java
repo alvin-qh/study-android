@@ -6,14 +6,14 @@ import javax.inject.Singleton;
 
 import alvin.base.mvp.domain.MainDatabase;
 import alvin.base.mvp.main.MainModule;
-import alvin.base.mvp.namecard.presenter.NameCardPresenter;
+import alvin.base.mvp.namecard.presenter.NameCardDisplayPresenter;
 import alvin.lib.common.dbflow.repositories.TransactionManager;
 import dagger.Module;
 import dagger.Provides;
 
 @Module(includes = {
         MainModule.class,
-        NameCardPresenter.class
+        NameCardDisplayPresenter.class
 })
 public class ApplicationModule {
 

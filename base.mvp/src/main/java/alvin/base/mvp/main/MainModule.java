@@ -15,7 +15,7 @@ public interface MainModule {
 
     @ContributesAndroidInjector(modules = {
             ViewModule.class,
-            ProvidersModule.class
+            ProviderModule.class
     })
     MainActivity mainActivity();
 
@@ -30,7 +30,7 @@ public interface MainModule {
     }
 
     @Module
-    class ProvidersModule {
+    class ProviderModule {
 
         @Provides
         RxManager rxManager() {

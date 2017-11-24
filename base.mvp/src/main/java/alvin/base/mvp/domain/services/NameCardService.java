@@ -3,6 +3,7 @@ package alvin.base.mvp.domain.services;
 import android.support.annotation.NonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -26,5 +27,13 @@ public class NameCardService {
 
     public List<NameCard> loadAll() {
         return nameCardRepository.findALl();
+    }
+
+    public NameCard findById(int nameCardId) {
+        Optional<NameCard> mayNameCard = nameCardRepository.findById(nameCardId);
+        if (!mayNameCard.isPresent()) {
+            throw new IllegalArgumentException("Invalid nameCardId " + nameCardId);
+        }
+        return mayNameCard.get();
     }
 }

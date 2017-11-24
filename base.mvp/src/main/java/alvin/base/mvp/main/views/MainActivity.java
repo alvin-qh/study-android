@@ -3,8 +3,7 @@ package alvin.base.mvp.main.views;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabItem;
-import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,9 +22,9 @@ public class MainActivity extends DaggerAppCompatActivity
 
     @Inject MainContracts.Presenter presenter;
 
-    @BindView(R.id.rv_name_cards) TabLayout rvNameCards;
+    @BindView(R.id.vp_name_cards) ViewPager vpNameCards;
 
-    private FragmentAdapter fragmentAdapter;
+    private ViewPagerAdapter viewPagerAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,15 +33,17 @@ public class MainActivity extends DaggerAppCompatActivity
         setContentView(R.layout.main_activity);
         ButterKnife.bind(this);
 
-        initializeTableView();
+        initViewPager();
 
         presenter.onCreate();
     }
 
-    private void initializeTableView() {
-        fragmentAdapter = new FragmentAdapter(
-                getSupportFragmentManager(), Collections.emptyList());
-        tiNameCard.setv
+    private void initViewPager() {
+        vpNameCards.setOffscreenPageLimit(3);
+
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),
+                Collections.emptyList());
+        vpNameCards.setAdapter(viewPagerAdapter);
     }
 
     @Override
@@ -68,6 +69,6 @@ public class MainActivity extends DaggerAppCompatActivity
 
     @Override
     public void nameCardsLoaded(@NonNull List<NameCard> nameCards) {
-        fragmentAdapter.update(nameCards);
+        viewPagerAdapter.update(nameCards);
     }
 }
