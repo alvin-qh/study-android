@@ -10,4 +10,6 @@
     <string name="btn_cancel">Cancel</string>
 
     <string name="text_nothing">Nothing</string>
+
+    <string name="menu_action_department_setting">Setting Departments</string>
 </resources>

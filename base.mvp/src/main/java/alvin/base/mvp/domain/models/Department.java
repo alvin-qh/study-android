@@ -23,6 +23,10 @@ public class Department extends BaseModel implements IModel, Parcelable {
     Department() {
     }
 
+    public Department(String name) {
+        this(0, name);
+    }
+
     public Department(int id, String name) {
         this.id = id;
         this.name = name;

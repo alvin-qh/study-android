@@ -56,7 +56,6 @@ public class NameCardEditDialog extends DaggerAppCompatDialogFragment
         if (arguments != null) {
             nameCard = arguments.getParcelable(ARGUMENT_NAME_CARD);
         }
-
         Preconditions.checkNotNull(nameCard, "nameCard != null");
 
         presenter.onCreate();
@@ -73,7 +72,6 @@ public class NameCardEditDialog extends DaggerAppCompatDialogFragment
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              Bundle savedInstanceState) {
-//        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         View view = inflater.inflate(R.layout.name_card_fragment_edit, container, false);
         unbinder = ButterKnife.bind(this, view);
 

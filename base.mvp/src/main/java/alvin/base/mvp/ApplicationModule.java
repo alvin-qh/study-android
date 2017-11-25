@@ -4,6 +4,7 @@ import com.raizlabs.android.dbflow.config.FlowManager;
 
 import javax.inject.Singleton;
 
+import alvin.base.mvp.department.DepartmentModule;
 import alvin.base.mvp.domain.MainDatabase;
 import alvin.base.mvp.main.MainModule;
 import alvin.base.mvp.namecard.NameCardModule;
@@ -13,7 +14,8 @@ import dagger.Provides;
 
 @Module(includes = {
         MainModule.class,
-        NameCardModule.class
+        NameCardModule.class,
+        DepartmentModule.class
 })
 public class ApplicationModule {
 
