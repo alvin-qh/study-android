@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import alvin.lib.common.rx.ObservableSubscriber;
 import alvin.lib.common.rx.RxManager;
 import dagger.android.DaggerService;
+import io.reactivex.Observable;
 
 public class WorkingService extends DaggerService {
     public static final String EXTRA_ARG_ZONE = "zone";
@@ -82,17 +83,20 @@ public class WorkingService extends DaggerService {
     }
 
     private void startServiceLoop() {
-        final ObservableSubscriber<LocalDateTime> subscriber =
-                rxManager.interval(0L, 1, TimeUnit.SECONDS, emitter -> {
-                    if (isAvailable()) {
-                        LocalDateTime time = LocalDateTime.now(zoneId);
-                        emitter.onNext(time);
-                    } else {
-                        emitter.onComplete();
-                    }
-                });
+        final ObservableSubscriber<LocalDateTime> subscriber = rxManager.with(
+                Observable.interval(0L, 1, TimeUnit.SECONDS)
+                        .flatMap(ignore -> emitter -> {
+                            if (isAvailable()) {
+                                LocalDateTime time = LocalDateTime.now(zoneId);
+                                emitter.onNext(time);
+                            } else {
+                                emitter.onComplete();
+                            }
+                        })
+        );
 
-        subscriber.subscribe(time -> listeners.forEach(listener -> listener.onTimeMessage(time)));
+        subscriber.subscribe(time ->
+                listeners.forEach(listener -> listener.onTimeMessage(time)));
     }
 
     public void addOnServiceCallbackListener(@NonNull OnServiceCallbackListener listener) {

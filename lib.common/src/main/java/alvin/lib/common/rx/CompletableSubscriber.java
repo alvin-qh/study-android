@@ -2,99 +2,87 @@ package alvin.lib.common.rx;
 
 import android.support.annotation.NonNull;
 
-import alvin.lib.common.exceptions.Throwables;
 import io.reactivex.Completable;
 import io.reactivex.CompletableObserver;
+import io.reactivex.annotations.CheckReturnValue;
 import io.reactivex.annotations.SchedulerSupport;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.internal.functions.Functions;
 
 public class CompletableSubscriber extends RxSubscribe {
 
-    private Completable completable;
+    private final Completable completable;
 
-    CompletableSubscriber(@NonNull RxManager rxManager,
-                          @NonNull Completable completable) {
+    CompletableSubscriber(@NonNull final RxManager rxManager,
+                          @NonNull final Completable completable) {
         super(rxManager);
         this.completable = completable;
     }
 
     @NonNull
+    @CheckReturnValue
     @SchedulerSupport(SchedulerSupport.NONE)
     public final Disposable subscribe() {
-        return registerDisposable(completable.subscribe(
-                this::unregisterDisposable,
+        return subscribe(Functions.EMPTY_ACTION);
+    }
+
+    @NonNull
+    @CheckReturnValue
+    @SchedulerSupport(SchedulerSupport.NONE)
+    public final Disposable subscribe(@NonNull final Action onComplete) {
+        return subscribe(onComplete, Functions.ON_ERROR_MISSING);
+    }
+
+    @NonNull
+    @CheckReturnValue
+    @SchedulerSupport(SchedulerSupport.NONE)
+    public final Disposable subscribe(@NonNull final Consumer<? super Throwable> onError) {
+        return subscribe(Functions.EMPTY_ACTION, onError);
+    }
+
+    @NonNull
+    @CheckReturnValue
+    @SchedulerSupport(SchedulerSupport.NONE)
+    public final Disposable subscribe(@NonNull final Action onComplete,
+                                      @NonNull final Consumer<? super Throwable> onError) {
+        final DisposableBinder binder = createDisposableBinder();
+
+        return binder.bind(completable.subscribe(
+                () -> {
+                    unbindDisposable(binder);
+                    onComplete.run();
+                },
                 throwable -> {
-                    unregisterDisposable();
-                    Functions.ERROR_CONSUMER.accept(throwable);
+                    unbindDisposable(binder);
+                    onError.accept(throwable);
                 }
         ));
     }
 
     @SchedulerSupport(SchedulerSupport.NONE)
     public final void subscribe(@NonNull final CompletableObserver s) {
+        final DisposableBinder binder = createDisposableBinder();
+
         completable.subscribe(new CompletableObserver() {
             @Override
             public void onSubscribe(Disposable d) {
-                registerDisposable(d);
+                binder.bind(d);
                 s.onSubscribe(d);
             }
 
             @Override
             public void onComplete() {
-                unregisterDisposable();
+                unbindDisposable(binder);
                 s.onComplete();
             }
 
             @Override
             public void onError(Throwable e) {
-                unregisterDisposable();
+                unbindDisposable(binder);
                 s.onError(e);
             }
         });
-    }
-
-    @NonNull
-    @SchedulerSupport(SchedulerSupport.NONE)
-    public final Disposable subscribe(@NonNull final Action onComplete,
-                                      @NonNull final Consumer<? super Throwable> onError) {
-        return registerDisposable(completable.subscribe(
-                () -> {
-                    unregisterDisposable();
-                    onComplete.run();
-                },
-                throwable -> {
-                    unregisterDisposable();
-                    onError.accept(throwable);
-                }
-        ));
-    }
-
-    @NonNull
-    @SchedulerSupport(SchedulerSupport.NONE)
-    public final Disposable subscribe(@NonNull final Action onComplete) {
-        return registerDisposable(completable.subscribe(
-                () -> {
-                    unregisterDisposable();
-                    onComplete.run();
-                },
-                throwable -> {
-                    unregisterDisposable();
-                    Functions.ERROR_CONSUMER.accept(throwable);
-                }
-        ));
-    }
-
-    @NonNull
-    public final CompletableSubscriber config(@NonNull final Function<Completable, Completable> configFn) {
-        try {
-            this.completable = configFn.apply(this.completable);
-            return this;
-        } catch (Exception e) {
-            throw Throwables.propagate(e);
-        }
     }
 }

@@ -15,8 +15,8 @@ class DaggerModule {
     @Provides
     fun rxManager(): RxManager {
         return RxManager.newBuilder()
-                .withSubscribeOn { Schedulers.io() }
-                .withObserveOn { AndroidSchedulers.mainThread() }
+                .subscribeOn { Schedulers.io() }
+                .observeOn { AndroidSchedulers.mainThread() }
                 .build()
     }
 

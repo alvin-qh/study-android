@@ -2,114 +2,90 @@ package alvin.lib.common.rx;
 
 import android.support.annotation.NonNull;
 
-import alvin.lib.common.exceptions.Throwables;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.annotations.CheckReturnValue;
 import io.reactivex.annotations.SchedulerSupport;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.internal.functions.Functions;
 
 public class ObservableSubscriber<T> extends RxSubscribe {
+    private final Observable<T> observable;
 
-    private Observable<T> observable;
-
-    ObservableSubscriber(@NonNull RxManager rxManager,
-                         @NonNull Observable<T> observable) {
+    ObservableSubscriber(@NonNull final RxManager rxManager,
+                         @NonNull final Observable<T> observable) {
         super(rxManager);
         this.observable = observable;
     }
 
     @NonNull
+    @CheckReturnValue
     @SchedulerSupport(SchedulerSupport.NONE)
     public final Disposable subscribe() {
-        return registerDisposable(observable.subscribe(
-                Functions.emptyConsumer(),
-                throwable -> {
-                    unregisterDisposable();
-                    Functions.ERROR_CONSUMER.accept(throwable);
-                },
-                this::unregisterDisposable
-        ));
+        return subscribe(Functions.emptyConsumer());
     }
 
     @NonNull
+    @CheckReturnValue
     @SchedulerSupport(SchedulerSupport.NONE)
     public final Disposable subscribe(@NonNull final Consumer<? super T> onNext) {
-        return registerDisposable(observable.subscribe(
-                onNext,
-                throwable -> {
-                    unregisterDisposable();
-                    Functions.ERROR_CONSUMER.accept(throwable);
-                },
-                this::unregisterDisposable
-        ));
+        return subscribe(onNext, Functions.ON_ERROR_MISSING);
     }
 
     @NonNull
+    @CheckReturnValue
     @SchedulerSupport(SchedulerSupport.NONE)
     public final Disposable subscribe(@NonNull final Consumer<? super T> onNext,
                                       @NonNull final Consumer<? super Throwable> onError) {
-        return registerDisposable(observable.subscribe(
-                onNext,
-                throwable -> {
-                    unregisterDisposable();
-                    onError.accept(throwable);
-                },
-                this::unregisterDisposable
-        ));
+        return subscribe(onNext, onError, Functions.EMPTY_ACTION);
     }
 
     @NonNull
+    @CheckReturnValue
     @SchedulerSupport(SchedulerSupport.NONE)
     public final Disposable subscribe(@NonNull final Consumer<? super T> onNext,
                                       @NonNull final Consumer<? super Throwable> onError,
                                       @NonNull final Action onComplete) {
-        return registerDisposable(observable.subscribe(
-                onNext,
-                throwable -> {
-                    unregisterDisposable();
-                    onError.accept(throwable);
-                },
-                () -> {
-                    unregisterDisposable();
-                    onComplete.run();
-                }
-        ));
+        return subscribe(onNext, onError, onComplete, Functions.emptyConsumer());
     }
 
     @NonNull
+    @CheckReturnValue
     @SchedulerSupport(SchedulerSupport.NONE)
     public final Disposable subscribe(@NonNull final Consumer<? super T> onNext,
                                       @NonNull final Consumer<? super Throwable> onError,
                                       @NonNull final Action onComplete,
                                       @NonNull final Consumer<? super Disposable> onSubscribe) {
-        return observable.subscribe(
+        final DisposableBinder binder = createDisposableBinder();
+
+        observable.subscribe(
                 onNext,
                 throwable -> {
-                    unregisterDisposable();
+                    unbindDisposable(binder);
                     onError.accept(throwable);
                 },
                 () -> {
-                    unregisterDisposable();
+                    unbindDisposable(binder);
                     onComplete.run();
                 },
                 disposable -> {
-                    registerDisposable(disposable);
+                    binder.bind(disposable);
                     onSubscribe.accept(disposable);
                 }
         );
+        return binder;
     }
 
     @SchedulerSupport(SchedulerSupport.NONE)
     public final void subscribe(@NonNull final Observer<? super T> observer) {
-        observable.subscribe(new Observer<T>() {
+        final DisposableBinder binder = createDisposableBinder();
 
+        observable.subscribe(new Observer<T>() {
             @Override
             public void onSubscribe(Disposable d) {
-                registerDisposable(d);
+                binder.bind(d);
                 observer.onSubscribe(d);
             }
 
@@ -120,25 +96,15 @@ public class ObservableSubscriber<T> extends RxSubscribe {
 
             @Override
             public void onError(Throwable e) {
-                unregisterDisposable();
+                unbindDisposable(binder);
                 observer.onError(e);
             }
 
             @Override
             public void onComplete() {
-                unregisterDisposable();
+                unbindDisposable(binder);
                 observer.onComplete();
             }
         });
-    }
-
-    @NonNull
-    public final ObservableSubscriber<T> config(@NonNull final Function<Observable<T>, Observable<T>> configFn) {
-        try {
-            this.observable = configFn.apply(this.observable);
-            return this;
-        } catch (Exception e) {
-            throw Throwables.propagate(e);
-        }
     }
 }

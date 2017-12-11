@@ -62,8 +62,8 @@ public interface NameCardModule {
         @Provides
         RxManager rxManager() {
             return RxManager.newBuilder()
-                    .withSubscribeOn(Schedulers::io)
-                    .withObserveOn(AndroidSchedulers::mainThread)
+                    .subscribeOn(Schedulers::io)
+                    .observeOn(AndroidSchedulers::mainThread)
                     .build();
         }
     }

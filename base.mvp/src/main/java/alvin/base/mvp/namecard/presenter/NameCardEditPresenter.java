@@ -13,6 +13,7 @@ import alvin.base.mvp.namecard.NameCardContracts;
 import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.SingleSubscriber;
 import alvin.lib.mvp.ViewPresenterAdapter;
+import io.reactivex.Single;
 
 public class NameCardEditPresenter extends ViewPresenterAdapter<NameCardContracts.EditView>
         implements NameCardContracts.EditPresenter {
@@ -34,14 +35,11 @@ public class NameCardEditPresenter extends ViewPresenterAdapter<NameCardContract
 
     @Override
     public void getDepartments() {
-        SingleSubscriber<List<Department>> subscriber =
-                rxManager.single(emitter -> {
-                    emitter.onSuccess(departmentService.findAll());
-                });
+        SingleSubscriber<List<Department>> subscriber = rxManager.with(
+                Single.create(emitter -> emitter.onSuccess(departmentService.findAll())));
+
         subscriber.subscribe(departments ->
                 withView(editView ->
-                        editView.showDepartments(departments)
-                )
-        );
+                        editView.showDepartments(departments)));
     }
 }

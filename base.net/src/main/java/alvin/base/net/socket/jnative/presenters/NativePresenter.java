@@ -19,9 +19,11 @@ import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.RxSchedulers;
 import alvin.lib.common.rx.SingleSubscriber;
 import alvin.lib.mvp.ViewPresenterAdapter;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.Scheduler;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.internal.functions.Functions;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -33,13 +35,13 @@ public class NativePresenter extends ViewPresenterAdapter<SocketContract.View>
     private final Scheduler scheduler = RxSchedulers.newSingleThread();
 
     private final RxManager rxReceiverManager = RxManager.newBuilder()
-            .withSubscribeOn(Schedulers::io)
-            .withObserveOn(AndroidSchedulers::mainThread)
+            .subscribeOn(Schedulers::io)
+            .observeOn(AndroidSchedulers::mainThread)
             .build();
 
     private final RxManager rxSendManager = RxManager.newBuilder()
-            .withSubscribeOn(() -> scheduler)
-            .withObserveOn(AndroidSchedulers::mainThread)
+            .subscribeOn(() -> scheduler)
+            .observeOn(AndroidSchedulers::mainThread)
             .build();
 
     private SocketNative socket;
@@ -49,14 +51,14 @@ public class NativePresenter extends ViewPresenterAdapter<SocketContract.View>
     }
 
     private void doConnect(Consumer<SocketNative> consumer) {
-        final SingleSubscriber<SocketNative> subscriber = rxSendManager.single(
-                emitter -> {
+        final SingleSubscriber<SocketNative> subscriber = rxSendManager.with(
+                Single.create(emitter -> {
                     try {
                         emitter.onSuccess(new SocketNative());
                     } catch (IOException e) {
                         emitter.onError(e);
                     }
-                }
+                })
         );
 
         subscriber.subscribe(
@@ -71,8 +73,8 @@ public class NativePresenter extends ViewPresenterAdapter<SocketContract.View>
 
     private void startReceive() {
         if (socket != null && !socket.isClosed()) {
-            final ObservableSubscriber<CommandAck> subscriber = rxReceiverManager.observable(
-                    emitter -> {
+            final ObservableSubscriber<CommandAck> subscriber = rxReceiverManager.with(
+                    Observable.<CommandAck>create(emitter -> {
                         try {
                             while (!socket.isClosed()) {
                                 CommandAck ack = socket.getResponse();
@@ -86,19 +88,17 @@ public class NativePresenter extends ViewPresenterAdapter<SocketContract.View>
                             socket.close();
                             emitter.onError(e);
                         }
-                    }
+                    }).retry(RETRY_TIMES)
             );
 
-            subscriber
-                    .config(observable -> observable.retry(RETRY_TIMES))
-                    .subscribe(
-                            this::responseReceived,
-                            throwable -> {
-                                withView(SocketContract.View::showConnectError);
-                                withView(SocketContract.View::disconnected);
-                            },
-                            () -> withView(SocketContract.View::disconnected)
-                    );
+            subscriber.subscribe(
+                    this::responseReceived,
+                    throwable -> {
+                        withView(SocketContract.View::showConnectError);
+                        withView(SocketContract.View::disconnected);
+                    },
+                    () -> withView(SocketContract.View::disconnected)
+            );
         }
     }
 
@@ -141,8 +141,8 @@ public class NativePresenter extends ViewPresenterAdapter<SocketContract.View>
     @Override
     public void readRemoteDatetime() {
         if (socket != null && !socket.isClosed()) {
-            final CompletableSubscriber subscriber = rxSendManager.completable(
-                    emitter -> {
+            final CompletableSubscriber subscriber = rxSendManager.with(
+                    Completable.create(emitter -> {
                         try {
                             socket.getRemoteTime();
                             emitter.onComplete();
@@ -150,23 +150,19 @@ public class NativePresenter extends ViewPresenterAdapter<SocketContract.View>
                             socket.close();
                             emitter.onError(e);
                         }
-                    }
+                    }).retry(RETRY_TIMES)
             );
 
-            subscriber
-                    .config(completable -> completable.retry(RETRY_TIMES))
-                    .subscribe(
-                            Functions.EMPTY_ACTION,
-                            throwable -> withView(view -> view.showException(throwable))
-                    );
+            subscriber.subscribe(throwable ->
+                    withView(view -> view.showException(throwable)));
         }
     }
 
     @Override
     public void disconnect() {
         if (socket != null && !socket.isClosed()) {
-            final CompletableSubscriber subscriber = rxSendManager.completable(
-                    emitter -> {
+            final CompletableSubscriber subscriber = rxSendManager.with(
+                    Completable.create(emitter -> {
                         try {
                             socket.disconnect();
                             emitter.onComplete();
@@ -174,15 +170,11 @@ public class NativePresenter extends ViewPresenterAdapter<SocketContract.View>
                             socket.close();
                             emitter.onError(e);
                         }
-                    }
+                    }).retry(RETRY_TIMES)
             );
 
-            subscriber
-                    .config(completable -> completable.retry(RETRY_TIMES))
-                    .subscribe(
-                            Functions.EMPTY_ACTION,
-                            throwable -> withView(view -> view.showException(throwable))
-                    );
+            subscriber.subscribe(throwable ->
+                    withView(view -> view.showException(throwable)));
         }
     }
 }

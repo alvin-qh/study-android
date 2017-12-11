@@ -12,6 +12,7 @@ import alvin.base.mvp.main.MainContracts;
 import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.SingleSubscriber;
 import alvin.lib.mvp.ViewPresenterAdapter;
+import io.reactivex.Single;
 
 public class MainPresenter extends ViewPresenterAdapter<MainContracts.View>
         implements MainContracts.Presenter {
@@ -31,19 +32,16 @@ public class MainPresenter extends ViewPresenterAdapter<MainContracts.View>
     @Override
     public void onStop() {
         super.onStop();
-
         rxManager.clear();
     }
 
     @Override
     public void loadNameCards() {
-        SingleSubscriber<List<NameCard>> subscriber = rxManager.single(
-                emitter -> emitter.onSuccess(nameCardService.loadAll()));
+        SingleSubscriber<List<NameCard>> subscriber = rxManager.with(
+                Single.create(emitter -> emitter.onSuccess(nameCardService.loadAll())));
 
         subscriber.subscribe(nameCards ->
                 withView(view ->
-                        view.nameCardsLoaded(nameCards)
-                )
-        );
+                        view.nameCardsLoaded(nameCards)));
     }
 }

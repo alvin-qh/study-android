@@ -16,6 +16,7 @@ import alvin.lib.common.rx.SingleSubscriber;
 import alvin.lib.common.util.ApplicationConfig;
 import alvin.lib.common.util.Cache;
 import alvin.lib.mvp.ViewPresenterAdapter;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -29,8 +30,8 @@ public class ImagePresenter extends ViewPresenterAdapter<View> implements Presen
     private final List<String> imageUrls = new ArrayList<>();
 
     private final RxManager rxManager = RxManager.newBuilder()
-            .withSubscribeOn(Schedulers::io)
-            .withObserveOn(AndroidSchedulers::mainThread)
+            .subscribeOn(Schedulers::io)
+            .observeOn(AndroidSchedulers::mainThread)
             .build();
 
     private ImageLoader imageLoader;
@@ -70,8 +71,8 @@ public class ImagePresenter extends ViewPresenterAdapter<View> implements Presen
     }
 
     private void loadImageUrls() {
-        final SingleSubscriber<List<String>> subscriber = rxManager.single(
-                emitter -> {
+        final SingleSubscriber<List<String>> subscriber = rxManager.with(
+                Single.<List<String>>create(emitter -> {
                     ApplicationConfig config = ApplicationConfig.getInstance();
                     List<String> urls = new ArrayList<>();
 
@@ -85,17 +86,15 @@ public class ImagePresenter extends ViewPresenterAdapter<View> implements Presen
                     } while (url != null);
 
                     emitter.onSuccess(urls);
-                }
+
+                }).retry(RETRY_TIMES)
         );
 
-        subscriber.config(single -> single.retry(RETRY_TIMES))
-                .subscribe(
-                        urls -> {
-                            imageUrls.clear();
-                            imageUrls.addAll(urls);
-                            withView(View::imageSrcLoaded);
-                        }
-                );
+        subscriber.subscribe(urls -> {
+            imageUrls.clear();
+            imageUrls.addAll(urls);
+            withView(View::imageSrcLoaded);
+        });
     }
 
     @Override
@@ -119,21 +118,19 @@ public class ImagePresenter extends ViewPresenterAdapter<View> implements Presen
 
     @Override
     public void loadImageAsDrawable(String url, Consumer<Drawable> callback) {
-        final SingleSubscriber<Drawable> subscriber = rxManager.single(
-                emitter -> {
+        final SingleSubscriber<Drawable> subscriber = rxManager.with(
+                Single.<Drawable>create(emitter -> {
                     try {
                         emitter.onSuccess(imageLoader.load(url));
                     } catch (IOException e) {
                         emitter.onError(e);
                     }
-                }
+                }).retry(RETRY_TIMES)
         );
 
-        subscriber
-                .config(single -> single.retry(RETRY_TIMES))
-                .subscribe(
-                        callback::accept,
-                        throwable -> withView(view -> view.imageLoadFailed(url))
-                );
+        subscriber.subscribe(
+                callback::accept,
+                throwable -> withView(view -> view.imageLoadFailed(url))
+        );
     }
 }

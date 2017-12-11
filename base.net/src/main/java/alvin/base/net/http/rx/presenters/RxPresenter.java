@@ -8,6 +8,7 @@ import alvin.base.net.http.common.domain.services.WeatherService;
 import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.SingleSubscriber;
 import alvin.lib.mvp.ViewPresenterAdapter;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -19,8 +20,8 @@ public class RxPresenter extends ViewPresenterAdapter<WeatherContract.View>
     private final WeatherService weatherService = new WeatherService();
 
     private final RxManager rxManager = RxManager.newBuilder()
-            .withSubscribeOn(Schedulers::io)
-            .withObserveOn(AndroidSchedulers::mainThread)
+            .subscribeOn(Schedulers::io)
+            .observeOn(AndroidSchedulers::mainThread)
             .build();
 
     public RxPresenter(@NonNull WeatherContract.View view) {
@@ -41,22 +42,20 @@ public class RxPresenter extends ViewPresenterAdapter<WeatherContract.View>
 
     @Override
     public void getLiveWeather() {
-        final SingleSubscriber<LiveWeather> subscriber = rxManager.single(
-                emitter -> {
+        final SingleSubscriber<LiveWeather> subscriber = rxManager.with(
+                Single.<LiveWeather>create(emitter -> {
                     try {
                         LiveWeather weather = weatherService.liveWeather();
                         emitter.onSuccess(weather);
                     } catch (Exception e) {
                         emitter.onError(e);
                     }
-                }
+                }).retry(RETRY_TIMES)
         );
 
-        subscriber
-                .config(single -> single.retry(RETRY_TIMES))
-                .subscribe(
-                        weather -> withView(view -> view.showLiveWeather(weather)),
-                        throwable -> withView(view -> view.showError(throwable))
-                );
+        subscriber.subscribe(
+                weather -> withView(view -> view.showLiveWeather(weather)),
+                throwable -> withView(view -> view.showError(throwable))
+        );
     }
 }

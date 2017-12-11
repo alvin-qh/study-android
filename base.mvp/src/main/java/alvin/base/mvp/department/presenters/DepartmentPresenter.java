@@ -12,6 +12,7 @@ import alvin.base.mvp.domain.services.DepartmentService;
 import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.SingleSubscriber;
 import alvin.lib.mvp.ViewPresenterAdapter;
+import io.reactivex.Single;
 
 public class DepartmentPresenter extends ViewPresenterAdapter<DepartmentContracts.View>
         implements DepartmentContracts.Presenter {
@@ -30,34 +31,31 @@ public class DepartmentPresenter extends ViewPresenterAdapter<DepartmentContract
 
     @Override
     public void loadDepartments() {
-        SingleSubscriber<List<Department>> subscriber =
-                rxManager.single(emitter ->
-                        emitter.onSuccess(departmentService.findAll()));
+        SingleSubscriber<List<Department>> subscriber = rxManager.with(
+                Single.create(emitter ->
+                        emitter.onSuccess(departmentService.findAll())));
 
         subscriber.subscribe(departments ->
-                withView(view ->
-                        view.showDepartments(departments)));
+                withView(view -> view.showDepartments(departments)));
     }
 
     @Override
     public void saveDepartment(String departmentName) {
-        SingleSubscriber<List<Department>> subscriber =
-                rxManager.single(emitter ->
-                        emitter.onSuccess(departmentService.saveAndGet(departmentName)));
+        SingleSubscriber<List<Department>> subscriber = rxManager.with(
+                Single.create(emitter ->
+                        emitter.onSuccess(departmentService.saveAndGet(departmentName))));
 
         subscriber.subscribe(departments ->
-                withView(view ->
-                        view.showDepartments(departments)));
+                withView(view -> view.showDepartments(departments)));
     }
 
     @Override
     public void deleteDepartment(int departmentId) {
-        SingleSubscriber<List<Department>> subscriber =
-                rxManager.single(emitter ->
-                        emitter.onSuccess(departmentService.deleteAndGet(departmentId)));
+        SingleSubscriber<List<Department>> subscriber = rxManager.with(
+                Single.create(emitter ->
+                        emitter.onSuccess(departmentService.deleteAndGet(departmentId))));
 
         subscriber.subscribe(departments ->
-                withView(view ->
-                        view.showDepartments(departments)));
+                withView(view -> view.showDepartments(departments)));
     }
 }

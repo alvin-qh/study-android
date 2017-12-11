@@ -13,14 +13,15 @@ import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.RxSchedulers;
 import alvin.lib.common.rx.SingleSubscriber;
 import alvin.lib.mvp.ViewPresenterAdapter;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public abstract class BaseActivityPresenter extends ViewPresenterAdapter<Contract.View>
         implements Contract.Presenter {
 
     private final RxManager rxManager = RxManager.newBuilder()
-            .withSubscribeOn(RxSchedulers::database)
-            .withObserveOn(AndroidSchedulers::mainThread)
+            .subscribeOn(RxSchedulers::database)
+            .observeOn(AndroidSchedulers::mainThread)
             .build();
 
     private final MessageRepository messageRepository;
@@ -38,13 +39,15 @@ public abstract class BaseActivityPresenter extends ViewPresenterAdapter<Contrac
     public void onStart() {
         super.onStart();
 
-        final SingleSubscriber<List<Message>> subscribe = rxManager.single(emitter -> {
-            try {
-                emitter.onSuccess(messageRepository.findAll());
-            } catch (Exception e) {
-                emitter.onError(e);
-            }
-        });
+        final SingleSubscriber<List<Message>> subscribe = rxManager.with(
+                Single.create(emitter -> {
+                    try {
+                        emitter.onSuccess(messageRepository.findAll());
+                    } catch (Exception e) {
+                        emitter.onError(e);
+                    }
+                })
+        );
 
         subscribe.subscribe(
                 messageList -> withView(view -> view.showMessages(messageList)),
@@ -54,19 +57,21 @@ public abstract class BaseActivityPresenter extends ViewPresenterAdapter<Contrac
 
     @Override
     public void createMessage(@NonNull String message) {
-        final SingleSubscriber<List<Message>> subscribe = rxManager.single(emitter -> {
-            try {
-                Message entity = new Message();
-                entity.setMessage(message);
-                entity.setTimestamp(LocalDateTime.now());
+        final SingleSubscriber<List<Message>> subscribe = rxManager.with(
+                Single.create(emitter -> {
+                    try {
+                        Message entity = new Message();
+                        entity.setMessage(message);
+                        entity.setTimestamp(LocalDateTime.now());
 
-                transactionManager.executeTransaction(db -> entity.save());
+                        transactionManager.executeTransaction(db -> entity.save());
 
-                emitter.onSuccess(messageRepository.findAll());
-            } catch (Exception e) {
-                emitter.onError(e);
-            }
-        });
+                        emitter.onSuccess(messageRepository.findAll());
+                    } catch (Exception e) {
+                        emitter.onError(e);
+                    }
+                })
+        );
 
         subscribe.subscribe(
                 messageList -> withView(view -> view.showMessages(messageList)),
@@ -76,19 +81,21 @@ public abstract class BaseActivityPresenter extends ViewPresenterAdapter<Contrac
 
     @Override
     public void deleteMessage(int messageId) {
-        final SingleSubscriber<List<Message>> subscribe = rxManager.single(emitter -> {
-            try {
-                messageRepository.findById(messageId)
-                        .ifPresent(message ->
-                                transactionManager.executeTransaction(db ->
-                                        message.delete()
-                                )
-                        );
-                emitter.onSuccess(messageRepository.findAll());
-            } catch (Exception e) {
-                emitter.onError(e);
-            }
-        });
+        final SingleSubscriber<List<Message>> subscribe = rxManager.with(
+                Single.create(emitter -> {
+                    try {
+                        messageRepository.findById(messageId)
+                                .ifPresent(message ->
+                                        transactionManager.executeTransaction(db ->
+                                                message.delete()
+                                        )
+                                );
+                        emitter.onSuccess(messageRepository.findAll());
+                    } catch (Exception e) {
+                        emitter.onError(e);
+                    }
+                })
+        );
 
         subscribe.subscribe(
                 messageList -> withView(view -> view.showMessages(messageList)),

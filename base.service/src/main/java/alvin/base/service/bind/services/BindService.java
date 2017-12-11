@@ -1,6 +1,5 @@
 package alvin.base.service.bind.services;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
@@ -20,10 +19,10 @@ import java.util.function.Consumer;
 import javax.inject.Inject;
 
 import alvin.base.service.bind.BindContracts;
-import alvin.base.service.bind.presenters.BindPresenter;
 import alvin.lib.common.rx.ObservableSubscriber;
 import alvin.lib.common.rx.RxManager;
 import dagger.android.DaggerService;
+import io.reactivex.Observable;
 
 public class BindService extends DaggerService {
     public static final String EXTRA_ARG_ZONE = "zone";
@@ -59,14 +58,16 @@ public class BindService extends DaggerService {
     }
 
     private void startWorking() {
-        final ObservableSubscriber<LocalDateTime> subscriber =
-                rxManager.interval(0, 1, TimeUnit.SECONDS, emitter -> {
-                    if (available) {
-                        emitter.onNext(LocalDateTime.now(zoneId));
-                    } else {
-                        emitter.onComplete();
-                    }
-                });
+        final ObservableSubscriber<LocalDateTime> subscriber = rxManager.with(
+                Observable.interval(0, 1, TimeUnit.SECONDS)
+                        .flatMap(ignore -> emitter -> {
+                            if (available) {
+                                emitter.onNext(LocalDateTime.now(zoneId));
+                            } else {
+                                emitter.onComplete();
+                            }
+                        })
+        );
 
         subscriber.subscribe(time ->
                 // call every callback functions and pass result
@@ -95,8 +96,6 @@ public class BindService extends DaggerService {
 
         /**
          * Add a callback function to service.
-         *
-         * @see BindPresenter#bindService(Context)
          */
         public void addTimeCallback(@NonNull Consumer<LocalDateTime> consumer) {
             timeCallback.add(consumer);
@@ -104,8 +103,6 @@ public class BindService extends DaggerService {
 
         /**
          * Remove callback function from service.
-         *
-         * @see BindPresenter#unbindService(Context)
          */
         public void remoteTimeCallback(@NonNull Consumer<LocalDateTime> consumer) {
             timeCallback.remove(consumer);
