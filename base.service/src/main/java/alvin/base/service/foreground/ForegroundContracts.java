@@ -2,8 +2,8 @@ package alvin.base.service.foreground;
 
 import android.content.BroadcastReceiver;
 
-import alvin.lib.mvp.IPresenter;
-import alvin.lib.mvp.IView;
+import alvin.lib.mvp.contracts.IPresenter;
+import alvin.lib.mvp.contracts.IView;
 
 public interface ForegroundContracts {
 

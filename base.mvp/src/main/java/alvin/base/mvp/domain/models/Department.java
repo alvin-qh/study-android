@@ -9,7 +9,7 @@ import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import alvin.base.mvp.domain.MainDatabase;
-import alvin.lib.mvp.IModel;
+import alvin.lib.mvp.contracts.IModel;
 
 @Table(database = MainDatabase.class, name = "department")
 public class Department extends BaseModel implements IModel, Parcelable {

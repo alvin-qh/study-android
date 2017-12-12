@@ -7,7 +7,7 @@ import alvin.base.net.http.common.domain.models.LiveWeather;
 import alvin.base.net.http.common.domain.services.WeatherService;
 import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.SingleSubscriber;
-import alvin.lib.mvp.ViewPresenterAdapter;
+import alvin.lib.mvp.adapters.ViewPresenterAdapter;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;

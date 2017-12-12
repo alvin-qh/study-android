@@ -14,8 +14,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import alvin.lib.common.util.Cache;
-import alvin.lib.common.util.MD5;
+import alvin.lib.common.utils.Cache;
+import alvin.lib.common.utils.MD5;
 
 public class ImageLoader {
     private static final int BUFFER_SIZE = 1024 * 1024 * 10;

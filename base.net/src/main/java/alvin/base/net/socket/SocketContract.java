@@ -4,8 +4,8 @@ import android.support.annotation.NonNull;
 
 import java.time.LocalDateTime;
 
-import alvin.lib.mvp.IPresenter;
-import alvin.lib.mvp.IView;
+import alvin.lib.mvp.contracts.IPresenter;
+import alvin.lib.mvp.contracts.IView;
 
 public interface SocketContract {
 

@@ -11,7 +11,7 @@ import alvin.base.net.http.WeatherContract;
 import alvin.base.net.http.common.domain.models.LiveWeather;
 import alvin.base.net.http.common.domain.services.WeatherException;
 import alvin.base.net.http.common.domain.services.WeatherService;
-import alvin.lib.mvp.ViewPresenterAdapter;
+import alvin.lib.mvp.adapters.ViewPresenterAdapter;
 
 public class TaskPresenter extends ViewPresenterAdapter<WeatherContract.View>
         implements WeatherContract.Presenter {

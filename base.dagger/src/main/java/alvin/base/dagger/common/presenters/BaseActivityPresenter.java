@@ -12,7 +12,7 @@ import alvin.lib.common.dbflow.repositories.TransactionManager;
 import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.RxSchedulers;
 import alvin.lib.common.rx.SingleSubscriber;
-import alvin.lib.mvp.ViewPresenterAdapter;
+import alvin.lib.mvp.adapters.ViewPresenterAdapter;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 

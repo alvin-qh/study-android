@@ -2,7 +2,7 @@ package alvin.base.preferences;
 
 import android.support.multidex.MultiDexApplication;
 
-import alvin.lib.common.util.Applications;
+import alvin.lib.common.utils.Applications;
 
 public class Application extends MultiDexApplication {
 
@@ -10,6 +10,6 @@ public class Application extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
-        Applications.startStethoIfDebuging(this);
+        Applications.startStethoIfDebugging(this);
     }
 }

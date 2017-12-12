@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 import javax.inject.Inject;
 
 import alvin.base.service.bind.BindContracts;
-import alvin.lib.mvp.ViewPresenterAdapter;
+import alvin.lib.mvp.adapters.ViewPresenterAdapter;
 
 public class BindPresenter extends ViewPresenterAdapter<BindContracts.View>
         implements BindContracts.Presenter {

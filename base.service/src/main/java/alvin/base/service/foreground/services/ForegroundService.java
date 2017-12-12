@@ -12,7 +12,7 @@ import javax.inject.Inject;
 
 import alvin.base.service.R;
 import alvin.base.service.common.broadcasts.ServiceBroadcasts;
-import alvin.lib.common.util.Version;
+import alvin.lib.common.utils.Version;
 import dagger.android.DaggerService;
 
 public class ForegroundService extends DaggerService {

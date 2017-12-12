@@ -2,8 +2,8 @@ package alvin.base.kotlin.dagger
 
 import alvin.base.kotlin.common.domain.modules.Gender
 import alvin.base.kotlin.common.domain.modules.Person
-import alvin.lib.mvp.IPresenter
-import alvin.lib.mvp.IView
+import alvin.lib.mvp.contracts.IPresenter
+import alvin.lib.mvp.contracts.IView
 
 interface DaggerContracts {
 

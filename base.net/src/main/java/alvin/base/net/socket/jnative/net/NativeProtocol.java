@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 import alvin.base.net.socket.common.models.Command;
 import alvin.base.net.socket.common.models.CommandAck;
-import alvin.lib.common.util.MD5;
+import alvin.lib.common.utils.MD5;
 
 public class NativeProtocol {
     private static final int CHECK_SUM_SIZE = 16;

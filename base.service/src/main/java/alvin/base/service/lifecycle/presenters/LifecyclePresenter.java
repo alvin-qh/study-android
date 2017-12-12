@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
 import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.base.service.lifecycle.LifecycleContracts;
-import alvin.lib.mvp.ViewPresenterAdapter;
+import alvin.lib.mvp.adapters.ViewPresenterAdapter;
 
 public class LifecyclePresenter extends ViewPresenterAdapter<LifecycleContracts.View>
         implements LifecycleContracts.Presenter {

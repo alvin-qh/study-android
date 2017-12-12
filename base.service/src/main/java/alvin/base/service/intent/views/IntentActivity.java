@@ -16,7 +16,7 @@ import alvin.base.service.R;
 import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.base.service.intent.IntentContracts;
 import alvin.base.service.intent.services.IntentService;
-import alvin.lib.common.util.IntentFilters;
+import alvin.lib.common.utils.IntentFilters;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

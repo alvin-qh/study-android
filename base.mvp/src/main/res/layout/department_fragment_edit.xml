@@ -26,6 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ellipsize="end"
+            android:inputType="text"
+            android:lines="1"
             android:maxLines="1" />
 
         <android.support.v7.widget.AppCompatImageButton

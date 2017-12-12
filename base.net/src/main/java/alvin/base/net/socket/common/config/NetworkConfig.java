@@ -1,7 +1,7 @@
 package alvin.base.net.socket.common.config;
 
 
-import alvin.lib.common.util.ApplicationConfig;
+import alvin.lib.common.utils.ApplicationConfig;
 
 public class NetworkConfig {
     private static final int DEFAULT_PORT = 8080;

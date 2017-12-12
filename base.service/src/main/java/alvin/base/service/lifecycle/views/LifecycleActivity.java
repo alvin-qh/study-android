@@ -20,7 +20,7 @@ import alvin.base.service.R;
 import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.base.service.lifecycle.LifecycleContracts;
 import alvin.base.service.lifecycle.services.LifecycleService;
-import alvin.lib.common.util.IntentFilters;
+import alvin.lib.common.utils.IntentFilters;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

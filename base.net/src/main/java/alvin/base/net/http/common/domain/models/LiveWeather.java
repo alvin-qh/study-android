@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 
-import alvin.lib.mvp.IModel;
+import alvin.lib.mvp.contracts.IModel;
 
 public class LiveWeather implements IModel {
 

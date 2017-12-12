@@ -4,8 +4,8 @@ import android.support.annotation.NonNull;
 
 import alvin.base.service.remote.aidls.IRemoteBinder;
 import alvin.base.service.remote.aidls.models.JobResponse;
-import alvin.lib.mvp.IPresenter;
-import alvin.lib.mvp.IView;
+import alvin.lib.mvp.contracts.IPresenter;
+import alvin.lib.mvp.contracts.IView;
 
 public interface RemoteContracts {
 

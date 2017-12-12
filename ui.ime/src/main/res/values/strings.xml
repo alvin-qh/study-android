@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Android IME</string>
+
+    <string name="btn_input_confirm">Confirm</string>
+
+    <string name="message_input">Your input is %1$s</string>
+</resources>

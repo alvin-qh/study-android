@@ -18,7 +18,7 @@ import alvin.lib.common.rx.ObservableSubscriber;
 import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.RxSchedulers;
 import alvin.lib.common.rx.SingleSubscriber;
-import alvin.lib.mvp.ViewPresenterAdapter;
+import alvin.lib.mvp.adapters.ViewPresenterAdapter;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;

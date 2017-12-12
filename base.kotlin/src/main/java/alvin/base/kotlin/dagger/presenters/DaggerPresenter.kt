@@ -4,7 +4,7 @@ import alvin.base.kotlin.common.domain.modules.Person
 import alvin.base.kotlin.dagger.DaggerContracts
 import alvin.base.kotlin.dagger.domain.repositories.PersonRepository
 import alvin.base.kotlin.lib.common.rx.RxManager
-import alvin.lib.mvp.ViewPresenterAdapter
+import alvin.lib.mvp.adapters.ViewPresenterAdapter
 import io.reactivex.Single
 import javax.inject.Inject
 

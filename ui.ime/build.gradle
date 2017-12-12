@@ -1,0 +1,20 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    defaultConfig {
+        applicationId "alvin.ui.ime"
+    }
+}
+
+dependencies {
+    implementation libs.main.butterKnife
+    implementation libs.main.kotlin
+    implementation libs.main.rx
+    implementation libs.main.dagger
+
+    kapt libs.annotation.butterKnife
+    kapt libs.annotation.dbflow
+    kapt libs.annotation.dagger
+}

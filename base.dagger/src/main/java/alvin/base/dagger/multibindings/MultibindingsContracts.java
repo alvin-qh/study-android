@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.Set;
 
-import alvin.lib.mvp.IPresenter;
-import alvin.lib.mvp.IView;
+import alvin.lib.mvp.contracts.IPresenter;
+import alvin.lib.mvp.contracts.IView;
 
 public interface MultibindingsContracts {
 

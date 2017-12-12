@@ -5,8 +5,8 @@ import android.content.ServiceConnection;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import alvin.lib.mvp.IPresenter;
-import alvin.lib.mvp.IView;
+import alvin.lib.mvp.contracts.IPresenter;
+import alvin.lib.mvp.contracts.IView;
 
 public interface LifecycleContracts {
 

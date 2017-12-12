@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 import alvin.base.dagger.common.db.MessageDatabase;
 import alvin.lib.common.dbflow.converts.LocalDateTimeConvert;
-import alvin.lib.mvp.IModel;
+import alvin.lib.mvp.contracts.IModel;
 
 @Table(name = "message", database = MessageDatabase.class)
 public class Message extends BaseModel implements IModel {

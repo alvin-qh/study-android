@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 import alvin.base.mvp.domain.MainDatabase;
 import alvin.lib.common.dbflow.converts.LocalDateConvert;
-import alvin.lib.mvp.IModel;
+import alvin.lib.mvp.contracts.IModel;
 
 @Table(database = MainDatabase.class, name = "name_card")
 public class NameCard extends BaseModel implements IModel, Parcelable {

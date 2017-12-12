@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 import java.util.List;
 
 import alvin.base.dagger.common.domain.models.Message;
-import alvin.lib.mvp.IPresenter;
-import alvin.lib.mvp.IView;
+import alvin.lib.mvp.contracts.IPresenter;
+import alvin.lib.mvp.contracts.IView;
 
 public interface Contract {
 

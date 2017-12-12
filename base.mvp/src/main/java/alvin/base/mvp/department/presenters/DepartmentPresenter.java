@@ -11,7 +11,7 @@ import alvin.base.mvp.domain.models.Department;
 import alvin.base.mvp.domain.services.DepartmentService;
 import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.SingleSubscriber;
-import alvin.lib.mvp.ViewPresenterAdapter;
+import alvin.lib.mvp.adapters.ViewPresenterAdapter;
 import io.reactivex.Single;
 
 public class DepartmentPresenter extends ViewPresenterAdapter<DepartmentContracts.View>

@@ -11,7 +11,7 @@ import alvin.base.mvp.domain.services.NameCardService;
 import alvin.base.mvp.main.MainContracts;
 import alvin.lib.common.rx.RxManager;
 import alvin.lib.common.rx.SingleSubscriber;
-import alvin.lib.mvp.ViewPresenterAdapter;
+import alvin.lib.mvp.adapters.ViewPresenterAdapter;
 import io.reactivex.Single;
 
 public class MainPresenter extends ViewPresenterAdapter<MainContracts.View>

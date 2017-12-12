@@ -12,10 +12,10 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import alvin.lib.common.util.ApplicationConfig;
+import alvin.lib.common.utils.ApplicationConfig;
 import alvin.base.net.status.network.NetworkCallback;
 import alvin.base.net.status.receivers.NetStatusBroadcastReceiver;
-import alvin.lib.common.util.Applications;
+import alvin.lib.common.utils.Applications;
 
 public class Application extends MultiDexApplication {
 
@@ -48,7 +48,7 @@ public class Application extends MultiDexApplication {
             System.exit(-1);
         }
 
-        Applications.startStethoIfDebuging(this);
+        Applications.startStethoIfDebugging(this);
     }
 
 

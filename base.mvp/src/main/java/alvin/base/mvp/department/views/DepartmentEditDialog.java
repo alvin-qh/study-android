@@ -1,5 +1,6 @@
 package alvin.base.mvp.department.views;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,9 +45,12 @@ public class DepartmentEditDialog extends DaggerAppCompatDialogFragment
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NO_TITLE, R.style.AppTheme_Dialog);
 
-        listAdapter = new DepartmentListAdapter(getContext(), Collections.emptyList());
-        listAdapter.setDeleteDepartmentListener(departmentId ->
-                presenter.deleteDepartment(departmentId));
+        final Context context = getContext();
+        if (context != null) {
+            listAdapter = new DepartmentListAdapter(context, Collections.emptyList());
+            listAdapter.setDeleteDepartmentListener(departmentId ->
+                    presenter.deleteDepartment(departmentId));
+        }
         presenter.onCreate();
     }
 

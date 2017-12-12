@@ -15,7 +15,7 @@ import alvin.base.net.socket.common.models.CommandAck;
 import alvin.base.net.socket.netty.net.ChannelContext;
 import alvin.base.net.socket.netty.net.SocketNetty;
 import alvin.base.net.socket.netty.net.SocketNetworkException;
-import alvin.lib.mvp.ViewPresenterAdapter;
+import alvin.lib.mvp.adapters.ViewPresenterAdapter;
 
 
 public class NettyPresenter extends ViewPresenterAdapter<SocketContract.View>

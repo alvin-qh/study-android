@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import alvin.base.dagger.common.qualifiers.BirthdayMap;
 import alvin.base.dagger.common.qualifiers.NameSet;
 import alvin.base.dagger.multibindings.MultibindingsContracts;
-import alvin.lib.mvp.ViewPresenterAdapter;
+import alvin.lib.mvp.adapters.ViewPresenterAdapter;
 
 
 public class MultibindingsPresenter

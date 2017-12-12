@@ -12,4 +12,5 @@ include ':lib.common',
         ':ui.butterknife',
         ':ui.listing',
         ':ui.merge',
+        ':ui.ime',
         ':lib.widget'

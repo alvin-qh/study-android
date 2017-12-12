@@ -2,4 +2,5 @@
 dependencies {
     implementation libs.main.guava
     implementation libs.main.dbflow
+    implementation libs.main.dagger
 }

@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import alvin.base.mvp.domain.services.NameCardService;
 import alvin.base.mvp.namecard.NameCardContracts;
 import alvin.lib.common.rx.RxManager;
-import alvin.lib.mvp.ViewPresenterAdapter;
+import alvin.lib.mvp.adapters.ViewPresenterAdapter;
 
 public class NameCardAddPresenter extends ViewPresenterAdapter<NameCardContracts.AddView>
         implements NameCardContracts.AddPresenter {

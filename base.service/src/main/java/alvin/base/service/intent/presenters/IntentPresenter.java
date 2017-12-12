@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.base.service.intent.IntentContracts;
 import alvin.base.service.intent.services.IntentService;
-import alvin.lib.mvp.ViewPresenterAdapter;
+import alvin.lib.mvp.adapters.ViewPresenterAdapter;
 
 public class IntentPresenter extends ViewPresenterAdapter<IntentContracts.View>
         implements IntentContracts.Presenter {

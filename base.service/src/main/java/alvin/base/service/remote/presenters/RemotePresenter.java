@@ -15,7 +15,7 @@ import alvin.base.service.remote.aidls.IOnJobStatusChangeListener;
 import alvin.base.service.remote.aidls.IRemoteBinder;
 import alvin.base.service.remote.aidls.models.Job;
 import alvin.base.service.remote.aidls.models.JobResponse;
-import alvin.lib.mvp.ViewPresenterAdapter;
+import alvin.lib.mvp.adapters.ViewPresenterAdapter;
 
 public class RemotePresenter extends ViewPresenterAdapter<RemoteContracts.View>
         implements RemoteContracts.Presenter {

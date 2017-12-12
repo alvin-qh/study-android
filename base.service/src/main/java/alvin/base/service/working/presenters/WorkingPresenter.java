@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import alvin.base.service.working.WorkingContracts;
 import alvin.base.service.working.services.WorkingService;
-import alvin.lib.mvp.ViewPresenterAdapter;
+import alvin.lib.mvp.adapters.ViewPresenterAdapter;
 
 public class WorkingPresenter extends ViewPresenterAdapter<WorkingContracts.View>
         implements WorkingContracts.Presenter {

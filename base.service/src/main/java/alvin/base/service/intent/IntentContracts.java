@@ -3,8 +3,8 @@ package alvin.base.service.intent;
 import android.content.BroadcastReceiver;
 
 import alvin.base.service.intent.services.IntentService;
-import alvin.lib.mvp.IPresenter;
-import alvin.lib.mvp.IView;
+import alvin.lib.mvp.contracts.IPresenter;
+import alvin.lib.mvp.contracts.IView;
 
 public interface IntentContracts {
 

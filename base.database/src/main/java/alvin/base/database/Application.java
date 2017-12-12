@@ -4,7 +4,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
 
-import alvin.lib.common.util.Applications;
+import alvin.lib.common.utils.Applications;
 
 public class Application extends MultiDexApplication {
 
@@ -15,6 +15,6 @@ public class Application extends MultiDexApplication {
         // Initialize DB Flow
         FlowManager.init(this);
 
-        Applications.startStethoIfDebuging(this);
+        Applications.startStethoIfDebugging(this);
     }
 }
