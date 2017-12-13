@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivityView<MainContracts.Presenter>(), MainContr
         val AUTO_HIDE_INPUT_METHOD = true
     }
 
-    @Inject lateinit var presenter: MainContracts.Presenter
     @Inject lateinit var systemServices: SystemServices
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,10 +59,6 @@ class MainActivity : AppCompatActivityView<MainContracts.Presenter>(), MainContr
 
     override fun showInput(text: String) {
         tv_input_result.text = getString(R.string.message_input, text)
-    }
-
-    override fun presenter(): MainContracts.Presenter {
-        return presenter
     }
 
     override fun hideInputMethod() {

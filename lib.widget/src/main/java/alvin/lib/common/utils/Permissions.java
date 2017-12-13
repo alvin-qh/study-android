@@ -25,8 +25,14 @@ public class Permissions {
         this(activity, Arrays.asList(permissions));
     }
 
+    /**
+     * Check the permissions and get which are dined
+     *
+     * @return Collection of dined permissions, empty if no permission was dined
+     * @see android.content.Context#checkSelfPermission(String)
+     */
     @NonNull
-    public Set<String> deniedPermissions() {
+    public Set<String> dinedPermissions() {
         final Set<String> deniedPermissions = new HashSet<>();
         for (String permission : permissions) {
             if (activity.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
@@ -36,9 +42,21 @@ public class Permissions {
         return Collections.unmodifiableSet(deniedPermissions);
     }
 
+    /**
+     * Ask user to grant some permissions which were not allowed yet
+     *
+     * @param requestCode A int value will be pass to
+     *                    {@link Activity#onRequestPermissionsResult(int, String[], int[])} method
+     * @return {@link Status#ALLOW}, {@link Status#DENY} or {@link Status#REQUIRED}
+     *
+     * @see Permissions#dinedPermissions()
+     * @see Activity#shouldShowRequestPermissionRationale(String)
+     * @see Activity#requestPermissions(String[], int)
+     * @see Activity#onRequestPermissionsResult(int, String[], int[])
+     */
     @NonNull
     public Status requestPermissions(final int requestCode) {
-        final Set<String> deniedPermissions = deniedPermissions();
+        final Set<String> deniedPermissions = dinedPermissions();
         if (deniedPermissions.isEmpty()) {
             return Status.ALLOW;
         }
@@ -46,7 +64,7 @@ public class Permissions {
         final Set<String> required = new HashSet<>();
         for (String permission : deniedPermissions) {
             if (!activity.shouldShowRequestPermissionRationale(permission)) {
-                return Status.DENNY;
+                return Status.DENY;
             }
             required.add(permission);
         }
@@ -62,13 +80,26 @@ public class Permissions {
                                                      final int[] results) {
         for (int i = 0; i < permissions.length; i++) {
             if (results[i] == PackageManager.PERMISSION_DENIED) {
-                return Status.DENNY;
+                return Status.DENY;
             }
         }
         return Status.ALLOW;
     }
 
     public enum Status {
-        ALLOW, DENNY, REQUIRED
+        /**
+         * If some permissions are allowed
+         */
+        ALLOW,
+
+        /**
+         * If some permissions are denied
+         */
+        DENY,
+
+        /**
+         * The permissions not granted by user
+         */
+        REQUIRED
     }
 }

@@ -10,4 +10,5 @@
     <string name="error_no_image_capture_package">The image capture application invalid</string>
     <string name="error_storage_not_invalid">Cannot create file on external storage</string>
     <string name="error_permissions">Not all required permissions are valid</string>
+    <string name="error_cannot_decode_bitmap">Cannot decode bitmap from file</string>
 </resources>

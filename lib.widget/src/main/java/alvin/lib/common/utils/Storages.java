@@ -14,6 +14,15 @@ public class Storages {
         this.context = context;
     }
 
+    /**
+     * Create public directory on external storage.
+     *
+     * @param type Type of public directory, such as:
+     *  {@link Environment#DIRECTORY_DCIM}
+     *  {@link Environment#DIRECTORY_DOWNLOADS}
+     *  {@link Environment#DIRECTORY_MUSIC}
+     * ... and so on
+     */
     @NonNull
     private File makeExternalStoragePublicDirectory(@NonNull final String type,
                                                     @NonNull final String pathname) throws IOException {
@@ -25,6 +34,12 @@ public class Storages {
         return new File(dir, pathname);
     }
 
+    /**
+     * Create a file in external public DCIM directory.
+     *
+     * @see Storages#makeExternalStoragePublicDirectory(String, String)
+     * @see Environment#DIRECTORY_DCIM
+     */
     @NonNull
     public File createImageCaptureFile(@NonNull final String pathname,
                                        @NonNull final String filename) throws IOException {

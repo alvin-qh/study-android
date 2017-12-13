@@ -1,8 +1,9 @@
 package alvin.lib.mvp.views;
 
-import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
+import javax.inject.Inject;
 
 import alvin.lib.mvp.contracts.IPresenter;
 import alvin.lib.mvp.contracts.IView;
@@ -11,17 +12,17 @@ import dagger.android.support.DaggerAppCompatActivity;
 public abstract class AppCompatActivityView<Presenter extends IPresenter>
         extends DaggerAppCompatActivity implements IView {
 
+    @Inject Presenter presenter;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    @CallSuper
+    protected void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
     }
 
     @NonNull
-    protected abstract Presenter presenter();
-
-    @Override
-    protected void onDestroy() {
-        presenter().onDestroy();
-        super.onDestroy();
+    protected Presenter getPresenter() {
+        return presenter;
     }
 }

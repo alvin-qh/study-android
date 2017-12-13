@@ -11,8 +11,6 @@ import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivityView<MainContracts.Presenter>(), MainContracts.View {
 
-    private lateinit var presenter: MainContracts.Presenter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
@@ -33,9 +31,5 @@ class MainActivity : AppCompatActivityView<MainContracts.Presenter>(), MainContr
                 }
             }
         }
-    }
-
-    override fun presenter(): MainContracts.Presenter {
-        return presenter
     }
 }
