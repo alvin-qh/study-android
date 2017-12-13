@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <string name="app_name">Camera</string>
+    <string name="title_camera_app">Use Camera Application</string>
+    <string name="title_camera2">Use Camera2 API</string>
 
     <string name="btn_use_camera_app">Use Camera App</string>
     <string name="btn_use_camera2">Camera2</string>
@@ -9,6 +11,6 @@
 
     <string name="error_no_image_capture_package">The image capture application invalid</string>
     <string name="error_storage_not_invalid">Cannot create file on external storage</string>
-    <string name="error_permissions">Not all required permissions are valid</string>
+    <string name="error_permissions">Some required permissions are not allowed, please allowed them</string>
     <string name="error_cannot_decode_bitmap">Cannot decode bitmap from file</string>
 </resources>

@@ -3,12 +3,14 @@ package alvin.lib.common.utils;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Supplier;
 
 public class Permissions {
     private final Activity activity;
@@ -31,15 +33,16 @@ public class Permissions {
      * @return Collection of dined permissions, empty if no permission was dined
      * @see android.content.Context#checkSelfPermission(String)
      */
-    @NonNull
-    public Set<String> dinedPermissions() {
+    @Nullable
+    public String[] dinedPermissions() {
         final Set<String> deniedPermissions = new HashSet<>();
         for (String permission : permissions) {
             if (activity.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
                 deniedPermissions.add(permission);
             }
         }
-        return Collections.unmodifiableSet(deniedPermissions);
+        return deniedPermissions.isEmpty() ? null :
+                deniedPermissions.toArray(new String[deniedPermissions.size()]);
     }
 
     /**
@@ -47,32 +50,35 @@ public class Permissions {
      *
      * @param requestCode A int value will be pass to
      *                    {@link Activity#onRequestPermissionsResult(int, String[], int[])} method
-     * @return {@link Status#ALLOW}, {@link Status#DENY} or {@link Status#REQUIRED}
-     *
+     * @return {@link Status#ALLOWED}, {@link Status#DENIED} or {@link Status#REQUIRED}
      * @see Permissions#dinedPermissions()
      * @see Activity#shouldShowRequestPermissionRationale(String)
      * @see Activity#requestPermissions(String[], int)
      * @see Activity#onRequestPermissionsResult(int, String[], int[])
      */
     @NonNull
-    public Status requestPermissions(final int requestCode) {
-        final Set<String> deniedPermissions = dinedPermissions();
-        if (deniedPermissions.isEmpty()) {
-            return Status.ALLOW;
+    public Status requestPermissions(final int requestCode,
+                                     @Nullable final Supplier<Boolean> askFn) {
+        final String[] deniedPermissions = dinedPermissions();
+        if (deniedPermissions == null) {
+            return Status.ALLOWED;
         }
 
-        final Set<String> required = new HashSet<>();
+        Status status = Status.REQUIRED;
         for (String permission : deniedPermissions) {
-            if (!activity.shouldShowRequestPermissionRationale(permission)) {
-                return Status.DENY;
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
+                status = Status.DENIED;
             }
-            required.add(permission);
         }
+        if (askFn == null || askFn.get()) {
+            activity.requestPermissions(deniedPermissions, requestCode);
+        }
+        return status;
+    }
 
-        if (!required.isEmpty()) {
-            activity.requestPermissions(required.toArray(new String[required.size()]), requestCode);
-        }
-        return Status.REQUIRED;
+    @NonNull
+    public Status requestPermissions(final int requestCode) {
+        return requestPermissions(requestCode, null);
     }
 
     @NonNull
@@ -80,22 +86,22 @@ public class Permissions {
                                                      final int[] results) {
         for (int i = 0; i < permissions.length; i++) {
             if (results[i] == PackageManager.PERMISSION_DENIED) {
-                return Status.DENY;
+                return Status.DENIED;
             }
         }
-        return Status.ALLOW;
+        return Status.ALLOWED;
     }
 
     public enum Status {
         /**
          * If some permissions are allowed
          */
-        ALLOW,
+        ALLOWED,
 
         /**
          * If some permissions are denied
          */
-        DENY,
+        DENIED,
 
         /**
          * The permissions not granted by user

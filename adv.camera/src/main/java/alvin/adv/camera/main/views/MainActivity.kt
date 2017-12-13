@@ -1,6 +1,7 @@
 package alvin.adv.camera.main.views
 
 import alvin.adv.camera.R
+import alvin.adv.camera.camera2.views.Camera2Activity
 import alvin.adv.camera.cameraapp.views.CameraAppActivity
 import alvin.adv.camera.main.MainContracts
 import alvin.lib.mvp.views.AppCompatActivityView
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivityView<MainContracts.Presenter>(), MainContr
             it.onClick {
                 when (it) {
                     btn_use_camera_app -> startActivity<CameraAppActivity>()
+                    btn_use_camera2 -> startActivity<Camera2Activity>()
                 }
             }
         }

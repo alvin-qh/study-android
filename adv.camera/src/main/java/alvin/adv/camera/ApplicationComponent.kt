@@ -1,5 +1,6 @@
 package alvin.adv.camera
 
+import alvin.adv.camera.camera2.Camera2Module
 import alvin.adv.camera.cameraapp.CameraAppModule
 import alvin.adv.camera.common.CommonModule
 import alvin.adv.camera.main.MainModule
@@ -14,7 +15,8 @@ import javax.inject.Singleton
     ApplicationModule::class,
     CommonModule::class,
     MainModule::class,
-    CameraAppModule::class
+    CameraAppModule::class,
+    Camera2Module::class
 ])
 interface ApplicationComponent : AndroidInjector<Application> {
 

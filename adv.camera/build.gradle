@@ -16,6 +16,7 @@ dependencies {
     implementation libs.main.rx
     implementation libs.main.dagger
 
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     kapt libs.annotation.butterKnife
     kapt libs.annotation.dbflow
     kapt libs.annotation.dagger

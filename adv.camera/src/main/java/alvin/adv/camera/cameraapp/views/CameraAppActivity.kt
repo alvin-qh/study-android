@@ -54,8 +54,8 @@ class CameraAppActivity : AppCompatActivityView<CameraAppContracts.Presenter>(),
      *
      * @see Permissions
      * @see Permissions.requestPermissions
-     * @see Permissions.Status.ALLOW
-     * @see Permissions.Status.DENY
+     * @see Permissions.Status.ALLOWED
+     * @see Permissions.Status.DENIED
      * @see Permissions.Status.REQUIRED
      *
      * @see alvin.adv.camera.cameraapp.presenters.CameraAppPresenter.makePhotoFileUri
@@ -70,11 +70,12 @@ class CameraAppActivity : AppCompatActivityView<CameraAppContracts.Presenter>(),
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
                 // Request permissions
-                when (permissions.requestPermissions(PERMISSION_REQUEST_CODE)) {
-                    Permissions.Status.DENY -> toast(R.string.error_permissions).show()
-                    Permissions.Status.ALLOW -> presenter.makePhotoFileUri()
-                    else -> {
-                    }
+                val status = permissions.requestPermissions(PERMISSION_REQUEST_CODE, {
+                    toast(R.string.error_permissions).show()
+                    true
+                })
+                if (status == Permissions.Status.ALLOWED) {
+                    presenter.makePhotoFileUri()
                 }
             }
         }
@@ -89,13 +90,13 @@ class CameraAppActivity : AppCompatActivityView<CameraAppContracts.Presenter>(),
      *
      * @see Permissions.checkPermissionsWithResults
      *
-     * @see Permissions.Status.ALLOW
-     * @see Permissions.Status.DENY
+     * @see Permissions.Status.ALLOWED
+     * @see Permissions.Status.DENIED
      */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_REQUEST_CODE &&
-                Permissions.checkPermissionsWithResults(permissions, grantResults) == Permissions.Status.ALLOW) {
+                Permissions.checkPermissionsWithResults(permissions, grantResults) == Permissions.Status.ALLOWED) {
             presenter.makePhotoFileUri()
         }
     }
