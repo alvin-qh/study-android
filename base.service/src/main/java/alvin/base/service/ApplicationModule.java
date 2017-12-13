@@ -8,7 +8,7 @@ import alvin.base.service.intent.IntentModule;
 import alvin.base.service.lifecycle.LifecycleModule;
 import alvin.base.service.remote.RemoteModule;
 import alvin.base.service.working.WorkingModule;
-import alvin.lib.common.utils.Version;
+import alvin.lib.common.utils.Versions;
 import dagger.Module;
 import dagger.Provides;
 import dagger.android.support.AndroidSupportInjectionModule;
@@ -35,8 +35,8 @@ interface ApplicationModule {
 
         @Provides
         @Singleton
-        Version version() {
-            return Version.VERSIONS_O;
+        Versions version() {
+            return Versions.VERSIONS_O;
         }
     }
 }

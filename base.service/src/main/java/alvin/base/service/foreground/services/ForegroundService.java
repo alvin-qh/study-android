@@ -12,12 +12,12 @@ import javax.inject.Inject;
 
 import alvin.base.service.R;
 import alvin.base.service.common.broadcasts.ServiceBroadcasts;
-import alvin.lib.common.utils.Version;
+import alvin.lib.common.utils.Versions;
 import dagger.android.DaggerService;
 
 public class ForegroundService extends DaggerService {
 
-    @Inject Version version;
+    @Inject Versions version;
 
     @Nullable
     @Override

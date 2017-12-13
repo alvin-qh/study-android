@@ -13,7 +13,7 @@ import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.base.service.foreground.ForegroundContracts;
 import alvin.base.service.foreground.services.ForegroundService;
 import alvin.lib.common.utils.IntentFilters;
-import alvin.lib.common.utils.Version;
+import alvin.lib.common.utils.Versions;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,7 +23,7 @@ public class ForegroundActivity extends DaggerAppCompatActivity
         implements ForegroundContracts.View {
 
     @Inject ForegroundContracts.Presenter presenter;
-    @Inject Version version;
+    @Inject Versions version;
 
     @BindView(R.id.btn_start_service) Button btnStartService;
     @BindView(R.id.btn_stop_service) Button btnStopService;

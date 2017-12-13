@@ -2,14 +2,15 @@ package alvin.lib.common.utils;
 
 import android.os.Build;
 
-public class Version {
-    public static final Version VERSIONS_O = new Version(Build.VERSION_CODES.O);
-    public static final Version VERSIONS_N = new Version(Build.VERSION_CODES.N);
-    public static final Version VERSIONS_M = new Version(Build.VERSION_CODES.M);
+public class Versions {
+    public static final Versions VERSIONS_O = new Versions(Build.VERSION_CODES.O);
+    public static final Versions VERSIONS_N = new Versions(Build.VERSION_CODES.N);
+    public static final Versions VERSIONS_M = new Versions(Build.VERSION_CODES.M);
+    public static final Versions VERSIONS_LOLLIPOP = new Versions(Build.VERSION_CODES.LOLLIPOP);
 
     private final int target;
 
-    public Version(int targetSDKVersion) {
+    public Versions(int targetSDKVersion) {
         this.target = targetSDKVersion;
     }
 
