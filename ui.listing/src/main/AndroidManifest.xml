@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="alvin.ui.listing.MainActivity">
+        <activity android:name=".main.views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -22,19 +22,19 @@
         </activity>
 
         <activity
-            android:name="alvin.ui.listing.list.views.ListMainActivity"
+            android:name=".list.views.ListActivity"
             android:label="@string/title_list_demos"
-            android:parentActivityName="alvin.ui.listing.MainActivity" />
+            android:parentActivityName=".main.views.MainActivity" />
 
         <activity
-            android:name="alvin.ui.listing.list.views.ByListViewActivity"
+            android:name=".list.listview.views.ListViewActivity"
             android:label="@string/title_list_view_demo"
-            android:parentActivityName="alvin.ui.listing.list.views.ListMainActivity" />
+            android:parentActivityName=".list.views.ListActivity" />
 
         <activity
-            android:name="alvin.ui.listing.list.views.ByRecyclerViewActivity"
+            android:name=".list.recyclerview.views.RecyclerViewActivity"
             android:label="@string/title_recycler_view_demo"
-            android:parentActivityName="alvin.ui.listing.list.views.ListMainActivity" />
+            android:parentActivityName=".list.views.ListActivity" />
     </application>
 
 </manifest>

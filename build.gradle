@@ -13,7 +13,7 @@ buildscript {
                 guava           : '23.3-android',
                 storeBox        : '1.4.0',
                 DBFlow          : '4.1.1',
-                kotlin          : '1.2.0',
+                kotlin          : '1.2.10',
                 dagger          : '2.12',
                 okhttp          : '3.9.0',
                 jackson         : '2.9.2',

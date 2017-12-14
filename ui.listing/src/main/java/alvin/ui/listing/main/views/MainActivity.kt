@@ -1,6 +1,7 @@
-package alvin.ui.listing
+package alvin.ui.listing.main.views
 
-import alvin.ui.listing.list.views.ListMainActivity
+import alvin.ui.listing.R
+import alvin.ui.listing.list.views.ListActivity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -12,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.main_activity)
 
         ButterKnife.bind(this)
     }
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     @OnClick(R.id.btn_list, R.id.btn_grid)
     fun onButtonClick(b: Button) {
         val intent: Intent? = when (b.id) {
-            R.id.btn_list -> Intent(this, ListMainActivity::class.java)
+            R.id.btn_list -> Intent(this, ListActivity::class.java)
             else -> null
         }
 
