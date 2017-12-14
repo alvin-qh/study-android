@@ -1,0 +1,19 @@
+apply plugin: 'kotlin-kapt'
+
+android {
+    defaultConfig {
+        applicationId "alvin.adv.permission"
+    }
+}
+
+dependencies {
+    implementation libs.main.butterKnife
+    implementation libs.main.dbflow
+    implementation libs.main.dbflowKotlin
+    implementation libs.main.rx
+    implementation libs.main.dagger
+
+    kapt libs.annotation.butterKnife
+    kapt libs.annotation.dbflow
+    kapt libs.annotation.dagger
+}
