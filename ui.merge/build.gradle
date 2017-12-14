@@ -1,7 +1,4 @@
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-
 
 android {
     defaultConfig {
@@ -11,9 +8,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation libs.main.butterKnife
-    implementation libs.main.kotlin
 
     kapt libs.annotation.butterKnife
 }

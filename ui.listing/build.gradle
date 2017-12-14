@@ -1,22 +1,8 @@
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-
 
 android {
     defaultConfig {
         applicationId "alvin.ui.list"
-    }
-
-    sourceSets {
-        main {
-            res.srcDirs = [
-                    'src/main/res/layout/list',
-                    'src/main/res/layout/grid',
-                    'src/main/res/layout',
-                    'src/main/res'
-            ]
-        }
     }
 }
 
@@ -24,7 +10,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation libs.main.butterKnife
-    implementation libs.main.kotlin
 
     kapt libs.annotation.butterKnife
 }

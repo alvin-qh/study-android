@@ -1,5 +1,3 @@
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -10,20 +8,12 @@ android {
 
 dependencies {
     implementation libs.main.butterKnife
-    implementation libs.main.kotlin
     implementation libs.main.dbflow
     implementation libs.main.dbflowKotlin
     implementation libs.main.rx
     implementation libs.main.dagger
 
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     kapt libs.annotation.butterKnife
     kapt libs.annotation.dbflow
     kapt libs.annotation.dagger
-}
-
-kotlin {
-    experimental {
-        coroutines "enable"
-    }
 }

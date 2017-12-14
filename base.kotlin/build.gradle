@@ -1,5 +1,3 @@
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -10,7 +8,6 @@ android {
 
 dependencies {
     implementation libs.main.butterKnife
-    implementation libs.main.kotlin
     implementation libs.main.dbflow
     implementation libs.main.dbflowKotlin
     implementation libs.main.rx

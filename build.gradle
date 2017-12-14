@@ -124,8 +124,15 @@ subprojects {
 
         dependencies {
             implementation project(":lib.widget")
+        }
+    }
 
-            implementation libs.main.guava
+    apply plugin: 'kotlin-android'
+    apply plugin: 'kotlin-android-extensions'
+
+    kotlin {
+        experimental {
+            coroutines "enable"
         }
     }
 
@@ -134,6 +141,8 @@ subprojects {
         implementation fileTree(dir: 'libs', include: ['*.jar'])
 
         implementation libs.main.common
+        implementation libs.main.guava
+        implementation libs.main.kotlin
         implementation libs.main.stetho
 
         testImplementation libs.test.android
