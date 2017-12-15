@@ -1,11 +1,12 @@
 package alvin.ui.listing.list
 
-import alvin.ui.listing.list.listview.ListViewModule
-import alvin.ui.listing.list.recyclerview.RecyclerViewModule
+import alvin.ui.listing.list.views.ListActivity
 import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
-@Module(includes = [
-    ListViewModule::class,
-    RecyclerViewModule::class
-])
-interface ListModule
+@Module
+interface ListModule {
+
+    @ContributesAndroidInjector
+    fun listActivity(): ListActivity
+}

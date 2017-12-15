@@ -1,28 +1,31 @@
-package alvin.ui.listing.list.recyclerview.views
+package alvin.ui.listing.recycler.views
 
-import alvin.lib.mvp.views.AppCompatActivityView
 import alvin.ui.listing.R
+import alvin.ui.listing.domain.DomainModule
 import alvin.ui.listing.domain.models.FileItem
-import alvin.ui.listing.list.recyclerview.RecyclerViewContracts
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.list_recyclerview_activity.*
+import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.recycler_activity.*
+import javax.inject.Inject
+import javax.inject.Named
 
-class RecyclerViewActivity :
-        AppCompatActivityView<RecyclerViewContracts.Presenter>(), RecyclerViewContracts.View {
+class RecyclerActivity : DaggerAppCompatActivity() {
 
-    private lateinit var adapter: RecyclerViewAdapter
+    private lateinit var adapter: RecyclerAdapter
+
+    @field:[Inject Named(DomainModule.NAME_DATA_LIST)] lateinit var fileItems: List<FileItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.list_recyclerview_activity)
+        setContentView(R.layout.recycler_activity)
 
         createRecyclerView()
     }
 
     private fun createRecyclerView() {
-        adapter = RecyclerViewAdapter(this)
+        adapter = RecyclerAdapter(this)
         recycler_view.adapter = adapter
         recycler_view.itemAnimator = DefaultItemAnimator()
         recycler_view.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -30,10 +33,6 @@ class RecyclerViewActivity :
 
     override fun onResume() {
         super.onResume()
-        presenter.makeListContent()
-    }
-
-    override fun showFileItem(fileItems: List<FileItem>) {
         adapter.update(fileItems)
     }
 }

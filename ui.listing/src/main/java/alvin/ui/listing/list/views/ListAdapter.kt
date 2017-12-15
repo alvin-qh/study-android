@@ -1,4 +1,4 @@
-package alvin.ui.listing.list.listview.views
+package alvin.ui.listing.list.views
 
 import alvin.ui.listing.R
 import alvin.ui.listing.domain.models.FileItem
@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import kotlinx.android.synthetic.main.list_view_fileitem.view.*
 
-class ListViewAdapter
+class ListAdapter
 constructor(context: Context) : BaseAdapter() {
 
     private val inflater = LayoutInflater.from(context)

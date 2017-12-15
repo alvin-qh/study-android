@@ -10,8 +10,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation libs.main.dagger
-    implementation libs.main.butterKnife
 
-    kapt libs.annotation.butterKnife
     kapt libs.annotation.dagger
 }

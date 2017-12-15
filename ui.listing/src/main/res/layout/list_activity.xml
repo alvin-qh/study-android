@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".list.views.ListActivity">
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_list_view"
+    <android.support.v7.widget.ListViewCompat
+        android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_list_view"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:scrollbars="vertical"
+        tools:listfooter="@layout/list_view_footer"
+        tools:listheader="@layout/list_view_header"
+        tools:listitem="@layout/list_view_fileitem" />
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_recycler_view"
+    <!-- If use ListView and need divider line, use this config
+    <android.support.v7.widget.ListViewCompat
+        android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_recycler_view"
-        app:layout_constraintTop_toBottomOf="@id/btn_list_view" />
+        android:divider="@color/color_divider"
+        android:dividerHeight="1dp"
+        android:scrollbars="vertical" />
+    -->
 
 </android.support.constraint.ConstraintLayout>

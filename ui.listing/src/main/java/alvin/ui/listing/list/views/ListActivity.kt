@@ -1,35 +1,43 @@
 package alvin.ui.listing.list.views
 
 import alvin.ui.listing.R
-import alvin.ui.listing.list.listview.views.ListViewActivity
-import alvin.ui.listing.list.recyclerview.views.RecyclerViewActivity
-import android.content.Intent
+import alvin.ui.listing.domain.DomainModule
+import alvin.ui.listing.domain.models.FileItem
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.widget.Button
-import butterknife.ButterKnife
-import butterknife.OnClick
+import android.view.LayoutInflater
+import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.list_activity.*
+import javax.inject.Inject
+import javax.inject.Named
 
-class ListActivity : AppCompatActivity() {
+class ListActivity : DaggerAppCompatActivity() {
+
+    private lateinit var adapter: ListAdapter
+
+    @field:[Inject Named(DomainModule.NAME_DATA_LIST)] lateinit var fileItems: List<FileItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.list_activity)
 
-        ButterKnife.bind(this)
+        createListView()
     }
 
-    @OnClick(R.id.btn_list_view, R.id.btn_recycler_view)
-    fun onButtonsClick(b: Button) {
+    private fun createListView() {
+        val inflater = LayoutInflater.from(this)
 
-        val intent = when (b.id) {
-            R.id.btn_list_view -> Intent(this, ListViewActivity::class.java)
-            R.id.btn_recycler_view -> Intent(this, RecyclerViewActivity::class.java)
-            else -> null
-        }
+        val viewHeader = inflater.inflate(R.layout.list_view_header, list_view, false)
+        list_view.addHeaderView(viewHeader)
 
-        if (intent != null) {
-            startActivity(intent)
-        }
+        val viewFooter = inflater.inflate(R.layout.list_view_footer, list_view, false)
+        list_view.addFooterView(viewFooter)
+
+        adapter = ListAdapter(this)
+        list_view.adapter = adapter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adapter.update(fileItems)
     }
 }

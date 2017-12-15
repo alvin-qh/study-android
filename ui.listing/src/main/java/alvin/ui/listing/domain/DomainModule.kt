@@ -9,8 +9,12 @@ import javax.inject.Named
 @Module
 class DomainModule {
 
+    companion object {
+        const val NAME_DATA_LIST = "data-list"
+    }
+
     @Provides
-    @Named("data-list")
+    @Named(NAME_DATA_LIST)
     fun fileItems(): List<FileItem> {
         return listOf(
                 FileItem(1L, FileType.FILE, "README.md"),

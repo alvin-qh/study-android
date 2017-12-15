@@ -1,4 +1,4 @@
-package alvin.ui.listing.list.recyclerview.views
+package alvin.ui.listing.recycler.views
 
 import alvin.ui.listing.R
 import alvin.ui.listing.domain.models.FileItem
@@ -10,8 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.list_view_fileitem.view.*
 
-class RecyclerViewAdapter
-constructor(context: Context) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerAdapter
+constructor(context: Context) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     companion object {
         val HEADER = 1

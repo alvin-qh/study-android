@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".main.views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -23,16 +24,11 @@
 
         <activity
             android:name=".list.views.ListActivity"
-            android:label="@string/title_list_demos"
-            android:parentActivityName=".main.views.MainActivity" />
-
-        <activity
-            android:name=".list.listview.views.ListViewActivity"
             android:label="@string/title_list_view_demo"
             android:parentActivityName=".list.views.ListActivity" />
 
         <activity
-            android:name=".list.recyclerview.views.RecyclerViewActivity"
+            android:name=".recycler.views.RecyclerActivity"
             android:label="@string/title_recycler_view_demo"
             android:parentActivityName=".list.views.ListActivity" />
     </application>
