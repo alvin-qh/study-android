@@ -22,6 +22,7 @@ dependencies {
     implementation libs.main.rx
     implementation libs.main.kotlin
     implementation libs.main.dagger
+    implementation libs.main.jackson
 
     testImplementation libs.test.java
 }

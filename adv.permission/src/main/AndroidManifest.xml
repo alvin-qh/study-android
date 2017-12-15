@@ -3,6 +3,9 @@
     package="alvin.adv.permission"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".Application"
         android:allowBackup="true"
@@ -20,6 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".storage.views.StorageActivity"
+            android:label="@string/title_ask_permission"
+            android:parentActivityName=".main.views.MainActivity" />
     </application>
 
 </manifest>

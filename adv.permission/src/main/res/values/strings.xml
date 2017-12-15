@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <string name="app_name">Permissions</string>
+    <string name="title_ask_permission">Ask Permission</string>
+
+    <string name="btn_ask_permission">Ask Permission</string>
+    <string name="btn_save">Save</string>
+
+    <string name="label_name">Name</string>
+    <string name="label_gender">Gender</string>
+    <string name="label_male">Male</string>
+    <string name="label_female">Female</string>
+    <string name="label_birthday">Birthday</string>
+    <string name="label_remark">Remark</string>
+
+    <string name="message_save_complete">Save completed</string>
+    <string name="message_save_failed">Save failed</string>
+    <string name="message_load_failed">Load failed</string>
+    <string name="message_need_permission">Some necessary permissions required</string>
 </resources>

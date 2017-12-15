@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -18,10 +20,10 @@ public class Storages {
      * Create public directory on external storage.
      *
      * @param type Type of public directory, such as:
-     *  {@link Environment#DIRECTORY_DCIM}
-     *  {@link Environment#DIRECTORY_DOWNLOADS}
-     *  {@link Environment#DIRECTORY_MUSIC}
-     * ... and so on
+     *             {@link Environment#DIRECTORY_DCIM}
+     *             {@link Environment#DIRECTORY_DOWNLOADS}
+     *             {@link Environment#DIRECTORY_MUSIC}
+     *             ... and so on
      */
     @NonNull
     private File makeExternalStoragePublicDirectory(@NonNull final String type,
@@ -44,6 +46,18 @@ public class Storages {
     public File createImageCaptureFile(@NonNull final String pathname,
                                        @NonNull final String filename) throws IOException {
         final File dir = makeExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM, pathname);
+        return new File(dir, filename);
+    }
+
+    @NotNull
+    public File createExternalStorageFile(@NotNull String pathname,
+                                          @NotNull String filename) throws IOException {
+        File dir = new File(Environment.getExternalStorageDirectory(), pathname);
+        if (!dir.exists()) {
+            if (!dir.mkdirs()) {
+                throw new IOException("Cannot create folder " + dir.getAbsolutePath());
+            }
+        }
         return new File(dir, filename);
     }
 }

@@ -1,6 +1,9 @@
 package alvin.adv.permission
 
+import alvin.lib.common.json.Jackson
+import alvin.lib.common.utils.Storages
 import android.content.Context
+import com.fasterxml.jackson.databind.ObjectMapper
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -12,5 +15,17 @@ class ApplicationModule {
     @Provides
     fun context(application: Application): Context {
         return application
+    }
+
+    @Singleton
+    @Provides
+    fun storages(context: Context): Storages {
+        return Storages(context)
+    }
+
+    @Singleton
+    @Provides
+    fun objectMapper(): ObjectMapper {
+        return Jackson.create();
     }
 }
