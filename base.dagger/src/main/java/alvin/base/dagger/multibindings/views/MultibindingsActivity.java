@@ -23,7 +23,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.AndroidInjection;
 
-public class MultibindingsActivity extends AppCompatActivity implements MultibindingsContracts.View {
+public class MultibindingsActivity
+        extends AppCompatActivity
+        implements MultibindingsContracts.IView {
 
     @Inject MultibindingsContracts.Presenter presenter;
 
@@ -45,7 +47,7 @@ public class MultibindingsActivity extends AppCompatActivity implements Multibin
     protected void onStart() {
         super.onStart();
 
-        presenter.onStart();
+        presenter.loadData();
     }
 
     @Override

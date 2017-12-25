@@ -1,7 +1,9 @@
 package alvin.base.service.intent.views;
 
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -10,32 +12,61 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import javax.inject.Inject;
+import com.google.common.base.Strings;
 
 import alvin.base.service.R;
 import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.base.service.intent.IntentContracts;
 import alvin.base.service.intent.services.IntentService;
 import alvin.lib.common.utils.IntentFilters;
+import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.AndroidInjection;
-import dagger.android.support.DaggerAppCompatActivity;
 
-public class IntentActivity extends DaggerAppCompatActivity implements IntentContracts.View {
+public class IntentActivity
+        extends ActivityAdapter<IntentContracts.Presenter>
+        implements IntentContracts.View {
 
     private static final float ONE_SECOND_MS_FLOAT = 1000f;
 
-    @Inject IntentContracts.Presenter presenter;
+    private final IntentService.OnJobStatusChangeListener onJobStatusChangeListener =
+            new IntentService.OnJobStatusChangeListener() {
+                @Override
+                public void onStart(String jobName) {
+                    onJobStart(jobName);
+                }
+
+                @Override
+                public void onFinish(String jobName, long timeSpend) {
+                    onJobFinish(jobName, timeSpend);
+                }
+            };
+
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if (!Strings.isNullOrEmpty(action)) {
+                switch (action) {
+                case ServiceBroadcasts.ACTION_SERVICE_CREATED:
+                    serviceCreated();
+                    break;
+                case ServiceBroadcasts.ACTION_SERVICE_DESTROYED:
+                    serviceDestroyed();
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+    };
 
     @BindView(R.id.rg_service_status) RadioGroup rgServiceStatus;
     @BindView(R.id.sv_job_response) ScrollView svJobResponse;
     @BindView(R.id.tv_job_response) TextView tvJobResponse;
 
     private Handler handler;
-
-    private BroadcastReceiver receiver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,76 +75,65 @@ public class IntentActivity extends DaggerAppCompatActivity implements IntentCon
 
         ButterKnife.bind(this);
 
-        AndroidInjection.inject(this);
-
         handler = new Handler(getMainLooper());
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy();
+    protected void onResume() {
+        super.onResume();
+        connect();
+    }
+
+    private void connect() {
+        final IntentFilter filter = IntentFilters.newBuilder()
+                .addAction(ServiceBroadcasts.ACTION_SERVICE_CREATED)
+                .addAction(ServiceBroadcasts.ACTION_SERVICE_DESTROYED)
+                .build();
+        registerReceiver(receiver, filter);
+
+        IntentService.addOnJobStatusChangeListener(onJobStatusChangeListener);
+    }
+
+    private void disconnect() {
+        unregisterReceiver(receiver);
+        IntentService.removeOnJobStatusChangeListener(onJobStatusChangeListener);
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-        if (receiver == null) {
-            receiver = presenter.getBroadcastReceiver();
-
-            registerReceiver(
-                    receiver,
-                    IntentFilters.newBuilder()
-                            .addAction(ServiceBroadcasts.ACTION_SERVICE_CREATED)
-                            .addAction(ServiceBroadcasts.ACTION_SERVICE_DESTROYED)
-                            .build()
-            );
-        }
-        IntentService.addOnJobStatusChangeListener(presenter.getListener());
-
-        presenter.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        if (receiver != null) {
-            unregisterReceiver(receiver);
-            receiver = null;
-        }
-        IntentService.removeOnJobStatusChangeListener(presenter.getListener());
-
-        presenter.onStop();
+    protected void onPause() {
+        super.onPause();
+        disconnect();
     }
 
     @OnClick(R.id.btn_work)
     public void onWorkButtonClick(Button b) {
-        startService(new Intent(this, IntentService.class)
-                .putExtra(IntentService.EXTRA_ARG_NAME, presenter.getJobName()));
+        presenter.makeNewJob();
     }
 
-    @Override
-    public void serviceCreated() {
+    private void serviceCreated() {
         rgServiceStatus.check(R.id.rb_created);
     }
 
-    @Override
-    public void serviceDestroyed() {
+    private void serviceDestroyed() {
         rgServiceStatus.check(R.id.rb_destroyed);
     }
 
-    @Override
-    public void onJobStart(String jobName) {
+    private void onJobStart(String jobName) {
         tvJobResponse.append(String.format("\n%s is started", jobName));
         handler.post(() -> svJobResponse.fullScroll(ScrollView.FOCUS_DOWN));
     }
 
-    @Override
-    public void onJobFinish(String jobName, long timeSpend) {
+    private void onJobFinish(String jobName, long timeSpend) {
         tvJobResponse.append(String.format("\n%s is finished, time spend %ss\n",
                 jobName, timeSpend / ONE_SECOND_MS_FLOAT));
         handler.post(() -> svJobResponse.fullScroll(ScrollView.FOCUS_DOWN));
+    }
+
+    @Override
+    public void doNewJob(String jobName) {
+        startService(
+                new Intent(this, IntentService.class)
+                        .putExtra(IntentService.EXTRA_ARG_NAME, jobName)
+        );
     }
 }

@@ -9,13 +9,12 @@ import dagger.android.ContributesAndroidInjector
 @Module
 interface MainModule {
 
-    @ContributesAndroidInjector(modules = [
-        ViewModule::class
-    ])
+    @ContributesAndroidInjector(modules = [ViewModule::class])
     fun mainActivity(): MainActivity
 
     @Module
     interface ViewModule {
+
         @Binds
         fun view(activity: MainActivity): MainContracts.View
 

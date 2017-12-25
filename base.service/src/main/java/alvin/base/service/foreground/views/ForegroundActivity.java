@@ -20,7 +20,7 @@ import butterknife.OnClick;
 import dagger.android.support.DaggerAppCompatActivity;
 
 public class ForegroundActivity extends DaggerAppCompatActivity
-        implements ForegroundContracts.View {
+        implements ForegroundContracts.IView {
 
     @Inject ForegroundContracts.Presenter presenter;
     @Inject Versions version;

@@ -7,59 +7,58 @@ import android.support.annotation.Nullable;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
-import alvin.base.net.http.WeatherContract;
+import javax.inject.Inject;
+
+import alvin.base.net.http.WeatherContracts;
 import alvin.base.net.http.common.domain.models.LiveWeather;
 import alvin.base.net.http.common.domain.services.WeatherException;
 import alvin.base.net.http.common.domain.services.WeatherService;
-import alvin.lib.mvp.adapters.ViewPresenterAdapter;
+import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
-public class TaskPresenter extends ViewPresenterAdapter<WeatherContract.View>
-        implements WeatherContract.Presenter {
+public class TaskPresenter
+        extends PresenterAdapter<WeatherContracts.View>
+        implements WeatherContracts.Presenter {
 
-    private final WeatherService weatherService = new WeatherService();
+    private final WeatherService weatherService;
 
     private AsyncTask<?, ?, ?> task;
 
-    public TaskPresenter(@NonNull WeatherContract.View view) {
+    @Inject
+    public TaskPresenter(@NonNull WeatherContracts.View view,
+                         @NonNull WeatherService weatherService) {
         super(view);
+        this.weatherService = weatherService;
     }
 
     @Override
     public void getLiveWeather() {
-        task = new WeatherTask(getViewReference(), weatherService);
+        task = new WeatherTask(getTargetRef(), weatherService);
         task.execute();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        getLiveWeather();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
         if (task != null) {
             task.cancel(true);
         }
     }
 
-    private static class WeatherTask extends AsyncTask<Void, Void, LiveWeather> {
-        private final WeakReference<WeatherContract.View> viewRef;
+    private static class WeatherTask extends AsyncTask<Object, Object, LiveWeather> {
+        private final WeakReference<WeatherContracts.View> viewRef;
         private final WeatherService weatherService;
 
         private Exception exception;
 
-        WeatherTask(@NonNull WeakReference<WeatherContract.View> viewRef,
-                    @NonNull WeatherService weatherService) {
+        WeatherTask(@NonNull final WeakReference<WeatherContracts.View> viewRef,
+                    @NonNull final WeatherService weatherService) {
             this.viewRef = viewRef;
             this.weatherService = weatherService;
         }
 
         @Override
-        protected @Nullable
-        LiveWeather doInBackground(@Nullable Void[] objects) {
+        @Nullable
+        protected LiveWeather doInBackground(@Nullable final Object[] objects) {
             try {
                 return weatherService.liveWeather();
             } catch (IOException | WeatherException e) {
@@ -69,8 +68,8 @@ public class TaskPresenter extends ViewPresenterAdapter<WeatherContract.View>
         }
 
         @Override
-        protected void onPostExecute(@NonNull LiveWeather weather) {
-            WeatherContract.View view = viewRef.get();
+        protected void onPostExecute(@NonNull final LiveWeather weather) {
+            WeatherContracts.View view = viewRef.get();
 
             if (view != null) {
                 if (exception != null) {

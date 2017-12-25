@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 
 import com.google.common.base.Strings;
 
-import java.lang.ref.WeakReference;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -17,22 +16,20 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import alvin.lib.common.rx.ObservableSubscriber;
-import alvin.lib.common.rx.RxManager;
+import alvin.lib.common.rx.RxDecorator;
 import dagger.android.DaggerService;
 import io.reactivex.Observable;
 
 public class WorkingService extends DaggerService {
     public static final String EXTRA_ARG_ZONE = "zone";
 
-    @Inject
-    RxManager rxManager;
+    @Inject RxDecorator rxDecorator;
 
     private ZoneId zoneId;
 
-    private static WeakReference<WorkingService> serviceRef;
+    private static final Set<OnServiceCallbackListener> listeners = new HashSet<>();
 
-    private Set<OnServiceCallbackListener> listeners = new HashSet<>();
+    private transient boolean destroyed = false;
 
     @Nullable
     @Override
@@ -43,7 +40,7 @@ public class WorkingService extends DaggerService {
     @Override
     public void onCreate() {
         super.onCreate();
-        serviceRef = new WeakReference<>(this);
+        destroyed = false;
     }
 
     @Override
@@ -69,41 +66,30 @@ public class WorkingService extends DaggerService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        serviceRef.clear();
-        rxManager.clear();
-    }
-
-    public static boolean isAvailable() {
-        return serviceRef.get() != null;
-    }
-
-    public static WeakReference<WorkingService> getServiceRef() {
-        return serviceRef;
+        destroyed = true;
     }
 
     private void startServiceLoop() {
-        final ObservableSubscriber<LocalDateTime> subscriber = rxManager.with(
-                Observable.interval(0L, 1, TimeUnit.SECONDS)
-                        .flatMap(ignore -> emitter -> {
-                            if (isAvailable()) {
+        rxDecorator.<LocalDateTime>de(
+                Observable.interval(0L, 1, TimeUnit.SECONDS).flatMap(ignore ->
+                        emitter -> {
+                            if (!destroyed) {
                                 LocalDateTime time = LocalDateTime.now(zoneId);
                                 emitter.onNext(time);
                             } else {
                                 emitter.onComplete();
                             }
                         })
-        );
 
-        subscriber.subscribe(time ->
+        ).subscribe(time ->
                 listeners.forEach(listener -> listener.onTimeMessage(time)));
     }
 
-    public void addOnServiceCallbackListener(@NonNull OnServiceCallbackListener listener) {
+    public static void addOnServiceCallbackListener(@NonNull OnServiceCallbackListener listener) {
         listeners.add(listener);
     }
 
-    public void removeOnServiceCallbackListener(@NonNull OnServiceCallbackListener listener) {
+    public static void removeOnServiceCallbackListener(@NonNull OnServiceCallbackListener listener) {
         listeners.remove(listener);
     }
 

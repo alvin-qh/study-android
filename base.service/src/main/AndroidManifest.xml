@@ -4,12 +4,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <permission
-        android:name="alvin.base.service.permission.REMOTE_SERVICE"
+        android:name="alvin.permissions.REMOTE_SERVICE"
         android:description="@string/permission_remote_service_description"
         android:label="@string/permission_remote_service_label"
         android:protectionLevel="dangerous" />
 
-    <uses-permission android:name="alvin.base.service.permission.REMOTE_SERVICE" />
+    <uses-permission android:name="alvin.permissions.REMOTE_SERVICE" />
 
     <application
         android:name=".Application"
@@ -71,10 +71,10 @@
         <service
             android:name=".remote.services.RemoteService"
             android:exported="true"
-            android:permission="alvin.base.service.permission.REMOTE_SERVICE"
-            android:process="alvin.base.service.remote.services.RemoteService">
+            android:permission="alvin.permissions.REMOTE_SERVICE"
+            android:process="alvin.processes.REMOTE_SERVICE">
             <intent-filter>
-                <action android:name="alvin.base.service.remote.aidls.IRemoteBinder" />
+                <action android:name="alvin.services.REMOTE_SERVICE" />
             </intent-filter>
         </service>
 

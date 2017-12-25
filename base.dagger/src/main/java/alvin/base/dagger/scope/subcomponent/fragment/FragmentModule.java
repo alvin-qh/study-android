@@ -24,7 +24,6 @@ public class FragmentModule {
 
     @Module
     public interface BindModule {
-
         @Binds
         @Scopes.Fragment
         FragmentContracts.Presenter presenter(FragmentPresenter presenter);

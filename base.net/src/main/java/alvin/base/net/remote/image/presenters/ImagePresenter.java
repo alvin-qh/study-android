@@ -3,76 +3,45 @@ package alvin.base.net.remote.image.presenters;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
-import java.io.File;
 import java.io.IOException;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import javax.inject.Inject;
+
+import alvin.base.net.remote.image.ImageContracts;
 import alvin.base.net.remote.image.services.ImageLoader;
-import alvin.lib.common.rx.RxManager;
-import alvin.lib.common.rx.SingleSubscriber;
+import alvin.lib.common.rx.RxDecorator;
 import alvin.lib.common.utils.ApplicationConfig;
-import alvin.lib.common.utils.Cache;
-import alvin.lib.mvp.adapters.ViewPresenterAdapter;
+import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
-import static alvin.base.net.remote.image.ImageContract.Presenter;
-import static alvin.base.net.remote.image.ImageContract.View;
+import static alvin.base.net.remote.image.ImageContracts.Presenter;
 
-public class ImagePresenter extends ViewPresenterAdapter<View> implements Presenter {
+public class ImagePresenter
+        extends PresenterAdapter<ImageContracts.View>
+        implements Presenter {
 
     private static final int RETRY_TIMES = 3;
 
     private final List<String> imageUrls = new ArrayList<>();
+    private final RxDecorator rxDecorator;
+    private final ImageLoader imageLoader;
 
-    private final RxManager rxManager = RxManager.newBuilder()
-            .subscribeOn(Schedulers::io)
-            .observeOn(AndroidSchedulers::mainThread)
-            .build();
-
-    private ImageLoader imageLoader;
-
-    private final File imageCacheDir;
-
-    public ImagePresenter(@NonNull View view, File imageCacheDir) {
+    @Inject
+    public ImagePresenter(@NonNull final ImageContracts.View view,
+                          @NonNull final RxDecorator rxDecorator,
+                          @NonNull final ImageLoader imageLoader) {
         super(view);
-        this.imageCacheDir = imageCacheDir;
+        this.rxDecorator = rxDecorator;
+        this.imageLoader = imageLoader;
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-
-        withView(view -> {
-            File cacheFileDir = createCacheFileDir();
-            this.imageLoader = new ImageLoader(
-                    cacheFileDir.getAbsolutePath(),
-                    new Cache<>(1L, ChronoUnit.HOURS));
-        });
-    }
-
-    private File createCacheFileDir() {
-        if (!imageCacheDir.exists()) {
-            if (!imageCacheDir.mkdirs()) {
-                throw new RuntimeException("Cannot create cache directory");
-            }
-        }
-        return imageCacheDir;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        loadImageUrls();
-    }
-
-    private void loadImageUrls() {
-        final SingleSubscriber<List<String>> subscriber = rxManager.with(
-                Single.<List<String>>create(emitter -> {
+    public void loadImageUrls() {
+        rxDecorator.<List<String>>de(
+                Single.create(emitter -> {
                     ApplicationConfig config = ApplicationConfig.getInstance();
                     List<String> urls = new ArrayList<>();
 
@@ -87,14 +56,14 @@ public class ImagePresenter extends ViewPresenterAdapter<View> implements Presen
 
                     emitter.onSuccess(urls);
 
-                }).retry(RETRY_TIMES)
-        );
-
-        subscriber.subscribe(urls -> {
-            imageUrls.clear();
-            imageUrls.addAll(urls);
-            withView(View::imageSrcLoaded);
-        });
+                })
+        )
+                .retry(RETRY_TIMES)
+                .subscribe(urls -> {
+                    imageUrls.clear();
+                    imageUrls.addAll(urls);
+                    with(ImageContracts.View::imageSrcLoaded);
+                });
     }
 
     @Override
@@ -118,19 +87,19 @@ public class ImagePresenter extends ViewPresenterAdapter<View> implements Presen
 
     @Override
     public void loadImageAsDrawable(String url, Consumer<Drawable> callback) {
-        final SingleSubscriber<Drawable> subscriber = rxManager.with(
-                Single.<Drawable>create(emitter -> {
+        rxDecorator.<Drawable>de(
+                Single.create(emitter -> {
                     try {
                         emitter.onSuccess(imageLoader.load(url));
                     } catch (IOException e) {
                         emitter.onError(e);
                     }
-                }).retry(RETRY_TIMES)
-        );
-
-        subscriber.subscribe(
-                callback::accept,
-                throwable -> withView(view -> view.imageLoadFailed(url))
-        );
+                })
+        )
+                .retry(RETRY_TIMES)
+                .subscribe(
+                        callback::accept,
+                        throwable -> with(view -> view.imageLoadFailed(url))
+                );
     }
 }

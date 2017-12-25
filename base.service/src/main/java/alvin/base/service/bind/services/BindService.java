@@ -18,16 +18,14 @@ import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
-import alvin.base.service.bind.BindContracts;
-import alvin.lib.common.rx.ObservableSubscriber;
-import alvin.lib.common.rx.RxManager;
+import alvin.lib.common.rx.RxDecorator;
 import dagger.android.DaggerService;
 import io.reactivex.Observable;
 
 public class BindService extends DaggerService {
     public static final String EXTRA_ARG_ZONE = "zone";
 
-    @Inject RxManager rxManager;
+    @Inject RxDecorator rxDecorator;
 
     private boolean available = false;
 
@@ -54,11 +52,10 @@ public class BindService extends DaggerService {
 
         available = false;
         timeCallback.clear();   // clear all callback functions, stop callback
-        rxManager.clear();
     }
 
     private void startWorking() {
-        final ObservableSubscriber<LocalDateTime> subscriber = rxManager.with(
+        rxDecorator.<LocalDateTime>de(
                 Observable.interval(0, 1, TimeUnit.SECONDS)
                         .flatMap(ignore -> emitter -> {
                             if (available) {
@@ -67,9 +64,8 @@ public class BindService extends DaggerService {
                                 emitter.onComplete();
                             }
                         })
-        );
 
-        subscriber.subscribe(time ->
+        ).subscribe(time ->
                 // call every callback functions and pass result
                 timeCallback.forEach(consumer -> consumer.accept(time))
         );
@@ -92,8 +88,7 @@ public class BindService extends DaggerService {
         return binder;
     }
 
-    public class ServiceBinder extends Binder implements BindContracts.ServiceBinder {
-
+    public class ServiceBinder extends Binder {
         /**
          * Add a callback function to service.
          */
@@ -104,7 +99,7 @@ public class BindService extends DaggerService {
         /**
          * Remove callback function from service.
          */
-        public void remoteTimeCallback(@NonNull Consumer<LocalDateTime> consumer) {
+        public void removeTimeCallback(@NonNull Consumer<LocalDateTime> consumer) {
             timeCallback.remove(consumer);
         }
     }

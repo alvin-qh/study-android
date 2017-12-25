@@ -15,7 +15,7 @@ public class TransactionManager {
     }
 
     @NonNull
-    public Transaction beginTransaction() {
+    public Transaction begin() {
         final DatabaseWrapper wrapper = this.database.getWritableDatabase();
         wrapper.beginTransaction();
         return new Transaction(wrapper);

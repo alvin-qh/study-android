@@ -13,7 +13,7 @@ import alvin.base.service.lifecycle.presenters.LifecyclePresenter;
 import dagger.android.DaggerService;
 
 /**
- * Service must be registered in AndroidManifest.xml.
+ * IService must be registered in AndroidManifest.xml.
  * <p>
  * <pre>
  * &lt;service android:name=".lifecycle.services.LifecycleService" /&gt;
@@ -36,12 +36,11 @@ public class LifecycleService extends DaggerService {
      * <li>If service has been created, increase the <b>Reference Counter</b> of this service.</li>
      * </ul>
      *
-     * @see LifecyclePresenter#bindService(Context)
      */
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        Log.d(TAG, "Service is bind");
+        Log.d(TAG, "IService is bind");
 
         return new Binder();
     }
@@ -63,7 +62,7 @@ public class LifecycleService extends DaggerService {
     @Override
     public boolean onUnbind(Intent intent) {
         boolean result = super.onUnbind(intent);
-        Log.d(TAG, "Service is unbind");
+        Log.d(TAG, "IService is unbind");
 
         return result;
     }
@@ -81,7 +80,7 @@ public class LifecycleService extends DaggerService {
 
         sendBroadcast(new Intent(ServiceBroadcasts.ACTION_SERVICE_CREATED));
 
-        Log.d(TAG, "Service is created");
+        Log.d(TAG, "IService is created");
     }
 
     /**
@@ -90,7 +89,7 @@ public class LifecycleService extends DaggerService {
      * If {@link Context#startService(Intent)} called, this method will be call once, and
      * some arguments can pass by {@link Intent} object.
      * <p>
-     * Service can be started many times, but can be created only once before service destroyed,
+     * IService can be started many times, but can be created only once before service destroyed,
      * so this method will be called many times too.
      */
     @Override
@@ -100,7 +99,7 @@ public class LifecycleService extends DaggerService {
         this.serviceStartId = startId;
         int result = getStartResult(intent, flags);
 
-        Log.d(TAG, "Service is started, with type " + result);
+        Log.d(TAG, "IService is started, with type " + result);
         return result;
     }
 
@@ -124,7 +123,7 @@ public class LifecycleService extends DaggerService {
     /**
      * When service was destroyed.
      * <p>
-     * If the <b>Reference Counter</b> is zero and Service is stoped, the service should be
+     * If the <b>Reference Counter</b> is zero and IService is stoped, the service should be
      * destroyed.
      */
     @Override
@@ -133,7 +132,7 @@ public class LifecycleService extends DaggerService {
 
         sendBroadcast(new Intent(ServiceBroadcasts.ACTION_SERVICE_DESTROYED));
 
-        Log.d(TAG, "Service is destroyed");
+        Log.d(TAG, "IService is destroyed");
     }
 
     /**

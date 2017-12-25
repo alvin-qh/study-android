@@ -11,12 +11,10 @@ import alvin.lib.mvp.contracts.IView;
 public interface MainContracts {
 
     interface View extends IView {
-
         void nameCardsLoaded(@NonNull List<NameCard> nameCards);
     }
 
     interface Presenter extends IPresenter {
-
         void loadNameCards();
     }
 }

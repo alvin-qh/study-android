@@ -10,7 +10,6 @@ object DBFlowContract {
     interface View : IView {
         fun personCreated(result: Person)
         fun showPersonEditError()
-        fun getQueryGender(): Gender?
         fun showPersons(persons: List<Person>?)
         fun showPersonLoadError()
         fun personUpdated(person: Person)
@@ -18,7 +17,7 @@ object DBFlowContract {
     }
 
     interface Presenter : IPresenter {
-        fun reloadPersons()
+        fun loadPersons(gender: Gender?)
         fun savePerson(person: Person)
         fun updatePerson(person: Person)
         fun deletePerson(person: Person)

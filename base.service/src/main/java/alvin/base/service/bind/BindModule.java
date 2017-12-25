@@ -1,9 +1,9 @@
 package alvin.base.service.bind;
 
-import alvin.base.service.bind.presenters.BindPresenter;
+import alvin.base.service.bind.persenters.BindPresenter;
 import alvin.base.service.bind.services.BindService;
 import alvin.base.service.bind.views.BindActivity;
-import alvin.lib.common.rx.RxManager;
+import alvin.lib.common.rx.RxDecorator;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -14,31 +14,27 @@ import io.reactivex.schedulers.Schedulers;
 @Module
 public interface BindModule {
 
-    @ContributesAndroidInjector(modules = {BindModule.ViewModule.class})
+    @ContributesAndroidInjector(modules = {ViewModule.class})
     BindActivity bindActivity();
 
-    @ContributesAndroidInjector(modules = {BindModule.ServiceModule.class})
+    @ContributesAndroidInjector(modules = {ServiceModule.class})
     BindService bindService();
 
-    @Module(includes = {ViewModule._BindModule.class})
-    class ViewModule {
+    @Module
+    interface ViewModule {
+        @Binds
+        BindContracts.View view(final BindActivity activity);
 
-        @Module
-        public interface _BindModule {  // SUPPRESS
-            @Binds
-            BindContracts.View view(BindActivity activity);
-
-            @Binds
-            BindContracts.Presenter presenter(BindPresenter presenter);
-        }
+        @Binds
+        BindContracts.Presenter presenter(final BindPresenter presenter);
     }
 
     @Module
     class ServiceModule {
 
         @Provides
-        RxManager rxManager() {
-            return RxManager.newBuilder()
+        public RxDecorator rxDecorator() {
+            return RxDecorator.newBuilder()
                     .subscribeOn(Schedulers::io)
                     .observeOn(AndroidSchedulers::mainThread)
                     .build();

@@ -3,7 +3,7 @@ package alvin.base.service.working;
 import alvin.base.service.working.presenters.WorkingPresenter;
 import alvin.base.service.working.services.WorkingService;
 import alvin.base.service.working.view.WorkingActivity;
-import alvin.lib.common.rx.RxManager;
+import alvin.lib.common.rx.RxDecorator;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -14,31 +14,26 @@ import io.reactivex.schedulers.Schedulers;
 @Module
 public interface WorkingModule {
 
-    @ContributesAndroidInjector(modules = {WorkingModule.ViewModule.class})
+    @ContributesAndroidInjector(modules = {ViewModule.class})
     WorkingActivity workingActivity();
 
-    @ContributesAndroidInjector(modules = {WorkingModule.ServiceModule.class})
+    @ContributesAndroidInjector(modules = {ServiceModule.class})
     WorkingService workingService();
 
-    @Module(includes = {ViewModule.BindModule.class})
-    class ViewModule {
+    @Module
+    interface ViewModule {
+        @Binds
+        WorkingContracts.View view(final WorkingActivity activity);
 
-        @Module
-        public interface BindModule {
-            @Binds
-            WorkingContracts.View view(WorkingActivity activity);
-
-            @Binds
-            WorkingContracts.Presenter presenter(WorkingPresenter presenter);
-        }
+        @Binds
+        WorkingContracts.Presenter presenter(final WorkingPresenter presenter);
     }
 
     @Module
     class ServiceModule {
-
         @Provides
-        RxManager rxManager() {
-            return RxManager.newBuilder()
+        public RxDecorator rxDecorator() {
+            return RxDecorator.newBuilder()
                     .subscribeOn(Schedulers::io)
                     .observeOn(AndroidSchedulers::mainThread)
                     .build();

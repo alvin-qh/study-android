@@ -6,46 +6,33 @@ import alvin.base.kotlin.common.domain.modules.Person
 import alvin.base.kotlin.common.views.PersonDialog
 import alvin.base.kotlin.common.views.PersonListAdapter
 import alvin.base.kotlin.dagger.DaggerContracts
+import alvin.lib.mvp.contracts.adapters.ActivityAdapter
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
-import android.widget.Toast
-import butterknife.ButterKnife
-import butterknife.OnClick
-import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.dbflow_activity.*
-import javax.inject.Inject
+import org.jetbrains.anko.sdk25.coroutines.onCheckedChange
+import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.toast
 
-class DaggerActivity : AppCompatActivity(), DaggerContracts.View {
+class DaggerActivity :
+        ActivityAdapter<DaggerContracts.Presenter>(),
+        DaggerContracts.View {
 
     companion object {
         val TAG = DaggerActivity::class.simpleName
     }
 
-    @Inject
-    lateinit var presenter: DaggerContracts.Presenter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dagger_activity)
 
-        ButterKnife.bind(this)
-
-        initializeListView()
-
-        rg_gender.setOnCheckedChangeListener { _, _ ->
-            presenter.reloadPersons()
-        }
-
-        AndroidInjection.inject(this)
-
-        presenter.onCreate()
+        initialize()
     }
 
-    private fun initializeListView() {
+    private fun initialize() {
         val adapter = PersonListAdapter(this, emptyList())
         rv_persons.adapter = adapter
         rv_persons.itemAnimator = DefaultItemAnimator()
@@ -56,6 +43,21 @@ class DaggerActivity : AppCompatActivity(), DaggerContracts.View {
         }
         adapter.onItemDeleteListener = { person ->
             onPersonDelete(person)
+        }
+
+        rg_gender.onCheckedChange(handler = { _, _ ->
+            presenter.loadPersons(getGender())
+        })
+
+        fab.onClick {
+            val dlg = PersonDialog.Builder(this@DaggerActivity)
+                    .create(R.string.title_form_dialog)
+
+            dlg.onConfirmClickListener = View.OnClickListener {
+                presenter.savePerson(Person(dlg.name, dlg.gender, dlg.birthday))
+                dlg.dismiss()
+            }
+            dlg.show()
         }
     }
 
@@ -79,39 +81,23 @@ class DaggerActivity : AppCompatActivity(), DaggerContracts.View {
         dlg.show()
     }
 
-    override fun onStart() {
-        super.onStart()
-        presenter.onStart()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.onDestroy()
-    }
-
-    @OnClick(R.id.fab)
-    fun onAddButtonClick() {
-        val dlg = PersonDialog.Builder(this).create(R.string.title_form_dialog)
-        dlg.onConfirmClickListener = View.OnClickListener {
-            presenter.savePerson(Person(dlg.name, dlg.gender, dlg.birthday))
-            dlg.dismiss()
-        }
-        dlg.show()
+    override fun onResume() {
+        super.onResume()
+        presenter.loadPersons(getGender())
     }
 
     override fun personCreated(person: Person) {
-        presenter.reloadPersons()
-        Toast.makeText(this, R.string.msg_person_created, Toast.LENGTH_SHORT).show()
+        presenter.loadPersons(getGender())
+        toast(R.string.msg_person_created).show()
     }
 
     override fun showPersons(persons: List<Person>?) {
         if (persons != null) {
-            val adapter = rv_persons.adapter as PersonListAdapter
-            adapter.update(persons)
+            (rv_persons.adapter as PersonListAdapter).update(persons)
         }
     }
 
-    override fun getQueryGender(): Gender? {
+    private fun getGender(): Gender? {
         return when (rg_gender.checkedRadioButtonId) {
             R.id.rb_male -> Gender.MALE
             R.id.rb_female -> Gender.FEMALE
@@ -120,19 +106,19 @@ class DaggerActivity : AppCompatActivity(), DaggerContracts.View {
     }
 
     override fun personUpdated(person: Person) {
-        Toast.makeText(this, R.string.msg_person_updated, Toast.LENGTH_SHORT).show()
-        presenter.reloadPersons()
+        toast(R.string.msg_person_updated).show()
+        presenter.loadPersons(getGender())
     }
 
     override fun personDeleted(person: Person) {
-        Toast.makeText(this, R.string.msg_person_deleted, Toast.LENGTH_SHORT).show()
-        presenter.reloadPersons()
+        toast(R.string.msg_person_deleted).show()
+        presenter.loadPersons(getGender())
     }
 
     override fun showException(error: Throwable?) {
         if (error != null) {
             Log.e(TAG, "Exception cause", error)
         }
-        Toast.makeText(this, R.string.error_exception_caused, Toast.LENGTH_LONG).show()
+        toast(R.string.error_exception_caused).show()
     }
 }

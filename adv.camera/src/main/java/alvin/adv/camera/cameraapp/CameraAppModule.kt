@@ -2,7 +2,8 @@ package alvin.adv.camera.cameraapp
 
 import alvin.adv.camera.cameraapp.presenters.CameraAppPresenter
 import alvin.adv.camera.cameraapp.views.CameraAppActivity
-import alvin.base.kotlin.lib.common.rx.RxManager
+import alvin.adv.camera.common.qualifiers.Names
+import alvin.lib.common.rx.RxDecorator
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -33,14 +34,14 @@ interface CameraAppModule {
     class ProvidesModule {
 
         @Provides
-        @Named("photo_save_file_pattern")
+        @Named(Names.FILE_PATTERN)
         fun photoSaveFilePattern(): String {
             return "yyyyMMddHHmmssSSS"
         }
 
         @Provides
-        fun rxManager(): RxManager {
-            return RxManager.newBuilder()
+        fun rxDecorator(): RxDecorator {
+            return RxDecorator.newBuilder()
                     .subscribeOn { Schedulers.io() }
                     .observeOn { AndroidSchedulers.mainThread() }
                     .build()

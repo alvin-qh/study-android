@@ -5,6 +5,7 @@ import alvin.lib.common.dbflow.converts.LocalDateConvert
 import com.raizlabs.android.dbflow.annotation.Column
 import com.raizlabs.android.dbflow.annotation.PrimaryKey
 import com.raizlabs.android.dbflow.annotation.Table
+import com.raizlabs.android.dbflow.structure.BaseModel
 import java.time.LocalDate
 
 @Table(name = "person", database = MainDatabase::class)
@@ -20,7 +21,7 @@ data class Person(
 
         @Column(name = "birthday", typeConverter = LocalDateConvert::class)
         var birthday: LocalDate? = null
-) {
+) : BaseModel() {
     constructor(
             name: String?,
             gender: Gender?,

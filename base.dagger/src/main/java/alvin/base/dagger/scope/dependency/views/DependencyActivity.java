@@ -66,15 +66,14 @@ public class DependencyActivity extends AppCompatActivity implements DependencyC
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        presenter.onStart();
+    protected void onResume() {
+        super.onResume();
+        presenter.serviceName();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         presenter.onDestroy();
     }
 

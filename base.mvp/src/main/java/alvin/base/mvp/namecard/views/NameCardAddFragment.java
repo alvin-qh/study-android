@@ -8,20 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import javax.inject.Inject;
-
 import alvin.base.mvp.R;
 import alvin.base.mvp.domain.models.NameCard;
 import alvin.base.mvp.namecard.NameCardContracts;
+import alvin.lib.mvp.contracts.adapters.FragmentAdapter;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import dagger.android.support.DaggerFragment;
 
-public class NameCardAddFragment extends DaggerFragment
+public class NameCardAddFragment
+        extends FragmentAdapter<NameCardContracts.AddPresenter>
         implements NameCardContracts.AddView {
-
-    @Inject NameCardContracts.AddPresenter presenter;
 
     private Unbinder unbinder;
 

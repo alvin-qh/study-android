@@ -1,6 +1,6 @@
 package alvin.base.service.intent;
 
-import alvin.base.service.intent.presenters.IntentPresenter;
+import alvin.base.service.intent.presenter.IntentPresenter;
 import alvin.base.service.intent.services.IntentService;
 import alvin.base.service.intent.tasks.Task;
 import alvin.base.service.intent.views.IntentActivity;
@@ -12,23 +12,19 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public interface IntentModule {
 
-    @ContributesAndroidInjector(modules = {IntentModule.ViewModule.class})
+    @ContributesAndroidInjector(modules = {ViewModule.class})
     IntentActivity intentActivity();
 
-    @ContributesAndroidInjector(modules = {IntentModule.ServiceModule.class})
+    @ContributesAndroidInjector(modules = {ServiceModule.class})
     IntentService intentService();
 
-    @Module(includes = {ViewModule.BindModule.class})
-    class ViewModule {
+    @Module
+    interface ViewModule {
+        @Binds
+        IntentContracts.View view(final IntentActivity activity);
 
-        @Module
-        public interface BindModule {
-            @Binds
-            IntentContracts.View view(IntentActivity activity);
-
-            @Binds
-            IntentContracts.Presenter presenter(IntentPresenter presenter);
-        }
+        @Binds
+        IntentContracts.Presenter presenter(final IntentPresenter presenter);
     }
 
     @Module

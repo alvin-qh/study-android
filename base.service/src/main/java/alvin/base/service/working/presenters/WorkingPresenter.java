@@ -2,25 +2,27 @@ package alvin.base.service.working.presenters;
 
 import android.support.annotation.NonNull;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.inject.Inject;
 
 import alvin.base.service.working.WorkingContracts;
-import alvin.base.service.working.services.WorkingService;
-import alvin.lib.mvp.adapters.ViewPresenterAdapter;
+import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
-public class WorkingPresenter extends ViewPresenterAdapter<WorkingContracts.View>
+public class WorkingPresenter
+        extends PresenterAdapter<WorkingContracts.View>
         implements WorkingContracts.Presenter {
 
-    private WorkingService.OnServiceCallbackListener listener = time ->
-            withView(view -> view.showTime(time));
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Inject
-    WorkingPresenter(@NonNull WorkingContracts.View view) {
+    public WorkingPresenter(@NonNull WorkingContracts.View view) {
         super(view);
     }
 
     @Override
-    public WorkingService.OnServiceCallbackListener getCallbackListener() {
-        return listener;
+    public void gotResult(LocalDateTime dateTime) {
+        with(view -> view.showResult(formatter.format(dateTime)));
     }
 }

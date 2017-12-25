@@ -19,13 +19,13 @@ import alvin.lib.common.dbflow.repositories.TransactionManager;
 public class DepartmentService {
 
     private final DepartmentRepository departmentRepository;
-    private final TransactionManager transactionManager;
+    private final TransactionManager txManager;
 
     @Inject
     public DepartmentService(@NonNull DepartmentRepository departmentRepository,
-                             @NonNull TransactionManager transactionManager) {
+                             @NonNull TransactionManager txManager) {
         this.departmentRepository = departmentRepository;
-        this.transactionManager = transactionManager;
+        this.txManager = txManager;
     }
 
     public List<Department> findAll() {
@@ -33,7 +33,7 @@ public class DepartmentService {
     }
 
     public List<Department> saveAndGet(String departmentName) {
-        try (Transaction tx = transactionManager.beginTransaction()) {
+        try (Transaction tx = txManager.begin()) {
             Department department = new Department(departmentName);
             department.save();
 
@@ -44,7 +44,7 @@ public class DepartmentService {
     }
 
     public List<Department> deleteAndGet(int departmentId) {
-        try (Transaction tx = transactionManager.beginTransaction()) {
+        try (Transaction tx = txManager.begin()) {
             Optional<Department> mayDept = departmentRepository.get(departmentId);
             mayDept.ifPresent(BaseModel::delete);
 

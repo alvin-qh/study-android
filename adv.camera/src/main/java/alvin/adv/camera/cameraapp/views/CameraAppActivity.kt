@@ -6,7 +6,7 @@ import alvin.adv.camera.cameraapp.CameraAppContracts
 import alvin.lib.common.utils.PackageManagers
 import alvin.lib.common.utils.Permissions
 import alvin.lib.common.utils.Versions
-import alvin.lib.mvp.views.AppCompatActivityView
+import alvin.lib.mvp.contracts.adapters.ActivityAdapter
 import android.Manifest
 import android.content.Intent
 import android.graphics.Bitmap
@@ -25,8 +25,9 @@ import org.jetbrains.anko.toast
 import java.io.File
 import javax.inject.Inject
 
-
-class CameraAppActivity : AppCompatActivityView<CameraAppContracts.Presenter>(), CameraAppContracts.View {
+class CameraAppActivity :
+        ActivityAdapter<CameraAppContracts.Presenter>(),
+        CameraAppContracts.View {
 
     companion object {
         val CAMERA_URI_PERMISSION = Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION

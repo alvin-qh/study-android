@@ -5,7 +5,7 @@ import alvin.adv.permission.storage.StorageContracts
 import alvin.adv.permission.storage.models.Gender
 import alvin.adv.permission.storage.models.Person
 import alvin.lib.common.utils.Permissions
-import alvin.lib.mvp.views.AppCompatActivityView
+import alvin.lib.mvp.contracts.adapters.ActivityAdapter
 import android.Manifest
 import android.os.Bundle
 import kotlinx.android.synthetic.main.storage_activty.*
@@ -13,7 +13,24 @@ import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.toast
 import java.time.LocalDate
 
-class StorageActivity : AppCompatActivityView<StorageContracts.Presenter>(), StorageContracts.View {
+/**
+ * Ask permissions.
+ *
+ * Add flowing configs in `AndroidManifest.xml` file:
+ *
+ * ```
+ *  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+ *  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+ * ```
+ *
+ * Use `Permissions` class to ask permissions
+ *
+ * @see StorageActivity.onResume
+ * @see Permissions
+ */
+class StorageActivity :
+        ActivityAdapter<StorageContracts.Presenter>(),
+        StorageContracts.View {
 
     companion object {
         const val PERMISSION_REQUEST_CODE = 1
@@ -44,6 +61,15 @@ class StorageActivity : AppCompatActivityView<StorageContracts.Presenter>(), Sto
         }
     }
 
+    /**
+     * Ask permissions when view be resumed.
+     *
+     * When permissions asked, the `onRequestPermissionsResult` method should be callback after
+     *
+     * @see StorageActivity.onRequestPermissionsResult
+     * @see Permissions.requestPermissions
+     * @see Permissions.Status
+     */
     override fun onResume() {
         super.onResume()
 
@@ -61,6 +87,11 @@ class StorageActivity : AppCompatActivityView<StorageContracts.Presenter>(), Sto
         }
     }
 
+    /**
+     * @param requestCode An int number passed when permissions were asked
+     * @param permissions Names of permissions would be asked
+     * @param grantResults Results of permissions would be asked
+     */
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_REQUEST_CODE) {

@@ -4,41 +4,40 @@ import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
 import alvin.base.dagger.basic.presenters.BasicPresenter;
-import alvin.base.dagger.common.Contract;
-import alvin.base.dagger.common.db.MessageDatabase;
+import alvin.base.dagger.common.contracts.CommonContracts;
+import alvin.base.dagger.common.domain.db.MessageDatabase;
 import alvin.lib.common.dbflow.repositories.TransactionManager;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 
 
-@Module(includes = {BasicModule.BindingModule.class})
+@Module(includes = {BasicModule.BindModule.class})
 public class BasicModule {
-    private final Contract.View view;
+    private final CommonContracts.View view;
 
-    public BasicModule(Contract.View view) {
+    public BasicModule(CommonContracts.View view) {
         this.view = view;
     }
 
     @Provides
-    Contract.View view() {
+    public CommonContracts.View view() {
         return view;
     }
 
     @Provides
-    DatabaseDefinition databaseDefinition() {
+    public DatabaseDefinition databaseDefinition() {
         return FlowManager.getDatabase(MessageDatabase.class);
     }
 
     @Provides
-    TransactionManager transactionManager(DatabaseDefinition db) {
+    public TransactionManager transactionManager(DatabaseDefinition db) {
         return new TransactionManager(db);
     }
 
     @Module
-    public interface BindingModule {
-
+    public interface BindModule {
         @Binds
-        Contract.Presenter bindsPresenter(BasicPresenter presenter);
+        CommonContracts.Presenter presenter(BasicPresenter presenter);
     }
 }

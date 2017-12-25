@@ -10,36 +10,34 @@ import alvin.base.mvp.domain.models.Department;
 import alvin.base.mvp.domain.services.DepartmentService;
 import alvin.base.mvp.domain.services.NameCardService;
 import alvin.base.mvp.namecard.NameCardContracts;
-import alvin.lib.common.rx.RxManager;
-import alvin.lib.common.rx.SingleSubscriber;
-import alvin.lib.mvp.adapters.ViewPresenterAdapter;
+import alvin.lib.common.rx.RxDecorator;
+import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 import io.reactivex.Single;
 
-public class NameCardEditPresenter extends ViewPresenterAdapter<NameCardContracts.EditView>
+public class NameCardEditPresenter
+        extends PresenterAdapter<NameCardContracts.EditView>
         implements NameCardContracts.EditPresenter {
 
     private final NameCardService nameCardService;
     private final DepartmentService departmentService;
-    private final RxManager rxManager;
+    private final RxDecorator rxDecorator;
 
     @Inject
     public NameCardEditPresenter(@NonNull NameCardContracts.EditView view,
                                  @NonNull NameCardService nameCardService,
                                  @NonNull DepartmentService departmentService,
-                                 @NonNull RxManager rxManager) {
+                                 @NonNull RxDecorator rxDecorator) {
         super(view);
         this.nameCardService = nameCardService;
         this.departmentService = departmentService;
-        this.rxManager = rxManager;
+        this.rxDecorator = rxDecorator;
     }
 
     @Override
     public void getDepartments() {
-        SingleSubscriber<List<Department>> subscriber = rxManager.with(
-                Single.create(emitter -> emitter.onSuccess(departmentService.findAll())));
-
-        subscriber.subscribe(departments ->
-                withView(editView ->
-                        editView.showDepartments(departments)));
+        rxDecorator.<List<Department>>de(
+                Single.create(emitter -> emitter.onSuccess(departmentService.findAll()))
+        ).subscribe(departments ->
+                with(editView -> editView.showDepartments(departments)));
     }
 }

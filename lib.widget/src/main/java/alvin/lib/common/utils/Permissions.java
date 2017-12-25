@@ -17,7 +17,7 @@ public class Permissions {
     private final Set<String> permissions = new HashSet<>();
 
     public Permissions(final Activity activity,
-                       final Collection<String> permissions) {
+                        final Collection<String> permissions) {
         this.activity = activity;
         this.permissions.addAll(permissions);
     }
@@ -94,7 +94,7 @@ public class Permissions {
 
     public enum Status {
         /**
-         * If some permissions are allowed
+         * If all permissions are allowed
          */
         ALLOWED,
 

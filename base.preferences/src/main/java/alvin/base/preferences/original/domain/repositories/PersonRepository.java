@@ -45,9 +45,11 @@ public class PersonRepository {
         editor.putString("gender", person.getGender().toString());
 
         LocalDate birthday = person.getBirthday();
-        editor.putInt("birthdayYear", birthday.getYear());
-        editor.putInt("birthdayMonth", birthday.getMonthValue());
-        editor.putInt("birthdayDayOfMonth", birthday.getDayOfMonth());
+        if (birthday != null) {
+            editor.putInt("birthdayYear", birthday.getYear());
+            editor.putInt("birthdayMonth", birthday.getMonthValue());
+            editor.putInt("birthdayDayOfMonth", birthday.getDayOfMonth());
+        }
 
         editor.apply();
     }

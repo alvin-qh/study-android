@@ -2,7 +2,6 @@ package alvin.base.net.http.common.views;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,18 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import alvin.base.net.R;
-import alvin.base.net.http.WeatherContract;
+import alvin.base.net.http.WeatherContracts;
 import alvin.base.net.http.common.domain.models.LiveWeather;
+import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public abstract class BaseActivity extends AppCompatActivity
-        implements WeatherContract.View {
-    
-    private static final String TAG = BaseActivity.class.getSimpleName();
+public abstract class BaseActivity
+        extends ActivityAdapter<WeatherContracts.Presenter>
+        implements WeatherContracts.View {
 
-    private WeatherContract.Presenter presenter;
+    private static final String TAG = BaseActivity.class.getSimpleName();
 
     @BindView(R.id.text_weather)
     TextView textWeather;
@@ -36,17 +35,12 @@ public abstract class BaseActivity extends AppCompatActivity
         setContentView(R.layout.http_common_activity_base);
 
         ButterKnife.bind(this);
-
-        presenter = getPresenter();
-        presenter.onCreate();
     }
 
-    protected abstract WeatherContract.Presenter getPresenter();
-
     @Override
-    protected void onStart() {
-        super.onStart();
-        presenter.onStart();
+    protected void onResume() {
+        super.onResume();
+        presenter.getLiveWeather();
     }
 
     @Override

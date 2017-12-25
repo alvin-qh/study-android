@@ -1,104 +1,83 @@
 package alvin.base.kotlin.dagger.presenters
 
+import alvin.base.kotlin.common.domain.modules.Gender
 import alvin.base.kotlin.common.domain.modules.Person
 import alvin.base.kotlin.dagger.DaggerContracts
-import alvin.base.kotlin.dagger.domain.repositories.PersonRepository
-import alvin.base.kotlin.lib.common.rx.RxManager
-import alvin.lib.mvp.adapters.ViewPresenterAdapter
+import alvin.base.kotlin.dagger.domain.services.PersonService
+import alvin.lib.common.rx.RxDecorator
+import alvin.lib.mvp.contracts.adapters.PresenterAdapter
 import io.reactivex.Single
 import javax.inject.Inject
 
 class DaggerPresenter
-@Inject constructor(view: DaggerContracts.View,
-                    private val personRepository: PersonRepository,
-                    private val rxManager: RxManager) :
-        ViewPresenterAdapter<DaggerContracts.View>(view),
+@Inject constructor(
+        view: DaggerContracts.View,
+        private val service: PersonService,
+        private val rxDecorator: RxDecorator
+) :
+        PresenterAdapter<DaggerContracts.View>(view),
         DaggerContracts.Presenter {
 
-    override fun onStart() {
-        super.onStart()
-        reloadPersons()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        rxManager.clear()
-    }
-
-    override fun reloadPersons() {
-        val subscriber = rxManager.with(
+    override fun loadPersons(gender: Gender?) {
+        rxDecorator.de(
                 Single.create<List<Person>> {
-                    withView { view ->
-                        try {
-                            it.onSuccess(personRepository.findByGender(view.getQueryGender()))
-                        } catch (e: Exception) {
-                            it.onError(e)
-                        }
+                    try {
+                        it.onSuccess(service.findByGender(gender))
+                    } catch (e: Exception) {
+                        it.onError(e)
                     }
                 }
+        ).subscribe(
+                { persons -> with { it.showPersons(persons) } },
+                { throwable -> with { it.showException(throwable) } }
         )
-
-        subscriber.subscribe({ persons ->
-            withView { view -> view.showPersons(persons) }
-        }, { throwable ->
-            withView { view -> view.showException(throwable) }
-        })
     }
 
     override fun savePerson(person: Person) {
-        val subscriber = rxManager.with(
-                Single.create<Person> { emitter ->
+        rxDecorator.de(
+                Single.create<Person> {
                     try {
-                        personRepository.create(person)
-                        emitter.onSuccess(person)
+                        service.create(person)
+                        it.onSuccess(person)
                     } catch (e: Exception) {
-                        emitter.onError(e)
+                        it.onError(e)
                     }
                 }
+        ).subscribe(
+                { p -> with { it.personCreated(p) } },
+                { throwable -> with { it.showException(throwable) } }
         )
-
-        subscriber.subscribe({ p ->
-            withView { view -> view.personCreated(p) }
-        }, { throwable ->
-            withView { view -> view.showException(throwable) }
-        })
     }
 
     override fun updatePerson(person: Person) {
-        val subscriber = rxManager.with(
-                Single.create<Person> { emitter ->
+        rxDecorator.de(
+                Single.create<Person> {
                     try {
-                        personRepository.update(person)
-                        emitter.onSuccess(person)
+                        service.update(person)
+                        it.onSuccess(person)
                     } catch (e: Exception) {
-                        emitter.onError(e)
+                        it.onError(e)
                     }
                 }
+        ).subscribe(
+                { p -> with { it.personUpdated(p) } },
+                { throwable -> with { it.showException(throwable) } }
         )
-
-        subscriber.subscribe({ p ->
-            withView { view -> view.personUpdated(p) }
-        }, { throwable ->
-            withView { view -> view.showException(throwable) }
-        })
     }
 
     override fun deletePerson(person: Person) {
-        val subscriber = rxManager.with(
-                Single.create<Person> { emitter ->
+        rxDecorator.de(
+                Single.create<Person> {
                     try {
-                        personRepository.delete(person)
-                        emitter.onSuccess(person)
+                        service.delete(person)
+                        it.onSuccess(person)
                     } catch (e: Exception) {
-                        emitter.onError(e)
+                        it.onError(e)
                     }
                 }
+        ).subscribe(
+                { p -> with { it.personDeleted(p) } },
+                { throwable -> with { it.showException(throwable) } }
         )
-
-        subscriber.subscribe({ p ->
-            withView { view -> view.personDeleted(p) }
-        }, { throwable ->
-            withView { view -> view.showException(throwable) }
-        })
     }
 }

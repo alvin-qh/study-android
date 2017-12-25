@@ -9,39 +9,31 @@ import javax.inject.Inject;
 import alvin.base.mvp.domain.models.NameCard;
 import alvin.base.mvp.domain.services.NameCardService;
 import alvin.base.mvp.main.MainContracts;
-import alvin.lib.common.rx.RxManager;
-import alvin.lib.common.rx.SingleSubscriber;
-import alvin.lib.mvp.adapters.ViewPresenterAdapter;
+import alvin.lib.common.rx.RxDecorator;
+import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 import io.reactivex.Single;
 
-public class MainPresenter extends ViewPresenterAdapter<MainContracts.View>
+public class MainPresenter
+        extends PresenterAdapter<MainContracts.View>
         implements MainContracts.Presenter {
 
     private NameCardService nameCardService;
-    private RxManager rxManager;
+    private RxDecorator rxDecorator;
 
     @Inject
     public MainPresenter(@NonNull MainContracts.View view,
                          @NonNull NameCardService nameCardService,
-                         @NonNull RxManager rxManager) {
+                         @NonNull RxDecorator rxDecorator) {
         super(view);
         this.nameCardService = nameCardService;
-        this.rxManager = rxManager;
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        rxManager.clear();
+        this.rxDecorator = rxDecorator;
     }
 
     @Override
     public void loadNameCards() {
-        SingleSubscriber<List<NameCard>> subscriber = rxManager.with(
-                Single.create(emitter -> emitter.onSuccess(nameCardService.loadAll())));
-
-        subscriber.subscribe(nameCards ->
-                withView(view ->
-                        view.nameCardsLoaded(nameCards)));
+        rxDecorator.<List<NameCard>>de(
+                Single.create(emitter -> emitter.onSuccess(nameCardService.loadAll()))
+        ).subscribe(nameCards ->
+                with(view -> view.nameCardsLoaded(nameCards)));
     }
 }

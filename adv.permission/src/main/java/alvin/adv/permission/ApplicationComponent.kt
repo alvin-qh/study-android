@@ -1,6 +1,7 @@
 package alvin.adv.permission
 
 import alvin.adv.permission.main.MainModule
+import alvin.adv.permission.remoteservice.RemoteServiceModule
 import alvin.adv.permission.storage.StorageModule
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -12,7 +13,8 @@ import javax.inject.Singleton
     AndroidSupportInjectionModule::class,
     ApplicationModule::class,
     MainModule::class,
-    StorageModule::class
+    StorageModule::class,
+    RemoteServiceModule::class
 ])
 interface ApplicationComponent : AndroidInjector<Application> {
 

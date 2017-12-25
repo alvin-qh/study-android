@@ -15,13 +15,15 @@ import android.widget.Toast;
 import java.util.List;
 
 import alvin.base.dagger.R;
-import alvin.base.dagger.common.Contract;
+import alvin.base.dagger.common.contracts.CommonContracts;
 import alvin.base.dagger.common.domain.models.Message;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public abstract class BaseActivity extends AppCompatActivity implements Contract.View {
+public abstract class BaseActivity
+        extends AppCompatActivity
+        implements CommonContracts.View {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
 
@@ -32,7 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Contract
     RecyclerView rvMessageListView;
 
     private MessageListAdapter listAdapter;
-    private Contract.Presenter presenter;
+    private CommonContracts.Presenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,15 +60,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Contract
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        presenter.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        presenter.onStop();
+    protected void onResume() {
+        super.onResume();
+        presenter.loadData();
     }
 
     @Override
@@ -86,7 +82,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Contract
         Toast.makeText(this, R.string.error_exception, Toast.LENGTH_LONG).show();
     }
 
-    protected abstract Contract.Presenter getPresenter();
+    protected abstract CommonContracts.Presenter getPresenter();
 
     protected abstract void inject();
 }

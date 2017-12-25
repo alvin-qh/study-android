@@ -2,7 +2,7 @@ package alvin.adv.camera.camera2
 
 import alvin.adv.camera.camera2.presenters.Camera2Presenter
 import alvin.adv.camera.camera2.views.Camera2Activity
-import alvin.base.kotlin.lib.common.rx.RxManager
+import alvin.lib.common.rx.RxDecorator
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -33,8 +33,8 @@ interface Camera2Module {
     class ProvidesModule {
 
         @Provides
-        fun rxManager(): RxManager {
-            return RxManager.newBuilder()
+        fun rxDecorator(): RxDecorator {
+            return RxDecorator.newBuilder()
                     .subscribeOn { Schedulers.io() }
                     .observeOn { AndroidSchedulers.mainThread() }
                     .build()

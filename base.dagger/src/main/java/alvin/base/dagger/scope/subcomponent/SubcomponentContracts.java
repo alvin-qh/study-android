@@ -10,5 +10,6 @@ public interface SubcomponentContracts {
     }
 
     interface Presenter extends IPresenter {
+        void serviceName();
     }
 }

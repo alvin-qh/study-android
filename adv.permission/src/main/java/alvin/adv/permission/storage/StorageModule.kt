@@ -2,7 +2,7 @@ package alvin.adv.permission.storage
 
 import alvin.adv.permission.storage.persenters.StoragePresenter
 import alvin.adv.permission.storage.views.StorageActivity
-import alvin.base.kotlin.lib.common.rx.RxManager
+import alvin.lib.common.rx.RxDecorator
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -28,8 +28,8 @@ interface StorageModule {
     @Module
     class ProvidersModule {
         @Provides
-        fun rxManager(): RxManager {
-            return RxManager.newBuilder()
+        fun rxDecorator(): RxDecorator {
+            return RxDecorator.newBuilder()
                     .subscribeOn { Schedulers.io() }
                     .observeOn { AndroidSchedulers.mainThread() }
                     .build()

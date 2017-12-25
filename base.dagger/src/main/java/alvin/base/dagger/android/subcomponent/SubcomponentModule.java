@@ -7,32 +7,26 @@ import javax.inject.Named;
 import alvin.base.dagger.android.qualifiers.Names;
 import alvin.base.dagger.android.subcomponent.presenters.SubcomponentPresenter;
 import alvin.base.dagger.android.subcomponent.views.SubcomponentActivity;
-import alvin.base.dagger.common.Contract;
+import alvin.base.dagger.common.contracts.CommonContracts;
 import dagger.Binds;
 import dagger.Module;
 import dagger.android.ActivityKey;
 import dagger.android.AndroidInjector;
 import dagger.multibindings.IntoMap;
 
-@Module(subcomponents = {SubcomponentComponent.class},
-        includes = {SubcomponentModule.BindingModule.class})
+@Module(subcomponents = {SubcomponentComponent.class})
 public interface SubcomponentModule {
+    @Binds
+    @IntoMap
+    @ActivityKey(SubcomponentActivity.class)
+    AndroidInjector.Factory<? extends Activity> injectFactory(
+            SubcomponentComponent.Builder builder);
 
-    @Module
-    abstract class BindingModule {
+    @Binds
+    @Named(Names.SUBCOMPONENT)
+    CommonContracts.Presenter presenter(SubcomponentPresenter presenter);
 
-        @Binds
-        @IntoMap
-        @ActivityKey(SubcomponentActivity.class)
-        abstract AndroidInjector.Factory<? extends Activity> bindAndroidSubcomponentActivity(
-                SubcomponentComponent.Builder builder);
-
-        @Binds
-        @Named(Names.SUBCOMPONENT)
-        abstract Contract.Presenter bindPresenter(SubcomponentPresenter presenter);
-
-        @Binds
-        @Named(Names.SUBCOMPONENT)
-        abstract Contract.View bindView(SubcomponentActivity activity);
-    }
+    @Binds
+    @Named(Names.SUBCOMPONENT)
+    CommonContracts.View view(SubcomponentActivity activity);
 }

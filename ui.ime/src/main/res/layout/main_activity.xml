@@ -9,7 +9,7 @@
     android:paddingEnd="10dp"
     android:paddingStart="10dp"
     android:paddingTop="10dp"
-    tools:context=".main.views.MainActivity">
+    tools:context=".main.views.MainActivityAdapter">
 
     <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/ll_input"

@@ -2,31 +2,41 @@ package alvin.base.kotlin.dagger
 
 import alvin.base.kotlin.dagger.presenters.DaggerPresenter
 import alvin.base.kotlin.dagger.views.DaggerActivity
-import alvin.base.kotlin.lib.common.rx.RxManager
+import alvin.lib.common.rx.RxDecorator
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.android.ContributesAndroidInjector
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-@Module(includes = arrayOf(DaggerModule.BindModule::class))
-class DaggerModule {
+@Module
+interface DaggerModule {
 
-    @Provides
-    fun rxManager(): RxManager {
-        return RxManager.newBuilder()
-                .subscribeOn { Schedulers.io() }
-                .observeOn { AndroidSchedulers.mainThread() }
-                .build()
-    }
+    @ContributesAndroidInjector(modules = [
+        ViewModule::class,
+        ProvidersModule::class
+    ])
+    fun daggerActivity(): DaggerActivity
 
     @Module
-    interface BindModule {
-
+    interface ViewModule {
         @Binds
         fun view(view: DaggerActivity): DaggerContracts.View
 
         @Binds
         fun presenter(presenter: DaggerPresenter): DaggerContracts.Presenter
+    }
+
+    @Module
+    class ProvidersModule {
+
+        @Provides
+        fun rxDecorator(): RxDecorator {
+            return RxDecorator.newBuilder()
+                    .subscribeOn { Schedulers.io() }
+                    .observeOn { AndroidSchedulers.mainThread() }
+                    .build()
+        }
     }
 }

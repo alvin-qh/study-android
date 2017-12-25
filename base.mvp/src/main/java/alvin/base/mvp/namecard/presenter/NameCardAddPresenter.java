@@ -6,21 +6,22 @@ import javax.inject.Inject;
 
 import alvin.base.mvp.domain.services.NameCardService;
 import alvin.base.mvp.namecard.NameCardContracts;
-import alvin.lib.common.rx.RxManager;
-import alvin.lib.mvp.adapters.ViewPresenterAdapter;
+import alvin.lib.common.rx.RxDecorator;
+import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
-public class NameCardAddPresenter extends ViewPresenterAdapter<NameCardContracts.AddView>
+public class NameCardAddPresenter
+        extends PresenterAdapter<NameCardContracts.AddView>
         implements NameCardContracts.AddPresenter {
 
     private final NameCardService nameCardService;
-    private final RxManager rxManager;
+    private final RxDecorator rxDecorator;
 
     @Inject
     public NameCardAddPresenter(@NonNull NameCardContracts.AddView view,
                                 @NonNull NameCardService nameCardService,
-                                @NonNull RxManager rxManager) {
+                                @NonNull RxDecorator rxDecorator) {
         super(view);
         this.nameCardService = nameCardService;
-        this.rxManager = rxManager;
+        this.rxDecorator = rxDecorator;
     }
 }

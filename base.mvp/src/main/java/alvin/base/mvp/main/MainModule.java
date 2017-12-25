@@ -2,7 +2,7 @@ package alvin.base.mvp.main;
 
 import alvin.base.mvp.main.presenter.MainPresenter;
 import alvin.base.mvp.main.views.MainActivity;
-import alvin.lib.common.rx.RxManager;
+import alvin.lib.common.rx.RxDecorator;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -33,8 +33,8 @@ public interface MainModule {
     class ProviderModule {
 
         @Provides
-        RxManager rxManager() {
-            return RxManager.newBuilder()
+        RxDecorator rxDecorator() {
+            return RxDecorator.newBuilder()
                     .subscribeOn(Schedulers::io)
                     .observeOn(AndroidSchedulers::mainThread)
                     .build();

@@ -1,11 +1,10 @@
 package alvin.ui.ime.main
 
 import alvin.lib.mvp.contracts.IPresenter
-import alvin.lib.mvp.contracts.IView
 
 interface MainContracts {
 
-    interface View : IView {
+    interface IView : alvin.lib.mvp.contracts.IView {
         fun showInput(text: String)
         fun hideInputMethod()
     }

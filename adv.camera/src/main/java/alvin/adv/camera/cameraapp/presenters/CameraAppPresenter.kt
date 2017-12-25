@@ -1,9 +1,10 @@
 package alvin.adv.camera.cameraapp.presenters
 
 import alvin.adv.camera.cameraapp.CameraAppContracts
-import alvin.base.kotlin.lib.common.rx.RxManager
+import alvin.adv.camera.common.qualifiers.Names
+import alvin.lib.common.rx.RxDecorator
 import alvin.lib.common.utils.Storages
-import alvin.lib.mvp.adapters.ViewPresenterAdapter
+import alvin.lib.mvp.contracts.adapters.PresenterAdapter
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -18,10 +19,12 @@ import javax.inject.Named
 class CameraAppPresenter
 @Inject constructor(
         view: CameraAppContracts.View,
-        @Named("photo_save_file_pattern") private val photoSaveFilePattern: String,
+        @Named(Names.FILE_PATTERN) private val photoSaveFilePattern: String,
         private val storages: Storages,
-        private val rxManager: RxManager
-) : ViewPresenterAdapter<CameraAppContracts.View>(view), CameraAppContracts.Presenter {
+        private val rxDecorator: RxDecorator
+) :
+        PresenterAdapter<CameraAppContracts.View>(view),
+        CameraAppContracts.Presenter {
 
     companion object {
         val TAG = CameraAppPresenter::class.simpleName
@@ -46,10 +49,10 @@ class CameraAppPresenter
         val filename = "$name$PHOTO_EXT"
         try {
             val photoFile = storages.createImageCaptureFile(PHOTO_DIR, filename)
-            withView { it.startCameraActivity(photoFile) }
+            with { it.startCameraActivity(photoFile) }
         } catch (e: Exception) {
             Log.e(TAG, "Cannot create photo file", e)
-            withView { it.showCannotCreatePhotoFileError() }
+            with { it.showCannotCreatePhotoFileError() }
         }
     }
 
@@ -71,26 +74,19 @@ class CameraAppPresenter
      * @see alvin.adv.camera.cameraapp.views.CameraAppActivity.showDecodeBitmapError
      */
     override fun decodeImage(data: Intent?, photoFile: File?) {
-        val subscriber = rxManager.with(
-                Single.create<Bitmap> {
-                    try {
-                        if (data != null && data.hasExtra(CAMERA_RESULT_DATA_NAME)) {
-                            it.onSuccess(data.getParcelableExtra(CAMERA_RESULT_DATA_NAME))
-                        } else if (photoFile != null) {
-                            it.onSuccess(BitmapFactory.decodeFile(photoFile.absolutePath))
-                        } else {
-                            throw IllegalArgumentException("Invalid image")
-                        }
-                    } catch (e: Exception) {
-                        it.onError(e)
-                    }
-                }
-        )
-        subscriber.subscribe(
-                { bitmap -> withView { it.showBitmap(bitmap) } },
+        rxDecorator.de<Bitmap>(Single.create {
+            if (data != null && data.hasExtra(CAMERA_RESULT_DATA_NAME)) {
+                it.onSuccess(data.getParcelableExtra(CAMERA_RESULT_DATA_NAME))
+            } else if (photoFile != null) {
+                it.onSuccess(BitmapFactory.decodeFile(photoFile.absolutePath))
+            } else {
+                throw IllegalArgumentException("Invalid image")
+            }
+        }).subscribe(
+                { bitmap -> with { it.showBitmap(bitmap) } },
                 { throwable ->
                     Log.e(TAG, "Error when decode bitmap", throwable)
-                    withView { it.showDecodeBitmapError() }
+                    with { it.showDecodeBitmapError() }
                 }
         )
     }

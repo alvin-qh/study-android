@@ -9,21 +9,18 @@ import android.view.ViewGroup;
 
 import com.google.common.base.Preconditions;
 
-import javax.inject.Inject;
-
 import alvin.base.mvp.R;
 import alvin.base.mvp.domain.models.NameCard;
 import alvin.base.mvp.namecard.NameCardContracts;
+import alvin.lib.mvp.contracts.adapters.FragmentAdapter;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import dagger.android.support.DaggerFragment;
 
-public class NameCardDisplayFragment extends DaggerFragment
+public class NameCardDisplayFragment
+        extends FragmentAdapter<NameCardContracts.DisplayPresenter>
         implements NameCardContracts.DisplayView {
 
     private static final String ARGUMENT_NAME_CARD = "name_card";
-
-    @Inject NameCardContracts.DisplayPresenter presenter;
 
     private Unbinder unbinder;
     private NameCard nameCard;
@@ -37,14 +34,6 @@ public class NameCardDisplayFragment extends DaggerFragment
             nameCard = arguments.getParcelable(ARGUMENT_NAME_CARD);
         }
         Preconditions.checkNotNull(nameCard, "nameCard != null");
-
-        presenter.onCreate();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy();
     }
 
     @Nullable

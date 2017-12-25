@@ -1,4 +1,4 @@
 package alvin.lib.mvp.contracts;
 
-public interface IService {
+public interface IService extends Target {
 }

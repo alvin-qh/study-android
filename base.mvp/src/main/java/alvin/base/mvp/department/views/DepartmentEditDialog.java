@@ -13,7 +13,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,16 +28,17 @@ import alvin.base.mvp.R;
 import alvin.base.mvp.department.DepartmentContracts;
 import alvin.base.mvp.domain.models.Department;
 import alvin.lib.common.utils.SystemServices;
+import alvin.lib.mvp.contracts.adapters.DialogFragmentAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import dagger.android.support.DaggerAppCompatDialogFragment;
 
-public class DepartmentEditDialog extends DaggerAppCompatDialogFragment
+public class DepartmentEditDialog
+        extends DialogFragmentAdapter<DepartmentContracts.Presenter>
         implements DepartmentContracts.View {
 
-    @Inject DepartmentContracts.Presenter presenter;
     @Inject SystemServices systemServices;
 
     @BindView(R.id.et_department_name) TextView tvDepartmentName;
@@ -53,7 +53,7 @@ public class DepartmentEditDialog extends DaggerAppCompatDialogFragment
         return new AppCompatDialog(getContext(), getTheme()) {
             @Override
             public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
-                final View focusView = getCurrentFocus();
+                final android.view.View focusView = getCurrentFocus();
                 if (focusView != null && canInputHidden(focusView, ev)) {
                     systemServices.getInputMethodManager()
                             .hideSoftInputFromWindow(focusView.getWindowToken(), 0);
@@ -61,7 +61,7 @@ public class DepartmentEditDialog extends DaggerAppCompatDialogFragment
                 return super.dispatchTouchEvent(ev);
             }
 
-            private boolean canInputHidden(View focusView, MotionEvent ev) {
+            private boolean canInputHidden(android.view.View focusView, MotionEvent ev) {
                 if (focusView instanceof EditText) {
                     final int[] locations = {0, 0};
                     focusView.getLocationInWindow(locations);
@@ -90,7 +90,6 @@ public class DepartmentEditDialog extends DaggerAppCompatDialogFragment
             listAdapter.setDeleteDepartmentListener(departmentId ->
                     presenter.deleteDepartment(departmentId));
         }
-        presenter.onCreate();
     }
 
     @Override
@@ -101,10 +100,10 @@ public class DepartmentEditDialog extends DaggerAppCompatDialogFragment
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.department_fragment_edit, container);
+    public android.view.View onCreateView(@NonNull LayoutInflater inflater,
+                                          @Nullable ViewGroup container,
+                                          @Nullable Bundle savedInstanceState) {
+        final android.view.View view = inflater.inflate(R.layout.department_fragment_edit, container);
         unbinder = ButterKnife.bind(this, view);
 
         rvDepartmentList.setAdapter(listAdapter);
@@ -118,11 +117,9 @@ public class DepartmentEditDialog extends DaggerAppCompatDialogFragment
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
         if (unbinder != null) {
             unbinder.unbind();
         }
-        presenter.onDestroy();
     }
 
     @Override

@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import alvin.base.dagger.R;
-import alvin.base.dagger.common.Contract;
+import alvin.base.dagger.common.contracts.CommonContracts;
 import alvin.base.dagger.common.domain.models.Message;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,12 +22,12 @@ import butterknife.ButterKnife;
 public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
-    private final Contract.Presenter presenter;
+    private final CommonContracts.Presenter presenter;
 
     private List<Message> messages = Collections.emptyList();
 
     MessageListAdapter(@NonNull Context context,
-                       @NonNull Contract.Presenter presenter) {
+                       @NonNull CommonContracts.Presenter presenter) {
         this.inflater = LayoutInflater.from(context);
         this.presenter = presenter;
     }

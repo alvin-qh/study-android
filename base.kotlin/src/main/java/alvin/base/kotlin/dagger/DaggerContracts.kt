@@ -5,10 +5,9 @@ import alvin.base.kotlin.common.domain.modules.Person
 import alvin.lib.mvp.contracts.IPresenter
 import alvin.lib.mvp.contracts.IView
 
-interface DaggerContracts {
+object DaggerContracts {
 
     interface View : IView {
-        fun getQueryGender(): Gender?
         fun showPersons(persons: List<Person>?)
         fun personCreated(person: Person)
         fun personUpdated(person: Person)
@@ -17,7 +16,7 @@ interface DaggerContracts {
     }
 
     interface Presenter : IPresenter {
-        fun reloadPersons()
+        fun loadPersons(gender: Gender?)
         fun deletePerson(person: Person)
         fun updatePerson(person: Person)
         fun savePerson(person: Person)

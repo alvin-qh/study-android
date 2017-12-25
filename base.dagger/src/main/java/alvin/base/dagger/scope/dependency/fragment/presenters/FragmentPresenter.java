@@ -8,9 +8,10 @@ import alvin.base.dagger.scope.dependency.fragment.FragmentContracts;
 import alvin.base.dagger.scope.domain.service.ActivityScopeService;
 import alvin.base.dagger.scope.domain.service.FragmentScopeService;
 import alvin.base.dagger.utils.ObjectNames;
-import alvin.lib.mvp.adapters.ViewPresenterAdapter;
+import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
-public class FragmentPresenter extends ViewPresenterAdapter<FragmentContracts.View>
+public class FragmentPresenter
+        extends PresenterAdapter<FragmentContracts.View>
         implements FragmentContracts.Presenter {
 
     private final ActivityScopeService activityScopeService;
@@ -26,10 +27,8 @@ public class FragmentPresenter extends ViewPresenterAdapter<FragmentContracts.Vi
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-        withView(view -> view.showActivityScopeService(ObjectNames.simpleName(activityScopeService)));
-        withView(view -> view.showFragmentScopeService(ObjectNames.simpleName(fragmentScopeService)));
+    public void serviceName() {
+        with(view -> view.showActivityScopeService(ObjectNames.simpleName(activityScopeService)));
+        with(view -> view.showFragmentScopeService(ObjectNames.simpleName(fragmentScopeService)));
     }
 }

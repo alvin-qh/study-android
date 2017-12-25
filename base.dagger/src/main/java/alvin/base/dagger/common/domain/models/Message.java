@@ -7,7 +7,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.time.LocalDateTime;
 
-import alvin.base.dagger.common.db.MessageDatabase;
+import alvin.base.dagger.common.domain.db.MessageDatabase;
 import alvin.lib.common.dbflow.converts.LocalDateTimeConvert;
 import alvin.lib.mvp.contracts.IModel;
 

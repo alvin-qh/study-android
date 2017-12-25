@@ -18,25 +18,22 @@ import com.google.common.base.Preconditions;
 import java.util.Collections;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import alvin.base.mvp.R;
 import alvin.base.mvp.domain.models.Department;
 import alvin.base.mvp.domain.models.NameCard;
 import alvin.base.mvp.namecard.NameCardContracts;
 import alvin.lib.common.collect.Collections2;
+import alvin.lib.mvp.contracts.adapters.DialogFragmentAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import dagger.android.support.DaggerAppCompatDialogFragment;
 
-public class NameCardEditDialog extends DaggerAppCompatDialogFragment
+public class NameCardEditDialog
+        extends DialogFragmentAdapter<NameCardContracts.EditPresenter>
         implements NameCardContracts.EditView {
 
     private static final String ARGUMENT_NAME_CARD = "name_card";
-
-    @Inject NameCardContracts.EditPresenter presenter;
 
     private Unbinder unbinder;
     private NameCard nameCard;
@@ -57,14 +54,6 @@ public class NameCardEditDialog extends DaggerAppCompatDialogFragment
             nameCard = arguments.getParcelable(ARGUMENT_NAME_CARD);
         }
         Preconditions.checkNotNull(nameCard, "nameCard != null");
-
-        presenter.onCreate();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy();
     }
 
     @Nullable

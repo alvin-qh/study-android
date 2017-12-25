@@ -6,8 +6,10 @@ import alvin.base.dagger.scope.dependency.fragment.views.DependencyFragment;
 import dagger.Component;
 
 @Scopes.Fragment
-@Component(dependencies = {DependencyComponent.class},
-        modules = {FragmentModule.class})
+@Component(
+        dependencies = {DependencyComponent.class},
+        modules = {FragmentModule.class}
+)
 public interface FragmentComponent {
 
     void inject(DependencyFragment fragment);

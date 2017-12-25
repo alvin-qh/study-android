@@ -9,29 +9,24 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.common.base.Strings;
 
-import java.io.File;
-
 import alvin.base.net.R;
-import alvin.base.net.remote.image.ImageContract;
-import alvin.base.net.remote.image.presenters.ImagePresenter;
+import alvin.base.net.remote.image.ImageContracts;
+import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ImageActivity extends AppCompatActivity implements ImageContract.View {
+public class ImageActivity
+        extends ActivityAdapter<ImageContracts.Presenter>
+        implements ImageContracts.View {
     private static final String KEY_IMAGE_SRC = "key_image_src";
-    private static final String CACHE_DIR_NAME = "images";
-
-    private ImageContract.Presenter presenter;
 
     @BindView(R.id.container)
     ViewPager container;
@@ -47,13 +42,12 @@ public class ImageActivity extends AppCompatActivity implements ImageContract.Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.remote_image_activity);
 
-        final File imageCacheDir = new File(getExternalCacheDir(), CACHE_DIR_NAME);
-        presenter = new ImagePresenter(this, imageCacheDir);
-
-        presenter.onCreate();
-
         ButterKnife.bind(this);
 
+        initialize();
+    }
+
+    private void initialize() {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
         container.setAdapter(adapter);
 
@@ -67,34 +61,22 @@ public class ImageActivity extends AppCompatActivity implements ImageContract.Vi
 
     protected void onImagePageSelected(int position) {
         if (position > 0) {
-            fabStart.setVisibility(View.VISIBLE);
+            fabStart.setVisibility(android.view.View.VISIBLE);
         } else {
-            fabStart.setVisibility(View.GONE);
+            fabStart.setVisibility(android.view.View.GONE);
         }
 
         if (position < presenter.getImageCount() - 1) {
-            fabEnd.setVisibility(View.VISIBLE);
+            fabEnd.setVisibility(android.view.View.VISIBLE);
         } else {
-            fabEnd.setVisibility(View.GONE);
+            fabEnd.setVisibility(android.view.View.GONE);
         }
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        presenter.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        presenter.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy();
+    protected void onResume() {
+        super.onResume();
+        presenter.loadImageUrls();
     }
 
     @Override
@@ -154,10 +136,10 @@ public class ImageActivity extends AppCompatActivity implements ImageContract.Vi
 
         @Nullable
         @Override
-        public View onCreateView(@NonNull LayoutInflater inflater,
-                                 @Nullable ViewGroup container,
-                                 @Nullable Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.remote_image_fragment_slide_view, container, false);
+        public android.view.View onCreateView(@NonNull LayoutInflater inflater,
+                                              @Nullable ViewGroup container,
+                                              @Nullable Bundle savedInstanceState) {
+            android.view.View view = inflater.inflate(R.layout.remote_image_fragment_slide_view, container, false);
             ButterKnife.bind(this, view);
 
             final Bundle bundle = getArguments();

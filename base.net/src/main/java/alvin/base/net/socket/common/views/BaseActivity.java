@@ -3,7 +3,6 @@ package alvin.base.net.socket.common.views;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,23 +14,23 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import alvin.base.net.R;
-import alvin.base.net.socket.SocketContract;
+import alvin.base.net.socket.SocketContracts;
+import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public abstract class BaseActivity extends AppCompatActivity implements SocketContract.View {
+public abstract class BaseActivity
+        extends ActivityAdapter<SocketContracts.Presenter>
+        implements SocketContracts.View {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
 
     public static final int ONE_SECOND = 1000;
-    @BindView(R.id.text_time)
-    TextView textTime;
 
-    private SocketContract.Presenter presenter;
+    @BindView(R.id.text_time) TextView textTime;
+
     private Timer timer;
-
-    protected abstract SocketContract.Presenter getPresenter();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,29 +38,21 @@ public abstract class BaseActivity extends AppCompatActivity implements SocketCo
         setContentView(R.layout.socket_common_activity_base);
 
         ButterKnife.bind(this);
-
-        presenter = getPresenter();
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        presenter.onStart();
+    protected void onResume() {
+        super.onResume();
+        presenter.connect();
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         if (timer != null) {
             timer.cancel();
         }
-        presenter.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy();
+        presenter.disconnect();
     }
 
     @Override
@@ -69,22 +60,22 @@ public abstract class BaseActivity extends AppCompatActivity implements SocketCo
         if (timer != null) {
             timer.cancel();
         }
-        Toast.makeText(this, R.string.error_socket_connect, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.error_socket_connect, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showRemoteDatetime(@NonNull LocalDateTime time) {
+    public void showRemoteDatetime(@NonNull final LocalDateTime time) {
         textTime.setText(time.format(DateTimeFormatter.ISO_DATE_TIME));
     }
 
     @Override
-    public void showException(@NonNull Throwable error) {
+    public void showException(@NonNull final Throwable error) {
         Log.e(TAG, "Exception caused", error);
 
         if (timer != null) {
             timer.cancel();
         }
-        Toast.makeText(this, R.string.error_socket_load_data, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.error_socket_load_data, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -108,6 +99,6 @@ public abstract class BaseActivity extends AppCompatActivity implements SocketCo
 
     @Override
     public void disconnected() {
-        Toast.makeText(this, R.string.string_network_disconnected, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.string_network_disconnected, Toast.LENGTH_SHORT).show();
     }
 }

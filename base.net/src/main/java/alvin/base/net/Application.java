@@ -7,17 +7,18 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.multidex.MultiDexApplication;
 import android.widget.Toast;
 
 import java.io.IOException;
 
-import alvin.lib.common.utils.ApplicationConfig;
 import alvin.base.net.status.network.NetworkCallback;
 import alvin.base.net.status.receivers.NetStatusBroadcastReceiver;
+import alvin.lib.common.utils.ApplicationConfig;
 import alvin.lib.common.utils.Applications;
+import dagger.android.AndroidInjector;
+import dagger.android.support.DaggerApplication;
 
-public class Application extends MultiDexApplication {
+public class Application extends DaggerApplication {
 
     @Override
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -47,7 +48,6 @@ public class Application extends MultiDexApplication {
             Toast.makeText(this, R.string.error_cannot_load_config_file, Toast.LENGTH_LONG).show();
             System.exit(-1);
         }
-
         Applications.startStethoIfDebugging(this);
     }
 
@@ -59,5 +59,10 @@ public class Application extends MultiDexApplication {
             IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
             this.registerReceiver(new NetStatusBroadcastReceiver(), filter);
         }
+    }
+
+    @Override
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+        return DaggerApplicationComponent.builder().create(this);
     }
 }

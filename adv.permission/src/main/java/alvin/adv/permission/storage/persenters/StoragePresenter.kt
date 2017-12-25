@@ -2,9 +2,9 @@ package alvin.adv.permission.storage.persenters
 
 import alvin.adv.permission.storage.StorageContracts
 import alvin.adv.permission.storage.models.Person
-import alvin.base.kotlin.lib.common.rx.RxManager
+import alvin.lib.common.rx.RxDecorator
 import alvin.lib.common.utils.Storages
-import alvin.lib.mvp.adapters.ViewPresenterAdapter
+import alvin.lib.mvp.contracts.adapters.PresenterAdapter
 import android.util.Log
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.reactivex.Completable
@@ -15,17 +15,19 @@ import javax.inject.Inject
 class StoragePresenter
 @Inject constructor(
         view: StorageContracts.View,
-        private val rxManager: RxManager,
+        private val rxDecorator: RxDecorator,
         private val storages: Storages,
         private val objectMapper: ObjectMapper
-) : ViewPresenterAdapter<StorageContracts.View>(view), StorageContracts.Presenter {
+) :
+        PresenterAdapter<StorageContracts.View>(view),
+        StorageContracts.Presenter {
 
     companion object {
         val TAG = StoragePresenter::class.simpleName
     }
 
     override fun savePerson(person: Person) {
-        rxManager.with(Completable.create {
+        rxDecorator.de(Completable.create {
             val json = objectMapper.writeValueAsString(person)
             val file = storages.createExternalStorageFile("persons", "person.data")
 
@@ -33,16 +35,18 @@ class StoragePresenter
                 it.write(json.toByteArray())
             }
             it.onComplete()
-        }).subscribe({
-            withView { it.saveComplete() }
-        }, { throwable ->
-            Log.e(TAG, "Write file failed", throwable)
-            withView { it.saveFailed() }
-        })
+
+        }).subscribe(
+                { with { it.saveComplete() } },
+                { throwable ->
+                    Log.e(TAG, "Write file failed", throwable)
+                    with { it.saveFailed() }
+                }
+        )
     }
 
     override fun loadPerson() {
-        rxManager.with(Single.create<Person> {
+        rxDecorator.de<Person>(Single.create {
             val file = storages.createExternalStorageFile("persons", "person.data")
 
             val buffer = StringBuilder()
@@ -63,15 +67,10 @@ class StoragePresenter
                 }
             }
         }).subscribe({ person ->
-            withView { it.showPerson(person) }
+            with { it.showPerson(person) }
         }, { throwable ->
             Log.e(TAG, "Read file failed", throwable)
-            withView { it.loadFailed() }
+            with { it.loadFailed() }
         })
-    }
-
-    override fun onDestroy() {
-        rxManager.clear()
-        super.onDestroy()
     }
 }

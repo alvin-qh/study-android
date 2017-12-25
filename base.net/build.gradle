@@ -10,8 +10,10 @@ dependencies {
     implementation libs.main.butterKnife
     implementation libs.main.jackson
     implementation libs.main.okhttp
+    implementation libs.main.dagger
     implementation libs.main.rx
     implementation libs.main.netty
 
     annotationProcessor libs.annotation.butterKnife
+    annotationProcessor libs.annotation.dagger
 }

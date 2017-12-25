@@ -11,45 +11,35 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.function.Consumer;
-
-import javax.inject.Inject;
 
 import alvin.base.service.R;
 import alvin.base.service.bind.BindContracts;
 import alvin.base.service.bind.services.BindService;
+import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.support.DaggerAppCompatActivity;
 
-public class BindActivity extends DaggerAppCompatActivity implements BindContracts.View {
-
-    @Inject BindContracts.Presenter presenter;
+public class BindActivity
+        extends ActivityAdapter<BindContracts.Presenter>
+        implements BindContracts.View {
 
     @BindView(R.id.btn_bind_service) Button btnBindService;
     @BindView(R.id.btn_unbind_service) Button btnUnbindService;
     @BindView(R.id.tv_time) TextView tvTime;
 
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private final Consumer<LocalDateTime> callback = dateTime -> presenter.gotResult(dateTime);
 
     private ServiceConnection connection;
+    private BindService.ServiceBinder binder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.bind_activity);
 
         ButterKnife.bind(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        presenter.onDestroy();
     }
 
     @OnClick(R.id.btn_bind_service)
@@ -67,9 +57,8 @@ public class BindActivity extends DaggerAppCompatActivity implements BindContrac
                  */
                 @Override
                 public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-                    if (iBinder instanceof BindContracts.ServiceBinder) {
-                        presenter.serviceBind((BindContracts.ServiceBinder) iBinder);
-                    }
+                    binder = (BindService.ServiceBinder) iBinder;
+                    binder.addTimeCallback(callback);
                 }
 
                 /**
@@ -77,7 +66,7 @@ public class BindActivity extends DaggerAppCompatActivity implements BindContrac
                  */
                 @Override
                 public void onServiceDisconnected(ComponentName componentName) {
-                    presenter.serviceUnbind();
+                    disconnect();
                 }
             };
 
@@ -89,18 +78,26 @@ public class BindActivity extends DaggerAppCompatActivity implements BindContrac
         }
     }
 
-    @OnClick(R.id.btn_unbind_service)
-    public void onUnbindButtonClick(Button b) {
+    private void disconnect() {
+        if (binder != null) {
+            binder.removeTimeCallback(callback);
+            binder = null;
+        }
         if (connection != null) {
             unbindService(connection);
-            presenter.serviceUnbind();
+            connection = null;
         }
+    }
+
+    @OnClick(R.id.btn_unbind_service)
+    public void onUnbindButtonClick(Button b) {
+        disconnect();
         btnBindService.setEnabled(true);
         btnUnbindService.setEnabled(false);
     }
 
     @Override
-    public void showTime(LocalDateTime time) {
-        tvTime.setText(time.format(formatter));
+    public void showResult(String result) {
+        tvTime.setText(result);
     }
 }

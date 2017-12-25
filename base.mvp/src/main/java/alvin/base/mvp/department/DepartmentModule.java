@@ -2,7 +2,7 @@ package alvin.base.mvp.department;
 
 import alvin.base.mvp.department.presenters.DepartmentPresenter;
 import alvin.base.mvp.department.views.DepartmentEditDialog;
-import alvin.lib.common.rx.RxManager;
+import alvin.lib.common.rx.RxDecorator;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -31,8 +31,8 @@ public interface DepartmentModule {
     class ProvidesModule {
 
         @Provides
-        RxManager rxManager() {
-            return RxManager.newBuilder()
+        RxDecorator rxDecorator() {
+            return RxDecorator.newBuilder()
                     .subscribeOn(Schedulers::io)
                     .observeOn(AndroidSchedulers::mainThread)
                     .build();

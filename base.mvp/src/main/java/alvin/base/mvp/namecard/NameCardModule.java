@@ -6,7 +6,7 @@ import alvin.base.mvp.namecard.presenter.NameCardEditPresenter;
 import alvin.base.mvp.namecard.views.NameCardAddFragment;
 import alvin.base.mvp.namecard.views.NameCardDisplayFragment;
 import alvin.base.mvp.namecard.views.NameCardEditDialog;
-import alvin.lib.common.rx.RxManager;
+import alvin.lib.common.rx.RxDecorator;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -60,8 +60,8 @@ public interface NameCardModule {
     @Module
     class ProviderModule {
         @Provides
-        RxManager rxManager() {
-            return RxManager.newBuilder()
+        RxDecorator rxDecorator() {
+            return RxDecorator.newBuilder()
                     .subscribeOn(Schedulers::io)
                     .observeOn(AndroidSchedulers::mainThread)
                     .build();

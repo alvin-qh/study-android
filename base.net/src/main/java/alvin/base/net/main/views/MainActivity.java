@@ -3,7 +3,6 @@ package alvin.base.net.main.views;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import alvin.base.net.R;
@@ -13,8 +12,9 @@ import alvin.base.net.socket.views.SocketActivity;
 import alvin.base.net.status.views.StatusActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends DaggerAppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

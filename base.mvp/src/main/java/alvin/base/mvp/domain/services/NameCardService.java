@@ -16,13 +16,13 @@ import alvin.lib.common.dbflow.repositories.TransactionManager;
 public class NameCardService {
 
     private final NameCardRepository nameCardRepository;
-    private final TransactionManager transactionManager;
+    private final TransactionManager txManager;
 
     @Inject
     public NameCardService(@NonNull NameCardRepository nameCardRepository,
-                           @NonNull TransactionManager transactionManager) {
+                           @NonNull TransactionManager txManager) {
         this.nameCardRepository = nameCardRepository;
-        this.transactionManager = transactionManager;
+        this.txManager = txManager;
     }
 
     public List<NameCard> loadAll() {

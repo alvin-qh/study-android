@@ -13,10 +13,10 @@ import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
-import alvin.base.service.remote.aidls.IOnJobStatusChangeListener;
-import alvin.base.service.remote.aidls.IRemoteBinder;
-import alvin.base.service.remote.aidls.models.Job;
-import alvin.base.service.remote.aidls.models.JobResponse;
+import alvin.base.service.remote.IOnJobStatusChangeListener;
+import alvin.base.service.remote.IRemoteBinder;
+import alvin.base.service.remote.models.Job;
+import alvin.base.service.remote.models.JobResponse;
 import alvin.base.service.remote.tasks.Task;
 import dagger.android.DaggerService;
 

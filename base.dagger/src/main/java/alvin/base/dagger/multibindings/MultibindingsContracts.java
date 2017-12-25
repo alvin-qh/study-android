@@ -5,15 +5,16 @@ import java.util.Map;
 import java.util.Set;
 
 import alvin.lib.mvp.contracts.IPresenter;
-import alvin.lib.mvp.contracts.IView;
 
 public interface MultibindingsContracts {
 
-    interface View extends IView {
+    interface IView extends alvin.lib.mvp.contracts.IView {
         void showNameSet(Set<String> nameSet);
 
         void showBirthdayMap(Map<String, LocalDate> birthdayMap);
     }
 
-    interface Presenter extends IPresenter { }
+    interface Presenter extends IPresenter {
+        void loadData();
+    }
 }

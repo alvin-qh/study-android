@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -13,6 +14,8 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.google.common.base.Strings;
 
 import javax.inject.Inject;
 
@@ -31,12 +34,29 @@ public class LifecycleActivity extends DaggerAppCompatActivity
 
     private static final String TAG = LifecycleActivity.class.getSimpleName();
 
+    private final BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if (!Strings.isNullOrEmpty(action)) {
+                switch (action) {
+                case ServiceBroadcasts.ACTION_SERVICE_CREATED:
+                    serviceCreated();
+                    break;
+                case ServiceBroadcasts.ACTION_SERVICE_DESTROYED:
+                    serviceDestroyed();
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+    };
+
     @Inject LifecycleContracts.Presenter presenter;
 
     @BindView(R.id.rg_service_status) RadioGroup rgServiceStatus;
     @BindView(R.id.tv_service_start_count) TextView tvStartCount;
-
-    private BroadcastReceiver receiver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,36 +67,20 @@ public class LifecycleActivity extends DaggerAppCompatActivity
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onResume() {
+        super.onResume();
 
-        presenter.onDestroy();
+        final IntentFilter filter = IntentFilters.newBuilder()
+                .addAction(ServiceBroadcasts.ACTION_SERVICE_CREATED)
+                .addAction(ServiceBroadcasts.ACTION_SERVICE_DESTROYED)
+                .build();
+        registerReceiver(receiver, filter);
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-        if (receiver == null) {
-            receiver = presenter.getReceiver();
-            registerReceiver(receiver,
-                    IntentFilters.newBuilder()
-                            .addAction(ServiceBroadcasts.ACTION_SERVICE_CREATED)
-                            .addAction(ServiceBroadcasts.ACTION_SERVICE_DESTROYED)
-                            .build());
-        }
-        presenter.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        if (receiver != null) {
-            unregisterReceiver(receiver);
-            receiver = null;
-        }
-        presenter.onStop();
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(receiver);
     }
 
     @OnClick(R.id.btn_start_service)
@@ -85,8 +89,8 @@ public class LifecycleActivity extends DaggerAppCompatActivity
                 .putExtra(LifecycleService.EXTRA_ARGUMENTS_MODE, Service.START_REDELIVER_INTENT);
 
         // Start the service and pass the arguments from intent object.
-        // Service can be start many times, but Service#onCreate method only be called one time,
-        // and Service#onStartCommand method should be called many times.
+        // IService can be start many times, but IService#onCreate method only be called one time,
+        // and IService#onStartCommand method should be called many times.
         // Started service can be stoped by Context#stopService.
         startService(intent);
 
@@ -124,7 +128,7 @@ public class LifecycleActivity extends DaggerAppCompatActivity
 
         final Intent intent = new Intent(this, LifecycleService.class);
 
-        // Bind service, the Service#onBind method will be called one time, and Reference Counter
+        // Bind service, the IService#onBind method will be called one time, and Reference Counter
         // should be increase
         bindService(intent, conn, Context.BIND_AUTO_CREATE);
 
@@ -133,21 +137,13 @@ public class LifecycleActivity extends DaggerAppCompatActivity
 
     @OnClick(R.id.btn_unbind_service)
     public void onUnbindButtonClick(Button b) {
-        ServiceConnection conn = presenter.unbindService();
-
-        if (conn != null) {
-            // Unbind service, the Service#onUnbind method will be called one time, and Reference Counter
-            // should be decrease
-            unbindService(conn);
-        }
+        presenter.serviceUnbound();
     }
 
-    @Override
     public void serviceDestroyed() {
         rgServiceStatus.check(R.id.rb_destroyed);
     }
 
-    @Override
     public void serviceCreated() {
         rgServiceStatus.check(R.id.rb_created);
     }

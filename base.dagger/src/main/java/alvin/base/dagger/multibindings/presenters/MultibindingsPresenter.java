@@ -11,19 +11,18 @@ import javax.inject.Inject;
 import alvin.base.dagger.common.qualifiers.BirthdayMap;
 import alvin.base.dagger.common.qualifiers.NameSet;
 import alvin.base.dagger.multibindings.MultibindingsContracts;
-import alvin.lib.mvp.adapters.ViewPresenterAdapter;
+import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
 
 public class MultibindingsPresenter
-        extends ViewPresenterAdapter<MultibindingsContracts.View>
+        extends PresenterAdapter<MultibindingsContracts.IView>
         implements MultibindingsContracts.Presenter {
 
     private final Set<String> nameSet;
-
-    private Map<String, LocalDate> birthdayMap;
+    private final Map<String, LocalDate> birthdayMap;
 
     @Inject
-    public MultibindingsPresenter(@NonNull MultibindingsContracts.View view,
+    public MultibindingsPresenter(@NonNull MultibindingsContracts.IView view,
                                   @NameSet Set<String> nameSet,
                                   @BirthdayMap Map<String, LocalDate> birthdayMap) {
         super(view);
@@ -32,10 +31,8 @@ public class MultibindingsPresenter
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-
-        withView(view -> view.showNameSet(nameSet));
-        withView(view -> view.showBirthdayMap(birthdayMap));
+    public void loadData() {
+        with(view -> view.showNameSet(nameSet));
+        with(view -> view.showBirthdayMap(birthdayMap));
     }
 }

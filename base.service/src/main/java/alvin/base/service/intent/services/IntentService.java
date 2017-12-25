@@ -17,11 +17,10 @@ import dagger.android.DaggerIntentService;
 public class IntentService extends DaggerIntentService {
     public static final String EXTRA_ARG_NAME = "name";
 
-    private static Set<OnJobStatusChangeListener> listeners = new HashSet<>();
-
-    private Handler handler;
-
     @Inject Task task;
+
+    private static Set<OnJobStatusChangeListener> listeners = new HashSet<>();
+    private Handler handler;
 
     public IntentService() {
         super(IntentService.class.getSimpleName());
@@ -31,9 +30,8 @@ public class IntentService extends DaggerIntentService {
     public void onCreate() {
         super.onCreate();
 
-        sendBroadcast(new Intent(ServiceBroadcasts.ACTION_SERVICE_CREATED));
-
         handler = new Handler(getMainLooper());
+        sendBroadcast(new Intent(ServiceBroadcasts.ACTION_SERVICE_CREATED));
     }
 
     @Override

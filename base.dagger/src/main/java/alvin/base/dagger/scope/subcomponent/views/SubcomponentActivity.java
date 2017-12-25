@@ -19,7 +19,9 @@ import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SubcomponentActivity extends AppCompatActivity implements SubcomponentContracts.View {
+public class SubcomponentActivity
+        extends AppCompatActivity
+        implements SubcomponentContracts.View {
 
     @BindView(R.id.tv_activity_scope)
     TextView tvSingletonService;
@@ -53,7 +55,6 @@ public class SubcomponentActivity extends AppCompatActivity implements Subcompon
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         presenter.onDestroy();
     }
 
@@ -73,9 +74,9 @@ public class SubcomponentActivity extends AppCompatActivity implements Subcompon
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        presenter.onStart();
+    protected void onResume() {
+        super.onResume();
+        presenter.serviceName();
     }
 
     public SubcomponentComponent component() {

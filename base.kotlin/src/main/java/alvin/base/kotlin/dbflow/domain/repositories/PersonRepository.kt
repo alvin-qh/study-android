@@ -1,37 +1,12 @@
 package alvin.base.kotlin.dbflow.domain.repositories
 
-import alvin.base.kotlin.common.domain.db.MainDatabase
 import alvin.base.kotlin.common.domain.modules.Gender
 import alvin.base.kotlin.common.domain.modules.Person
 import alvin.base.kotlin.common.domain.modules.Person_Table
-import com.raizlabs.android.dbflow.config.DatabaseDefinition
-import com.raizlabs.android.dbflow.config.FlowManager
-import com.raizlabs.android.dbflow.kotlinextensions.delete
-import com.raizlabs.android.dbflow.kotlinextensions.save
-import com.raizlabs.android.dbflow.kotlinextensions.update
 import com.raizlabs.android.dbflow.sql.language.SQLite
 import java.util.*
 
-class PersonRepository(
-        private val database: DatabaseDefinition = FlowManager.getDatabase(MainDatabase::class.java)
-) {
-    fun create(p: Person) {
-        database.executeTransaction {
-            p.save()
-        }
-    }
-
-    fun update(p: Person) {
-        database.executeTransaction {
-            p.update()
-        }
-    }
-
-    fun delete(p: Person) {
-        database.executeTransaction {
-            p.delete()
-        }
-    }
+class PersonRepository {
 
     fun findById(id: Int): Optional<Person> {
         val p = SQLite.select().from(Person::class.java)

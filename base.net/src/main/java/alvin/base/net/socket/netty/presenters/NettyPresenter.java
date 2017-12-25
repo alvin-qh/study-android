@@ -9,43 +9,43 @@ import com.google.common.base.Strings;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import alvin.base.net.socket.SocketContract;
+import javax.inject.Inject;
+
+import alvin.base.net.socket.SocketContracts;
 import alvin.base.net.socket.common.models.Command;
 import alvin.base.net.socket.common.models.CommandAck;
 import alvin.base.net.socket.netty.net.ChannelContext;
 import alvin.base.net.socket.netty.net.SocketNetty;
 import alvin.base.net.socket.netty.net.SocketNetworkException;
-import alvin.lib.mvp.adapters.ViewPresenterAdapter;
+import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
 
-public class NettyPresenter extends ViewPresenterAdapter<SocketContract.View>
-        implements SocketContract.Presenter, SocketNetty.OnNetworkFutureListener {
+public class NettyPresenter
+        extends PresenterAdapter<SocketContracts.View>
+        implements SocketContracts.Presenter, SocketNetty.OnNetworkFutureListener {
 
     private SocketNetty socket;
     private Handler mainThreadHandler;
 
-    public NettyPresenter(@NonNull SocketContract.View view) {
+    @Inject
+    public NettyPresenter(@NonNull SocketContracts.View view) {
         super(view);
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void connect() {
         this.mainThreadHandler = new Handler(Looper.getMainLooper());
         this.socket = new SocketNetty(this);
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void disconnect() {
         mainThreadHandler.removeCallbacksAndMessages(null);
-        disconnect();
+        if (socket != null) {
+            socket.disconnect();
+        }
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     public void readRemoteDatetime() {
@@ -55,20 +55,13 @@ public class NettyPresenter extends ViewPresenterAdapter<SocketContract.View>
     }
 
     @Override
-    public void disconnect() {
-        if (socket != null) {
-            socket.disconnect();
-        }
-    }
-
-    @Override
     public void onConnected(ChannelContext context) {
-        withView(SocketContract.View::connectReady);
+        with(SocketContracts.View::connectReady);
     }
 
     @Override
     public void onDisconnected(ChannelContext context) {
-        withView(SocketContract.View::disconnected);
+        mainThreadHandler.post(() -> with(SocketContracts.View::disconnected));
     }
 
     @Override
@@ -78,7 +71,7 @@ public class NettyPresenter extends ViewPresenterAdapter<SocketContract.View>
             case "time-ack":
                 if (!Strings.isNullOrEmpty(ack.getValue())) {
                     LocalDateTime time = LocalDateTime.from(DateTimeFormatter.ISO_DATE_TIME.parse(ack.getValue()));
-                    withView(view -> view.showRemoteDatetime(time));
+                    with(view -> view.showRemoteDatetime(time));
                 }
                 break;
             case "bye-ack":
@@ -97,7 +90,7 @@ public class NettyPresenter extends ViewPresenterAdapter<SocketContract.View>
 
     @Override
     public void onError(final ChannelContext context, final Throwable t) {
-        mainThreadHandler.post(() -> withView(view -> {
+        mainThreadHandler.post(() -> with(view -> {
             if (t instanceof SocketNetworkException) {
                 switch (((SocketNetworkException) t).getErrorStatus()) {
                 case CONNECT:

@@ -10,5 +10,6 @@ public interface DependencyContracts {
     }
 
     interface Presenter extends IPresenter {
+        void serviceName();
     }
 }

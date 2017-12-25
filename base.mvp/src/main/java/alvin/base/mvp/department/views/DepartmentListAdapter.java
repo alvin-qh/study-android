@@ -17,7 +17,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DepartmentListAdapter extends RecyclerView.Adapter<DepartmentListAdapter.ViewHolder> {
+public class DepartmentListAdapter
+        extends RecyclerView.Adapter<DepartmentListAdapter.ViewHolder> {
 
     private LayoutInflater inflater;
     private List<Department> departments;

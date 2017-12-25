@@ -11,25 +11,21 @@ import android.view.MenuItem;
 import java.util.Collections;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import alvin.base.mvp.R;
 import alvin.base.mvp.department.views.DepartmentEditDialog;
 import alvin.base.mvp.domain.models.NameCard;
 import alvin.base.mvp.main.MainContracts;
+import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.support.DaggerAppCompatActivity;
 
-public class MainActivity extends DaggerAppCompatActivity
+public class MainActivity
+        extends ActivityAdapter<MainContracts.Presenter>
         implements MainContracts.View {
 
     private static final int PAGE_LIMIT = 3;
 
-    @Inject MainContracts.Presenter presenter;
-
     @BindView(R.id.toolbar) Toolbar toolbar;
-
     @BindView(R.id.vp_name_cards) ViewPager vpNameCards;
 
     private ViewPagerAdapter viewPagerAdapter;
@@ -44,8 +40,6 @@ public class MainActivity extends DaggerAppCompatActivity
         setSupportActionBar(toolbar);
 
         initViewPager();
-
-        presenter.onCreate();
     }
 
     private void initViewPager() {
@@ -57,24 +51,9 @@ public class MainActivity extends DaggerAppCompatActivity
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        presenter.onDestroy();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
+    protected void onResume() {
+        super.onResume();
         presenter.loadNameCards();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        presenter.onStop();
     }
 
     @Override

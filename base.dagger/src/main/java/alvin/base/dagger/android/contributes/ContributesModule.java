@@ -5,21 +5,26 @@ import javax.inject.Named;
 import alvin.base.dagger.android.contributes.presenters.ContributesPresenter;
 import alvin.base.dagger.android.contributes.views.ContributesActivity;
 import alvin.base.dagger.android.qualifiers.Names;
-import alvin.base.dagger.common.Contract;
+import alvin.base.dagger.common.contracts.CommonContracts;
 import dagger.Binds;
 import dagger.Module;
+import dagger.android.ContributesAndroidInjector;
 
-@Module(includes = {ContributesModule.BindingModule.class})
-public class ContributesModule {
+@Module
+public interface ContributesModule {
+
+    // @SomeScopes
+    @ContributesAndroidInjector(modules = {ViewModule.class})
+    ContributesActivity contributesActivity();
 
     @Module
-    public interface BindingModule {
+    interface ViewModule {
         @Binds
         @Named(Names.CONTRIBUTES)
-        Contract.Presenter bindPresenter(ContributesPresenter presenter);
+        CommonContracts.Presenter bindPresenter(ContributesPresenter presenter);
 
         @Binds
         @Named(Names.CONTRIBUTES)
-        Contract.View bindView(ContributesActivity activity);
+        CommonContracts.View bindView(ContributesActivity activity);
     }
 }

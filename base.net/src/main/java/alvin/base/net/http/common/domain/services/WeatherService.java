@@ -36,8 +36,8 @@ public class WeatherService {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
-    public @NonNull
-    LiveWeather liveWeather() throws IOException, WeatherException {
+    @NonNull
+    public LiveWeather liveWeather() throws IOException, WeatherException {
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(TIMEOUT_SECOND, TimeUnit.SECONDS)
                 .readTimeout(TIMEOUT_SECOND, TimeUnit.SECONDS)
@@ -74,11 +74,12 @@ public class WeatherService {
         if (!isStatusOk(node)) {
             throw new WeatherException("Get live weather failed");
         }
+
         return objectMapper.treeToValue(node, LiveWeather.class);
     }
 
-    private @NonNull
-    JsonNode fetchResult(@NonNull JsonNode node) {
+    @NonNull
+    private JsonNode fetchResult(@NonNull JsonNode node) {
         return node.get(config.getVersion()).get(0);
     }
 

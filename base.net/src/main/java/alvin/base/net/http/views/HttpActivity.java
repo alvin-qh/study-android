@@ -2,7 +2,6 @@ package alvin.base.net.http.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import alvin.base.net.R;
@@ -10,8 +9,9 @@ import alvin.base.net.http.rx.views.RxActivity;
 import alvin.base.net.http.task.views.TaskActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class HttpActivity extends AppCompatActivity {
+public class HttpActivity extends DaggerAppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

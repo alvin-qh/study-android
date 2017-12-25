@@ -23,7 +23,7 @@ public interface ForegroundModule {
         public interface BindModule {
 
             @Binds
-            ForegroundContracts.View view(ForegroundActivity activity);
+            ForegroundContracts.IView view(ForegroundActivity activity);
 
             @Binds
             ForegroundContracts.Presenter presenter(ForegroundPresenter presenter);

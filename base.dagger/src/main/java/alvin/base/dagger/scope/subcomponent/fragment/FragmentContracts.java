@@ -12,5 +12,6 @@ public interface FragmentContracts {
     }
 
     interface Presenter extends IPresenter {
+        void serviceName();
     }
 }

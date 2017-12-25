@@ -3,11 +3,10 @@ package alvin.base.service.foreground;
 import android.content.BroadcastReceiver;
 
 import alvin.lib.mvp.contracts.IPresenter;
-import alvin.lib.mvp.contracts.IView;
 
 public interface ForegroundContracts {
 
-    interface View extends IView {
+    interface IView extends alvin.lib.mvp.contracts.IView {
 
         void serviceCreated();
 

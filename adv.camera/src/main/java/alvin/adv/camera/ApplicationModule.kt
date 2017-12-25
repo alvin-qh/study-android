@@ -6,7 +6,6 @@ import alvin.lib.common.utils.SystemServices
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
