@@ -8,7 +8,7 @@ buildscript {
                 multidex        : '1.0.2',
 //              retrolambda     : '3.7.0',
                 sdk             : '27.0.2',
-                buildTool       : '27.0.3',
+                buildTool       : '28.0.0-rc1',
                 constraintLayout: '1.0.2',
                 butterKnife     : '8.8.1',
                 guava           : '23.3-android',
