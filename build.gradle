@@ -4,7 +4,6 @@ apply from: 'depends.gradle'
 buildscript {
     ext {
         versions = [
-                gradleTool      : '3.0.1',
                 multidex        : '1.0.2',
 //              retrolambda     : '3.7.0',
                 sdk             : '27.0.2',
@@ -60,7 +59,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:${versions.gradleTool}"
+        classpath "com.android.tools.build:gradle:3.1.2"
 //      classpath "me.tatarka:gradle-retrolambda:${versions.retrolambda}" // Plugin support by java 8, Enable if SDK version < 24
 
         classpath "com.jakewharton:butterknife-gradle-plugin:${versions.butterKnife}"
