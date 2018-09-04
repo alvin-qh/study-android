@@ -1,0 +1,68 @@
+apply plugin: 'kotlin-kapt'
+
+android {
+    defaultConfig {
+        applicationId "alvin.adv.ndk"
+        flavorDimensions "versionCode"
+
+        ndk {
+            moduleName = "ndk_demo"
+        }
+
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+                arguments "-DANDROID_ARM_NEON=TRUE",
+                        "-DANDROID_CPP_FEATURES=rtti exceptions",
+                        "-DANDROID_STL=c++_static"
+            }
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['../distribution/gperf/lib']
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+    productFlavors {
+        armv7 {
+            ndk {
+                abiFilter "armeabi-v7a"
+            }
+        }
+        armv8 {
+            ndk {
+                abiFilter "arm64-v8a"
+            }
+        }
+        x86 {
+            ndk {
+                abiFilter "x86"
+            }
+        }
+        x86_64 {
+            ndk {
+                abiFilter "x86_64"
+            }
+        }
+        all
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    androidTestImplementation libs.test.android
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'externalNativeBuildRelease') {
+        task.dependsOn ":gen-libs:externalNativeBuildRelease"
+    } else if (task.name == 'externalNativeBuildDebug') {
+        task.dependsOn ":gen-libs:externalNativeBuildDebug"
+    }
+}
