@@ -1,4 +1,6 @@
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation libs.main.dbflow
     implementation libs.main.dagger
 }

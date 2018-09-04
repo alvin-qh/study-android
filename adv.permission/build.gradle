@@ -7,6 +7,8 @@ android {
 }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation libs.main.rx
     implementation libs.main.dagger
     implementation libs.main.jackson
