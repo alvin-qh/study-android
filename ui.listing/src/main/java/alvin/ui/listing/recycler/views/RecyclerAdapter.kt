@@ -14,9 +14,9 @@ class RecyclerAdapter
 constructor(context: Context) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     companion object {
-        val HEADER = 1
-        val ITEM = 2
-        val FOOTER = 3
+        const val HEADER = 1
+        const val ITEM = 2
+        const val FOOTER = 3
     }
 
     private val inflater = LayoutInflater.from(context)
@@ -55,7 +55,7 @@ constructor(context: Context) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return when (viewType) {
             HEADER -> ViewHeaderHolder(inflater.inflate(R.layout.list_view_header, parent, false))
             FOOTER -> ViewFooterHolder(inflater.inflate(R.layout.list_view_footer, parent, false))

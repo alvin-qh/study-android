@@ -14,7 +14,8 @@ class ListActivity : DaggerAppCompatActivity() {
 
     private lateinit var adapter: ListAdapter
 
-    @field:[Inject Named(DomainModule.NAME_DATA_LIST)] lateinit var fileItems: List<FileItem>
+    @field:[Inject Named(DomainModule.NAME_DATA_LIST)]
+    lateinit var fileItems: List<FileItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +27,10 @@ class ListActivity : DaggerAppCompatActivity() {
     private fun createListView() {
         val inflater = LayoutInflater.from(this)
 
-        val viewHeader = inflater.inflate(R.layout.list_view_header, list_view, false)
+        val viewHeader = inflater.inflate(R.layout.list_view_header, list_view)
         list_view.addHeaderView(viewHeader)
 
-        val viewFooter = inflater.inflate(R.layout.list_view_footer, list_view, false)
+        val viewFooter = inflater.inflate(R.layout.list_view_footer, list_view)
         list_view.addFooterView(viewFooter)
 
         adapter = ListAdapter(this)
