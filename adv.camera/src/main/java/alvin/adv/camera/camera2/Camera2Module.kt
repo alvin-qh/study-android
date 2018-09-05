@@ -2,13 +2,9 @@ package alvin.adv.camera.camera2
 
 import alvin.adv.camera.camera2.presenters.Camera2Presenter
 import alvin.adv.camera.camera2.views.Camera2Activity
-import alvin.lib.common.rx.RxDecorator
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.android.ContributesAndroidInjector
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 @Module
 interface Camera2Module {
