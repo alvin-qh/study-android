@@ -1,8 +1,8 @@
 package alvin.adv.camera.cameraapp.presenters
 
 import alvin.adv.camera.cameraapp.CameraAppContracts
-import alvin.adv.camera.common.qualifiers.Names
 import alvin.lib.common.rx.RxDecorator
+import alvin.lib.common.rx.RxType
 import alvin.lib.common.utils.Storages
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter
 import android.content.Intent
@@ -14,14 +14,12 @@ import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
-import javax.inject.Named
 
 class CameraAppPresenter
 @Inject constructor(
         view: CameraAppContracts.View,
-        @Named(Names.FILE_PATTERN) private val photoSaveFilePattern: String,
         private val storages: Storages,
-        private val rxDecorator: RxDecorator
+        @RxType.IO private val rxDecoratorBuilder: RxDecorator.Builder
 ) :
         PresenterAdapter<CameraAppContracts.View>(view),
         CameraAppContracts.Presenter {
@@ -29,9 +27,11 @@ class CameraAppPresenter
     companion object {
         val TAG = CameraAppPresenter::class.simpleName
 
-        val PHOTO_DIR = "Camera"
-        val PHOTO_EXT = ".jpg"
-        val CAMERA_RESULT_DATA_NAME = "data"
+        const val PHOTO_DIR = "Camera"
+        const val PHOTO_EXT = ".jpg"
+        const val CAMERA_RESULT_DATA_NAME = "data"
+
+        const val PHOTO_SAVE_FILE_PATTERN = "yyyyMMddHHmmssSSS"
     }
 
     /**
@@ -45,7 +45,7 @@ class CameraAppPresenter
      * @see alvin.adv.camera.cameraapp.views.CameraAppActivity.showCannotCreatePhotoFileError
      */
     override fun makePhotoFileUri() {
-        val name = DateTimeFormatter.ofPattern(photoSaveFilePattern).format(LocalDateTime.now())
+        val name = DateTimeFormatter.ofPattern(PHOTO_SAVE_FILE_PATTERN).format(LocalDateTime.now())
         val filename = "$name$PHOTO_EXT"
         try {
             val photoFile = storages.createImageCaptureFile(PHOTO_DIR, filename)
@@ -74,7 +74,8 @@ class CameraAppPresenter
      * @see alvin.adv.camera.cameraapp.views.CameraAppActivity.showDecodeBitmapError
      */
     override fun decodeImage(data: Intent?, photoFile: File?) {
-        rxDecorator.de<Bitmap>(Single.create {
+        val decorator = rxDecoratorBuilder.build()
+        decorator.de<Bitmap>(Single.create {
             if (data != null && data.hasExtra(CAMERA_RESULT_DATA_NAME)) {
                 it.onSuccess(data.getParcelableExtra(CAMERA_RESULT_DATA_NAME))
             } else if (photoFile != null) {

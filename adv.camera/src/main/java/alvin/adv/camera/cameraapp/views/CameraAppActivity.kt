@@ -30,13 +30,14 @@ class CameraAppActivity :
         CameraAppContracts.View {
 
     companion object {
-        val CAMERA_URI_PERMISSION = Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
-        val CAPTURE_PHOTO_REQUEST_CODE = 1
-        val PERMISSION_REQUEST_CODE = 1
-        val PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider"
+        const val CAMERA_URI_PERMISSION = Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+        const val CAPTURE_PHOTO_REQUEST_CODE = 1
+        const val PERMISSION_REQUEST_CODE = 1
+        const val PROVIDER_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider"
     }
 
-    @Inject lateinit var packageManagers: PackageManagers
+    @Inject
+    lateinit var packageManagers: PackageManagers
 
     private var isImageCapturePackageExist = true
 
@@ -71,10 +72,10 @@ class CameraAppActivity :
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
                 // Request permissions
-                val status = permissions.requestPermissions(PERMISSION_REQUEST_CODE, {
+                val status = permissions.requestPermissions(PERMISSION_REQUEST_CODE) {
                     toast(R.string.error_permissions).show()
                     true
-                })
+                }
                 if (status == Permissions.Status.ALLOWED) {
                     presenter.makePhotoFileUri()
                 }

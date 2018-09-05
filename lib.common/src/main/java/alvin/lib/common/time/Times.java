@@ -7,6 +7,8 @@ import java.util.Date;
 
 import javax.annotation.Nonnull;
 
+import alvin.lib.common.rx.RxType;
+
 public final class Times {
 
     private Times() {

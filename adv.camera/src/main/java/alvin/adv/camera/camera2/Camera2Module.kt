@@ -30,14 +30,5 @@ interface Camera2Module {
     }
 
     @Module
-    class ProvidesModule {
-
-        @Provides
-        fun rxDecorator(): RxDecorator {
-            return RxDecorator.newBuilder()
-                    .subscribeOn { Schedulers.io() }
-                    .observeOn { AndroidSchedulers.mainThread() }
-                    .build()
-        }
-    }
+    class ProvidesModule
 }

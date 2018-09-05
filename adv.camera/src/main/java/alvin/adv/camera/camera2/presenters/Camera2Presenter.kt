@@ -5,8 +5,5 @@ import alvin.lib.mvp.contracts.adapters.PresenterAdapter
 import javax.inject.Inject
 
 class Camera2Presenter
-@Inject constructor(
-        view: Camera2Contracts.View
-) :
-        PresenterAdapter<Camera2Contracts.View>(view),
-        Camera2Contracts.Presenter
+@Inject constructor(view: Camera2Contracts.View) :
+        PresenterAdapter<Camera2Contracts.View>(view), Camera2Contracts.Presenter
