@@ -1,11 +1,11 @@
-package alvin.base.net;
+package alvin.adv.net;
 
 import javax.inject.Singleton;
 
-import alvin.base.net.http.HttpModule;
-import alvin.base.net.main.MainModule;
-import alvin.base.net.remote.RemoteModule;
-import alvin.base.net.socket.SocketModule;
+import alvin.adv.net.http.HttpModule;
+import alvin.adv.net.main.MainModule;
+import alvin.adv.net.remote.RemoteModule;
+import alvin.adv.net.socket.SocketModule;
 import dagger.Component;
 import dagger.android.AndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;

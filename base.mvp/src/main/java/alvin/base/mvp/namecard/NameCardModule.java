@@ -1,11 +1,11 @@
-package alvin.base.mvp.namecard;
+package alvin.adv.mvp.namecard;
 
-import alvin.base.mvp.namecard.presenter.NameCardAddPresenter;
-import alvin.base.mvp.namecard.presenter.NameCardDisplayPresenter;
-import alvin.base.mvp.namecard.presenter.NameCardEditPresenter;
-import alvin.base.mvp.namecard.views.NameCardAddFragment;
-import alvin.base.mvp.namecard.views.NameCardDisplayFragment;
-import alvin.base.mvp.namecard.views.NameCardEditDialog;
+import alvin.adv.mvp.namecard.presenter.NameCardAddPresenter;
+import alvin.adv.mvp.namecard.presenter.NameCardDisplayPresenter;
+import alvin.adv.mvp.namecard.presenter.NameCardEditPresenter;
+import alvin.adv.mvp.namecard.views.NameCardAddFragment;
+import alvin.adv.mvp.namecard.views.NameCardDisplayFragment;
+import alvin.adv.mvp.namecard.views.NameCardEditDialog;
 import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

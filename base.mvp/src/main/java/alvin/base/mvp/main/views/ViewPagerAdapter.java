@@ -1,4 +1,4 @@
-package alvin.base.mvp.main.views;
+package alvin.adv.mvp.main.views;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -7,9 +7,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-import alvin.base.mvp.domain.models.NameCard;
-import alvin.base.mvp.namecard.views.NameCardAddFragment;
-import alvin.base.mvp.namecard.views.NameCardDisplayFragment;
+import alvin.adv.mvp.domain.models.NameCard;
+import alvin.adv.mvp.namecard.views.NameCardAddFragment;
+import alvin.adv.mvp.namecard.views.NameCardDisplayFragment;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 

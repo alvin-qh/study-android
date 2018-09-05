@@ -1,7 +1,7 @@
-package alvin.base.mvp.main;
+package alvin.adv.mvp.main;
 
-import alvin.base.mvp.main.presenter.MainPresenter;
-import alvin.base.mvp.main.views.MainActivity;
+import alvin.adv.mvp.main.presenter.MainPresenter;
+import alvin.adv.mvp.main.views.MainActivity;
 import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

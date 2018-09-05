@@ -1,12 +1,12 @@
-package alvin.base.net.status.receivers;
+package alvin.adv.net.status.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 
-import alvin.base.net.status.handlers.NetStatusEventHandler;
-import alvin.base.net.status.network.NetworkStatus;
+import alvin.adv.net.status.handlers.NetStatusEventHandler;
+import alvin.adv.net.status.network.NetworkStatus;
 
 public class NetStatusBroadcastReceiver extends BroadcastReceiver {
 

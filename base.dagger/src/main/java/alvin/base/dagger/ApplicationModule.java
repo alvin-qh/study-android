@@ -6,17 +6,24 @@ import java.time.LocalDate;
 
 import javax.inject.Singleton;
 
-import alvin.base.dagger.common.domain.db.MessageDatabase;
-import alvin.base.dagger.common.qualifiers.BirthdayMap;
-import alvin.base.dagger.common.qualifiers.NameSet;
-import alvin.base.dagger.multibindings.StringMapKey;
+import alvin.adv.dagger.android.contributes.ContributesModule;
+import alvin.adv.dagger.android.subcomponent.SubcomponentModule;
+import alvin.adv.dagger.common.domain.db.MessageDatabase;
+import alvin.adv.dagger.common.qualifiers.BirthdayMap;
+import alvin.adv.dagger.common.qualifiers.NameSet;
+import alvin.adv.dagger.multibindings.MultibindingsModule;
+import alvin.adv.dagger.multibindings.StringMapKey;
 import alvin.lib.common.dbflow.repositories.TransactionManager;
 import dagger.Module;
 import dagger.Provides;
 import dagger.multibindings.IntoMap;
 import dagger.multibindings.IntoSet;
 
-@Module
+@Module(includes = {
+        SubcomponentModule.class,
+        ContributesModule.class,
+        MultibindingsModule.class
+})
 class ApplicationModule {
 
     @Singleton

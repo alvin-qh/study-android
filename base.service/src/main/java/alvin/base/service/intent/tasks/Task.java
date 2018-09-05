@@ -1,4 +1,4 @@
-package alvin.base.service.intent.tasks;
+package alvin.adv.service.intent.tasks;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package alvin.base.database.sqlite.domain.repositories;
+package alvin.adv.database.sqlite.domain.repositories;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import alvin.base.database.common.domain.models.Gender;
-import alvin.base.database.sqlite.domain.models.Person;
+import alvin.adv.database.common.domain.models.Gender;
+import alvin.adv.database.sqlite.domain.models.Person;
 import alvin.lib.common.time.Times;
 
 public class PersonSQLiteRepository {

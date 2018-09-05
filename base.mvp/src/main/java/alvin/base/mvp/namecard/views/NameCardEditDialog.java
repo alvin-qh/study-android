@@ -1,4 +1,4 @@
-package alvin.base.mvp.namecard.views;
+package alvin.adv.mvp.namecard.views;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,10 +18,10 @@ import com.google.common.base.Preconditions;
 import java.util.Collections;
 import java.util.List;
 
-import alvin.base.mvp.R;
-import alvin.base.mvp.domain.models.Department;
-import alvin.base.mvp.domain.models.NameCard;
-import alvin.base.mvp.namecard.NameCardContracts;
+import alvin.adv.mvp.R;
+import alvin.adv.mvp.domain.models.Department;
+import alvin.adv.mvp.domain.models.NameCard;
+import alvin.adv.mvp.namecard.NameCardContracts;
 import alvin.lib.common.collect.Collections2;
 import alvin.lib.mvp.contracts.adapters.DialogFragmentAdapter;
 import butterknife.BindView;

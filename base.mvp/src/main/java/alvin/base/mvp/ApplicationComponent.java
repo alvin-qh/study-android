@@ -1,4 +1,4 @@
-package alvin.base.mvp;
+package alvin.adv.mvp;
 
 import javax.inject.Singleton;
 

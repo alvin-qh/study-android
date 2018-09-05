@@ -1,5 +1,5 @@
-package alvin.base.net.http.task.views;
+package alvin.adv.net.http.task.views;
 
-import alvin.base.net.http.common.views.BaseActivity;
+import alvin.adv.net.http.common.views.BaseActivity;
 
 public class TaskActivity extends BaseActivity { }

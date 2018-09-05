@@ -1,4 +1,4 @@
-package alvin.base.dagger.common.qualifiers;
+package alvin.adv.dagger.common.qualifiers;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

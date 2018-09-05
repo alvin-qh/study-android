@@ -1,15 +1,15 @@
-package alvin.base.net.main.views;
+package alvin.adv.net.main.views;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Button;
 
-import alvin.base.net.R;
-import alvin.base.net.http.views.HttpActivity;
-import alvin.base.net.remote.views.RemoteActivity;
-import alvin.base.net.socket.views.SocketActivity;
-import alvin.base.net.status.views.StatusActivity;
+import alvin.adv.net.R;
+import alvin.adv.net.http.views.HttpActivity;
+import alvin.adv.net.remote.views.RemoteActivity;
+import alvin.adv.net.socket.views.SocketActivity;
+import alvin.adv.net.status.views.StatusActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dagger.android.support.DaggerAppCompatActivity;

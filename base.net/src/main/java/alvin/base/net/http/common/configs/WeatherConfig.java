@@ -1,4 +1,4 @@
-package alvin.base.net.http.common.configs;
+package alvin.adv.net.http.common.configs;
 
 
 import alvin.lib.common.utils.ApplicationConfig;

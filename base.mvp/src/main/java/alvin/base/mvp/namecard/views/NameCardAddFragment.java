@@ -1,4 +1,4 @@
-package alvin.base.mvp.namecard.views;
+package alvin.adv.mvp.namecard.views;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import alvin.base.mvp.R;
-import alvin.base.mvp.domain.models.NameCard;
-import alvin.base.mvp.namecard.NameCardContracts;
+import alvin.adv.mvp.R;
+import alvin.adv.mvp.domain.models.NameCard;
+import alvin.adv.mvp.namecard.NameCardContracts;
 import alvin.lib.mvp.contracts.adapters.FragmentAdapter;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

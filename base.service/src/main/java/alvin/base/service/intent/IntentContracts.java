@@ -1,4 +1,4 @@
-package alvin.base.service.intent;
+package alvin.adv.service.intent;
 
 import alvin.lib.mvp.contracts.IPresenter;
 import alvin.lib.mvp.contracts.IView;

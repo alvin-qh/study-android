@@ -1,4 +1,4 @@
-package alvin.base.dagger.scope.views;
+package alvin.adv.dagger.scope.views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,9 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
-import alvin.base.dagger.R;
-import alvin.base.dagger.scope.dependency.views.DependencyActivity;
-import alvin.base.dagger.scope.subcomponent.views.SubcomponentActivity;
+import alvin.adv.dagger.R;
+import alvin.adv.dagger.scope.dependency.views.DependencyActivity;
+import alvin.adv.dagger.scope.subcomponent.views.SubcomponentActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 

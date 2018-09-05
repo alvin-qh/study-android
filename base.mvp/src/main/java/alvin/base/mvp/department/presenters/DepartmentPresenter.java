@@ -1,4 +1,4 @@
-package alvin.base.mvp.department.presenters;
+package alvin.adv.mvp.department.presenters;
 
 import android.annotation.SuppressLint;
 
@@ -6,9 +6,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import alvin.base.mvp.department.DepartmentContracts;
-import alvin.base.mvp.domain.models.Department;
-import alvin.base.mvp.domain.services.DepartmentService;
+import alvin.adv.mvp.department.DepartmentContracts;
+import alvin.adv.mvp.domain.models.Department;
+import alvin.adv.mvp.domain.services.DepartmentService;
 import alvin.lib.common.rx.RxDecorator;
 import alvin.lib.common.rx.RxType;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;

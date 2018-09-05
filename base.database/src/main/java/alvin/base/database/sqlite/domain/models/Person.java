@@ -1,9 +1,9 @@
-package alvin.base.database.sqlite.domain.models;
+package alvin.adv.database.sqlite.domain.models;
 
 import java.time.LocalDate;
 
-import alvin.base.database.common.domain.models.Gender;
-import alvin.base.database.common.domain.models.IPerson;
+import alvin.adv.database.common.domain.models.Gender;
+import alvin.adv.database.common.domain.models.IPerson;
 
 public class Person implements IPerson {
     private final int id;

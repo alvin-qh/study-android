@@ -1,4 +1,4 @@
-package alvin.base.net.socket.jnative;
+package alvin.adv.net.socket.jnative;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -6,9 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 
 import javax.inject.Qualifier;
 
-import alvin.base.net.socket.SocketContracts;
-import alvin.base.net.socket.jnative.presenters.NativePresenter;
-import alvin.base.net.socket.jnative.views.NativeActivity;
+import alvin.adv.net.socket.SocketContracts;
+import alvin.adv.net.socket.jnative.presenters.NativePresenter;
+import alvin.adv.net.socket.jnative.views.NativeActivity;
 import alvin.lib.common.rx.RxDecorator;
 import alvin.lib.common.rx.RxSchedulers;
 import dagger.Binds;

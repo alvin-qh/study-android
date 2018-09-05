@@ -1,4 +1,4 @@
-package alvin.base.service.foreground;
+package alvin.adv.service.foreground;
 
 import android.content.BroadcastReceiver;
 

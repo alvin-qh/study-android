@@ -1,8 +1,8 @@
-package alvin.base.service.foreground;
+package alvin.adv.service.foreground;
 
-import alvin.base.service.foreground.presenters.ForegroundPresenter;
-import alvin.base.service.foreground.services.ForegroundService;
-import alvin.base.service.foreground.views.ForegroundActivity;
+import alvin.adv.service.foreground.presenters.ForegroundPresenter;
+import alvin.adv.service.foreground.services.ForegroundService;
+import alvin.adv.service.foreground.views.ForegroundActivity;
 import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

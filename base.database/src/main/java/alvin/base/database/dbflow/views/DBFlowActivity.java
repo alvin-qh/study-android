@@ -1,4 +1,4 @@
-package alvin.base.database.dbflow.views;
+package alvin.adv.database.dbflow.views;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
 
@@ -7,13 +7,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import alvin.base.database.R;
-import alvin.base.database.common.domain.models.Gender;
-import alvin.base.database.common.domain.models.IPerson;
-import alvin.base.database.common.views.BaseActivity;
-import alvin.base.database.dbflow.domain.FlowDatabase;
-import alvin.base.database.dbflow.domain.models.Person;
-import alvin.base.database.dbflow.domain.repositories.PersonDBFlowRepository;
+import alvin.adv.database.R;
+import alvin.adv.database.common.domain.models.Gender;
+import alvin.adv.database.common.domain.models.IPerson;
+import alvin.adv.database.common.views.BaseActivity;
+import alvin.adv.database.dbflow.domain.FlowDatabase;
+import alvin.adv.database.dbflow.domain.models.Person;
+import alvin.adv.database.dbflow.domain.repositories.PersonDBFlowRepository;
 import alvin.lib.common.dbflow.repositories.TransactionManager;
 
 

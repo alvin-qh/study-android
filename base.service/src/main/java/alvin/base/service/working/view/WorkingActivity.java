@@ -1,4 +1,4 @@
-package alvin.base.service.working.view;
+package alvin.adv.service.working.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,9 +6,9 @@ import android.support.annotation.Nullable;
 import android.widget.Button;
 import android.widget.TextView;
 
-import alvin.base.service.R;
-import alvin.base.service.working.WorkingContracts;
-import alvin.base.service.working.services.WorkingService;
+import alvin.adv.service.R;
+import alvin.adv.service.working.WorkingContracts;
+import alvin.adv.service.working.services.WorkingService;
 import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;

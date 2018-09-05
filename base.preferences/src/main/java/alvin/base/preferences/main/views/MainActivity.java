@@ -1,13 +1,13 @@
-package alvin.base.preferences.main.views;
+package alvin.adv.preferences.main.views;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
-import alvin.base.preferences.R;
-import alvin.base.preferences.original.views.OriginalActivity;
-import alvin.base.preferences.storebox.views.StoreBoxActivity;
+import alvin.adv.preferences.R;
+import alvin.adv.preferences.original.views.OriginalActivity;
+import alvin.adv.preferences.storebox.views.StoreBoxActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 

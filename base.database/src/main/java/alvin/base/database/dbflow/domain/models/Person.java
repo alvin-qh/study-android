@@ -1,4 +1,4 @@
-package alvin.base.database.dbflow.domain.models;
+package alvin.adv.database.dbflow.domain.models;
 
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
@@ -7,9 +7,9 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.time.LocalDate;
 
-import alvin.base.database.dbflow.domain.FlowDatabase;
-import alvin.base.database.common.domain.models.Gender;
-import alvin.base.database.common.domain.models.IPerson;
+import alvin.adv.database.dbflow.domain.FlowDatabase;
+import alvin.adv.database.common.domain.models.Gender;
+import alvin.adv.database.common.domain.models.IPerson;
 import alvin.lib.common.dbflow.converts.LocalDateConvert;
 
 @Table(database = FlowDatabase.class, name = "user")

@@ -1,4 +1,4 @@
-package alvin.base.mvp.main.views;
+package alvin.adv.mvp.main.views;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;

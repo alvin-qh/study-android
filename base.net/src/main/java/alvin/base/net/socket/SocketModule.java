@@ -1,8 +1,8 @@
-package alvin.base.net.socket;
+package alvin.adv.net.socket;
 
-import alvin.base.net.socket.jnative.NativeModule;
-import alvin.base.net.socket.netty.NettyModule;
-import alvin.base.net.socket.views.SocketActivity;
+import alvin.adv.net.socket.jnative.NativeModule;
+import alvin.adv.net.socket.netty.NettyModule;
+import alvin.adv.net.socket.views.SocketActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 

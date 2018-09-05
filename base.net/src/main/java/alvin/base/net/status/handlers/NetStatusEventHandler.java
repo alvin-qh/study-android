@@ -1,4 +1,4 @@
-package alvin.base.net.status.handlers;
+package alvin.adv.net.status.handlers;
 
 import android.os.Handler;
 import android.os.Message;
@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import java.util.HashSet;
 import java.util.Set;
 
-import alvin.base.net.status.network.NetworkStatus;
+import alvin.adv.net.status.network.NetworkStatus;
 
 public final class NetStatusEventHandler {
     private static final NetStatusEventHandler INSTANCE = new NetStatusEventHandler();

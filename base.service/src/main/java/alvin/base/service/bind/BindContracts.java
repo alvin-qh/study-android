@@ -1,4 +1,4 @@
-package alvin.base.service.bind;
+package alvin.adv.service.bind;
 
 import java.time.LocalDateTime;
 

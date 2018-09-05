@@ -1,4 +1,4 @@
-package alvin.base.net.status.network;
+package alvin.adv.net.status.network;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;

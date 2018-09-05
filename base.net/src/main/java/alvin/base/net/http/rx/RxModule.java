@@ -1,9 +1,9 @@
-package alvin.base.net.http.rx;
+package alvin.adv.net.http.rx;
 
-import alvin.base.net.http.WeatherContracts;
-import alvin.base.net.http.common.domain.services.WeatherService;
-import alvin.base.net.http.rx.presenters.RxPresenter;
-import alvin.base.net.http.rx.views.RxActivity;
+import alvin.adv.net.http.WeatherContracts;
+import alvin.adv.net.http.common.domain.services.WeatherService;
+import alvin.adv.net.http.rx.presenters.RxPresenter;
+import alvin.adv.net.http.rx.views.RxActivity;
 import alvin.lib.common.rx.RxDecorator;
 import dagger.Binds;
 import dagger.Module;

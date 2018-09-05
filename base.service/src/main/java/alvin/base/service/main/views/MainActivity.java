@@ -1,16 +1,16 @@
-package alvin.base.service.main.views;
+package alvin.adv.service.main.views;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-import alvin.base.service.R;
-import alvin.base.service.bind.views.BindActivity;
-import alvin.base.service.foreground.views.ForegroundActivity;
-import alvin.base.service.intent.views.IntentActivity;
-import alvin.base.service.lifecycle.views.LifecycleActivity;
-import alvin.base.service.remote.views.RemoteActivity;
-import alvin.base.service.working.view.WorkingActivity;
+import alvin.adv.service.R;
+import alvin.adv.service.bind.views.BindActivity;
+import alvin.adv.service.foreground.views.ForegroundActivity;
+import alvin.adv.service.intent.views.IntentActivity;
+import alvin.adv.service.lifecycle.views.LifecycleActivity;
+import alvin.adv.service.remote.views.RemoteActivity;
+import alvin.adv.service.working.view.WorkingActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dagger.android.support.DaggerAppCompatActivity;

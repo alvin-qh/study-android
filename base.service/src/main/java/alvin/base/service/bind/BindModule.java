@@ -1,8 +1,8 @@
-package alvin.base.service.bind;
+package alvin.adv.service.bind;
 
-import alvin.base.service.bind.persenters.BindPresenter;
-import alvin.base.service.bind.services.BindService;
-import alvin.base.service.bind.views.BindActivity;
+import alvin.adv.service.bind.persenters.BindPresenter;
+import alvin.adv.service.bind.services.BindService;
+import alvin.adv.service.bind.views.BindActivity;
 import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

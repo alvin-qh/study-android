@@ -1,4 +1,4 @@
-package alvin.base.database.common.views;
+package alvin.adv.database.common.views;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -17,8 +17,8 @@ import com.google.common.base.Strings;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import alvin.base.database.R;
-import alvin.base.database.common.domain.models.Gender;
+import alvin.adv.database.R;
+import alvin.adv.database.common.domain.models.Gender;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

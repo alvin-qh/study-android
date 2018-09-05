@@ -1,4 +1,4 @@
-package alvin.base.net;
+package alvin.adv.net;
 
 import android.content.Context;
 

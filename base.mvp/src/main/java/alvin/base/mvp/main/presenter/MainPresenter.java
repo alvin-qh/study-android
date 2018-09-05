@@ -1,4 +1,4 @@
-package alvin.base.mvp.main.presenter;
+package alvin.adv.mvp.main.presenter;
 
 import android.annotation.SuppressLint;
 
@@ -6,9 +6,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import alvin.base.mvp.domain.models.NameCard;
-import alvin.base.mvp.domain.services.NameCardService;
-import alvin.base.mvp.main.MainContracts;
+import alvin.adv.mvp.domain.models.NameCard;
+import alvin.adv.mvp.domain.services.NameCardService;
+import alvin.adv.mvp.main.MainContracts;
 import alvin.lib.common.rx.RxDecorator;
 import alvin.lib.common.rx.RxType;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;

@@ -1,4 +1,4 @@
-package alvin.base.net.socket.jnative.presenters;
+package alvin.adv.net.socket.jnative.presenters;
 
 import android.support.annotation.NonNull;
 
@@ -11,9 +11,9 @@ import java.time.format.DateTimeFormatter;
 
 import javax.inject.Inject;
 
-import alvin.base.net.socket.SocketContracts;
-import alvin.base.net.socket.common.models.CommandAck;
-import alvin.base.net.socket.jnative.net.SocketNative;
+import alvin.adv.net.socket.SocketContracts;
+import alvin.adv.net.socket.common.models.CommandAck;
+import alvin.adv.net.socket.jnative.net.SocketNative;
 import alvin.lib.common.rx.RxDecorator;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 import io.reactivex.Completable;
@@ -21,8 +21,8 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.internal.functions.Functions;
 
-import static alvin.base.net.socket.jnative.NativeModule.Receiver;
-import static alvin.base.net.socket.jnative.NativeModule.Send;
+import static alvin.adv.net.socket.jnative.NativeModule.Receiver;
+import static alvin.adv.net.socket.jnative.NativeModule.Send;
 
 
 public class NativePresenter

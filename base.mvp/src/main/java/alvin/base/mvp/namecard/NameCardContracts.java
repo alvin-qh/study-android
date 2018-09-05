@@ -1,8 +1,8 @@
-package alvin.base.mvp.namecard;
+package alvin.adv.mvp.namecard;
 
 import java.util.List;
 
-import alvin.base.mvp.domain.models.Department;
+import alvin.adv.mvp.domain.models.Department;
 import alvin.lib.mvp.contracts.IPresenter;
 import alvin.lib.mvp.contracts.IView;
 

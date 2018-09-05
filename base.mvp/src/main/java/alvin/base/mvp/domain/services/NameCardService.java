@@ -1,4 +1,4 @@
-package alvin.base.mvp.domain.services;
+package alvin.adv.mvp.domain.services;
 
 import android.support.annotation.NonNull;
 
@@ -8,8 +8,8 @@ import java.util.Optional;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import alvin.base.mvp.domain.models.NameCard;
-import alvin.base.mvp.domain.repositories.NameCardRepository;
+import alvin.adv.mvp.domain.models.NameCard;
+import alvin.adv.mvp.domain.repositories.NameCardRepository;
 import alvin.lib.common.dbflow.repositories.TransactionManager;
 
 @Singleton

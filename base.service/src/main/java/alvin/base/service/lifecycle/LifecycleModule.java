@@ -1,8 +1,8 @@
-package alvin.base.service.lifecycle;
+package alvin.adv.service.lifecycle;
 
-import alvin.base.service.lifecycle.presenters.LifecyclePresenter;
-import alvin.base.service.lifecycle.services.LifecycleService;
-import alvin.base.service.lifecycle.views.LifecycleActivity;
+import alvin.adv.service.lifecycle.presenters.LifecyclePresenter;
+import alvin.adv.service.lifecycle.services.LifecycleService;
+import alvin.adv.service.lifecycle.views.LifecycleActivity;
 import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

@@ -1,4 +1,4 @@
-package alvin.base.net.http.common.domain.services;
+package alvin.adv.net.http.common.domain.services;
 
 public class WeatherException extends Exception {
     WeatherException(String message) {

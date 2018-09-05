@@ -1,8 +1,8 @@
-package alvin.base.net.http;
+package alvin.adv.net.http;
 
 import android.support.annotation.NonNull;
 
-import alvin.base.net.http.common.domain.models.LiveWeather;
+import alvin.adv.net.http.common.domain.models.LiveWeather;
 import alvin.lib.mvp.contracts.IPresenter;
 import alvin.lib.mvp.contracts.IView;
 

@@ -1,4 +1,4 @@
-package alvin.base.net.socket.netty.net;
+package alvin.adv.net.socket.netty.net;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -14,8 +14,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
-import alvin.base.net.socket.common.models.Command;
-import alvin.base.net.socket.common.models.CommandAck;
+import alvin.adv.net.socket.common.models.Command;
+import alvin.adv.net.socket.common.models.CommandAck;
 import alvin.lib.common.exceptions.Throwables;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

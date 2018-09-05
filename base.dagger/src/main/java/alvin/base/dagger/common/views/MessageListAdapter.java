@@ -1,4 +1,4 @@
-package alvin.base.dagger.common.views;
+package alvin.adv.dagger.common.views;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,9 +13,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
-import alvin.base.dagger.R;
-import alvin.base.dagger.common.contracts.CommonContracts;
-import alvin.base.dagger.common.domain.models.Message;
+import alvin.adv.dagger.R;
+import alvin.adv.dagger.common.contracts.CommonContracts;
+import alvin.adv.dagger.common.domain.models.Message;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

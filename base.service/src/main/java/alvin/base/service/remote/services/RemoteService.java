@@ -1,4 +1,4 @@
-package alvin.base.service.remote.services;
+package alvin.adv.service.remote.services;
 
 import android.content.Intent;
 import android.os.IBinder;
@@ -13,11 +13,11 @@ import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
-import alvin.base.service.remote.IOnJobStatusChangeListener;
-import alvin.base.service.remote.IRemoteBinder;
-import alvin.base.service.remote.models.Job;
-import alvin.base.service.remote.models.JobResponse;
-import alvin.base.service.remote.tasks.Task;
+import alvin.adv.service.remote.IOnJobStatusChangeListener;
+import alvin.adv.service.remote.IRemoteBinder;
+import alvin.adv.service.remote.models.Job;
+import alvin.adv.service.remote.models.JobResponse;
+import alvin.adv.service.remote.tasks.Task;
 import dagger.android.DaggerService;
 
 /**

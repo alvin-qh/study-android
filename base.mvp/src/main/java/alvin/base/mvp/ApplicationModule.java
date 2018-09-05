@@ -1,4 +1,4 @@
-package alvin.base.mvp;
+package alvin.adv.mvp;
 
 import android.content.Context;
 
@@ -6,10 +6,10 @@ import com.raizlabs.android.dbflow.config.FlowManager;
 
 import javax.inject.Singleton;
 
-import alvin.base.mvp.department.DepartmentModule;
-import alvin.base.mvp.domain.MainDatabase;
-import alvin.base.mvp.main.MainModule;
-import alvin.base.mvp.namecard.NameCardModule;
+import alvin.adv.mvp.department.DepartmentModule;
+import alvin.adv.mvp.domain.MainDatabase;
+import alvin.adv.mvp.main.MainModule;
+import alvin.adv.mvp.namecard.NameCardModule;
 import alvin.lib.common.dbflow.repositories.TransactionManager;
 import alvin.lib.common.rx.RxDecorator;
 import alvin.lib.common.rx.RxType;

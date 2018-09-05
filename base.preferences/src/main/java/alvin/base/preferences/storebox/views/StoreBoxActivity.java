@@ -1,4 +1,4 @@
-package alvin.base.preferences.storebox.views;
+package alvin.adv.preferences.storebox.views;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -17,9 +17,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import alvin.base.preferences.R;
-import alvin.base.preferences.common.domain.models.Gender;
-import alvin.base.preferences.storebox.domain.models.Person;
+import alvin.adv.preferences.R;
+import alvin.adv.preferences.common.domain.models.Gender;
+import alvin.adv.preferences.storebox.domain.models.Person;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

@@ -1,7 +1,7 @@
-package alvin.base.net.remote;
+package alvin.adv.net.remote;
 
-import alvin.base.net.remote.image.ImageModule;
-import alvin.base.net.remote.views.RemoteActivity;
+import alvin.adv.net.remote.image.ImageModule;
+import alvin.adv.net.remote.views.RemoteActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 

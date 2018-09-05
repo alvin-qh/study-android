@@ -1,5 +1,5 @@
-package alvin.base.net.http.rx.views;
+package alvin.adv.net.http.rx.views;
 
-import alvin.base.net.http.common.views.BaseActivity;
+import alvin.adv.net.http.common.views.BaseActivity;
 
 public class RxActivity extends BaseActivity { }

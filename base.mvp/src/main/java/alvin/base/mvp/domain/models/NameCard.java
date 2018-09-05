@@ -1,4 +1,4 @@
-package alvin.base.mvp.domain.models;
+package alvin.adv.mvp.domain.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -11,7 +11,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.time.LocalDate;
 
-import alvin.base.mvp.domain.MainDatabase;
+import alvin.adv.mvp.domain.MainDatabase;
 import alvin.lib.common.dbflow.converts.LocalDateConvert;
 import alvin.lib.mvp.contracts.IModel;
 

@@ -1,10 +1,10 @@
-package alvin.base.dagger.common.contracts;
+package alvin.adv.dagger.common.contracts;
 
 import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import alvin.base.dagger.common.domain.models.Message;
+import alvin.adv.dagger.common.domain.models.Message;
 import alvin.lib.mvp.contracts.IPresenter;
 import alvin.lib.mvp.contracts.IView;
 

@@ -1,4 +1,4 @@
-package alvin.base.preferences;
+package alvin.adv.preferences;
 
 import android.support.multidex.MultiDexApplication;
 

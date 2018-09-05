@@ -1,4 +1,4 @@
-package alvin.base.net;
+package alvin.adv.net;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import alvin.base.net.status.network.NetworkCallback;
-import alvin.base.net.status.receivers.NetStatusBroadcastReceiver;
+import alvin.adv.net.status.network.NetworkCallback;
+import alvin.adv.net.status.receivers.NetStatusBroadcastReceiver;
 import alvin.lib.common.utils.ApplicationConfig;
 import alvin.lib.common.utils.Applications;
 import dagger.android.AndroidInjector;

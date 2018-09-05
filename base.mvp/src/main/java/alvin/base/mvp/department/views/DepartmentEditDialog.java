@@ -1,4 +1,4 @@
-package alvin.base.mvp.department.views;
+package alvin.adv.mvp.department.views;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -24,9 +24,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import alvin.base.mvp.R;
-import alvin.base.mvp.department.DepartmentContracts;
-import alvin.base.mvp.domain.models.Department;
+import alvin.adv.mvp.R;
+import alvin.adv.mvp.department.DepartmentContracts;
+import alvin.adv.mvp.domain.models.Department;
 import alvin.lib.common.utils.SystemServices;
 import alvin.lib.mvp.contracts.adapters.DialogFragmentAdapter;
 import butterknife.BindView;

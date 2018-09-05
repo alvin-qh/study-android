@@ -1,4 +1,4 @@
-package alvin.base.net.socket.common.models;
+package alvin.adv.net.socket.common.models;
 
 public class CommandAck {
     private String cmd;

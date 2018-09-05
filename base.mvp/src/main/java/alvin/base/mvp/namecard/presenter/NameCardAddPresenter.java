@@ -1,9 +1,9 @@
-package alvin.base.mvp.namecard.presenter;
+package alvin.adv.mvp.namecard.presenter;
 
 import javax.inject.Inject;
 
-import alvin.base.mvp.domain.services.NameCardService;
-import alvin.base.mvp.namecard.NameCardContracts;
+import alvin.adv.mvp.domain.services.NameCardService;
+import alvin.adv.mvp.namecard.NameCardContracts;
 import alvin.lib.common.rx.RxDecorator;
 import alvin.lib.common.rx.RxType;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;

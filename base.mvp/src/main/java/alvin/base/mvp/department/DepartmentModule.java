@@ -1,7 +1,7 @@
-package alvin.base.mvp.department;
+package alvin.adv.mvp.department;
 
-import alvin.base.mvp.department.presenters.DepartmentPresenter;
-import alvin.base.mvp.department.views.DepartmentEditDialog;
+import alvin.adv.mvp.department.presenters.DepartmentPresenter;
+import alvin.adv.mvp.department.views.DepartmentEditDialog;
 import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

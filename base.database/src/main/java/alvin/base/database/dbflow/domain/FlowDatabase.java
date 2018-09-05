@@ -1,4 +1,4 @@
-package alvin.base.database.dbflow.domain;
+package alvin.adv.database.dbflow.domain;
 
 import com.raizlabs.android.dbflow.annotation.Database;
 

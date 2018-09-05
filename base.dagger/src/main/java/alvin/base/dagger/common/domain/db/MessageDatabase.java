@@ -1,4 +1,4 @@
-package alvin.base.dagger.common.domain.db;
+package alvin.adv.dagger.common.domain.db;
 
 import com.raizlabs.android.dbflow.annotation.Database;
 

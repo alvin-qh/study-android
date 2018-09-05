@@ -1,12 +1,12 @@
-package alvin.base.net.http.views;
+package alvin.adv.net.http.views;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
-import alvin.base.net.R;
-import alvin.base.net.http.rx.views.RxActivity;
-import alvin.base.net.http.task.views.TaskActivity;
+import alvin.adv.net.R;
+import alvin.adv.net.http.rx.views.RxActivity;
+import alvin.adv.net.http.task.views.TaskActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dagger.android.support.DaggerAppCompatActivity;

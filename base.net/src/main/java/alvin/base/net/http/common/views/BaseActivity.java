@@ -1,4 +1,4 @@
-package alvin.base.net.http.common.views;
+package alvin.adv.net.http.common.views;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,9 +12,9 @@ import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.List;
 
-import alvin.base.net.R;
-import alvin.base.net.http.WeatherContracts;
-import alvin.base.net.http.common.domain.models.LiveWeather;
+import alvin.adv.net.R;
+import alvin.adv.net.http.WeatherContracts;
+import alvin.adv.net.http.common.domain.models.LiveWeather;
 import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;

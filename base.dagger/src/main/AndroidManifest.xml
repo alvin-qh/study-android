@@ -32,7 +32,7 @@
             android:parentActivityName=".main.views.MainActivity" />
 
         <activity
-            android:name=".scope.dependency.views.DependencyActivity"
+            android:name=".scope.views.DependencyActivity"
             android:label="@string/title_scope_dependence"
             android:parentActivityName=".scope.views.ScopeActivity" />
 

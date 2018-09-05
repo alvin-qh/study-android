@@ -1,16 +1,16 @@
-package alvin.base.database.sqlite.views;
+package alvin.adv.database.sqlite.views;
 
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
-import alvin.base.database.R;
-import alvin.base.database.common.domain.models.Gender;
-import alvin.base.database.common.domain.models.IPerson;
-import alvin.base.database.common.views.BaseActivity;
-import alvin.base.database.sqlite.domain.SQLite;
-import alvin.base.database.sqlite.domain.models.Person;
-import alvin.base.database.sqlite.domain.repositories.PersonSQLiteRepository;
+import alvin.adv.database.R;
+import alvin.adv.database.common.domain.models.Gender;
+import alvin.adv.database.common.domain.models.IPerson;
+import alvin.adv.database.common.views.BaseActivity;
+import alvin.adv.database.sqlite.domain.SQLite;
+import alvin.adv.database.sqlite.domain.models.Person;
+import alvin.adv.database.sqlite.domain.repositories.PersonSQLiteRepository;
 
 public class SQLiteActivity extends BaseActivity {
 

@@ -1,4 +1,4 @@
-package alvin.base.mvp.domain.models;
+package alvin.adv.mvp.domain.models;
 
 public enum Gender {
     MALE, FEMALE

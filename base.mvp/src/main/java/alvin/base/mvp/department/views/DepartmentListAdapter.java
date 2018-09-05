@@ -1,4 +1,4 @@
-package alvin.base.mvp.department.views;
+package alvin.adv.mvp.department.views;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import alvin.base.mvp.R;
-import alvin.base.mvp.domain.models.Department;
+import alvin.adv.mvp.R;
+import alvin.adv.mvp.domain.models.Department;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

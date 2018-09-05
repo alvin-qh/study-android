@@ -1,14 +1,14 @@
-package alvin.base.service;
+package alvin.adv.service;
 
 import javax.inject.Singleton;
 
-import alvin.base.service.bind.BindModule;
-import alvin.base.service.foreground.ForegroundModule;
-import alvin.base.service.intent.IntentModule;
-import alvin.base.service.lifecycle.LifecycleModule;
-import alvin.base.service.main.MainModule;
-import alvin.base.service.remote.RemoteModule;
-import alvin.base.service.working.WorkingModule;
+import alvin.adv.service.bind.BindModule;
+import alvin.adv.service.foreground.ForegroundModule;
+import alvin.adv.service.intent.IntentModule;
+import alvin.adv.service.lifecycle.LifecycleModule;
+import alvin.adv.service.main.MainModule;
+import alvin.adv.service.remote.RemoteModule;
+import alvin.adv.service.working.WorkingModule;
 import dagger.Component;
 import dagger.android.AndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;

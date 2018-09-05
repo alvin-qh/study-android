@@ -1,4 +1,4 @@
-package alvin.base.net.status.views;
+package alvin.adv.net.status.views;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import alvin.base.net.R;
-import alvin.base.net.status.handlers.NetStatusEventHandler;
-import alvin.base.net.status.handlers.OnNetStatusChangedListener;
-import alvin.base.net.status.network.NetworkStatus;
+import alvin.adv.net.R;
+import alvin.adv.net.status.handlers.NetStatusEventHandler;
+import alvin.adv.net.status.handlers.OnNetStatusChangedListener;
+import alvin.adv.net.status.network.NetworkStatus;
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;

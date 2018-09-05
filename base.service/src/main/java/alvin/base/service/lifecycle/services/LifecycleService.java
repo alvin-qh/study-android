@@ -1,4 +1,4 @@
-package alvin.base.service.lifecycle.services;
+package alvin.adv.service.lifecycle.services;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,8 +8,8 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import alvin.base.service.common.broadcasts.ServiceBroadcasts;
-import alvin.base.service.lifecycle.presenters.LifecyclePresenter;
+import alvin.adv.service.common.broadcasts.ServiceBroadcasts;
+import alvin.adv.service.lifecycle.presenters.LifecyclePresenter;
 import dagger.android.DaggerService;
 
 /**

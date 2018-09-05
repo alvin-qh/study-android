@@ -1,4 +1,4 @@
-package alvin.base.net.socket;
+package alvin.adv.net.socket;
 
 import android.support.annotation.NonNull;
 

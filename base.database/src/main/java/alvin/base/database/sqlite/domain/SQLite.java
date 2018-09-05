@@ -1,4 +1,4 @@
-package alvin.base.database.sqlite.domain;
+package alvin.adv.database.sqlite.domain;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

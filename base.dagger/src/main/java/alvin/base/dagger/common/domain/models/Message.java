@@ -1,4 +1,4 @@
-package alvin.base.dagger.common.domain.models;
+package alvin.adv.dagger.common.domain.models;
 
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
@@ -7,7 +7,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.time.LocalDateTime;
 
-import alvin.base.dagger.common.domain.db.MessageDatabase;
+import alvin.adv.dagger.common.domain.db.MessageDatabase;
 import alvin.lib.common.dbflow.converts.LocalDateTimeConvert;
 import alvin.lib.mvp.contracts.IModel;
 

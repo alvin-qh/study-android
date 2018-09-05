@@ -1,4 +1,4 @@
-package alvin.base.service.lifecycle.presenters;
+package alvin.adv.service.lifecycle.presenters;
 
 import android.content.ServiceConnection;
 import android.support.annotation.NonNull;
@@ -8,7 +8,7 @@ import java.util.Deque;
 
 import javax.inject.Inject;
 
-import alvin.base.service.lifecycle.LifecycleContracts;
+import alvin.adv.service.lifecycle.LifecycleContracts;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
 public class LifecyclePresenter

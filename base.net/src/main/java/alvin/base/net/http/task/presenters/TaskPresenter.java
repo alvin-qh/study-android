@@ -1,4 +1,4 @@
-package alvin.base.net.http.task.presenters;
+package alvin.adv.net.http.task.presenters;
 
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -9,10 +9,10 @@ import java.lang.ref.WeakReference;
 
 import javax.inject.Inject;
 
-import alvin.base.net.http.WeatherContracts;
-import alvin.base.net.http.common.domain.models.LiveWeather;
-import alvin.base.net.http.common.domain.services.WeatherException;
-import alvin.base.net.http.common.domain.services.WeatherService;
+import alvin.adv.net.http.WeatherContracts;
+import alvin.adv.net.http.common.domain.models.LiveWeather;
+import alvin.adv.net.http.common.domain.services.WeatherException;
+import alvin.adv.net.http.common.domain.services.WeatherService;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
 public class TaskPresenter

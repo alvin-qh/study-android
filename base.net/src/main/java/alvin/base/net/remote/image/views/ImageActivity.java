@@ -1,4 +1,4 @@
-package alvin.base.net.remote.image.views;
+package alvin.adv.net.remote.image.views;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 import com.google.common.base.Strings;
 
-import alvin.base.net.R;
-import alvin.base.net.remote.image.ImageContracts;
+import alvin.adv.net.R;
+import alvin.adv.net.remote.image.ImageContracts;
 import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;

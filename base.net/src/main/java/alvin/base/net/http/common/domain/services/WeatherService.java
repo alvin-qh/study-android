@@ -1,4 +1,4 @@
-package alvin.base.net.http.common.domain.services;
+package alvin.adv.net.http.common.domain.services;
 
 
 import android.support.annotation.NonNull;
@@ -13,8 +13,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import alvin.base.net.http.common.configs.WeatherConfig;
-import alvin.base.net.http.common.domain.models.LiveWeather;
+import alvin.adv.net.http.common.configs.WeatherConfig;
+import alvin.adv.net.http.common.domain.models.LiveWeather;
 import okhttp3.Call;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;

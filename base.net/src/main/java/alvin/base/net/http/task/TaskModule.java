@@ -1,9 +1,9 @@
-package alvin.base.net.http.task;
+package alvin.adv.net.http.task;
 
-import alvin.base.net.http.WeatherContracts;
-import alvin.base.net.http.common.domain.services.WeatherService;
-import alvin.base.net.http.task.presenters.TaskPresenter;
-import alvin.base.net.http.task.views.TaskActivity;
+import alvin.adv.net.http.WeatherContracts;
+import alvin.adv.net.http.common.domain.services.WeatherService;
+import alvin.adv.net.http.task.presenters.TaskPresenter;
+import alvin.adv.net.http.task.views.TaskActivity;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;

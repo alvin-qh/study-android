@@ -1,4 +1,4 @@
-package alvin.base.service.bind.persenters;
+package alvin.adv.service.bind.persenters;
 
 import android.support.annotation.NonNull;
 
@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.inject.Inject;
 
-import alvin.base.service.bind.BindContracts;
+import alvin.adv.service.bind.BindContracts;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
 public class BindPresenter

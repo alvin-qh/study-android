@@ -1,4 +1,4 @@
-package alvin.base.net.socket.netty.net;
+package alvin.adv.net.socket.netty.net;
 
 import android.support.annotation.NonNull;
 
@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
-import alvin.base.net.socket.common.config.NetworkConfig;
-import alvin.base.net.socket.common.models.Command;
-import alvin.base.net.socket.common.models.CommandAck;
+import alvin.adv.net.socket.common.config.NetworkConfig;
+import alvin.adv.net.socket.common.models.Command;
+import alvin.adv.net.socket.common.models.CommandAck;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

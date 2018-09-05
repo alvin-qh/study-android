@@ -1,13 +1,13 @@
-package alvin.base.net.remote.image;
+package alvin.adv.net.remote.image;
 
 import android.content.Context;
 
 import java.io.File;
 import java.time.temporal.ChronoUnit;
 
-import alvin.base.net.remote.image.presenters.ImagePresenter;
-import alvin.base.net.remote.image.services.ImageLoader;
-import alvin.base.net.remote.image.views.ImageActivity;
+import alvin.adv.net.remote.image.presenters.ImagePresenter;
+import alvin.adv.net.remote.image.services.ImageLoader;
+import alvin.adv.net.remote.image.views.ImageActivity;
 import alvin.lib.common.rx.RxDecorator;
 import alvin.lib.common.utils.Cache;
 import dagger.Binds;

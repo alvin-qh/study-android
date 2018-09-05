@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/AppTheme.Fragment"
-    tools:context=".scope.dependency.views.DependencyActivity">
+    tools:context=".scope.views.DependencyActivity">
 
     <LinearLayout
         android:id="@+id/ll_activity_scope"

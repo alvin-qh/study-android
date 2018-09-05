@@ -1,13 +1,13 @@
-package alvin.base.dagger.common.presenters;
+package alvin.adv.dagger.common.presenters;
 
 import android.support.annotation.NonNull;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import alvin.base.dagger.common.contracts.CommonContracts;
-import alvin.base.dagger.common.domain.models.Message;
-import alvin.base.dagger.common.domain.repositories.MessageRepository;
+import alvin.adv.dagger.common.contracts.CommonContracts;
+import alvin.adv.dagger.common.domain.models.Message;
+import alvin.adv.dagger.common.domain.repositories.MessageRepository;
 import alvin.lib.common.dbflow.repositories.TransactionManager;
 import alvin.lib.common.rx.RxDecorator;
 import alvin.lib.common.rx.RxSchedulers;

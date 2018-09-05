@@ -1,4 +1,4 @@
-package alvin.base.mvp.domain.models;
+package alvin.adv.mvp.domain.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,7 +8,7 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
-import alvin.base.mvp.domain.MainDatabase;
+import alvin.adv.mvp.domain.MainDatabase;
 import alvin.lib.mvp.contracts.IModel;
 
 @Table(database = MainDatabase.class, name = "department")

@@ -1,4 +1,4 @@
-package alvin.base.service.bind.services;
+package alvin.adv.service.bind.services;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package alvin.base.dagger.utils;
+package alvin.adv.dagger.utils;
 
 import android.support.annotation.NonNull;
 

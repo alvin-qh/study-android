@@ -1,4 +1,4 @@
-package alvin.base.database;
+package alvin.adv.database;
 
 import android.support.multidex.MultiDexApplication;
 

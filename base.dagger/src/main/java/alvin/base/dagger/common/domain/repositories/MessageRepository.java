@@ -1,4 +1,4 @@
-package alvin.base.dagger.common.domain.repositories;
+package alvin.adv.dagger.common.domain.repositories;
 
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
@@ -7,8 +7,8 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 
-import alvin.base.dagger.common.domain.models.Message;
-import alvin.base.dagger.common.domain.models.Message_Table;
+import alvin.adv.dagger.common.domain.models.Message;
+import alvin.adv.dagger.common.domain.models.Message_Table;
 import alvin.lib.common.collect.Collections2;
 import alvin.lib.common.dbflow.repositories.BaseRepository;
 

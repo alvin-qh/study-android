@@ -1,10 +1,10 @@
-package alvin.base.service.intent.presenter;
+package alvin.adv.service.intent.presenter;
 
 import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
-import alvin.base.service.intent.IntentContracts;
+import alvin.adv.service.intent.IntentContracts;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
 public class IntentPresenter

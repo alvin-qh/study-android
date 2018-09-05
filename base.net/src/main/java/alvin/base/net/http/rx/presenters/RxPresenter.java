@@ -1,12 +1,12 @@
-package alvin.base.net.http.rx.presenters;
+package alvin.adv.net.http.rx.presenters;
 
 import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
-import alvin.base.net.http.WeatherContracts;
-import alvin.base.net.http.common.domain.models.LiveWeather;
-import alvin.base.net.http.common.domain.services.WeatherService;
+import alvin.adv.net.http.WeatherContracts;
+import alvin.adv.net.http.common.domain.models.LiveWeather;
+import alvin.adv.net.http.common.domain.services.WeatherService;
 import alvin.lib.common.rx.RxDecorator;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 import io.reactivex.Single;

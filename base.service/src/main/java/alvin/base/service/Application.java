@@ -1,4 +1,4 @@
-package alvin.base.service;
+package alvin.adv.service;
 
 import dagger.android.AndroidInjector;
 import dagger.android.support.DaggerApplication;

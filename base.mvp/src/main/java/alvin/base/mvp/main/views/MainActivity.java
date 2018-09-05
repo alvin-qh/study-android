@@ -1,4 +1,4 @@
-package alvin.base.mvp.main.views;
+package alvin.adv.mvp.main.views;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,10 +11,10 @@ import android.view.MenuItem;
 import java.util.Collections;
 import java.util.List;
 
-import alvin.base.mvp.R;
-import alvin.base.mvp.department.views.DepartmentEditDialog;
-import alvin.base.mvp.domain.models.NameCard;
-import alvin.base.mvp.main.MainContracts;
+import alvin.adv.mvp.R;
+import alvin.adv.mvp.department.views.DepartmentEditDialog;
+import alvin.adv.mvp.domain.models.NameCard;
+import alvin.adv.mvp.main.MainContracts;
 import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;

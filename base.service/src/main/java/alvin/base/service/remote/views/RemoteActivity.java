@@ -1,4 +1,4 @@
-package alvin.base.service.remote.views;
+package alvin.adv.service.remote.views;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -16,11 +16,11 @@ import android.widget.TextView;
 
 import java.util.Collections;
 
-import alvin.base.service.R;
-import alvin.base.service.remote.IOnJobStatusChangeListener;
-import alvin.base.service.remote.IRemoteBinder;
-import alvin.base.service.remote.models.Job;
-import alvin.base.service.remote.models.JobResponse;
+import alvin.adv.service.R;
+import alvin.adv.service.remote.IOnJobStatusChangeListener;
+import alvin.adv.service.remote.IRemoteBinder;
+import alvin.adv.service.remote.models.Job;
+import alvin.adv.service.remote.models.JobResponse;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

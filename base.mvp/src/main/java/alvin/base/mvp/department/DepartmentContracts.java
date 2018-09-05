@@ -1,8 +1,8 @@
-package alvin.base.mvp.department;
+package alvin.adv.mvp.department;
 
 import java.util.List;
 
-import alvin.base.mvp.domain.models.Department;
+import alvin.adv.mvp.domain.models.Department;
 import alvin.lib.mvp.contracts.IPresenter;
 import alvin.lib.mvp.contracts.IView;
 

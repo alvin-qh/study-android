@@ -1,13 +1,13 @@
-package alvin.base.database.dbflow.domain.repositories;
+package alvin.adv.database.dbflow.domain.repositories;
 
 import com.raizlabs.android.dbflow.sql.language.Where;
 
 import java.util.List;
 import java.util.Optional;
 
-import alvin.base.database.common.domain.models.Gender;
-import alvin.base.database.dbflow.domain.models.Person;
-import alvin.base.database.dbflow.domain.models.Person_Table;
+import alvin.adv.database.common.domain.models.Gender;
+import alvin.adv.database.dbflow.domain.models.Person;
+import alvin.adv.database.dbflow.domain.models.Person_Table;
 import alvin.lib.common.dbflow.repositories.BaseRepository;
 
 /**

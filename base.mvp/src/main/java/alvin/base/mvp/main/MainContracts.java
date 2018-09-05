@@ -1,10 +1,10 @@
-package alvin.base.mvp.main;
+package alvin.adv.mvp.main;
 
 import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import alvin.base.mvp.domain.models.NameCard;
+import alvin.adv.mvp.domain.models.NameCard;
 import alvin.lib.mvp.contracts.IPresenter;
 import alvin.lib.mvp.contracts.IView;
 

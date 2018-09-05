@@ -1,4 +1,4 @@
-package alvin.base.service.working.presenters;
+package alvin.adv.service.working.presenters;
 
 import android.support.annotation.NonNull;
 
@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.inject.Inject;
 
-import alvin.base.service.working.WorkingContracts;
+import alvin.adv.service.working.WorkingContracts;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
 public class WorkingPresenter

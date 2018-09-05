@@ -1,8 +1,8 @@
-package alvin.base.net.http;
+package alvin.adv.net.http;
 
-import alvin.base.net.http.rx.RxModule;
-import alvin.base.net.http.task.TaskModule;
-import alvin.base.net.http.views.HttpActivity;
+import alvin.adv.net.http.rx.RxModule;
+import alvin.adv.net.http.task.TaskModule;
+import alvin.adv.net.http.views.HttpActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 

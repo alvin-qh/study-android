@@ -1,4 +1,4 @@
-package alvin.base.service.foreground.presenters;
+package alvin.adv.service.foreground.presenters;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,8 +7,8 @@ import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
-import alvin.base.service.common.broadcasts.ServiceBroadcasts;
-import alvin.base.service.foreground.ForegroundContracts;
+import alvin.adv.service.common.broadcasts.ServiceBroadcasts;
+import alvin.adv.service.foreground.ForegroundContracts;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
 public class ForegroundPresenter
