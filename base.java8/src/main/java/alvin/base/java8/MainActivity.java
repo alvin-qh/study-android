@@ -1,4 +1,4 @@
-package alvin.adv.java8;
+package alvin.base.java8;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

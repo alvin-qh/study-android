@@ -1,6 +1,6 @@
 include ':lib.common',
-        ':base.basic',
-//        ':base.java8',
+//        ':base.basic',
+        ':base.java8',
 //        ':base.preferences',
 //        ':base.sign',
 //        ':base.database',
