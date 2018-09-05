@@ -1,8 +1,8 @@
-package alvin.adv.service.foreground;
+package alvin.base.service.foreground;
 
-import alvin.adv.service.foreground.presenters.ForegroundPresenter;
-import alvin.adv.service.foreground.services.ForegroundService;
-import alvin.adv.service.foreground.views.ForegroundActivity;
+import alvin.base.service.foreground.presenters.ForegroundPresenter;
+import alvin.base.service.foreground.services.ForegroundService;
+import alvin.base.service.foreground.views.ForegroundActivity;
 import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -23,7 +23,7 @@ public interface ForegroundModule {
         public interface BindModule {
 
             @Binds
-            ForegroundContracts.IView view(ForegroundActivity activity);
+            ForegroundContracts.View view(ForegroundActivity activity);
 
             @Binds
             ForegroundContracts.Presenter presenter(ForegroundPresenter presenter);

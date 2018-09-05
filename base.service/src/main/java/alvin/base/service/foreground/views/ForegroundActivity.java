@@ -1,4 +1,4 @@
-package alvin.adv.service.foreground.views;
+package alvin.base.service.foreground.views;
 
 import android.content.BroadcastReceiver;
 import android.content.Intent;
@@ -8,10 +8,10 @@ import android.widget.Button;
 
 import javax.inject.Inject;
 
-import alvin.adv.service.R;
-import alvin.adv.service.common.broadcasts.ServiceBroadcasts;
-import alvin.adv.service.foreground.ForegroundContracts;
-import alvin.adv.service.foreground.services.ForegroundService;
+import alvin.base.service.R;
+import alvin.base.service.common.broadcasts.ServiceBroadcasts;
+import alvin.base.service.foreground.ForegroundContracts;
+import alvin.base.service.foreground.services.ForegroundService;
 import alvin.lib.common.utils.IntentFilters;
 import alvin.lib.common.utils.Versions;
 import butterknife.BindView;
@@ -20,7 +20,7 @@ import butterknife.OnClick;
 import dagger.android.support.DaggerAppCompatActivity;
 
 public class ForegroundActivity extends DaggerAppCompatActivity
-        implements ForegroundContracts.IView {
+        implements ForegroundContracts.View {
 
     @Inject ForegroundContracts.Presenter presenter;
     @Inject Versions version;

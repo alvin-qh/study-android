@@ -1,4 +1,4 @@
-package alvin.adv.service.bind.views;
+package alvin.base.service.bind.views;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -13,9 +13,9 @@ import android.widget.TextView;
 import java.time.LocalDateTime;
 import java.util.function.Consumer;
 
-import alvin.adv.service.R;
-import alvin.adv.service.bind.BindContracts;
-import alvin.adv.service.bind.services.BindService;
+import alvin.base.service.R;
+import alvin.base.service.bind.BindContracts;
+import alvin.base.service.bind.services.BindService;
 import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;

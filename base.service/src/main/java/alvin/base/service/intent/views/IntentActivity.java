@@ -1,4 +1,4 @@
-package alvin.adv.service.intent.views;
+package alvin.base.service.intent.views;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -14,10 +14,10 @@ import android.widget.TextView;
 
 import com.google.common.base.Strings;
 
-import alvin.adv.service.R;
-import alvin.adv.service.common.broadcasts.ServiceBroadcasts;
-import alvin.adv.service.intent.IntentContracts;
-import alvin.adv.service.intent.services.IntentService;
+import alvin.base.service.R;
+import alvin.base.service.common.broadcasts.ServiceBroadcasts;
+import alvin.base.service.intent.IntentContracts;
+import alvin.base.service.intent.services.IntentService;
 import alvin.lib.common.utils.IntentFilters;
 import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;

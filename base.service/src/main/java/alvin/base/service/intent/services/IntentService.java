@@ -1,4 +1,4 @@
-package alvin.adv.service.intent.services;
+package alvin.base.service.intent.services;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -10,8 +10,8 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import alvin.adv.service.common.broadcasts.ServiceBroadcasts;
-import alvin.adv.service.intent.tasks.Task;
+import alvin.base.service.common.broadcasts.ServiceBroadcasts;
+import alvin.base.service.intent.tasks.Task;
 import dagger.android.DaggerIntentService;
 
 public class IntentService extends DaggerIntentService {

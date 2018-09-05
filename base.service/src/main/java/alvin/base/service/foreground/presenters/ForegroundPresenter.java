@@ -1,4 +1,4 @@
-package alvin.adv.service.foreground.presenters;
+package alvin.base.service.foreground.presenters;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,12 +7,11 @@ import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
-import alvin.adv.service.common.broadcasts.ServiceBroadcasts;
-import alvin.adv.service.foreground.ForegroundContracts;
+import alvin.base.service.common.broadcasts.ServiceBroadcasts;
+import alvin.base.service.foreground.ForegroundContracts;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
-public class ForegroundPresenter
-        extends PresenterAdapter<ForegroundContracts.IView>
+public class ForegroundPresenter extends PresenterAdapter<ForegroundContracts.View>
         implements ForegroundContracts.Presenter {
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -22,10 +21,10 @@ public class ForegroundPresenter
             if (action != null) {
                 switch (action) {
                 case ServiceBroadcasts.ACTION_SERVICE_CREATED:
-                    with(ForegroundContracts.IView::serviceCreated);
+                    with(ForegroundContracts.View::serviceCreated);
                     break;
                 case ServiceBroadcasts.ACTION_SERVICE_DESTROYED:
-                    with(ForegroundContracts.IView::serviceDestroyed);
+                    with(ForegroundContracts.View::serviceDestroyed);
                     break;
                 default:
                     break;
@@ -35,7 +34,7 @@ public class ForegroundPresenter
     };
 
     @Inject
-    public ForegroundPresenter(@NonNull ForegroundContracts.IView view) {
+    public ForegroundPresenter(@NonNull ForegroundContracts.View view) {
         super(view);
     }
 

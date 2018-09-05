@@ -1,4 +1,4 @@
-package alvin.adv.service.lifecycle.views;
+package alvin.base.service.lifecycle.views;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -19,10 +19,10 @@ import com.google.common.base.Strings;
 
 import javax.inject.Inject;
 
-import alvin.adv.service.R;
-import alvin.adv.service.common.broadcasts.ServiceBroadcasts;
-import alvin.adv.service.lifecycle.LifecycleContracts;
-import alvin.adv.service.lifecycle.services.LifecycleService;
+import alvin.base.service.R;
+import alvin.base.service.common.broadcasts.ServiceBroadcasts;
+import alvin.base.service.lifecycle.LifecycleContracts;
+import alvin.base.service.lifecycle.services.LifecycleService;
 import alvin.lib.common.utils.IntentFilters;
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,8 +1,8 @@
-package alvin.adv.service.remote;
+package alvin.base.service.remote;
 
-import alvin.adv.service.remote.services.RemoteService;
-import alvin.adv.service.remote.tasks.Task;
-import alvin.adv.service.remote.views.RemoteActivity;
+import alvin.base.service.remote.services.RemoteService;
+import alvin.base.service.remote.tasks.Task;
+import alvin.base.service.remote.views.RemoteActivity;
 import dagger.Module;
 import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;

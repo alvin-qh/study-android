@@ -1,9 +1,9 @@
-package alvin.adv.service.remote.tasks;
+package alvin.base.service.remote.tasks;
 
 import java.util.Random;
 
-import alvin.adv.service.remote.models.Job;
-import alvin.adv.service.remote.models.JobResponse;
+import alvin.base.service.remote.models.Job;
+import alvin.base.service.remote.models.JobResponse;
 
 public class Task {
     private final int minDelay;

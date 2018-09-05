@@ -1,4 +1,4 @@
-package alvin.adv.service.remote.views;
+package alvin.base.service.remote.views;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -16,11 +16,11 @@ import android.widget.TextView;
 
 import java.util.Collections;
 
-import alvin.adv.service.R;
-import alvin.adv.service.remote.IOnJobStatusChangeListener;
-import alvin.adv.service.remote.IRemoteBinder;
-import alvin.adv.service.remote.models.Job;
-import alvin.adv.service.remote.models.JobResponse;
+import alvin.base.service.R;
+import alvin.base.service.remote.IOnJobStatusChangeListener;
+import alvin.base.service.remote.IRemoteBinder;
+import alvin.base.service.remote.models.Job;
+import alvin.base.service.remote.models.JobResponse;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -60,7 +60,7 @@ public class RemoteActivity extends DaggerAppCompatActivity {
             jobId = 1;
 
             // Create intent with name of remote service action
-            Intent intent = new Intent("alvin.base.service.remote.aidls.IRemoteBinder");
+            Intent intent = new Intent("alvin.services.REMOTE_SERVICE");
             // Set application package name of remote service
             intent.setPackage("alvin.base.service");
 
@@ -75,12 +75,12 @@ public class RemoteActivity extends DaggerAppCompatActivity {
                         binder.addOnJobStatusChangeListener(KEY, new IOnJobStatusChangeListener.Stub() {
 
                             @Override
-                            public void onJobStart(String name) throws RemoteException {
+                            public void onJobStart(String name) {
                                 handler.post(() -> jobStarted(name));
                             }
 
                             @Override
-                            public void onJobFinish(JobResponse response) throws RemoteException {
+                            public void onJobFinish(JobResponse response) {
                                 handler.post(() -> jobFinished(response));
                             }
                         });
@@ -134,8 +134,10 @@ public class RemoteActivity extends DaggerAppCompatActivity {
     @OnClick(R.id.btn_work)
     void onWorkButtonClick(Button b) {
         try {
-            binder.addNewJob(new Job("Job_" + jobId++, Collections.emptyMap()));
-            handler.post(() -> svJobResponse.fullScroll(ScrollView.FOCUS_DOWN));
+            if (binder != null) {
+                binder.addNewJob(new Job("Job_" + jobId++, Collections.emptyMap()));
+                handler.post(() -> svJobResponse.fullScroll(ScrollView.FOCUS_DOWN));
+            }
         } catch (RemoteException e) {
             Log.e(TAG, e.getMessage());
         }

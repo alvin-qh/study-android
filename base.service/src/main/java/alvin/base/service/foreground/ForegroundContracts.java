@@ -1,12 +1,13 @@
-package alvin.adv.service.foreground;
+package alvin.base.service.foreground;
 
 import android.content.BroadcastReceiver;
 
 import alvin.lib.mvp.contracts.IPresenter;
+import alvin.lib.mvp.contracts.IView;
 
 public interface ForegroundContracts {
 
-    interface IView extends alvin.lib.mvp.contracts.IView {
+    interface View extends IView {
 
         void serviceCreated();
 

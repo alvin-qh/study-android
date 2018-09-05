@@ -1,4 +1,4 @@
-package alvin.adv.service.foreground.services;
+package alvin.base.service.foreground.services;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -10,8 +10,8 @@ import android.support.annotation.Nullable;
 
 import javax.inject.Inject;
 
-import alvin.adv.service.R;
-import alvin.adv.service.common.broadcasts.ServiceBroadcasts;
+import alvin.base.service.R;
+import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.lib.common.utils.Versions;
 import dagger.android.DaggerService;
 
@@ -37,6 +37,7 @@ public class ForegroundService extends DaggerService {
         return super.onStartCommand(intent, flags, startId);
     }
 
+    @SuppressWarnings("deprecation")
     private void createNotification() {
         final Notification.Builder notificationBuilder;
 

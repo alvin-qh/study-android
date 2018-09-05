@@ -5,8 +5,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="alvin.base.service.permission.REMOTE_SERVICE" />
+    <uses-permission android:name="alvin.permissions.REMOTE_SERVICE" />
 
     <application
         android:name=".Application"
@@ -32,7 +31,7 @@
             android:parentActivityName=".main.views.MainActivity" />
 
         <activity
-            android:name=".remoteservice.views.RemoteServiceActivityAdapter"
+            android:name=".remoteservice.views.RemoteServiceActivity"
             android:label="@string/title_remote_service"
             android:parentActivityName=".main.views.MainActivity" />
 

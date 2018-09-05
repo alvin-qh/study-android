@@ -1,8 +1,8 @@
-package alvin.adv.service.working;
+package alvin.base.service.working;
 
-import alvin.adv.service.working.presenters.WorkingPresenter;
-import alvin.adv.service.working.services.WorkingService;
-import alvin.adv.service.working.view.WorkingActivity;
+import alvin.base.service.working.presenters.WorkingPresenter;
+import alvin.base.service.working.services.WorkingService;
+import alvin.base.service.working.view.WorkingActivity;
 import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

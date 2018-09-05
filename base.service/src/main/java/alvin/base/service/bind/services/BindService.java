@@ -1,4 +1,4 @@
-package alvin.adv.service.bind.services;
+package alvin.base.service.bind.services;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -29,8 +29,7 @@ public class BindService extends DaggerService {
 
     @Inject @RxType.IO RxDecorator.Builder rxDecoratorBuilder;
 
-    private boolean available = false;
-
+    private boolean destoried = false;
     private ZoneId zoneId;
 
     private final ServiceBinder binder = new ServiceBinder();
@@ -43,35 +42,36 @@ public class BindService extends DaggerService {
     @Override
     public void onCreate() {
         super.onCreate();
+        destoried = false;
 
-        available = true;
         startWorking();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        available = false;
+        destoried = true;
+        
         timeCallback.clear();   // clear all callback functions, stop callback
     }
 
     @SuppressLint("CheckResult")
     private void startWorking() {
-        final Observable<LocalDateTime> observable = Observable.interval(0, 1, TimeUnit.SECONDS)
-                .flatMap(ignore -> emitter -> {
-                    if (available) {
-                        emitter.onNext(LocalDateTime.now(zoneId));
-                    } else {
-                        emitter.onComplete();
-                    }
-                });
-
         final RxDecorator decorator = rxDecoratorBuilder.build();
-        decorator.de(observable).subscribe(time ->
+        final Observable<LocalDateTime> observable = decorator.de(
+                Observable.interval(0, 1, TimeUnit.SECONDS)
+                        .flatMap(ignore -> emitter -> {
+                            if (!destoried) {
+                                if (zoneId != null) {
+                                    emitter.onNext(LocalDateTime.now(zoneId));
+                                }
+                            } else {
+                                emitter.onComplete();
+                            }
+                        }));
+        observable.subscribe(time ->
                 // call every callback functions and pass result
-                timeCallback.forEach(consumer -> consumer.accept(time))
-        );
+                timeCallback.forEach(consumer -> consumer.accept(time)));
     }
 
     /**

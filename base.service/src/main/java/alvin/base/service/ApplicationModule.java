@@ -1,4 +1,4 @@
-package alvin.adv.service;
+package alvin.base.service;
 
 import javax.inject.Singleton;
 

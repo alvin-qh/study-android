@@ -1,4 +1,4 @@
-package alvin.adv.service.lifecycle;
+package alvin.base.service.lifecycle;
 
 import android.content.ServiceConnection;
 import android.support.annotation.NonNull;

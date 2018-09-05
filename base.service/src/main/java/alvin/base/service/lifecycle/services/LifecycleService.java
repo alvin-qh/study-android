@@ -1,4 +1,4 @@
-package alvin.adv.service.lifecycle.services;
+package alvin.base.service.lifecycle.services;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,8 +8,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import alvin.adv.service.common.broadcasts.ServiceBroadcasts;
-import alvin.adv.service.lifecycle.presenters.LifecyclePresenter;
+import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import dagger.android.DaggerService;
 
 /**
@@ -35,7 +34,6 @@ public class LifecycleService extends DaggerService {
      * <li>If service has not been created, created the service, and onCreate method will be called.</li>
      * <li>If service has been created, increase the <b>Reference Counter</b> of this service.</li>
      * </ul>
-     *
      */
     @Nullable
     @Override
@@ -56,8 +54,6 @@ public class LifecycleService extends DaggerService {
      * <li>If service was started by {@link Context#bindService(Intent, ServiceConnection, int)},
      * the service will destroyed immediately</li>
      * </ul>
-     *
-     * @see LifecyclePresenter#unbindService(Context)
      */
     @Override
     public boolean onUnbind(Intent intent) {

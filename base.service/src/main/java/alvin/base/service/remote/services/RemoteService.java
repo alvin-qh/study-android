@@ -1,4 +1,4 @@
-package alvin.adv.service.remote.services;
+package alvin.base.service.remote.services;
 
 import android.content.Intent;
 import android.os.IBinder;
@@ -13,11 +13,11 @@ import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
-import alvin.adv.service.remote.IOnJobStatusChangeListener;
-import alvin.adv.service.remote.IRemoteBinder;
-import alvin.adv.service.remote.models.Job;
-import alvin.adv.service.remote.models.JobResponse;
-import alvin.adv.service.remote.tasks.Task;
+import alvin.base.service.remote.IOnJobStatusChangeListener;
+import alvin.base.service.remote.IRemoteBinder;
+import alvin.base.service.remote.models.Job;
+import alvin.base.service.remote.models.JobResponse;
+import alvin.base.service.remote.tasks.Task;
 import dagger.android.DaggerService;
 
 /**
@@ -58,19 +58,17 @@ public class RemoteService extends DaggerService {
     private IRemoteBinder.Stub binder = new IRemoteBinder.Stub() {
 
         @Override
-        public void addOnJobStatusChangeListener(String key, IOnJobStatusChangeListener l)
-                throws RemoteException {
+        public void addOnJobStatusChangeListener(String key, IOnJobStatusChangeListener l) {
             listeners.put(key, l);
         }
 
         @Override
-        public void removeOnJobStatusChangeListener(String key)
-                throws RemoteException {
+        public void removeOnJobStatusChangeListener(String key) {
             listeners.remove(key);
         }
 
         @Override
-        public void addNewJob(Job job) throws RemoteException {
+        public void addNewJob(Job job) {
             executorService.execute(() -> {
                 listeners.values().forEach(l -> {
                     try {

@@ -1,8 +1,8 @@
-package alvin.adv.service.lifecycle;
+package alvin.base.service.lifecycle;
 
-import alvin.adv.service.lifecycle.presenters.LifecyclePresenter;
-import alvin.adv.service.lifecycle.services.LifecycleService;
-import alvin.adv.service.lifecycle.views.LifecycleActivity;
+import alvin.base.service.lifecycle.presenters.LifecyclePresenter;
+import alvin.base.service.lifecycle.services.LifecycleService;
+import alvin.base.service.lifecycle.views.LifecycleActivity;
 import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -22,8 +22,7 @@ public interface LifecycleModule {
         @Module
         public interface BindModule {
             @Binds
-            LifecycleContracts.Presenter bindBasicServiceActivityPresenter(
-                    LifecyclePresenter presenter);
+            LifecycleContracts.Presenter bindBasicServiceActivityPresenter(LifecyclePresenter presenter);
 
             @Binds
             LifecycleContracts.View bindBasicServiceActivityView(

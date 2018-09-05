@@ -1,4 +1,4 @@
-package alvin.adv.service.remote.models;
+package alvin.base.service.remote.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

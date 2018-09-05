@@ -1,9 +1,9 @@
-package alvin.adv.service.intent;
+package alvin.base.service.intent;
 
-import alvin.adv.service.intent.presenter.IntentPresenter;
-import alvin.adv.service.intent.services.IntentService;
-import alvin.adv.service.intent.tasks.Task;
-import alvin.adv.service.intent.views.IntentActivity;
+import alvin.base.service.intent.presenter.IntentPresenter;
+import alvin.base.service.intent.services.IntentService;
+import alvin.base.service.intent.tasks.Task;
+import alvin.base.service.intent.views.IntentActivity;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;

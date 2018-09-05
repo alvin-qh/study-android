@@ -1,7 +1,7 @@
 package alvin.adv.permission.remoteservice
 
 import alvin.adv.permission.remoteservice.presenters.RemoteServicePresenter
-import alvin.adv.permission.remoteservice.views.RemoteServiceActivityAdapter
+import alvin.adv.permission.remoteservice.views.RemoteServiceActivity
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -10,13 +10,13 @@ import dagger.android.ContributesAndroidInjector
 interface RemoteServiceModule {
 
     @ContributesAndroidInjector(modules = [ViewModule::class])
-    fun remoteServiceActivity(): RemoteServiceActivityAdapter
+    fun remoteServiceActivity(): RemoteServiceActivity
 
     @Module
     interface ViewModule {
 
         @Binds
-        fun view(activity: RemoteServiceActivityAdapter): RemoteServiceContracts.IView
+        fun view(activity: RemoteServiceActivity): RemoteServiceContracts.IView
 
         @Binds
         fun presenter(presenter: RemoteServicePresenter): RemoteServiceContracts.Presenter
