@@ -1,4 +1,4 @@
-package alvin.adv.preferences.storebox.domain.adapters;
+package alvin.base.preferences.storebox.domain.adapters;
 
 import android.support.annotation.Nullable;
 
