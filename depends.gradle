@@ -55,8 +55,8 @@ ext {
                      * Kotlin language support libraries
                      */
                     kotlin           : [
-                            "org.jetbrains.kotlin:kotlin-stdlib-jre7:${versions.kotlin}",
-                            "org.jetbrains.kotlin:kotlin-stdlib-jre8:${versions.kotlin}",
+                            "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}",
+                            "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}",
                             "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}",
                             "org.jetbrains.anko:anko:${versions.anko}",
                     ],

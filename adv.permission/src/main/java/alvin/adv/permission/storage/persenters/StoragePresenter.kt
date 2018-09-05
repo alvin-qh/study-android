@@ -3,6 +3,7 @@ package alvin.adv.permission.storage.persenters
 import alvin.adv.permission.storage.StorageContracts
 import alvin.adv.permission.storage.models.Person
 import alvin.lib.common.rx.RxDecorator
+import alvin.lib.common.rx.RxType
 import alvin.lib.common.utils.Storages
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter
 import android.util.Log
@@ -15,7 +16,7 @@ import javax.inject.Inject
 class StoragePresenter
 @Inject constructor(
         view: StorageContracts.View,
-        private val rxDecorator: RxDecorator,
+        @RxType.IO private val rxDecoratorBuilder: RxDecorator.Builder,
         private val storages: Storages,
         private val objectMapper: ObjectMapper
 ) :
@@ -27,7 +28,8 @@ class StoragePresenter
     }
 
     override fun savePerson(person: Person) {
-        rxDecorator.de(Completable.create {
+        val decorator = rxDecoratorBuilder.build()
+        decorator.de(Completable.create {
             val json = objectMapper.writeValueAsString(person)
             val file = storages.createExternalStorageFile("persons", "person.data")
 
@@ -46,7 +48,8 @@ class StoragePresenter
     }
 
     override fun loadPerson() {
-        rxDecorator.de<Person>(Single.create {
+        val decorator = rxDecoratorBuilder.build()
+        decorator.de<Person>(Single.create {
             val file = storages.createExternalStorageFile("persons", "person.data")
 
             val buffer = StringBuilder()
