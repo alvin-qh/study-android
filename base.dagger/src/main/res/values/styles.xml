@@ -38,7 +38,7 @@
         <item name="android:paddingEnd">5dp</item>
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingBottom">5dp</item>
-        <item name="android:background">@drawable/background_textview</item>
+        <item name="android:background">@drawable/bg_textview</item>
     </style>
 
     <style name="Widget" parent="android:Widget" />

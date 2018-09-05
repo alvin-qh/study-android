@@ -32,31 +32,6 @@
             android:parentActivityName=".main.views.MainActivity" />
 
         <activity
-            android:name=".scope.views.DependencyActivity"
-            android:label="@string/title_scope_dependence"
-            android:parentActivityName=".scope.views.ScopeActivity" />
-
-        <activity
-            android:name=".scope.subcomponent.views.SubcomponentActivity"
-            android:label="@string/title_scope_subcomponent"
-            android:parentActivityName=".scope.views.ScopeActivity" />
-
-        <activity
-            android:name=".android.views.AndroidActivity"
-            android:label="@string/title_android"
-            android:parentActivityName=".main.views.MainActivity" />
-
-        <activity
-            android:name=".android.subcomponent.views.SubcomponentActivity"
-            android:label="@string/title_android_subcomponent"
-            android:parentActivityName=".android.views.AndroidActivity" />
-
-        <activity
-            android:name=".android.contributes.views.ContributesActivity"
-            android:label="@string/title_android_contributes"
-            android:parentActivityName=".android.views.AndroidActivity" />
-
-        <activity
             android:name=".multibindings.views.MultibindingsActivity"
             android:label="@string/title_multibindings"
             android:parentActivityName=".main.views.MainActivity"

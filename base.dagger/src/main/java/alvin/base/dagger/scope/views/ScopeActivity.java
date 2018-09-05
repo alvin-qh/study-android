@@ -1,48 +1,75 @@
-package alvin.adv.dagger.scope.views;
+package alvin.base.dagger.scope.views;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.widget.TextView;
 
-import alvin.adv.dagger.R;
-import alvin.adv.dagger.scope.dependency.views.DependencyActivity;
-import alvin.adv.dagger.scope.subcomponent.views.SubcomponentActivity;
+import javax.inject.Inject;
+
+import alvin.base.dagger.R;
+import butterknife.BindColor;
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import dagger.android.support.DaggerAppCompatActivity;
 
-public class ScopeActivity extends AppCompatActivity {
+import static alvin.base.dagger.scope.ScopeContracts.ActivityPresenter;
+import static alvin.base.dagger.scope.ScopeContracts.ActivityView;
+
+public class ScopeActivity extends DaggerAppCompatActivity implements ActivityView {
+
+    @BindView(R.id.tv_activity_scope)
+    TextView tvSingletonService;
+
+    @BindColor(R.color.color_blue)
+    int colorBlue;
+
+    @BindColor(R.color.color_green)
+    int colorGreen;
+
+    @Inject
+    ActivityPresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.scope_activity);
-
+        setContentView(R.layout.activity_scope);
         ButterKnife.bind(this);
+
+        bindFragments();
     }
 
-    @OnClick({
-            R.id.btn_dependency,
-            R.id.btn_subcomponent
-    })
-    public void onButtonsClick(Button b) {
-        Intent intent;
+    private void bindFragments() {
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+        final FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        switch (b.getId()) {
-        case R.id.btn_dependency:
-            intent = new Intent(this, DependencyActivity.class);
-            break;
-        case R.id.btn_subcomponent:
-            intent = new Intent(this, SubcomponentActivity.class);
-            break;
-        default:
-            intent = null;
-        }
+        ScopeFragment fragment = new ScopeFragment();
+        fragment.setBackground(colorBlue);
+        transaction.replace(R.id.frg_scope_1, fragment);
 
-        if (intent != null) {
-            startActivity(intent);
-        }
+        fragment = new ScopeFragment();
+        fragment.setBackground(colorGreen);
+        transaction.replace(R.id.frg_scope_2, fragment);
+
+        transaction.commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.serviceName();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
+    }
+
+    @Override
+    public void showActivityScopeService(String name) {
+        tvSingletonService.setText(name);
     }
 }

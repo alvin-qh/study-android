@@ -4,21 +4,10 @@
 
     <string name="title_basic">Dagger Basic</string>
     <string name="title_scope">Dagger Scopes</string>
-    <string name="title_scope_dependence">Dagger Scopes By Dependence</string>
-    <string name="title_scope_subcomponent">Dagger Scopes By Subcomponent</string>
-    <string name="title_android">Dagger for Android</string>
-    <string name="title_android_subcomponent">Dagger for Android with Subcomponent</string>
-    <string name="title_android_contributes">Dagger for Android with Contributes</string>
     <string name="title_multibindings">Multibindings</string>
-    <string name="title_multibindings_set">Multibindings with Set</string>
 
     <string name="btn_basic">Dagger Basic</string>
     <string name="btn_scope">Dagger Scope</string>
-    <string name="btn_android">Dagger For Android</string>
-    <string name="btn_dependency">Scope by dependency</string>
-    <string name="btn_subcomponent">Scope by subcomponent</string>
-    <string name="btn_android_subcomponent">Android by Subcomponent</string>
-    <string name="btn_android_contributes">Android by Contributes</string>
     <string name="btn_multibindings">Multibindings</string>
     <string name="btn_multibindings_set">Multibindings with Set</string>
     <string name="btn_save">Save</string>
