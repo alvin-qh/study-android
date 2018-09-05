@@ -1,6 +1,6 @@
 package alvin.base.mvp.namecard.presenter;
 
-import android.support.annotation.NonNull;
+import android.annotation.SuppressLint;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import alvin.base.mvp.domain.services.DepartmentService;
 import alvin.base.mvp.domain.services.NameCardService;
 import alvin.base.mvp.namecard.NameCardContracts;
 import alvin.lib.common.rx.RxDecorator;
+import alvin.lib.common.rx.RxType;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 import io.reactivex.Single;
 
@@ -20,24 +21,27 @@ public class NameCardEditPresenter
 
     private final NameCardService nameCardService;
     private final DepartmentService departmentService;
-    private final RxDecorator rxDecorator;
+    private final RxDecorator.Builder rxDecoratorBuilder;
 
     @Inject
-    public NameCardEditPresenter(@NonNull NameCardContracts.EditView view,
-                                 @NonNull NameCardService nameCardService,
-                                 @NonNull DepartmentService departmentService,
-                                 @NonNull RxDecorator rxDecorator) {
+    public NameCardEditPresenter(NameCardContracts.EditView view,
+                                 NameCardService nameCardService,
+                                 DepartmentService departmentService,
+                                 @RxType.IO RxDecorator.Builder rxDecoratorBuilder) {
         super(view);
         this.nameCardService = nameCardService;
         this.departmentService = departmentService;
-        this.rxDecorator = rxDecorator;
+        this.rxDecoratorBuilder = rxDecoratorBuilder;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void getDepartments() {
-        rxDecorator.<List<Department>>de(
-                Single.create(emitter -> emitter.onSuccess(departmentService.findAll()))
-        ).subscribe(departments ->
+        final Single<List<Department>> single =
+                Single.create(emitter -> emitter.onSuccess(departmentService.findAll()));
+
+        final RxDecorator decorator = rxDecoratorBuilder.build();
+        decorator.de(single).subscribe(departments ->
                 with(editView -> editView.showDepartments(departments)));
     }
 }

@@ -1,6 +1,6 @@
 package alvin.base.mvp.department.presenters;
 
-import android.support.annotation.NonNull;
+import android.annotation.SuppressLint;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import alvin.base.mvp.department.DepartmentContracts;
 import alvin.base.mvp.domain.models.Department;
 import alvin.base.mvp.domain.services.DepartmentService;
 import alvin.lib.common.rx.RxDecorator;
+import alvin.lib.common.rx.RxType;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 import io.reactivex.Single;
 
@@ -17,42 +18,45 @@ public class DepartmentPresenter
         extends PresenterAdapter<DepartmentContracts.View>
         implements DepartmentContracts.Presenter {
 
-    private final RxDecorator rxDecorator;
+    private final RxDecorator.Builder rxDecoratorBuilder;
     private final DepartmentService departmentService;
 
     @Inject
-    public DepartmentPresenter(@NonNull DepartmentContracts.View view,
-                               @NonNull RxDecorator rxDecorator,
-                               @NonNull DepartmentService departmentService) {
+    public DepartmentPresenter(DepartmentContracts.View view,
+                               @RxType.IO RxDecorator.Builder rxDecoratorBuilder,
+                               DepartmentService departmentService) {
         super(view);
-        this.rxDecorator = rxDecorator;
+        this.rxDecoratorBuilder = rxDecoratorBuilder;
         this.departmentService = departmentService;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void loadDepartments() {
-        rxDecorator.<List<Department>>de(
-                Single.create(emitter ->
-                        emitter.onSuccess(departmentService.findAll()))
-        ).subscribe(departments ->
-                with(view -> view.showDepartments(departments)));
+        final Single<List<Department>> single =
+                Single.create(emitter -> emitter.onSuccess(departmentService.findAll()));
+
+        final RxDecorator decorator = rxDecoratorBuilder.build();
+        decorator.de(single).subscribe(departments -> with(view -> view.showDepartments(departments)));
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void saveDepartment(String departmentName) {
-        rxDecorator.<List<Department>>de(
-                Single.create(emitter ->
-                        emitter.onSuccess(departmentService.saveAndGet(departmentName)))
-        ).subscribe(departments ->
-                with(view -> view.showDepartments(departments)));
+        final Single<List<Department>> single =
+                Single.create(emitter -> emitter.onSuccess(departmentService.saveAndGet(departmentName)));
+
+        final RxDecorator decorator = rxDecoratorBuilder.build();
+        decorator.de(single).subscribe(departments -> with(view -> view.showDepartments(departments)));
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void deleteDepartment(int departmentId) {
-        rxDecorator.<List<Department>>de(
-                Single.create(emitter ->
-                        emitter.onSuccess(departmentService.deleteAndGet(departmentId)))
-        ).subscribe(departments ->
-                with(view -> view.showDepartments(departments)));
+        final Single<List<Department>> single = Single.create(emitter ->
+                emitter.onSuccess(departmentService.deleteAndGet(departmentId)));
+
+        final RxDecorator decorator = rxDecoratorBuilder.build();
+        decorator.de(single).subscribe(departments -> with(view -> view.showDepartments(departments)));
     }
 }

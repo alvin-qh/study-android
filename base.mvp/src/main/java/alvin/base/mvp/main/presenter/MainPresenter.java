@@ -1,6 +1,6 @@
 package alvin.base.mvp.main.presenter;
 
-import android.support.annotation.NonNull;
+import android.annotation.SuppressLint;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import alvin.base.mvp.domain.models.NameCard;
 import alvin.base.mvp.domain.services.NameCardService;
 import alvin.base.mvp.main.MainContracts;
 import alvin.lib.common.rx.RxDecorator;
+import alvin.lib.common.rx.RxType;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 import io.reactivex.Single;
 
@@ -18,22 +19,24 @@ public class MainPresenter
         implements MainContracts.Presenter {
 
     private NameCardService nameCardService;
-    private RxDecorator rxDecorator;
+    private RxDecorator.Builder rxDecoratorBuilder;
 
     @Inject
-    public MainPresenter(@NonNull MainContracts.View view,
-                         @NonNull NameCardService nameCardService,
-                         @NonNull RxDecorator rxDecorator) {
+    public MainPresenter(MainContracts.View view,
+                         NameCardService nameCardService,
+                         @RxType.IO RxDecorator.Builder rxDecoratorBuilder) {
         super(view);
         this.nameCardService = nameCardService;
-        this.rxDecorator = rxDecorator;
+        this.rxDecoratorBuilder = rxDecoratorBuilder;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void loadNameCards() {
-        rxDecorator.<List<NameCard>>de(
-                Single.create(emitter -> emitter.onSuccess(nameCardService.loadAll()))
-        ).subscribe(nameCards ->
-                with(view -> view.nameCardsLoaded(nameCards)));
+        final Single<List<NameCard>> single =
+                Single.create(emitter -> emitter.onSuccess(nameCardService.loadAll()));
+
+        final RxDecorator decorator = rxDecoratorBuilder.build();
+        decorator.de(single).subscribe(nameCards -> with(view -> view.nameCardsLoaded(nameCards)));
     }
 }

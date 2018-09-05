@@ -11,9 +11,13 @@ import alvin.base.mvp.domain.MainDatabase;
 import alvin.base.mvp.main.MainModule;
 import alvin.base.mvp.namecard.NameCardModule;
 import alvin.lib.common.dbflow.repositories.TransactionManager;
+import alvin.lib.common.rx.RxDecorator;
+import alvin.lib.common.rx.RxType;
 import alvin.lib.common.utils.SystemServices;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 @Module(includes = {
         MainModule.class,
@@ -38,5 +42,14 @@ public class ApplicationModule {
     @Provides
     SystemServices systemServices(final Context context) {
         return new SystemServices(context);
+    }
+
+    @Singleton
+    @Provides
+    @RxType.IO
+    RxDecorator.Builder rxDecoratorBuilder() {
+        return RxDecorator.newBuilder()
+                .subscribeOn(Schedulers::io)
+                .observeOn(AndroidSchedulers::mainThread);
     }
 }

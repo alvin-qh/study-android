@@ -6,13 +6,9 @@ import alvin.base.mvp.namecard.presenter.NameCardEditPresenter;
 import alvin.base.mvp.namecard.views.NameCardAddFragment;
 import alvin.base.mvp.namecard.views.NameCardDisplayFragment;
 import alvin.base.mvp.namecard.views.NameCardEditDialog;
-import alvin.lib.common.rx.RxDecorator;
 import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 import dagger.android.ContributesAndroidInjector;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 @Module
 public interface NameCardModule {
@@ -59,12 +55,5 @@ public interface NameCardModule {
 
     @Module
     class ProviderModule {
-        @Provides
-        RxDecorator rxDecorator() {
-            return RxDecorator.newBuilder()
-                    .subscribeOn(Schedulers::io)
-                    .observeOn(AndroidSchedulers::mainThread)
-                    .build();
-        }
     }
 }

@@ -1,12 +1,11 @@
 package alvin.base.mvp.namecard.presenter;
 
-import android.support.annotation.NonNull;
-
 import javax.inject.Inject;
 
 import alvin.base.mvp.domain.services.NameCardService;
 import alvin.base.mvp.namecard.NameCardContracts;
 import alvin.lib.common.rx.RxDecorator;
+import alvin.lib.common.rx.RxType;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
 public class NameCardAddPresenter
@@ -14,14 +13,14 @@ public class NameCardAddPresenter
         implements NameCardContracts.AddPresenter {
 
     private final NameCardService nameCardService;
-    private final RxDecorator rxDecorator;
+    private final RxDecorator.Builder rxDecoratorBuilder;
 
     @Inject
-    public NameCardAddPresenter(@NonNull NameCardContracts.AddView view,
-                                @NonNull NameCardService nameCardService,
-                                @NonNull RxDecorator rxDecorator) {
+    public NameCardAddPresenter(NameCardContracts.AddView view,
+                                NameCardService nameCardService,
+                                @RxType.IO RxDecorator.Builder rxDecoratorBuilder) {
         super(view);
         this.nameCardService = nameCardService;
-        this.rxDecorator = rxDecorator;
+        this.rxDecoratorBuilder = rxDecoratorBuilder;
     }
 }

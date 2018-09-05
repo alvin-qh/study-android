@@ -33,7 +33,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import dagger.android.support.DaggerAppCompatDialogFragment;
 
 public class DepartmentEditDialog
         extends DialogFragmentAdapter<DepartmentContracts.Presenter>
