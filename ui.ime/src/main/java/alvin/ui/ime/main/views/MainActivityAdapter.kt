@@ -15,10 +15,11 @@ import javax.inject.Inject
 class MainActivityAdapter : ActivityAdapter<MainContracts.Presenter>(), MainContracts.IView {
 
     companion object {
-        val AUTO_HIDE_INPUT_METHOD = true
+        const val AUTO_HIDE_INPUT_METHOD = true
     }
 
-    @Inject lateinit var systemServices: SystemServices
+    @Inject
+    lateinit var systemServices: SystemServices
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +38,7 @@ class MainActivityAdapter : ActivityAdapter<MainContracts.Presenter>(), MainCont
         if (AUTO_HIDE_INPUT_METHOD) {
             if (ev.action == MotionEvent.ACTION_DOWN) {
                 if (canInputMethodHidden(currentFocus, ev)) {
-                    systemServices.inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+                    systemServices.inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
                 }
             }
         }
@@ -64,7 +65,7 @@ class MainActivityAdapter : ActivityAdapter<MainContracts.Presenter>(), MainCont
     override fun hideInputMethod() {
         if (!AUTO_HIDE_INPUT_METHOD) {
             // Get focus window and hide input method from it
-            systemServices.inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+            systemServices.inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
         }
     }
 }

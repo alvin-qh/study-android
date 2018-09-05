@@ -1,15 +1,16 @@
 package alvin.ui.ime.main.presenters
 
+import alvin.lib.mvp.contracts.adapters.PresenterAdapter
 import alvin.ui.ime.main.MainContracts
 import javax.inject.Inject
 
 class MainPresenter
 @Inject constructor(view: MainContracts.IView) :
-        ViewPresenterAdapter<MainContracts.IView>(view), MainContracts.Presenter {
+        PresenterAdapter<MainContracts.IView>(view), MainContracts.Presenter {
 
     override fun textInput(text: String) {
         if (!text.isEmpty()) {
-            withView {
+            with {
                 it.showInput(text)
                 it.hideInputMethod()
             }
