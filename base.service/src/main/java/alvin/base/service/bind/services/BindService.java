@@ -1,5 +1,6 @@
 package alvin.base.service.bind.services;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
@@ -19,13 +20,14 @@ import java.util.function.Consumer;
 import javax.inject.Inject;
 
 import alvin.lib.common.rx.RxDecorator;
+import alvin.lib.common.rx.RxType;
 import dagger.android.DaggerService;
 import io.reactivex.Observable;
 
 public class BindService extends DaggerService {
     public static final String EXTRA_ARG_ZONE = "zone";
 
-    @Inject RxDecorator rxDecorator;
+    @Inject @RxType.IO RxDecorator.Builder rxDecoratorBuilder;
 
     private boolean available = false;
 
@@ -54,18 +56,19 @@ public class BindService extends DaggerService {
         timeCallback.clear();   // clear all callback functions, stop callback
     }
 
+    @SuppressLint("CheckResult")
     private void startWorking() {
-        rxDecorator.<LocalDateTime>de(
-                Observable.interval(0, 1, TimeUnit.SECONDS)
-                        .flatMap(ignore -> emitter -> {
-                            if (available) {
-                                emitter.onNext(LocalDateTime.now(zoneId));
-                            } else {
-                                emitter.onComplete();
-                            }
-                        })
+        final Observable<LocalDateTime> observable = Observable.interval(0, 1, TimeUnit.SECONDS)
+                .flatMap(ignore -> emitter -> {
+                    if (available) {
+                        emitter.onNext(LocalDateTime.now(zoneId));
+                    } else {
+                        emitter.onComplete();
+                    }
+                });
 
-        ).subscribe(time ->
+        final RxDecorator decorator = rxDecoratorBuilder.build();
+        decorator.de(observable).subscribe(time ->
                 // call every callback functions and pass result
                 timeCallback.forEach(consumer -> consumer.accept(time))
         );

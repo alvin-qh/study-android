@@ -32,6 +32,5 @@ public interface ForegroundModule {
 
     @Module
     class ServiceModule {
-
     }
 }

@@ -1,5 +1,6 @@
 package alvin.base.service.working.services;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
@@ -17,13 +18,14 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import alvin.lib.common.rx.RxDecorator;
+import alvin.lib.common.rx.RxType;
 import dagger.android.DaggerService;
 import io.reactivex.Observable;
 
 public class WorkingService extends DaggerService {
     public static final String EXTRA_ARG_ZONE = "zone";
 
-    @Inject RxDecorator rxDecorator;
+    @Inject @RxType.IO RxDecorator.Builder rxDecoratorBuilder;
 
     private ZoneId zoneId;
 
@@ -69,20 +71,20 @@ public class WorkingService extends DaggerService {
         destroyed = true;
     }
 
+    @SuppressLint("CheckResult")
     private void startServiceLoop() {
-        rxDecorator.<LocalDateTime>de(
-                Observable.interval(0L, 1, TimeUnit.SECONDS).flatMap(ignore ->
-                        emitter -> {
-                            if (!destroyed) {
-                                LocalDateTime time = LocalDateTime.now(zoneId);
-                                emitter.onNext(time);
-                            } else {
-                                emitter.onComplete();
-                            }
-                        })
+        final Observable<LocalDateTime> observable = Observable.interval(0L, 1, TimeUnit.SECONDS)
+                .flatMap(ignore -> emitter -> {
+                    if (!destroyed) {
+                        LocalDateTime time = LocalDateTime.now(zoneId);
+                        emitter.onNext(time);
+                    } else {
+                        emitter.onComplete();
+                    }
+                });
 
-        ).subscribe(time ->
-                listeners.forEach(listener -> listener.onTimeMessage(time)));
+        final RxDecorator decorator = rxDecoratorBuilder.build();
+        decorator.de(observable).subscribe(time -> listeners.forEach(listener -> listener.onTimeMessage(time)));
     }
 
     public static void addOnServiceCallbackListener(@NonNull OnServiceCallbackListener listener) {

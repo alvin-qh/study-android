@@ -9,7 +9,6 @@ import javax.inject.Inject;
 
 import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.base.service.foreground.ForegroundContracts;
-import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
 public class ForegroundPresenter

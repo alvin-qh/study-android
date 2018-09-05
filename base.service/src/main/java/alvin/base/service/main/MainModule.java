@@ -1,8 +1,8 @@
 package alvin.base.service.main;
 
+import alvin.base.service.main.views.MainActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
-import alvin.base.service.main.views.MainActivity;
 
 @Module
 public interface MainModule {
