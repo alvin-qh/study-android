@@ -1,4 +1,4 @@
-package alvin.adv.database.common.views;
+package alvin.base.database.common.views;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -17,12 +17,13 @@ import com.google.common.base.Strings;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import alvin.adv.database.R;
-import alvin.adv.database.common.domain.models.Gender;
+import alvin.base.database.R;
+import alvin.base.database.common.domain.models.Gender;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+@SuppressWarnings("ALL")
 public class FormDialog extends Dialog {
 
     @BindView(R.id.text_name)
@@ -43,7 +44,7 @@ public class FormDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View view = View.inflate(getContext(), R.layout.common_dialog_person, null);
+        View view = View.inflate(getContext(), R.layout.dialog_person, null);
         setContentView(view);
 
         ButterKnife.bind(this);

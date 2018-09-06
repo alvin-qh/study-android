@@ -4,11 +4,11 @@ import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 
 import java.io.Closeable;
 
-public class Transaction implements Closeable, AutoCloseable {
+public class TransactionWrapper implements Closeable, AutoCloseable {
 
     private final DatabaseWrapper database;
 
-    Transaction(DatabaseWrapper database) {
+    TransactionWrapper(DatabaseWrapper database) {
         this.database = database;
     }
 

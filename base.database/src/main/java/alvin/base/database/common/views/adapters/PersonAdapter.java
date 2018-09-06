@@ -1,4 +1,4 @@
-package alvin.adv.database.common.views.adapters;
+package alvin.base.database.common.views.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,8 +12,8 @@ import android.widget.TextView;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import alvin.adv.database.R;
-import alvin.adv.database.common.domain.models.IPerson;
+import alvin.base.database.R;
+import alvin.base.database.common.domain.models.IPerson;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -44,14 +44,15 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         this.onItemDeleteLListener = onItemDeleteLListener;
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.common_view_person_item, parent, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = inflater.inflate(R.layout.view_list_item_person, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final IPerson item = persons.get(position);
 
         holder.id.setText(String.valueOf(item.getId()));

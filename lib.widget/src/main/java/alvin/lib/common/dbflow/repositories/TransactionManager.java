@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
+import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
 
 public class TransactionManager {
 
@@ -15,13 +16,17 @@ public class TransactionManager {
     }
 
     @NonNull
-    public Transaction begin() {
+    public TransactionWrapper begin() {
         final DatabaseWrapper wrapper = this.database.getWritableDatabase();
         wrapper.beginTransaction();
-        return new Transaction(wrapper);
+        return new TransactionWrapper(wrapper);
     }
 
-    public void executeTransaction(ITransaction trans) {
+    public void execute(ITransaction trans) {
         database.executeTransaction(trans);
+    }
+
+    public Transaction.Builder executeAsync(ITransaction trans) {
+        return database.beginTransactionAsync(trans);
     }
 }

@@ -22,7 +22,4 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation libs.main.butterKnife
-    kapt libs.annotation.butterKnife
 }

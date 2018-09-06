@@ -1,22 +1,23 @@
-package alvin.adv.database.sqlite.views;
+package alvin.base.database.sqlite.views;
+
+import android.widget.Toast;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 
-import alvin.adv.database.R;
-import alvin.adv.database.common.domain.models.Gender;
-import alvin.adv.database.common.domain.models.IPerson;
-import alvin.adv.database.common.views.BaseActivity;
-import alvin.adv.database.sqlite.domain.SQLite;
-import alvin.adv.database.sqlite.domain.models.Person;
-import alvin.adv.database.sqlite.domain.repositories.PersonSQLiteRepository;
+import alvin.base.database.R;
+import alvin.base.database.common.domain.models.Gender;
+import alvin.base.database.common.domain.models.IPerson;
+import alvin.base.database.common.views.BaseActivity;
+import alvin.base.database.sqlite.SQLiteContracts;
+import alvin.base.database.sqlite.domain.models.Person;
 
-public class SQLiteActivity extends BaseActivity {
+public class SQLiteActivity extends BaseActivity<SQLiteContracts.Presenter>
+        implements SQLiteContracts.View {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.sqlite_activity;
+        return R.layout.activity_sqlite;
     }
 
     @Override
@@ -26,35 +27,47 @@ public class SQLiteActivity extends BaseActivity {
 
     @Override
     public void savePerson(String name, Gender gender, LocalDate birthday) {
-        Person person = new Person(name, gender, birthday);
-        try (SQLite sqlite = SQLite.createSQLiteDB(this)) {
-            PersonSQLiteRepository repository = new PersonSQLiteRepository(sqlite.getWritable());
-            repository.create(person);
-        }
+        presenter.savePerson(new Person(name, gender, birthday));
     }
 
     @Override
-    public List<IPerson> getPersons(Gender gender) {
-        try (SQLite sqlite = SQLite.createSQLiteDB(this)) {
-            PersonSQLiteRepository repository = new PersonSQLiteRepository(sqlite.getReadable());
-            return Collections.unmodifiableList(repository.findByGender(gender));
-        }
+    public void getPersons(Gender gender) {
+        presenter.getPersons(gender);
     }
 
     @Override
-    public void updatePerson(int id, String name, Gender gender, LocalDate birthday) {
-        Person person = new Person(id, name, gender, birthday);
-        try (SQLite sqlite = SQLite.createSQLiteDB(this)) {
-            PersonSQLiteRepository repository = new PersonSQLiteRepository(sqlite.getReadable());
-            repository.update(person);
-        }
+    public void updatePerson(IPerson person) {
+        presenter.updatePerson(person);
     }
 
     @Override
-    public void deletePerson(int id) {
-        try (SQLite sqlite = SQLite.createSQLiteDB(this)) {
-            PersonSQLiteRepository repository = new PersonSQLiteRepository(sqlite.getReadable());
-            repository.delete(id);
-        }
+    public void deletePerson(IPerson person) {
+        presenter.deletePerson(person);
+    }
+
+    @Override
+    public void onPersonGot(List<IPerson> persons) {
+        showPersons(persons);
+    }
+
+    @Override
+    public void onPersonCreate(IPerson person) {
+        final String message = String.format("Persons %s created", person.getName());
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        getPersons();
+    }
+
+    @Override
+    public void onPersonUpdate(IPerson person) {
+        final String message = String.format("Persons %s updated", person.getName());
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        getPersons();
+    }
+
+    @Override
+    public void onPersonDelete(IPerson person) {
+        final String message = String.format("Persons %s deleted", person.getName());
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        getPersons();
     }
 }

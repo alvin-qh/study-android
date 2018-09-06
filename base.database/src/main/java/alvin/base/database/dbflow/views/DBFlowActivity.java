@@ -1,27 +1,24 @@
-package alvin.adv.database.dbflow.views;
+package alvin.base.database.dbflow.views;
 
-import com.raizlabs.android.dbflow.config.FlowManager;
+import android.widget.Toast;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
-import alvin.adv.database.R;
-import alvin.adv.database.common.domain.models.Gender;
-import alvin.adv.database.common.domain.models.IPerson;
-import alvin.adv.database.common.views.BaseActivity;
-import alvin.adv.database.dbflow.domain.FlowDatabase;
-import alvin.adv.database.dbflow.domain.models.Person;
-import alvin.adv.database.dbflow.domain.repositories.PersonDBFlowRepository;
-import alvin.lib.common.dbflow.repositories.TransactionManager;
+import alvin.base.database.R;
+import alvin.base.database.common.domain.models.Gender;
+import alvin.base.database.common.domain.models.IPerson;
+import alvin.base.database.common.views.BaseActivity;
+import alvin.base.database.dbflow.DBFlowContracts;
+import alvin.base.database.dbflow.domain.models.Person;
 
 
-public class DBFlowActivity extends BaseActivity {
+public class DBFlowActivity extends BaseActivity<DBFlowContracts.Presenter>
+        implements DBFlowContracts.View {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.dbflow_activity;
+        return R.layout.activity_dbflow;
     }
 
     @Override
@@ -30,42 +27,48 @@ public class DBFlowActivity extends BaseActivity {
     }
 
     @Override
+    public void getPersons(Gender gender) {
+        presenter.getPersons(gender);
+    }
+
+    @Override
     public void savePerson(String name, Gender gender, LocalDate birthday) {
-        TransactionManager manager = new TransactionManager(
-                FlowManager.getDatabase(FlowDatabase.class));
-        manager.executeTransaction(db -> new Person(name, gender, birthday).save());
+        presenter.savePerson(new Person(name, gender, birthday));
     }
 
     @Override
-    public List<IPerson> getPersons(Gender gender) {
-        PersonDBFlowRepository repository = new PersonDBFlowRepository();
-        return Collections.unmodifiableList(repository.findByGender(gender));
+    public void updatePerson(IPerson person) {
+        presenter.updatePerson(person);
     }
 
     @Override
-    public void updatePerson(int id, String name, Gender gender, LocalDate birthday) {
-        TransactionManager manager = new TransactionManager(
-                FlowManager.getDatabase(FlowDatabase.class));
-
-        PersonDBFlowRepository repository = new PersonDBFlowRepository();
-
-        Optional<Person> mayPerson = repository.findById(id);
-        mayPerson.ifPresent(person -> {
-            person.setName(name);
-            person.setGender(gender);
-            person.setBirthday(birthday);
-            manager.executeTransaction(db -> person.update());
-        });
+    public void deletePerson(IPerson person) {
+        presenter.deletePerson(person);
     }
 
     @Override
-    public void deletePerson(int id) {
-        TransactionManager manager = new TransactionManager(
-                FlowManager.getDatabase(FlowDatabase.class));
+    public void onPersonGot(List<IPerson> persons) {
+        showPersons(persons);
+    }
 
-        PersonDBFlowRepository repository = new PersonDBFlowRepository();
-        Optional<Person> mayPerson = repository.findById(id);
+    @Override
+    public void onPersonCreate(IPerson person) {
+        final String message = String.format("Persons %s created", person.getName());
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        getPersons();
+    }
 
-        mayPerson.ifPresent(person -> manager.executeTransaction(db -> person.delete()));
+    @Override
+    public void onPersonUpdate(IPerson person) {
+        final String message = String.format("Persons %s updated", person.getName());
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        getPersons();
+    }
+
+    @Override
+    public void onPersonDelete(IPerson person) {
+        final String message = String.format("Persons %s deleted", person.getName());
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        getPersons();
     }
 }

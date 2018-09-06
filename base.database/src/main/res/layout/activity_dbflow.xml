@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".sqlite.views.SQLiteActivity">
+    tools:context=".dbflow.views.DBFlowActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/common_activity_base" />
+    <include layout="@layout/activity_common" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

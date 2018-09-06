@@ -26,12 +26,12 @@
     </style>
 
     <style name="AppTheme.Dialog.Custom" parent="AppTheme.Dialog">
-        <item name="android:background">@drawable/dialog_background</item>
+        <item name="android:background">@drawable/bg_dialog</item>
     </style>
 
     <style name="AppTheme.Widget" />
 
     <style name="AppTheme.Widget.ListViewItem">
-        <item name="android:background">@drawable/list_item_background</item>
+        <item name="android:background">@drawable/bg_list_item</item>
     </style>
 </resources>

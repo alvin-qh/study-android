@@ -1,4 +1,4 @@
-package alvin.adv.database.sqlite.domain;
+package alvin.base.database.sqlite.domain;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,6 +9,8 @@ import android.util.SparseArray;
 import com.google.common.base.Strings;
 
 import java.io.Closeable;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 public final class SQLite implements Closeable, AutoCloseable {
     private static final String TAG = SQLite.class.getSimpleName();
@@ -52,20 +54,52 @@ public final class SQLite implements Closeable, AutoCloseable {
         };
     }
 
-    public static SQLite createSQLiteDB(Context context) {
-        return new SQLite(context, "main_db.db");
+    public static Builder newBuilder() {
+        return new Builder();
     }
 
-    public SQLiteDatabase getReadable() {
-        return helper.getReadableDatabase();
+    public <R> R query(Function<SQLiteDatabase, R> executor) {
+        try (SQLiteDatabase db = helper.getWritableDatabase()) {
+            return executor.apply(db);
+        }
     }
 
-    public SQLiteDatabase getWritable() {
-        return helper.getWritableDatabase();
+    public void execute(Consumer<SQLiteDatabase> executor) {
+        try (SQLiteDatabase db = helper.getWritableDatabase()) {
+            db.beginTransaction();
+            try {
+                executor.accept(db);
+                db.setTransactionSuccessful();
+            } finally {
+                db.endTransaction();
+            }
+        }
     }
 
     @Override
     public void close() {
         helper.close();
+    }
+
+    public static class Builder {
+        private Context context;
+        private String dbName;
+
+        private Builder() {
+        }
+
+        public SQLite build() {
+            return new SQLite(context, dbName);
+        }
+
+        public Builder withContext(Context context) {
+            this.context = context;
+            return this;
+        }
+
+        public Builder withDBName(String dbName) {
+            this.dbName = dbName;
+            return this;
+        }
     }
 }

@@ -7,6 +7,7 @@ import java.lang.ref.WeakReference;
 import java.util.function.Consumer;
 
 import alvin.lib.mvp.contracts.IPresenter;
+import alvin.lib.mvp.contracts.IView;
 import alvin.lib.mvp.contracts.Target;
 
 public abstract class PresenterAdapter<T extends Target> implements IPresenter {
@@ -19,9 +20,16 @@ public abstract class PresenterAdapter<T extends Target> implements IPresenter {
 
     protected void with(@NonNull Consumer<T> consumer) {
         T obj = targetRef.get();
-        if (obj != null) {
+        if (obj != null && isValid(obj)) {
             consumer.accept(obj);
         }
+    }
+
+    private boolean isValid(T target) {
+        if (target instanceof IView) {
+            return !((IView)target).isDestroyed();
+        }
+        return true;
     }
 
     public WeakReference<T> getTargetRef() {

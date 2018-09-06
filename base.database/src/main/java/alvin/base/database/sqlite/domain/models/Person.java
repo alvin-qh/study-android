@@ -1,9 +1,9 @@
-package alvin.adv.database.sqlite.domain.models;
+package alvin.base.database.sqlite.domain.models;
 
 import java.time.LocalDate;
 
-import alvin.adv.database.common.domain.models.Gender;
-import alvin.adv.database.common.domain.models.IPerson;
+import alvin.base.database.common.domain.models.Gender;
+import alvin.base.database.common.domain.models.IPerson;
 
 public class Person implements IPerson {
     private final int id;
@@ -39,5 +39,10 @@ public class Person implements IPerson {
 
     public LocalDate getBirthday() {
         return birthday;
+    }
+
+    @Override
+    public IPerson merge(String name, Gender gender, LocalDate birthday) {
+        return new Person(this.id, name, gender, birthday);
     }
 }
