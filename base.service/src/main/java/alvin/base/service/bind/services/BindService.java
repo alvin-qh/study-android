@@ -29,7 +29,7 @@ public class BindService extends DaggerService {
 
     @Inject @RxType.IO RxDecorator.Builder rxDecoratorBuilder;
 
-    private boolean destoried = false;
+    private boolean destroyed = false;
     private ZoneId zoneId;
 
     private final ServiceBinder binder = new ServiceBinder();
@@ -42,7 +42,7 @@ public class BindService extends DaggerService {
     @Override
     public void onCreate() {
         super.onCreate();
-        destoried = false;
+        destroyed = false;
 
         startWorking();
     }
@@ -50,7 +50,7 @@ public class BindService extends DaggerService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        destoried = true;
+        destroyed = true;
         
         timeCallback.clear();   // clear all callback functions, stop callback
     }
@@ -61,7 +61,7 @@ public class BindService extends DaggerService {
         final Observable<LocalDateTime> observable = decorator.de(
                 Observable.interval(0, 1, TimeUnit.SECONDS)
                         .flatMap(ignore -> emitter -> {
-                            if (!destoried) {
+                            if (!destroyed) {
                                 if (zoneId != null) {
                                     emitter.onNext(LocalDateTime.now(zoneId));
                                 }

@@ -9,6 +9,7 @@
         android:label="@string/permission_remote_service_label"
         android:protectionLevel="dangerous" />
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="alvin.permissions.REMOTE_SERVICE" />
 
     <application

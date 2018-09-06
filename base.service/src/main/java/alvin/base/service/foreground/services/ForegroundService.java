@@ -5,19 +5,17 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.drawable.Icon;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import javax.inject.Inject;
-
 import alvin.base.service.R;
 import alvin.base.service.common.broadcasts.ServiceBroadcasts;
-import alvin.lib.common.utils.Versions;
 import dagger.android.DaggerService;
 
 public class ForegroundService extends DaggerService {
-
-    @Inject Versions version;
+    private static final String PRIMARY_CHANNEL = "default";
+//    private static final String SECONDARY_CHANNEL = "second";
 
     @Nullable
     @Override
@@ -28,47 +26,38 @@ public class ForegroundService extends DaggerService {
     @Override
     public void onCreate() {
         super.onCreate();
+        createNotification();
         sendBroadcast(new Intent(ServiceBroadcasts.ACTION_SERVICE_CREATED));
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        createNotification();
-        return super.onStartCommand(intent, flags, startId);
-    }
-
-    @SuppressWarnings("deprecation")
     private void createNotification() {
         final Notification.Builder notificationBuilder;
+        final NotificationChannel channel = new NotificationChannel(
+                PRIMARY_CHANNEL,
+                PRIMARY_CHANNEL,
+                NotificationManager.IMPORTANCE_DEFAULT);
 
-        if (version.isEqualOrGreatThan()) {
-            final String channelId = getString(R.string.notification_channel);
-            final String channelName = "";
-
-            final NotificationChannel channel = new NotificationChannel(
-                    channelId,
-                    channelName,
-                    NotificationManager.IMPORTANCE_HIGH);
-
-            final NotificationManager notificationManager =
-                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            if (notificationManager != null) {
-                notificationManager.createNotificationChannel(channel);
-            }
-
-            notificationBuilder = new Notification.Builder(this, channelId);
-        } else {
-            notificationBuilder = new Notification.Builder(this);
+        final NotificationManager notificationManager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (notificationManager == null) {
+            return;
         }
+
+        notificationManager.createNotificationChannel(channel);
+        notificationBuilder = new Notification.Builder(this, PRIMARY_CHANNEL);
 
         final PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
                 new Intent(ServiceBroadcasts.ACTION_SERVICE_NOTIFY), 0);
 
         final Notification notification = notificationBuilder.setOngoing(true)
-                .setContentTitle("")
-                .setContentText("")
-                .setTicker("")
-                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setContentTitle("Foreground Service")
+                .setContentText("This is an android Foreground Service demo")
+                .setTicker("Ticker")
+                .setTimeoutAfter(2000)
+                .setShowWhen(true)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(Icon.createWithResource(this, R.drawable.ic_action_setting))
+                .setLargeIcon(Icon.createWithResource(this, R.drawable.ic_action_setting))
                 .setContentIntent(pendingIntent)
                 .build();
         notification.flags |= Notification.FLAG_NO_CLEAR;
@@ -79,7 +68,6 @@ public class ForegroundService extends DaggerService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
         sendBroadcast(new Intent(ServiceBroadcasts.ACTION_SERVICE_DESTROYED));
     }
 }

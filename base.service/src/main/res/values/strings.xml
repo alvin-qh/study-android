@@ -28,8 +28,6 @@
     <string name="rb_service_unbind">Unbind</string>
     <string name="rb_service_destroyed">Destroyed</string>
 
-    <string name="notification_channel">notification_channel_01</string>
-
     <string name="permission_remote_service_label">Remote service</string>
     <string name="permission_remote_service_description">Start/Stop/Bind to remote service</string>
 </resources>

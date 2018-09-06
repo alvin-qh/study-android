@@ -1,8 +1,10 @@
 package alvin.base.service.foreground.views;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.Button;
 
@@ -13,7 +15,7 @@ import alvin.base.service.common.broadcasts.ServiceBroadcasts;
 import alvin.base.service.foreground.ForegroundContracts;
 import alvin.base.service.foreground.services.ForegroundService;
 import alvin.lib.common.utils.IntentFilters;
-import alvin.lib.common.utils.Versions;
+import alvin.lib.common.utils.Permissions;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -21,9 +23,9 @@ import dagger.android.support.DaggerAppCompatActivity;
 
 public class ForegroundActivity extends DaggerAppCompatActivity
         implements ForegroundContracts.View {
+    private static final int PERMISSION_REQUEST_CODE = 1;
 
     @Inject ForegroundContracts.Presenter presenter;
-    @Inject Versions version;
 
     @BindView(R.id.btn_start_service) Button btnStartService;
     @BindView(R.id.btn_stop_service) Button btnStopService;
@@ -71,15 +73,26 @@ public class ForegroundActivity extends DaggerAppCompatActivity
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        final Permissions permissions = new Permissions(this, Manifest.permission.FOREGROUND_SERVICE);
+        final Permissions.Status status = permissions.requestPermissions(PERMISSION_REQUEST_CODE);
+        if (status == Permissions.Status.ALLOWED) {
+            onPermissionsAllow();
+        }
+    }
+
+    private void onPermissionsAllow() {
+        findViewById(R.id.btn_start_service).setEnabled(true);
+        findViewById(R.id.btn_stop_service).setEnabled(true);
+    }
+
     @OnClick(R.id.btn_start_service)
     public void onStartServiceButtonClick(Button b) {
         Intent intent = new Intent(this, ForegroundService.class);
-
-        if (version.isEqualOrGreatThan()) {
-            startForegroundService(intent);
-        } else {
-            startService(intent);
-        }
+        startForegroundService(intent);
     }
 
     @OnClick(R.id.btn_stop_service)
@@ -98,5 +111,16 @@ public class ForegroundActivity extends DaggerAppCompatActivity
     public void serviceDestroyed() {
         btnStartService.setEnabled(true);
         btnStopService.setEnabled(false);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            final Permissions.Status status = Permissions.checkPermissionsWithResults(permissions, grantResults);
+            if (status == Permissions.Status.ALLOWED) {
+                onPermissionsAllow();
+            }
+        }
     }
 }
