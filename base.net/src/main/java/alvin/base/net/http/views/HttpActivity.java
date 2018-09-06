@@ -1,22 +1,20 @@
-package alvin.adv.net.http.views;
+package alvin.base.net.http.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
-import alvin.adv.net.R;
-import alvin.adv.net.http.rx.views.RxActivity;
-import alvin.adv.net.http.task.views.TaskActivity;
+import alvin.base.net.R;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.support.DaggerAppCompatActivity;
 
-public class HttpActivity extends DaggerAppCompatActivity {
+public class HttpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.http_activity);
+        setContentView(R.layout.activity_http);
 
         ButterKnife.bind(this);
     }
@@ -27,10 +25,10 @@ public class HttpActivity extends DaggerAppCompatActivity {
 
         switch (b.getId()) {
         case R.id.btn_use_sync_task:
-            intent = new Intent(this, TaskActivity.class);
+            intent = new Intent(this, HttpWithTaskActivity.class);
             break;
         case R.id.btn_use_rx:
-            intent = new Intent(this, RxActivity.class);
+            intent = new Intent(this, HttpWithRxActivity.class);
             break;
         default:
             intent = null;

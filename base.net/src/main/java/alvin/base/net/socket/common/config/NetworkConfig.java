@@ -1,4 +1,4 @@
-package alvin.adv.net.socket.common.config;
+package alvin.base.net.socket.common.config;
 
 
 import alvin.lib.common.utils.ApplicationConfig;

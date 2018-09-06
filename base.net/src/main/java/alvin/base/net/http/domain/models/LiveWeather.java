@@ -1,4 +1,4 @@
-package alvin.adv.net.http.common.domain.models;
+package alvin.base.net.http.domain.models;
 
 import android.support.annotation.NonNull;
 

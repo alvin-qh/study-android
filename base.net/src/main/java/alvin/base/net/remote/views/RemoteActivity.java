@@ -1,12 +1,12 @@
-package alvin.adv.net.remote.views;
+package alvin.base.net.remote.views;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Button;
 
-import alvin.adv.net.R;
-import alvin.adv.net.remote.image.views.ImageActivity;
+import alvin.base.net.R;
+import alvin.base.net.remote.image.views.ImageActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dagger.android.support.DaggerAppCompatActivity;

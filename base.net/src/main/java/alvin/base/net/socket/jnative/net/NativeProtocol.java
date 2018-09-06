@@ -1,4 +1,4 @@
-package alvin.adv.net.socket.jnative.net;
+package alvin.base.net.socket.jnative.net;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,8 +15,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
 
-import alvin.adv.net.socket.common.models.Command;
-import alvin.adv.net.socket.common.models.CommandAck;
+import alvin.base.net.socket.common.models.Command;
+import alvin.base.net.socket.common.models.CommandAck;
 import alvin.lib.common.utils.MD5;
 
 public class NativeProtocol {

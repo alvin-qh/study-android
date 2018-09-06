@@ -1,4 +1,4 @@
-package alvin.adv.net.status.network;
+package alvin.base.net.status.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

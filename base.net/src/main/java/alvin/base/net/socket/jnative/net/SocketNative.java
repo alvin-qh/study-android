@@ -1,12 +1,12 @@
-package alvin.adv.net.socket.jnative.net;
+package alvin.base.net.socket.jnative.net;
 
 import java.io.Closeable;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-import alvin.adv.net.socket.common.config.NetworkConfig;
-import alvin.adv.net.socket.common.models.CommandAck;
+import alvin.base.net.socket.common.config.NetworkConfig;
+import alvin.base.net.socket.common.models.CommandAck;
 
 public class SocketNative implements Closeable, AutoCloseable {
     private static final int TIMEOUT = 1000 * 5;

@@ -1,4 +1,4 @@
-package alvin.adv.net.http.common.views;
+package alvin.base.net.http.views;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,27 +12,26 @@ import com.google.common.base.Joiner;
 import java.util.ArrayList;
 import java.util.List;
 
-import alvin.adv.net.R;
-import alvin.adv.net.http.WeatherContracts;
-import alvin.adv.net.http.common.domain.models.LiveWeather;
+import alvin.base.net.R;
+import alvin.base.net.http.HttpContracts;
+import alvin.base.net.http.domain.models.LiveWeather;
 import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public abstract class BaseActivity
-        extends ActivityAdapter<WeatherContracts.Presenter>
-        implements WeatherContracts.View {
+public abstract class BaseActivity extends ActivityAdapter<HttpContracts.Presenter>
+        implements HttpContracts.View {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
 
-    @BindView(R.id.text_weather)
-    TextView textWeather;
+    @BindView(R.id.tv_weather)
+    TextView tvWeather;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.http_common_activity_base);
+        setContentView(R.layout.activity_http_common);
 
         ButterKnife.bind(this);
     }
@@ -40,13 +39,8 @@ public abstract class BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.getLiveWeather();
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy();
+        presenter.getLiveWeather();
     }
 
     @OnClick(R.id.btn_refresh)
@@ -56,7 +50,7 @@ public abstract class BaseActivity
 
     @Override
     public void showLiveWeather(@NonNull LiveWeather weather) {
-        textWeather.setText(formatLiveWeather(weather));
+        tvWeather.setText(formatLiveWeather(weather));
     }
 
     private String formatLiveWeather(LiveWeather weather) {

@@ -1,6 +1,6 @@
-package alvin.adv.net.status.handlers;
+package alvin.base.net.status.handlers;
 
-import alvin.adv.net.status.network.NetworkStatus;
+import alvin.base.net.status.network.NetworkStatus;
 
 public interface OnNetStatusChangedListener {
     void onNetworkStatusChanged(NetworkStatus status);

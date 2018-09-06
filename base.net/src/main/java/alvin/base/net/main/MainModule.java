@@ -1,6 +1,6 @@
-package alvin.adv.net.main;
+package alvin.base.net.main;
 
-import alvin.adv.net.main.views.MainActivity;
+import alvin.base.net.main.views.MainActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 

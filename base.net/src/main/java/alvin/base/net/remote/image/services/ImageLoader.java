@@ -1,4 +1,4 @@
-package alvin.adv.net.remote.image.services;
+package alvin.base.net.remote.image.services;
 
 import android.graphics.drawable.Drawable;
 

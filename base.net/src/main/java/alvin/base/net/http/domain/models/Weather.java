@@ -1,4 +1,4 @@
-package alvin.adv.net.http.common.domain.models;
+package alvin.base.net.http.domain.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;

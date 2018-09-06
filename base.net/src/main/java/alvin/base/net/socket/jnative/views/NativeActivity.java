@@ -1,5 +1,5 @@
-package alvin.adv.net.socket.jnative.views;
+package alvin.base.net.socket.jnative.views;
 
-import alvin.adv.net.socket.common.views.BaseActivity;
+import alvin.base.net.socket.common.views.BaseActivity;
 
 public class NativeActivity extends BaseActivity { }

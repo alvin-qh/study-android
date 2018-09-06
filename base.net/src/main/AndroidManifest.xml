@@ -36,7 +36,7 @@
         -->
 
         <activity
-            android:name=".status.views.StatusActivity"
+            android:name=".status.views.NetworkStatusActivity"
             android:label="@string/title_network_status"
             android:parentActivityName=".main.views.MainActivity" />
 
@@ -46,12 +46,12 @@
             android:parentActivityName=".main.views.MainActivity" />
 
         <activity
-            android:name=".http.task.views.TaskActivity"
+            android:name=".http.views.HttpWithTaskActivity"
             android:label="@string/title_http_async_task"
             android:parentActivityName=".http.views.HttpActivity" />
 
         <activity
-            android:name=".http.rx.views.RxActivity"
+            android:name=".http.views.HttpWithRxActivity"
             android:label="@string/title_http_rx_java"
             android:parentActivityName=".http.views.HttpActivity" />
 

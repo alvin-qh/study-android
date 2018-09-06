@@ -1,6 +1,7 @@
 package alvin.lib.common.utils;
 
 import android.content.Context;
+import android.util.AndroidRuntimeException;
 
 import com.google.common.base.Strings;
 
@@ -42,8 +43,12 @@ public final class ApplicationConfig {
         return get(key, null);
     }
 
-    public static void initialize(Context context) throws IOException {
-        instance = new ApplicationConfig(context);
+    public static void initialize(Context context) {
+        try {
+            instance = new ApplicationConfig(context);
+        } catch (IOException e) {
+            throw new AndroidRuntimeException(e);
+        }
     }
 
     public static void initialize(Context context, String filename) throws IOException {

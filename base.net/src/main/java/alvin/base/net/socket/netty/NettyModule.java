@@ -1,8 +1,8 @@
-package alvin.adv.net.socket.netty;
+package alvin.base.net.socket.netty;
 
-import alvin.adv.net.socket.SocketContracts;
-import alvin.adv.net.socket.netty.presenters.NettyPresenter;
-import alvin.adv.net.socket.netty.views.NettyActivity;
+import alvin.base.net.socket.SocketContracts;
+import alvin.base.net.socket.netty.presenters.NettyPresenter;
+import alvin.base.net.socket.netty.views.NettyActivity;
 import dagger.Binds;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;

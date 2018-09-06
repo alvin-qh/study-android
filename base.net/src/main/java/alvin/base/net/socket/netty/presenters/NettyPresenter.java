@@ -1,4 +1,4 @@
-package alvin.adv.net.socket.netty.presenters;
+package alvin.base.net.socket.netty.presenters;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -11,12 +11,12 @@ import java.time.format.DateTimeFormatter;
 
 import javax.inject.Inject;
 
-import alvin.adv.net.socket.SocketContracts;
-import alvin.adv.net.socket.common.models.Command;
-import alvin.adv.net.socket.common.models.CommandAck;
-import alvin.adv.net.socket.netty.net.ChannelContext;
-import alvin.adv.net.socket.netty.net.SocketNetty;
-import alvin.adv.net.socket.netty.net.SocketNetworkException;
+import alvin.base.net.socket.SocketContracts;
+import alvin.base.net.socket.common.models.Command;
+import alvin.base.net.socket.common.models.CommandAck;
+import alvin.base.net.socket.netty.net.ChannelContext;
+import alvin.base.net.socket.netty.net.SocketNetty;
+import alvin.base.net.socket.netty.net.SocketNetworkException;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
 

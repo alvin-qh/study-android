@@ -1,15 +1,15 @@
-package alvin.adv.net.main.views;
+package alvin.base.net.main.views;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Button;
 
-import alvin.adv.net.R;
-import alvin.adv.net.http.views.HttpActivity;
-import alvin.adv.net.remote.views.RemoteActivity;
-import alvin.adv.net.socket.views.SocketActivity;
-import alvin.adv.net.status.views.StatusActivity;
+import alvin.base.net.R;
+import alvin.base.net.http.views.HttpActivity;
+import alvin.base.net.remote.views.RemoteActivity;
+import alvin.base.net.socket.views.SocketActivity;
+import alvin.base.net.status.views.NetworkStatusActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dagger.android.support.DaggerAppCompatActivity;
@@ -35,7 +35,7 @@ public class MainActivity extends DaggerAppCompatActivity {
 
         switch (b.getId()) {
         case R.id.btn_network_status:
-            intent = new Intent(this, StatusActivity.class);
+            intent = new Intent(this, NetworkStatusActivity.class);
             break;
         case R.id.btn_http:
             intent = new Intent(this, HttpActivity.class);

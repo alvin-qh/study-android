@@ -2,7 +2,6 @@ package alvin.lib.common.rx;
 
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import java.util.function.Supplier;
 
@@ -16,11 +15,14 @@ import io.reactivex.Single;
 public final class RxDecorator {
     private final Supplier<Scheduler> subscribeOnSupplier;
     private final Supplier<Scheduler> observeOnSupplier;
+    private final Integer retryTimes;
 
-    private RxDecorator(@Nullable Supplier<Scheduler> subscribeOnSupplier,
-                        @Nullable Supplier<Scheduler> observeOnSupplier) {
+    private RxDecorator(Supplier<Scheduler> subscribeOnSupplier,
+                        Supplier<Scheduler> observeOnSupplier,
+                        Integer retryTimes) {
         this.subscribeOnSupplier = subscribeOnSupplier;
         this.observeOnSupplier = observeOnSupplier;
+        this.retryTimes = retryTimes;
     }
 
     @Nonnull
@@ -30,6 +32,9 @@ public final class RxDecorator {
         }
         if (observeOnSupplier != null) {
             single = single.observeOn(observeOnSupplier.get());
+        }
+        if (retryTimes != null) {
+            single = single.retry(retryTimes);
         }
         return single;
     }
@@ -42,6 +47,9 @@ public final class RxDecorator {
         if (observeOnSupplier != null) {
             observable = observable.observeOn(observeOnSupplier.get());
         }
+        if (retryTimes != null) {
+            observable = observable.retry(retryTimes);
+        }
         return observable;
     }
 
@@ -53,10 +61,12 @@ public final class RxDecorator {
         if (observeOnSupplier != null) {
             completable = completable.observeOn(observeOnSupplier.get());
         }
+        if (retryTimes != null) {
+            completable = completable.retry(retryTimes);
+        }
         return completable;
     }
 
-    @Nonnull
     public static Builder newBuilder() {
         return new Builder();
     }
@@ -64,25 +74,31 @@ public final class RxDecorator {
     public static final class Builder {
         private Supplier<Scheduler> subscribeOnSupplier;
         private Supplier<Scheduler> observeOnSupplier;
+        private Integer retryTimes = null;
 
         private Builder() {
         }
 
-        @Nonnull
         public Builder subscribeOn(@Nonnull Supplier<Scheduler> subscribeOnSupplier) {
             this.subscribeOnSupplier = subscribeOnSupplier;
             return this;
         }
 
-        @Nonnull
         public Builder observeOn(@Nonnull Supplier<Scheduler> observeOnSupplier) {
             this.observeOnSupplier = observeOnSupplier;
             return this;
         }
 
-        @NonNull
+        public Builder retryTimes(int retryTimes) {
+            this.retryTimes = retryTimes;
+            return this;
+        }
+
         public RxDecorator build() {
-            return new RxDecorator(subscribeOnSupplier, observeOnSupplier);
+            return new RxDecorator(
+                    subscribeOnSupplier,
+                    observeOnSupplier,
+                    retryTimes);
         }
     }
 }

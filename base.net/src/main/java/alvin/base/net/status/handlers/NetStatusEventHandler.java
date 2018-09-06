@@ -1,19 +1,19 @@
-package alvin.adv.net.status.handlers;
+package alvin.base.net.status.handlers;
 
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.util.ArraySet;
 
-import java.util.HashSet;
 import java.util.Set;
 
-import alvin.adv.net.status.network.NetworkStatus;
+import alvin.base.net.status.network.NetworkStatus;
 
 public final class NetStatusEventHandler {
     private static final NetStatusEventHandler INSTANCE = new NetStatusEventHandler();
 
     private final Handler handler;
-    private final Set<OnNetStatusChangedListener> netStatusChangedListeners = new HashSet<>();
+    private final Set<OnNetStatusChangedListener> netStatusChangedListeners = new ArraySet<>();
 
     private NetStatusEventHandler() {
         handler = new MessageHandler(netStatusChangedListeners);

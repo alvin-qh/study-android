@@ -1,4 +1,4 @@
-package alvin.adv.net.socket.common.views;
+package alvin.base.net.socket.common.views;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,8 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import alvin.adv.net.R;
-import alvin.adv.net.socket.SocketContracts;
+import alvin.base.net.R;
+import alvin.base.net.socket.SocketContracts;
 import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;

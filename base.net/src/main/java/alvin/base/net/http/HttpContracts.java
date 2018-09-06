@@ -1,12 +1,12 @@
-package alvin.adv.net.http;
+package alvin.base.net.http;
 
 import android.support.annotation.NonNull;
 
-import alvin.adv.net.http.common.domain.models.LiveWeather;
+import alvin.base.net.http.domain.models.LiveWeather;
 import alvin.lib.mvp.contracts.IPresenter;
 import alvin.lib.mvp.contracts.IView;
 
-public interface WeatherContracts {
+public interface HttpContracts {
 
     interface View extends IView {
         void showLiveWeather(@NonNull LiveWeather weather);

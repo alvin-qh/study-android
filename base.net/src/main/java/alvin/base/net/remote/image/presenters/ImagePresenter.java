@@ -1,4 +1,4 @@
-package alvin.adv.net.remote.image.presenters;
+package alvin.base.net.remote.image.presenters;
 
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -10,14 +10,14 @@ import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
-import alvin.adv.net.remote.image.ImageContracts;
-import alvin.adv.net.remote.image.services.ImageLoader;
+import alvin.base.net.remote.image.ImageContracts;
+import alvin.base.net.remote.image.services.ImageLoader;
 import alvin.lib.common.rx.RxDecorator;
 import alvin.lib.common.utils.ApplicationConfig;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 import io.reactivex.Single;
 
-import static alvin.adv.net.remote.image.ImageContracts.Presenter;
+import static alvin.base.net.remote.image.ImageContracts.Presenter;
 
 public class ImagePresenter
         extends PresenterAdapter<ImageContracts.View>
