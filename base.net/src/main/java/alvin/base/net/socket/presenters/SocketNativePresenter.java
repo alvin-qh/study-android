@@ -75,7 +75,11 @@ public class SocketNativePresenter extends PresenterAdapter<NativeView>
                 Observable.create(emitter -> {
                     try {
                         while (!socket.isClosed() && !emitter.isDisposed()) {
-                            emitter.onNext(socket.getResponse());
+                            final CommandAck resp = socket.getResponse();
+                            if (resp == null) {
+                                break;
+                            }
+                            emitter.onNext(resp);
                         }
                         socket.close();
                         emitter.onComplete();

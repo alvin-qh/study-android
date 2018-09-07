@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import alvin.base.net.socket.common.commands.CommandAck;
 import alvin.base.net.socket.common.config.NetworkConfig;
@@ -16,9 +17,9 @@ public class NativeSocket implements Closeable, AutoCloseable {
 
     private final NativeProtocol protocol;
     private final NetworkConfig config;
+    private final AtomicBoolean closed = new AtomicBoolean(true);
 
     private Socket socket;
-    private boolean closed = true;
 
     public NativeSocket(NativeProtocol protocol, NetworkConfig config) {
         this.protocol = protocol;
@@ -26,14 +27,15 @@ public class NativeSocket implements Closeable, AutoCloseable {
     }
 
     public synchronized void connect() throws IOException {
-        this.socket = new Socket();
-        this.socket.connect(new InetSocketAddress(config.getHost(), config.getPort()), TIMEOUT);
-        this.closed = false;
+        if (closed.compareAndSet(true, false)) {
+            this.socket = new Socket();
+            this.socket.connect(new InetSocketAddress(config.getHost(), config.getPort()), TIMEOUT);
+        }
     }
 
     public CommandAck getResponse() throws IOException {
-        if (socket == null) {
-            throw new IOException("Not connect yet");
+        if (closed.get()) {
+            return null;
         }
 
         final InputStream input;
@@ -57,8 +59,8 @@ public class NativeSocket implements Closeable, AutoCloseable {
     }
 
     public void getRemoteTime() throws IOException {
-        if (socket == null) {
-            throw new IOException("Not connect yet");
+        if (closed.get()) {
+            return;
         }
 
         final OutputStream output;
@@ -69,8 +71,8 @@ public class NativeSocket implements Closeable, AutoCloseable {
     }
 
     public void bye() throws IOException {
-        if (socket == null) {
-            throw new IOException("Not connect yet");
+        if (closed.get()) {
+            return;
         }
 
         final OutputStream output;
@@ -81,22 +83,17 @@ public class NativeSocket implements Closeable, AutoCloseable {
     }
 
     public synchronized boolean isClosed() {
-        return closed;
+        return closed.get();
     }
 
     public synchronized void reconnect() throws IOException {
-        if (!closed) {
-            if (!socket.isClosed()) {
-                socket.close();
-            }
-            connect();
-        }
+        close();
+        connect();
     }
 
     @Override
     public synchronized void close() {
-        if (!closed) {
-            closed = true;
+        if (closed.compareAndSet(false, true)) {
             if (!this.socket.isClosed()) {
                 try {
                     this.socket.close();

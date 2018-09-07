@@ -35,6 +35,8 @@ public class NettySocket implements Closeable, AutoCloseable {
         void onException(NettyException err);
 
         void onDisconnect();
+
+        void onConnected();
     }
 
     private final class ChannelContext {
@@ -77,12 +79,12 @@ public class NettySocket implements Closeable, AutoCloseable {
                         @Override
                         public void onDisconnected(Throwable err) {
                             if (!closed.get()) {
-                                if (err == null) {
-                                    callback.onDisconnect();
-                                } else {
-                                    callback.onException(new NettyException(err));
-                                }
                                 reconnect(callback);
+                            }
+                            if (err == null) {
+                                callback.onDisconnect();
+                            } else {
+                                callback.onException(new NettyException(err));
                             }
                         }
 
@@ -103,6 +105,7 @@ public class NettySocket implements Closeable, AutoCloseable {
                     .addListener((ChannelFutureListener) future -> {
                         if (future.isSuccess()) {
                             contextRef.set(new ChannelContext(future.channel()));
+                            callback.onConnected();
                         } else {
                             callback.onException(new NettyException("Cannot connect to remote"));
                         }

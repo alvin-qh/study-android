@@ -2,12 +2,14 @@ package alvin.base.net.socket.presenters;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.common.base.Strings;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.function.Consumer;
 
 import javax.inject.Inject;
 
@@ -53,6 +55,11 @@ public class SocketNettyPresenter extends PresenterAdapter<SocketContracts.Nativ
             }
 
             @Override
+            public void onConnected() {
+                with(SocketContracts.NativeView::connectReady);
+            }
+
+            @Override
             public void onDisconnect() {
                 with(SocketContracts.NativeView::disconnected);
             }
@@ -61,7 +68,7 @@ public class SocketNettyPresenter extends PresenterAdapter<SocketContracts.Nativ
 
     @Override
     public void bye() {
-        this.socket.disconnect(command -> Log.d(TAG, "Byt command was sent"));
+        this.socket.disconnect(command -> Log.d(TAG, "Bye command was sent"));
     }
 
 
@@ -75,12 +82,12 @@ public class SocketNettyPresenter extends PresenterAdapter<SocketContracts.Nativ
         case "time-ack":
             if (!Strings.isNullOrEmpty(ack.getValue())) {
                 LocalDateTime time = LocalDateTime.from(DateTimeFormatter.ISO_DATE_TIME.parse(ack.getValue()));
-                mainThreadHandler.post(() -> with(view -> view.showRemoteDatetime(time)));
+                with(view -> view.showRemoteDatetime(time));
             }
             break;
         case "bye-ack":
             socket.close();
-            mainThreadHandler.post(() -> with(SocketContracts.NativeView::showRemoteBye));
+            with(SocketContracts.NativeView::showRemoteBye);
             break;
         default:
             break;
@@ -88,6 +95,11 @@ public class SocketNettyPresenter extends PresenterAdapter<SocketContracts.Nativ
     }
 
     private void whenErrorCaused(Throwable err) {
-        mainThreadHandler.post(() -> with(view -> view.errorCaused(err)));
+        with(view -> view.errorCaused(err));
+    }
+
+    @Override
+    protected void with(@NonNull Consumer<SocketContracts.NativeView> consumer) {
+        mainThreadHandler.post(() -> super.with(consumer));
     }
 }
