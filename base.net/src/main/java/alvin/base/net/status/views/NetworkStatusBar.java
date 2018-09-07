@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import alvin.base.net.R;
-import alvin.base.net.status.network.NetworkStatus;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -44,11 +43,6 @@ public class NetworkStatusBar extends LinearLayout {
 
     public NetworkStatusBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
-    }
-
-    public NetworkStatusBar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
 
@@ -149,37 +143,20 @@ public class NetworkStatusBar extends LinearLayout {
         handler.removeCallbacksAndMessages(null);
     }
 
-    public void networkStatusChanged(NetworkStatus status) {
+    public void showNetworkStatusChangeMessage(String name, boolean isConnected) {
         final Resources r = getResources();
 
-        switch (status) {
-        case NONE:
+        if (isConnected) {
+            setBackgroundColor(r.getColor(R.color.bg_notify_info, null));
+            imageView.setImageResource(android.R.drawable.ic_dialog_info);
+            imageView.setColorFilter(R.color.icon_info);
+        } else {
             setBackgroundColor(r.getColor(R.color.bg_notify_error, null));
-
             imageView.setImageResource(android.R.drawable.ic_dialog_alert);
             imageView.setColorFilter(R.color.icon_warning);
-
-            textView.setText(R.string.string_no_network);
-            break;
-        case MOBILE:
-            setBackgroundColor(r.getColor(R.color.bg_notify_info, null));
-
-            imageView.setImageResource(android.R.drawable.ic_dialog_info);
-            imageView.setColorFilter(R.color.icon_info);
-
-            textView.setText(R.string.string_mobile_network);
-            break;
-        case WIFI:
-            setBackgroundColor(r.getColor(R.color.bg_notify_info, null));
-
-            imageView.setImageResource(android.R.drawable.ic_dialog_info);
-            imageView.setColorFilter(R.color.icon_info);
-
-            textView.setText(R.string.string_wifi_network);
-            break;
-        default:
-            return;
         }
+        textView.setText(r.getString(R.string.string_network, name, isConnected ? "Connected" : "Disconnected"));
+
         startAnimation(animFadeIn);
     }
 }

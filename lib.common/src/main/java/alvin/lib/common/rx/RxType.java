@@ -8,6 +8,19 @@ import javax.inject.Qualifier;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 public @interface RxType {
+
+    @Qualifier
+    @Documented
+    @Retention(RUNTIME)
+    @interface New {
+    }
+
+    @Qualifier
+    @Documented
+    @Retention(RUNTIME)
+    @interface SinglePool {
+    }
+
     @Qualifier
     @Documented
     @Retention(RUNTIME)

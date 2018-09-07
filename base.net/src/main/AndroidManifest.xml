@@ -61,12 +61,12 @@
             android:parentActivityName=".main.views.MainActivity" />
 
         <activity
-            android:name=".socket.jnative.views.NativeActivity"
+            android:name=".socket.views.SocketNativeActivity"
             android:label="@string/title_socket_native"
             android:parentActivityName=".socket.views.SocketActivity" />
 
         <activity
-            android:name=".socket.netty.views.NettyActivity"
+            android:name=".socket.views.SocketNettyActivity"
             android:label="@string/title_socket_netty"
             android:parentActivityName=".socket.views.SocketActivity" />
 
@@ -74,11 +74,6 @@
             android:name=".remote.views.RemoteActivity"
             android:label="@string/title_remote"
             android:parentActivityName=".main.views.MainActivity" />
-
-        <activity
-            android:name=".remote.image.views.ImageActivity"
-            android:label="@string/title_remote_image"
-            android:parentActivityName=".remote.views.RemoteActivity" />
 
     </application>
 

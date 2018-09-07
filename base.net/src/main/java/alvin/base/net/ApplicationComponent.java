@@ -3,7 +3,6 @@ package alvin.base.net;
 import javax.inject.Singleton;
 
 import alvin.base.net.http.HttpModule;
-import alvin.base.net.main.MainModule;
 import alvin.base.net.remote.RemoteModule;
 import alvin.base.net.socket.SocketModule;
 import dagger.Component;
@@ -14,7 +13,6 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Component(modules = {
         AndroidSupportInjectionModule.class,
         ApplicationModule.class,
-        MainModule.class,
         HttpModule.class,
         RemoteModule.class,
         SocketModule.class

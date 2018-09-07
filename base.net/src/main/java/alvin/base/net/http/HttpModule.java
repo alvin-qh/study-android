@@ -99,6 +99,5 @@ public interface HttpModule {
                     .observeOn(AndroidSchedulers::mainThread)
                     .retryTimes(RETRY_TIMES);
         }
-
     }
 }

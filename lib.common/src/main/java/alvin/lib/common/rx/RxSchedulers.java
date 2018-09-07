@@ -16,7 +16,7 @@ public final class RxSchedulers {
         return DATABASE_SCHEDULER;
     }
 
-    public static Scheduler newSingleThread() {
+    public static Scheduler singlePool() {
         return Schedulers.from(Executors.newSingleThreadExecutor());
     }
 }

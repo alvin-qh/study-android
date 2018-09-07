@@ -1,5 +1,5 @@
 const config = {
-	port: 12345,
+	port: 22222,
 	timeout: 20000
 };
 

@@ -20,9 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public abstract class BaseActivity
-        extends ActivityAdapter<SocketContracts.Presenter>
-        implements SocketContracts.View {
+public abstract class BaseActivity extends ActivityAdapter<SocketContracts.NativePresenter>
+        implements SocketContracts.NativeView {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
 
@@ -52,15 +51,7 @@ public abstract class BaseActivity
         if (timer != null) {
             timer.cancel();
         }
-        presenter.disconnect();
-    }
-
-    @Override
-    public void showConnectError() {
-        if (timer != null) {
-            timer.cancel();
-        }
-        Toast.makeText(this, R.string.error_socket_connect, Toast.LENGTH_SHORT).show();
+        presenter.bye();
     }
 
     @Override
@@ -69,7 +60,7 @@ public abstract class BaseActivity
     }
 
     @Override
-    public void showException(@NonNull final Throwable error) {
+    public void errorCaused(@NonNull final Throwable error) {
         Log.e(TAG, "Exception caused", error);
 
         if (timer != null) {
@@ -94,11 +85,16 @@ public abstract class BaseActivity
         if (timer != null) {
             timer.cancel();
         }
-        presenter.disconnect();
+        presenter.bye();
     }
 
     @Override
     public void disconnected() {
         Toast.makeText(this, R.string.string_network_disconnected, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showRemoteBye() {
+        textTime.setText("Bye");
     }
 }

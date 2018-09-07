@@ -14,8 +14,7 @@
     <string name="string_net_status_demo">Net Status Demo</string>
 
     <string name="string_no_network">No network, check your network settings</string>
-    <string name="string_mobile_network">Net connected by mobile</string>
-    <string name="string_wifi_network">Net connect by WIFI</string>
+    <string name="string_network">Network %1$s was %2$s</string>
     <string name="string_network_available">Network available</string>
     <string name="string_network_lost">Network lost</string>
     <string name="string_network_disconnected">Network disconnected</string>
