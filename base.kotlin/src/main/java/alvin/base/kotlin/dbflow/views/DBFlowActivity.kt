@@ -1,8 +1,8 @@
 package alvin.base.kotlin.dbflow.views
 
 import alvin.base.kotlin.R
-import alvin.base.kotlin.common.domain.modules.Gender
-import alvin.base.kotlin.common.domain.modules.Person
+import alvin.base.kotlin.common.domain.models.Gender
+import alvin.base.kotlin.common.domain.models.Person
 import alvin.base.kotlin.common.views.PersonDialog
 import alvin.base.kotlin.common.views.PersonListAdapter
 import alvin.base.kotlin.dbflow.DBFlowContract
@@ -11,7 +11,7 @@ import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import kotlinx.android.synthetic.main.dagger_activity.*
+import kotlinx.android.synthetic.main.activity_dagger.*
 import org.jetbrains.anko.sdk25.coroutines.onCheckedChange
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.toast
@@ -22,7 +22,7 @@ class DBFlowActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.dbflow_activity)
+        setContentView(R.layout.activity_dbflow)
 
         initialize()
     }
@@ -44,7 +44,7 @@ class DBFlowActivity :
             presenter.loadPersons(getGender())
         }
 
-        fab.onClick {
+        fab.onClick { _ ->
             val dlg = PersonDialog.Builder(this@DBFlowActivity).create(R.string.title_form_dialog)
             dlg.onConfirmClickListener = View.OnClickListener {
                 presenter.savePerson(Person(dlg.name, dlg.gender, dlg.birthday))

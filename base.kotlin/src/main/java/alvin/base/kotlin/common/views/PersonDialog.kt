@@ -1,7 +1,9 @@
+@file:Suppress("unused", "UNUSED_PARAMETER")
+
 package alvin.base.kotlin.common.views
 
 import alvin.base.kotlin.R
-import alvin.base.kotlin.common.domain.modules.Gender
+import alvin.base.kotlin.common.domain.models.Gender
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Context
@@ -12,12 +14,11 @@ import android.widget.ImageButton
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.common.base.Strings
-import kotlinx.android.synthetic.main.common_dialog_person.*
+import kotlinx.android.synthetic.main.dialog_person.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class PersonDialog(context: Context?, themeResId: Int) :
-        Dialog(context, themeResId) {
+class PersonDialog(context: Context, themeResId: Int) : Dialog(context, themeResId) {
 
     var name: String?
         get() = et_name.text.toString()
@@ -47,7 +48,7 @@ class PersonDialog(context: Context?, themeResId: Int) :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val view = View.inflate(context, R.layout.common_dialog_person, null)
+        val view = View.inflate(context, R.layout.dialog_person, null)
         setContentView(view)
 
         ButterKnife.bind(this, view)
@@ -85,7 +86,7 @@ class PersonDialog(context: Context?, themeResId: Int) :
         dismiss()
     }
 
-    class Builder(val context: Context) {
+    class Builder(private val context: Context) {
 
         fun create(titleResId: Int): PersonDialog {
             val dlg = PersonDialog(context, R.style.AppTheme_Dialog)

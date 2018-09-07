@@ -6,6 +6,5 @@
     android:layout_height="match_parent"
     tools:context=".storebox.views.StoreBoxActivity">
 
-    <include layout="@layout/_view_included_form" />
-
+    <include layout="@layout/view_form" />
 </android.support.design.widget.CoordinatorLayout>

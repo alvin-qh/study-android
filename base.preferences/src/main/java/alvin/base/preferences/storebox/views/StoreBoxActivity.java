@@ -38,7 +38,7 @@ public class StoreBoxActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.storebox_activity_preferences);
+        setContentView(R.layout.activity_storebox);
 
         ButterKnife.bind(this);
 

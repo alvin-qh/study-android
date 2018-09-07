@@ -1,7 +1,7 @@
 package alvin.base.kotlin.dagger
 
-import alvin.base.kotlin.common.domain.modules.Gender
-import alvin.base.kotlin.common.domain.modules.Person
+import alvin.base.kotlin.common.domain.models.Gender
+import alvin.base.kotlin.common.domain.models.Person
 import alvin.lib.mvp.contracts.IPresenter
 import alvin.lib.mvp.contracts.IView
 

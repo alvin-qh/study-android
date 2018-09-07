@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package alvin.base.kotlin.dbflow
 
 import alvin.base.kotlin.dbflow.presenters.DBFlowPresenter

@@ -1,8 +1,8 @@
 package alvin.base.kotlin.dagger.views
 
 import alvin.base.kotlin.R
-import alvin.base.kotlin.common.domain.modules.Gender
-import alvin.base.kotlin.common.domain.modules.Person
+import alvin.base.kotlin.common.domain.models.Gender
+import alvin.base.kotlin.common.domain.models.Person
 import alvin.base.kotlin.common.views.PersonDialog
 import alvin.base.kotlin.common.views.PersonListAdapter
 import alvin.base.kotlin.dagger.DaggerContracts
@@ -12,7 +12,7 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
-import kotlinx.android.synthetic.main.dbflow_activity.*
+import kotlinx.android.synthetic.main.activity_dbflow.*
 import org.jetbrains.anko.sdk25.coroutines.onCheckedChange
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.toast
@@ -27,7 +27,7 @@ class DaggerActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.dagger_activity)
+        setContentView(R.layout.activity_dagger)
 
         initialize()
     }
@@ -49,7 +49,7 @@ class DaggerActivity :
             presenter.loadPersons(getGender())
         })
 
-        fab.onClick {
+        fab.onClick { _ ->
             val dlg = PersonDialog.Builder(this@DaggerActivity)
                     .create(R.string.title_form_dialog)
 

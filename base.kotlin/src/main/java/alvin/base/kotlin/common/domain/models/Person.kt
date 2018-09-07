@@ -1,4 +1,4 @@
-package alvin.base.kotlin.common.domain.modules
+package alvin.base.kotlin.common.domain.models
 
 import alvin.base.kotlin.common.domain.db.MainDatabase
 import alvin.lib.common.dbflow.converts.LocalDateConvert

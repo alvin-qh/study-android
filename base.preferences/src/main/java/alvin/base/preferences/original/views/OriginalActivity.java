@@ -37,7 +37,7 @@ public class OriginalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.original_activity_preferences);
+        setContentView(R.layout.activity_original);
 
         ButterKnife.bind(this);
 
