@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="20dp"
+    android:paddingEnd="20dp"
+    android:paddingStart="20dp"
+    android:paddingTop="20dp"
+    android:theme="@style/AppTheme.Dialog.Custom">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="80dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="0dp"
+            android:text="@string/label_name"
+            android:textAlignment="textEnd" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_name"
+            android:inputType="text"
+            android:textSize="@dimen/font_size_edit" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="80dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="0dp"
+            android:text="@string/label_gender"
+            android:textAlignment="textEnd" />
+
+        <RadioGroup
+            android:id="@+id/rg_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/rb_gender_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/label_gender_male" />
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/rb_gender_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/label_gender_female" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:width="80dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="0dp"
+            android:text="@string/label_birthday"
+            android:textAlignment="textEnd" />
+
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/et_birthday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/hint_birthday"
+            android:inputType="none"
+            android:textSize="@dimen/font_size_edit" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/btn_calendar"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@android:drawable/ic_menu_my_calendar"
+            android:tint="@color/colorPrimary" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_button"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:text="@string/btn_cancel"
+            android:textColor="@color/color_dialog_button_default"
+            android:textSize="@dimen/font_size_button" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_confirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:lines="1"
+            android:text="@string/btn_confirm"
+            android:textColor="@color/color_dialog_button_primary"
+            android:textSize="@dimen/font_size_button" />
+    </LinearLayout>
+
+</LinearLayout>
