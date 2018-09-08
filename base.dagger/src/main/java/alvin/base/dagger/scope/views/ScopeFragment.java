@@ -7,18 +7,16 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import javax.inject.Inject;
-
 import alvin.base.dagger.R;
+import alvin.lib.mvp.contracts.adapters.FragmentAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import dagger.android.support.DaggerFragment;
 
 import static alvin.base.dagger.scope.ScopeContracts.FragmentPresenter;
 import static alvin.base.dagger.scope.ScopeContracts.FragmentView;
 
-public class ScopeFragment extends DaggerFragment implements FragmentView {
+public class ScopeFragment extends FragmentAdapter<FragmentPresenter> implements FragmentView {
 
     private Unbinder unbinder;
 
@@ -27,9 +25,6 @@ public class ScopeFragment extends DaggerFragment implements FragmentView {
 
     @BindView(R.id.tv_fragment_scope)
     TextView tvFragmentScope;
-
-    @Inject
-    FragmentPresenter presenter;
 
     private Integer backgroundColor;
 
@@ -83,5 +78,10 @@ public class ScopeFragment extends DaggerFragment implements FragmentView {
     @Override
     public void showFragmentScopeService(String name) {
         tvFragmentScope.setText(name);
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        return isDetached();
     }
 }

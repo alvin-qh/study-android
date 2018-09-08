@@ -189,6 +189,13 @@ subprojects {
         lintOptions {
             abortOnError false
         }
+
+        dexOptions {
+            javaMaxHeapSize "8g"
+            jumboMode = true
+            preDexLibraries = true
+            threadCount = 8
+        }
     }
 
     // For android project

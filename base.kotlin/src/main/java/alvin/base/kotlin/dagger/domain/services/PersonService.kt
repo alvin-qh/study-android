@@ -11,28 +11,28 @@ import javax.inject.Singleton
 class PersonService
 @Inject constructor(
         private val repository: PersonRepository,
-        private val txManager: TransactionManager
-) {
+        private val txManager: TransactionManager) {
+
     fun findByGender(gender: Gender?, callback: (List<Person>) -> Unit) {
         repository.findByGender(gender, callback)
     }
 
     fun create(person: Person, callback: () -> Unit) {
-        txManager.executeAsync { person.save() }
+        txManager.executeAsync { person.save(it) }
                 .success { callback() }
                 .build()
                 .execute()
     }
 
     fun update(person: Person, callback: () -> Unit) {
-        txManager.executeAsync { person.update() }
+        txManager.executeAsync { person.update(it) }
                 .success { callback() }
                 .build()
                 .execute()
     }
 
     fun delete(person: Person, callback: () -> Unit) {
-        txManager.executeAsync { person.delete() }
+        txManager.executeAsync { person.delete(it) }
                 .success { callback() }
                 .build()
                 .execute()

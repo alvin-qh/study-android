@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.view_person.view.*
+import kotlinx.android.synthetic.main.listview_person.view.*
 import java.time.format.DateTimeFormatter
 
 class PersonListAdapter
@@ -29,7 +29,7 @@ constructor(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
-        val view = inflater.inflate(R.layout.view_person, parent, false)
+        val view = inflater.inflate(R.layout.listview_person, parent, false)
         return ViewHolder(view)
     }
 

@@ -32,7 +32,7 @@ public class DBFlowPresenter extends PresenterAdapter<View> implements Presenter
 
     @Override
     public void savePerson(@NonNull IPerson person) {
-        transactionManager.executeAsync(db -> mapPerson(person).save())
+        transactionManager.executeAsync(db -> mapPerson(person).save(db))
                 .success(tx -> with(view -> view.onPersonCreate(person)))
                 .build()
                 .execute();

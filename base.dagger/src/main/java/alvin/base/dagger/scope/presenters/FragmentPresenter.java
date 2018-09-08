@@ -10,7 +10,8 @@ import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
 
 import static alvin.base.dagger.scope.ScopeContracts.FragmentView;
 
-public class FragmentPresenter extends PresenterAdapter<FragmentView> implements ScopeContracts.FragmentPresenter {
+public class FragmentPresenter extends PresenterAdapter<FragmentView>
+        implements ScopeContracts.FragmentPresenter {
 
     private final ActivityScopeService activityScopeService;
     private final FragmentScopeService fragmentScopeService;

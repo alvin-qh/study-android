@@ -17,20 +17,22 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import alvin.base.dagger.R;
-import alvin.base.dagger.basic.BasicContracts;
 import alvin.base.dagger.basic.domain.models.Message;
+import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.support.DaggerAppCompatActivity;
+
+import static alvin.base.dagger.basic.BasicContracts.Presenter;
+import static alvin.base.dagger.basic.BasicContracts.View;
 
 
 @Singleton
-public class BasicActivity extends DaggerAppCompatActivity implements BasicContracts.View {
+public class BasicActivity extends ActivityAdapter<Presenter> implements View {
     private static final String TAG = BasicActivity.class.getSimpleName();
 
     @Inject
-    BasicContracts.Presenter presenter;
+    Presenter presenter;
 
     @BindView(R.id.et_message)
     EditText etMessage;

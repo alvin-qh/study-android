@@ -16,21 +16,21 @@ class PersonService {
     }
 
     fun create(person: Person, callback: () -> Unit) {
-        txManager.executeAsync { person.save() }
+        txManager.executeAsync { person.save(it) }
                 .success { callback() }
                 .build()
                 .execute()
     }
 
     fun update(person: Person, callback: () -> Unit) {
-        txManager.executeAsync { person.update() }
+        txManager.executeAsync { person.update(it) }
                 .success { callback() }
                 .build()
                 .execute()
     }
 
     fun delete(person: Person, callback: () -> Unit) {
-        txManager.executeAsync { person.delete() }
+        txManager.executeAsync { person.delete(it) }
                 .success { callback() }
                 .build()
                 .execute()

@@ -6,18 +6,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.TextView;
 
-import javax.inject.Inject;
-
 import alvin.base.dagger.R;
+import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.support.DaggerAppCompatActivity;
 
 import static alvin.base.dagger.scope.ScopeContracts.ActivityPresenter;
 import static alvin.base.dagger.scope.ScopeContracts.ActivityView;
 
-public class ScopeActivity extends DaggerAppCompatActivity implements ActivityView {
+public class ScopeActivity extends ActivityAdapter<ActivityPresenter> implements ActivityView {
 
     @BindView(R.id.tv_activity_scope)
     TextView tvSingletonService;
@@ -27,9 +25,6 @@ public class ScopeActivity extends DaggerAppCompatActivity implements ActivityVi
 
     @BindColor(R.color.color_green)
     int colorGreen;
-
-    @Inject
-    ActivityPresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

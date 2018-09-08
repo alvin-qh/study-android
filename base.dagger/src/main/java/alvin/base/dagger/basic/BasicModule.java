@@ -1,10 +1,9 @@
 package alvin.base.dagger.basic;
 
-import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
 import alvin.base.dagger.basic.domain.db.MessageDatabase;
-import alvin.base.dagger.basic.presenters.BasicPresenter;
+import alvin.base.dagger.basic.presenters.MessagePresenter;
 import alvin.base.dagger.basic.views.BasicActivity;
 import alvin.lib.common.dbflow.repositories.TransactionManager;
 import alvin.lib.common.rx.RxDecorator;
@@ -30,19 +29,15 @@ public interface BasicModule {
         BasicContracts.View view(BasicActivity activity);
 
         @Binds
-        BasicContracts.Presenter presenter(BasicPresenter presenter);
+        BasicContracts.Presenter presenter(MessagePresenter presenter);
     }
 
     @Module
     class ProvidersModule {
-        @Provides
-        public DatabaseDefinition databaseDefinition() {
-            return FlowManager.getDatabase(MessageDatabase.class);
-        }
 
         @Provides
-        public TransactionManager transactionManager(DatabaseDefinition definition) {
-            return new TransactionManager(definition);
+        public TransactionManager tm() {
+            return new TransactionManager(FlowManager.getDatabase(MessageDatabase.class));
         }
 
         @Provides
