@@ -5,12 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -24,20 +23,20 @@ import alvin.base.service.remote.models.JobResponse;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.support.DaggerAppCompatActivity;
 
-public class RemoteActivity extends DaggerAppCompatActivity {
+public class RemoteActivity extends AppCompatActivity {
     private static final String TAG = RemoteActivity.class.getSimpleName();
-    private static final float ONE_SECOND_MS_FLOAT = 1000f;
-    private static final String KEY = RemoteActivity.class.getName();
 
-    @BindView(R.id.sv_job_response) ScrollView svJobResponse;
-    @BindView(R.id.tv_job_response) TextView tvJobResponse;
+    private static final float ONE_SECOND_MS_FLOAT = 1000f;
+
+    @BindView(R.id.sv_job_response)
+    ScrollView svJobResponse;
+
+    @BindView(R.id.tv_job_response)
+    TextView tvJobResponse;
 
     private ServiceConnection conn;
     private IRemoteBinder binder;
-
-    private Handler handler;
 
     private int jobId = 1;
 
@@ -45,11 +44,9 @@ public class RemoteActivity extends DaggerAppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.remote_activity);
+        setContentView(R.layout.activity_remote);
 
         ButterKnife.bind(this);
-
-        handler = new Handler(getMainLooper());
     }
 
     @Override
@@ -72,16 +69,16 @@ public class RemoteActivity extends DaggerAppCompatActivity {
                     // This instance can use in client to connect service
                     binder = IRemoteBinder.Stub.asInterface(iBinder);
                     try {
-                        binder.addOnJobStatusChangeListener(KEY, new IOnJobStatusChangeListener.Stub() {
+                        binder.addOnJobStatusChangeListener(new IOnJobStatusChangeListener.Stub() {
 
                             @Override
                             public void onJobStart(String name) {
-                                handler.post(() -> jobStarted(name));
+                                runOnUiThread(() -> jobStarted(name));
                             }
 
                             @Override
                             public void onJobFinish(JobResponse response) {
-                                handler.post(() -> jobFinished(response));
+                                runOnUiThread(() -> jobFinished(response));
                             }
                         });
                     } catch (RemoteException e) {
@@ -102,7 +99,7 @@ public class RemoteActivity extends DaggerAppCompatActivity {
     private void disconnect() {
         if (binder != null) {
             try {
-                binder.removeOnJobStatusChangeListener(KEY);
+                binder.removeOnJobStatusChangeListener();
             } catch (RemoteException e) {
                 Log.e(TAG, e.getMessage());
             }
@@ -128,15 +125,15 @@ public class RemoteActivity extends DaggerAppCompatActivity {
         tvJobResponse.append(String.format("\nJob %s is finished, time spend %ss\n",
                 response.getName(), response.getTimeSpend() / ONE_SECOND_MS_FLOAT));
 
-        handler.post(() -> svJobResponse.fullScroll(ScrollView.FOCUS_DOWN));
+        runOnUiThread(() -> svJobResponse.fullScroll(ScrollView.FOCUS_DOWN));
     }
 
     @OnClick(R.id.btn_work)
-    void onWorkButtonClick(Button b) {
+    void onWorkButtonClick() {
         try {
             if (binder != null) {
                 binder.addNewJob(new Job("Job_" + jobId++, Collections.emptyMap()));
-                handler.post(() -> svJobResponse.fullScroll(ScrollView.FOCUS_DOWN));
+                runOnUiThread(() -> svJobResponse.fullScroll(ScrollView.FOCUS_DOWN));
             }
         } catch (RemoteException e) {
             Log.e(TAG, e.getMessage());

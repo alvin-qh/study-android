@@ -1,39 +1,36 @@
 package alvin.base.service.bind.services;
 
-import android.annotation.SuppressLint;
+import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.ArraySet;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
-import javax.inject.Inject;
-
-import alvin.lib.common.rx.RxDecorator;
-import alvin.lib.common.rx.RxType;
-import dagger.android.DaggerService;
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
-public class BindService extends DaggerService {
+public class BindService extends Service {
     public static final String EXTRA_ARG_ZONE = "zone";
 
-    @Inject @RxType.IO RxDecorator.Builder rxDecoratorBuilder;
-
-    private boolean destroyed = false;
     private ZoneId zoneId;
 
-    private final ServiceBinder binder = new ServiceBinder();
-    private final Set<Consumer<LocalDateTime>> timeCallback = new HashSet<>();
+    private final Set<WeakReference<Consumer<LocalDateTime>>> callbacks = new ArraySet<>();
+    private Disposable disposable;
 
     /**
      * If on one to start this service, This method will be invoke when this service
@@ -42,7 +39,6 @@ public class BindService extends DaggerService {
     @Override
     public void onCreate() {
         super.onCreate();
-        destroyed = false;
 
         startWorking();
     }
@@ -50,28 +46,33 @@ public class BindService extends DaggerService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        destroyed = true;
-        
-        timeCallback.clear();   // clear all callback functions, stop callback
+
+        disposable.dispose();
+        callbacks.clear();   // clear all callback functions, stop callback
     }
 
-    @SuppressLint("CheckResult")
     private void startWorking() {
-        final RxDecorator decorator = rxDecoratorBuilder.build();
-        final Observable<LocalDateTime> observable = decorator.de(
-                Observable.interval(0, 1, TimeUnit.SECONDS)
-                        .flatMap(ignore -> emitter -> {
-                            if (!destroyed) {
-                                if (zoneId != null) {
-                                    emitter.onNext(LocalDateTime.now(zoneId));
-                                }
-                            } else {
-                                emitter.onComplete();
+        disposable = Observable.interval(0, 1, TimeUnit.SECONDS)
+                .map(ignore -> {
+                    synchronized (callbacks) {
+                        final Iterator<WeakReference<Consumer<LocalDateTime>>> iter = callbacks.iterator();
+                        while (iter.hasNext()) {
+                            final Consumer<LocalDateTime> callback = iter.next().get();
+                            if (callback == null) {
+                                iter.remove();
                             }
-                        }));
-        observable.subscribe(time ->
-                // call every callback functions and pass result
-                timeCallback.forEach(consumer -> consumer.accept(time)));
+                        }
+                        return Lists.newArrayList(callbacks);
+                    }
+                })
+                .subscribe(callbacks -> {
+                    if (!callbacks.isEmpty()) {
+                        LocalDateTime now = LocalDateTime.now(zoneId);
+                        callbacks.stream()
+                                .map(Reference::get)
+                                .forEach(callback -> callback.accept(now));
+                    }
+                });
     }
 
     /**
@@ -88,22 +89,29 @@ public class BindService extends DaggerService {
         }
 
         // return the instance of IBinder interface
-        return binder;
+        return new ServiceBinder();
     }
 
     public class ServiceBinder extends Binder {
+        private WeakReference<Consumer<LocalDateTime>> identity;
+
         /**
          * Add a callback function to service.
          */
         public void addTimeCallback(@NonNull Consumer<LocalDateTime> consumer) {
-            timeCallback.add(consumer);
+            identity = new WeakReference<>(consumer);
+            synchronized (callbacks) {
+                callbacks.add(identity);
+            }
         }
 
         /**
          * Remove callback function from service.
          */
-        public void removeTimeCallback(@NonNull Consumer<LocalDateTime> consumer) {
-            timeCallback.remove(consumer);
+        public void removeTimeCallback() {
+            synchronized (callbacks) {
+                callbacks.remove(identity);
+            }
         }
     }
 }

@@ -1,17 +1,17 @@
-package alvin.base.service.remote.tasks;
+package alvin.base.service.remote.services;
 
 import java.util.Random;
 
 import alvin.base.service.remote.models.Job;
 import alvin.base.service.remote.models.JobResponse;
 
-public class Task {
+class Task {
     private final int minDelay;
     private final int maxDelay;
 
     private final Random random = new Random();
 
-    public Task(int minDelay, int maxDelay) {
+    Task(int minDelay, int maxDelay) {
         this.minDelay = minDelay;
         this.maxDelay = maxDelay;
     }

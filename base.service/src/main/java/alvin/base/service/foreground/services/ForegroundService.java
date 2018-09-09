@@ -4,18 +4,21 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Intent;
 import android.graphics.drawable.Icon;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import alvin.base.service.R;
-import alvin.base.service.common.broadcasts.ServiceBroadcasts;
-import dagger.android.DaggerService;
 
-public class ForegroundService extends DaggerService {
-    private static final String PRIMARY_CHANNEL = "default";
-//    private static final String SECONDARY_CHANNEL = "second";
+import static alvin.base.service.common.broadcasts.ServiceBroadcasts.ACTION_SERVICE_CREATED;
+import static alvin.base.service.common.broadcasts.ServiceBroadcasts.ACTION_SERVICE_DESTROYED;
+import static alvin.base.service.common.broadcasts.ServiceBroadcasts.ACTION_SERVICE_NOTIFY;
+
+public class ForegroundService extends Service {
+    private static final String CHANNEL_ID = "default";
+    private boolean isForeground = false;
 
     @Nullable
     @Override
@@ -26,48 +29,62 @@ public class ForegroundService extends DaggerService {
     @Override
     public void onCreate() {
         super.onCreate();
-        createNotification();
-        sendBroadcast(new Intent(ServiceBroadcasts.ACTION_SERVICE_CREATED));
+        sendBroadcast(new Intent(ACTION_SERVICE_CREATED));
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (isForeground) {
+            destroyNotification();
+        } else {
+            createNotification();
+        }
+        return START_STICKY;
+    }
+
+    private void destroyNotification() {
+        stopForeground(true);
+        isForeground = false;
     }
 
     private void createNotification() {
-        final Notification.Builder notificationBuilder;
-        final NotificationChannel channel = new NotificationChannel(
-                PRIMARY_CHANNEL,
-                PRIMARY_CHANNEL,
-                NotificationManager.IMPORTANCE_DEFAULT);
-
-        final NotificationManager notificationManager =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        if (notificationManager == null) {
+        final NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (manager == null) {
             return;
         }
 
-        notificationManager.createNotificationChannel(channel);
-        notificationBuilder = new Notification.Builder(this, PRIMARY_CHANNEL);
+        final NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_ID,
+                NotificationManager.IMPORTANCE_DEFAULT);
+        channel.enableLights(true);
+        channel.enableVibration(true);
 
-        final PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0,
-                new Intent(ServiceBroadcasts.ACTION_SERVICE_NOTIFY), 0);
+        manager.createNotificationChannel(channel);
 
-        final Notification notification = notificationBuilder.setOngoing(true)
+        final Notification.Builder builder = new Notification.Builder(this, CHANNEL_ID);
+        final PendingIntent intent = PendingIntent.getBroadcast(this, 100,
+                new Intent(ACTION_SERVICE_NOTIFY), PendingIntent.FLAG_UPDATE_CURRENT);
+
+        final Notification notification = builder
                 .setContentTitle("Foreground Service")
-                .setContentText("This is an android Foreground Service demo")
+                .setContentText("A foreground service is running...")
+                .setContentIntent(intent)
                 .setTicker("Ticker")
-                .setTimeoutAfter(2000)
-                .setShowWhen(true)
+                .setOngoing(true)
                 .setWhen(System.currentTimeMillis())
+                .setShowWhen(true)
                 .setSmallIcon(Icon.createWithResource(this, R.drawable.ic_action_setting))
                 .setLargeIcon(Icon.createWithResource(this, R.drawable.ic_action_setting))
-                .setContentIntent(pendingIntent)
                 .build();
-        notification.flags |= Notification.FLAG_NO_CLEAR;
 
+//        notification.flags |= Notification.FLAG_NO_CLEAR;
         startForeground(1, notification);
+        isForeground = true;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        sendBroadcast(new Intent(ServiceBroadcasts.ACTION_SERVICE_DESTROYED));
+
+        sendBroadcast(new Intent(ACTION_SERVICE_DESTROYED));
     }
 }

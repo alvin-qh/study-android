@@ -5,9 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.widget.Button;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -16,17 +15,13 @@ import com.google.common.base.Strings;
 
 import alvin.base.service.R;
 import alvin.base.service.common.broadcasts.ServiceBroadcasts;
-import alvin.base.service.intent.IntentContracts;
 import alvin.base.service.intent.services.IntentService;
 import alvin.lib.common.utils.IntentFilters;
-import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class IntentActivity
-        extends ActivityAdapter<IntentContracts.Presenter>
-        implements IntentContracts.View {
+public class IntentActivity extends AppCompatActivity {
 
     private static final float ONE_SECOND_MS_FLOAT = 1000f;
 
@@ -62,20 +57,23 @@ public class IntentActivity
         }
     };
 
-    @BindView(R.id.rg_service_status) RadioGroup rgServiceStatus;
-    @BindView(R.id.sv_job_response) ScrollView svJobResponse;
-    @BindView(R.id.tv_job_response) TextView tvJobResponse;
+    @BindView(R.id.rg_service_status)
+    RadioGroup rgServiceStatus;
 
-    private Handler handler;
+    @BindView(R.id.sv_job_response)
+    ScrollView svJobResponse;
+
+    @BindView(R.id.tv_job_response)
+    TextView tvJobResponse;
+
+    private int jobId = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.intent_activity);
+        setContentView(R.layout.activity_intent);
 
         ButterKnife.bind(this);
-
-        handler = new Handler(getMainLooper());
     }
 
     @Override
@@ -106,8 +104,9 @@ public class IntentActivity
     }
 
     @OnClick(R.id.btn_work)
-    public void onWorkButtonClick(Button b) {
-        presenter.makeNewJob();
+    public void onWorkButtonClick() {
+        startService(new Intent(this, IntentService.class)
+                .putExtra(IntentService.EXTRA_ARG_NAME, "Job_" + jobId++));
     }
 
     private void serviceCreated() {
@@ -120,20 +119,12 @@ public class IntentActivity
 
     private void onJobStart(String jobName) {
         tvJobResponse.append(String.format("\n%s is started", jobName));
-        handler.post(() -> svJobResponse.fullScroll(ScrollView.FOCUS_DOWN));
+        runOnUiThread(() -> svJobResponse.fullScroll(ScrollView.FOCUS_DOWN));
     }
 
     private void onJobFinish(String jobName, long timeSpend) {
         tvJobResponse.append(String.format("\n%s is finished, time spend %ss\n",
                 jobName, timeSpend / ONE_SECOND_MS_FLOAT));
-        handler.post(() -> svJobResponse.fullScroll(ScrollView.FOCUS_DOWN));
-    }
-
-    @Override
-    public void doNewJob(String jobName) {
-        startService(
-                new Intent(this, IntentService.class)
-                        .putExtra(IntentService.EXTRA_ARG_NAME, jobName)
-        );
+        runOnUiThread(() -> svJobResponse.fullScroll(ScrollView.FOCUS_DOWN));
     }
 }

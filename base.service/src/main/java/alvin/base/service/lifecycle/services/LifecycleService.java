@@ -1,5 +1,6 @@
 package alvin.base.service.lifecycle.services;
 
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -9,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import alvin.base.service.common.broadcasts.ServiceBroadcasts;
-import dagger.android.DaggerService;
 
 /**
  * IService must be registered in AndroidManifest.xml.
@@ -18,7 +18,7 @@ import dagger.android.DaggerService;
  * &lt;service android:name=".lifecycle.services.LifecycleService" /&gt;
  * </pre>
  */
-public class LifecycleService extends DaggerService {
+public class LifecycleService extends Service {
     private static final String TAG = LifecycleService.class.getSimpleName();
 
     public static final String EXTRA_ARGUMENTS_MODE = "mode";

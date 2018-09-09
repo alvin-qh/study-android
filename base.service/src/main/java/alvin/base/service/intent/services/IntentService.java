@@ -5,22 +5,22 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.inject.Inject;
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import alvin.base.service.common.broadcasts.ServiceBroadcasts;
-import alvin.base.service.intent.tasks.Task;
-import dagger.android.DaggerIntentService;
 
-public class IntentService extends DaggerIntentService {
+public class IntentService extends android.app.IntentService {
     public static final String EXTRA_ARG_NAME = "name";
+    private static final List<WeakReference<OnJobStatusChangeListener>> LISTENERS = new LinkedList<>();
 
-    @Inject Task task;
+    private final Task task = new Task(1000, 3000);
 
-    private static Set<OnJobStatusChangeListener> listeners = new HashSet<>();
-    private Handler handler;
+    private Handler mainThreadHandler;
 
     public IntentService() {
         super(IntentService.class.getSimpleName());
@@ -30,7 +30,7 @@ public class IntentService extends DaggerIntentService {
     public void onCreate() {
         super.onCreate();
 
-        handler = new Handler(getMainLooper());
+        mainThreadHandler = new Handler(getMainLooper());
         sendBroadcast(new Intent(ServiceBroadcasts.ACTION_SERVICE_CREATED));
     }
 
@@ -38,28 +38,52 @@ public class IntentService extends DaggerIntentService {
     public void onDestroy() {
         super.onDestroy();
 
+        mainThreadHandler.removeCallbacksAndMessages(null);
         sendBroadcast(new Intent(ServiceBroadcasts.ACTION_SERVICE_DESTROYED));
-
-        handler.removeCallbacks(null);
     }
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         if (intent != null) {
             final String name = intent.getStringExtra(EXTRA_ARG_NAME);
+            final List<OnJobStatusChangeListener> listeners = filterListenersList();
 
-            handler.postDelayed(() -> listeners.forEach(l -> l.onStart(name)), 0);
+            mainThreadHandler.postDelayed(() -> listeners.forEach(l -> l.onStart(name)), 0);
+
             final long timeSpend = task.work();
-            handler.postDelayed(() -> listeners.forEach(l -> l.onFinish(name, timeSpend)), 0);
+            mainThreadHandler.postDelayed(() -> listeners.forEach(l -> l.onFinish(name, timeSpend)), 0);
+        }
+    }
+
+    private static List<OnJobStatusChangeListener> filterListenersList() {
+        synchronized (LISTENERS) {
+            final Iterator<WeakReference<OnJobStatusChangeListener>> iter = LISTENERS.iterator();
+            while (iter.hasNext()) {
+                final OnJobStatusChangeListener l = iter.next().get();
+                if (l == null) {
+                    iter.remove();
+                }
+            }
+            return LISTENERS.stream().map(Reference::get).collect(Collectors.toList());
         }
     }
 
     public static void addOnJobStatusChangeListener(@NonNull OnJobStatusChangeListener l) {
-        listeners.add(l);
+        synchronized (LISTENERS) {
+            LISTENERS.add(new WeakReference<>(l));
+        }
     }
 
     public static void removeOnJobStatusChangeListener(@NonNull OnJobStatusChangeListener l) {
-        listeners.remove(l);
+        synchronized (LISTENERS) {
+            final Iterator<WeakReference<OnJobStatusChangeListener>> iter = LISTENERS.iterator();
+            while (iter.hasNext()) {
+                final OnJobStatusChangeListener listener = iter.next().get();
+                if (listener == null || l == listener) {
+                    iter.remove();
+                }
+            }
+        }
     }
 
     public interface OnJobStatusChangeListener {

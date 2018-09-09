@@ -1,37 +1,35 @@
 package alvin.base.service.working.services;
 
-import android.annotation.SuppressLint;
+import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 
+import java.lang.ref.Reference;
+import java.lang.ref.WeakReference;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-
-import alvin.lib.common.rx.RxDecorator;
-import alvin.lib.common.rx.RxType;
-import dagger.android.DaggerService;
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 
-public class WorkingService extends DaggerService {
+public class WorkingService extends Service {
     public static final String EXTRA_ARG_ZONE = "zone";
 
-    @Inject @RxType.IO RxDecorator.Builder rxDecoratorBuilder;
+    private static final List<WeakReference<OnServiceCallbackListener>> listeners = new LinkedList<>();
 
     private ZoneId zoneId;
 
-    private static final Set<OnServiceCallbackListener> listeners = new HashSet<>();
-
-    private transient boolean destroyed = false;
+    private Disposable disposable;
 
     @Nullable
     @Override
@@ -42,7 +40,6 @@ public class WorkingService extends DaggerService {
     @Override
     public void onCreate() {
         super.onCreate();
-        destroyed = false;
     }
 
     @Override
@@ -68,31 +65,52 @@ public class WorkingService extends DaggerService {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        destroyed = true;
+
+        if (disposable != null) {
+            disposable.dispose();
+        }
     }
 
-    @SuppressLint("CheckResult")
     private void startServiceLoop() {
-        final Observable<LocalDateTime> observable = Observable.interval(0L, 1, TimeUnit.SECONDS)
-                .flatMap(ignore -> emitter -> {
-                    if (!destroyed) {
-                        LocalDateTime time = LocalDateTime.now(zoneId);
-                        emitter.onNext(time);
-                    } else {
-                        emitter.onComplete();
+        disposable = Observable.interval(0, 1, TimeUnit.SECONDS)
+                .map(ignore -> {
+                    synchronized (listeners) {
+                        final Iterator<WeakReference<OnServiceCallbackListener>> iter = listeners.iterator();
+                        while (iter.hasNext()) {
+                            final OnServiceCallbackListener l = iter.next().get();
+                            if (l == null) {
+                                iter.remove();
+                            }
+                        }
+                        return Lists.newArrayList(listeners);
+                    }
+                })
+                .subscribe(listeners -> {
+                    if (!listeners.isEmpty()) {
+                        LocalDateTime now = LocalDateTime.now(zoneId);
+                        listeners.stream()
+                                .map(Reference::get)
+                                .forEach(l -> l.onTimeMessage(now));
                     }
                 });
-
-        final RxDecorator decorator = rxDecoratorBuilder.build();
-        decorator.de(observable).subscribe(time -> listeners.forEach(listener -> listener.onTimeMessage(time)));
     }
 
     public static void addOnServiceCallbackListener(@NonNull OnServiceCallbackListener listener) {
-        listeners.add(listener);
+        synchronized (listeners) {
+            listeners.add(new WeakReference<>(listener));
+        }
     }
 
     public static void removeOnServiceCallbackListener(@NonNull OnServiceCallbackListener listener) {
-        listeners.remove(listener);
+        synchronized (listeners) {
+            final Iterator<WeakReference<OnServiceCallbackListener>> iter = listeners.iterator();
+            while (iter.hasNext()) {
+                final OnServiceCallbackListener l = iter.next().get();
+                if (l == null || l == listener) {
+                    iter.remove();
+                }
+            }
+        }
     }
 
     public interface OnServiceCallbackListener {

@@ -10,29 +10,32 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.common.base.Strings;
 
-import javax.inject.Inject;
-
 import alvin.base.service.R;
 import alvin.base.service.common.broadcasts.ServiceBroadcasts;
-import alvin.base.service.lifecycle.LifecycleContracts;
 import alvin.base.service.lifecycle.services.LifecycleService;
 import alvin.lib.common.utils.IntentFilters;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.support.DaggerAppCompatActivity;
 
-public class LifecycleActivity extends DaggerAppCompatActivity
-        implements LifecycleContracts.View {
+public class LifecycleActivity extends AppCompatActivity {
 
     private static final String TAG = LifecycleActivity.class.getSimpleName();
+
+    @BindView(R.id.rg_service_status)
+    RadioGroup rgServiceStatus;
+
+    @BindView(R.id.tv_service_start_count)
+    TextView tvStartCount;
+
+    private ServiceManager sm;
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -53,17 +56,16 @@ public class LifecycleActivity extends DaggerAppCompatActivity
         }
     };
 
-    @Inject LifecycleContracts.Presenter presenter;
-
-    @BindView(R.id.rg_service_status) RadioGroup rgServiceStatus;
-    @BindView(R.id.tv_service_start_count) TextView tvStartCount;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.lifecycle_activity);
+        setContentView(R.layout.activity_lifecycle);
         ButterKnife.bind(this);
+
+        final Intent intent = new Intent(this, LifecycleService.class)
+                .putExtra(LifecycleService.EXTRA_ARGUMENTS_MODE, Service.START_REDELIVER_INTENT);
+        sm = new ServiceManager(this, intent);
     }
 
     @Override
@@ -84,60 +86,42 @@ public class LifecycleActivity extends DaggerAppCompatActivity
     }
 
     @OnClick(R.id.btn_start_service)
-    public void onStartButtonClick(Button b) {
-        final Intent intent = new Intent(this, LifecycleService.class)
-                .putExtra(LifecycleService.EXTRA_ARGUMENTS_MODE, Service.START_REDELIVER_INTENT);
-
-        // Start the service and pass the arguments from intent object.
-        // IService can be start many times, but IService#onCreate method only be called one time,
-        // and IService#onStartCommand method should be called many times.
-        // Started service can be stoped by Context#stopService.
-        startService(intent);
-
-        presenter.serviceStarted();
+    public void onStartButtonClick() {
+        sm.start();
+        showStartCount();
     }
 
     @OnClick(R.id.btn_stop_service)
-    public void onStopButtonClick(Button b) {
-        stopService(new Intent(this, LifecycleService.class));
-        presenter.serviceStoped();
+    public void onStopButtonClick() {
+        sm.stop();
+        showStartCount();
     }
 
     @OnClick(R.id.btn_bind_service)
-    public void onBindButtonClick(Button b) {
-        ServiceConnection conn = new ServiceConnection() {
-
-            /**
-             * Callback when service is connected, the {@link IBinder} instance will be passed,
-             *
-             * @see LifecycleService#onBind(Intent)
-             */
+    public void onBindButtonClick() {
+        sm.bind(new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName componentName, IBinder binder) {
                 Log.i(TAG, "The service was connected");
+                showStartCount();
             }
 
-            /**
-             * Callback only service will be killed unexpected.
-             */
             @Override
             public void onServiceDisconnected(ComponentName componentName) {
+                sm.remove(this);
                 Log.i(TAG, "The service was accidentally disconnected");
             }
-        };
-
-        final Intent intent = new Intent(this, LifecycleService.class);
-
-        // Bind service, the IService#onBind method will be called one time, and Reference Counter
-        // should be increase
-        bindService(intent, conn, Context.BIND_AUTO_CREATE);
-
-        presenter.serviceBound(conn);
+        });
     }
 
     @OnClick(R.id.btn_unbind_service)
-    public void onUnbindButtonClick(Button b) {
-        presenter.serviceUnbound();
+    public void onUnbindButtonClick() {
+        sm.unbind();
+        showStartCount();
+    }
+
+    private void showStartCount() {
+        tvStartCount.setText(String.valueOf(sm.getStartCount()));
     }
 
     public void serviceDestroyed() {
@@ -148,8 +132,4 @@ public class LifecycleActivity extends DaggerAppCompatActivity
         rgServiceStatus.check(R.id.rb_created);
     }
 
-    @Override
-    public void showStartCount(int count) {
-        tvStartCount.setText(String.valueOf(count));
-    }
 }

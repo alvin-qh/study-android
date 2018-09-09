@@ -2,6 +2,7 @@ package alvin.base.service.main.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import alvin.base.service.R;
@@ -13,14 +14,13 @@ import alvin.base.service.remote.views.RemoteActivity;
 import alvin.base.service.working.view.WorkingActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import dagger.android.support.DaggerAppCompatActivity;
 
-public class MainActivity extends DaggerAppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+        setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
     }

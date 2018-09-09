@@ -1,13 +1,13 @@
-package alvin.base.service.intent.tasks;
+package alvin.base.service.intent.services;
 
 import java.util.Random;
 
-public class Task {
+class Task {
     private final int minDelay;
     private final int maxDelay;
     private final Random random = new Random();
 
-    public Task(int minDelay, int maxDelay) {
+    Task(int minDelay, int maxDelay) {
         this.minDelay = minDelay;
         this.maxDelay = maxDelay;
     }

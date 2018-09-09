@@ -8,10 +8,10 @@ interface IRemoteBinder {
 
     // Add a instance of callback listener to service by key
     // 'in' means this argument should pass to service
-    void addOnJobStatusChangeListener(String key, in IOnJobStatusChangeListener l);
+    void addOnJobStatusChangeListener(in IOnJobStatusChangeListener l);
 
     // Add a exist callback listener from service by key
-    void removeOnJobStatusChangeListener(String key);
+    void removeOnJobStatusChangeListener();
 
     // Add a new job to service to invork it
     // 'in' means this argument should pass to service

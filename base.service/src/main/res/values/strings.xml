@@ -10,6 +10,7 @@
 
     <string name="btn_lifecycle_service">Lifecycle</string>
     <string name="btn_start">Start</string>
+    <string name="btn_switch">Switch</string>
     <string name="btn_bind">Bind</string>
     <string name="btn_unbind">Unbind</string>
     <string name="btn_stop">Stop</string>

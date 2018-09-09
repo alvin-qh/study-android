@@ -61,32 +61,18 @@ FlowManager.getDatabase(AppDatabase.class).executeTransaction(db -> user.save(db
 异步事务中，可以添加成功和失败的回调，已监听是否执行结果
 
 ```java
-DatabaseDefinition database = FlowManager.getDatabase(AppDatabase.class);
-Transaction transaction = database.beginTransactionAsync(new ITransaction() {
-    @Override
-    public void execute(DatabaseWrapper databaseWrapper) {
-        User user = new User();
-        user.setName("张飞");
-        user.setAge(18);
-        user.save(databaseWrapper);
-    }
-}).success(new OnSuccess()).error(new OnError()).build();
+DatabaseDefinition db = FlowManager.getDatabase(AppDatabase.class);
 
-transaction.execute();
-    
-class OnSuccess implements Transaction.Success {
-    @Override
-    public void onSuccess(Transaction transaction) {
-        Log.d(DB, "成功");
-    }
-}
+User user = new User();
+user.setName("张飞");
+user.setAge(18);
+        
+Transaction tx = db.beginTransactionAsync(db -> user.save(databaseWrapper))
+    .success(tx -> Log.d(TAG, "成功"))
+    .error(tx -> Log.d(TAG, "失败"))
+    .build();
 
-class OnError implements Transaction.Error {
-    @Override
-    public void onError(Transaction transaction, Throwable error) {
-        Log.d(DB, "失败");
-    }
-}
+tx.execute();
 ```
 
 
@@ -95,20 +81,21 @@ class OnError implements Transaction.Error {
 
 如果数据是一个list集合或对象数组，可以使用FastStoreModelTransaction来保存。出了`insertBuilder`还支持`saveBuilder`，`updateBuilder`
 ```java
+List<User> users = new ArrayList<>();
+
 for (int i = 0; i < 100; i++) {
     User user = new User();
-    user.setName("张飞");
+    user.setName("张飞" + i);
     user.setAge(18);
     users.add(user);
 }
 
-DatabaseWrapper databaseWrapper = 
-	FlowManager.getDatabase(AppDatabase.class).getWritableDatabase();
+DatabaseWrapper db = FlowManager.getDatabase(AppDatabase.class).getWritableDatabase();
 FastStoreModelTransaction
-	.insertBuilder(FlowManager.getModelAdapter(User.class))
-	.addAll(users)
-	.build()
-	.execute(databaseWrapper);
+    .insertBuilder(FlowManager.getModelAdapter(User.class))
+    .addAll(users)
+    .build()
+    .execute(db);
 ```
 
 
@@ -122,12 +109,12 @@ FastStoreModelTransaction
 
 ### 3. 更新
 
-####3.1 版本更新
+#### 3.1 版本更新
 只需在`AppDatabase`中更改`VERSION`就可以了
 
 
 
-####3.2 表结构更新
+#### 3.2 表结构更新
 
 如果表增加了一列，就要继承`AlterTableMigration`在`onPreMigrate`方法中更改
 如果表版本没有更改，`onPreMigrate`是不会执行的，一定要记住。两个参数分别是数据类型和表名，数据类型请查看`SQLiteType`类。ps:把版本号改一下，注释去掉就能更新数据库
@@ -136,14 +123,14 @@ FastStoreModelTransaction
 @Migration(version = AppDatabase.VERSION, database = AppDatabase.class)
 public class MigrationUp extends AlterTableMigration<User> {
 
-	public MigrationUp(Class<User> table) {
-		super(table);
-	}
-
-	@Override
-	public void onPreMigrate() {
-		super.onPreMigrate();
-		addColumn(SQLiteType.get(Long.class.getName()), User_Table.phone.getNameAlias().name());
-	}
+    public MigrationUp(Class<User> table) {
+        super(table);
+    }
+    
+    @Override
+    public void onPreMigrate() {
+        super.onPreMigrate();
+        addColumn(SQLiteType.get(Long.class.getName()), User_Table.phone.getNameAlias().name());
+    }
 }
 ```

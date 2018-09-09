@@ -7,29 +7,29 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.function.Consumer;
 
 import alvin.base.service.R;
-import alvin.base.service.bind.BindContracts;
 import alvin.base.service.bind.services.BindService;
-import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BindActivity
-        extends ActivityAdapter<BindContracts.Presenter>
-        implements BindContracts.View {
+public class BindActivity extends AppCompatActivity {
+    private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @BindView(R.id.btn_bind_service) Button btnBindService;
     @BindView(R.id.btn_unbind_service) Button btnUnbindService;
     @BindView(R.id.tv_time) TextView tvTime;
 
-    private final Consumer<LocalDateTime> callback = dateTime -> presenter.gotResult(dateTime);
+    private final Consumer<LocalDateTime> callback = dateTime ->
+            runOnUiThread(() -> showResult(DATETIME_FORMATTER.format(dateTime)));
 
     private ServiceConnection connection;
     private BindService.ServiceBinder binder;
@@ -37,9 +37,24 @@ public class BindActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bind_activity);
+        setContentView(R.layout.activity_bind);
 
         ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        disconnect(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (connection != null) {
+            final Intent intent = new Intent(this, BindService.class);
+            bindService(intent, connection, Context.BIND_AUTO_CREATE);
+        }
     }
 
     @OnClick(R.id.btn_bind_service)
@@ -66,11 +81,12 @@ public class BindActivity
                  */
                 @Override
                 public void onServiceDisconnected(ComponentName componentName) {
-                    disconnect();
+                    disconnect(true);
                 }
             };
 
             // Bind service
+            bindService(intent, connection, Context.BIND_AUTO_CREATE);
             bindService(intent, connection, Context.BIND_AUTO_CREATE);
 
             btnBindService.setEnabled(false);
@@ -78,25 +94,27 @@ public class BindActivity
         }
     }
 
-    private void disconnect() {
+    private void disconnect(boolean keep) {
         if (binder != null) {
-            binder.removeTimeCallback(callback);
+            binder.removeTimeCallback();
             binder = null;
         }
         if (connection != null) {
             unbindService(connection);
+        }
+        if (!keep) {
             connection = null;
         }
     }
 
     @OnClick(R.id.btn_unbind_service)
     public void onUnbindButtonClick(Button b) {
-        disconnect();
         btnBindService.setEnabled(true);
         btnUnbindService.setEnabled(false);
+
+        disconnect(false);
     }
 
-    @Override
     public void showResult(String result) {
         tvTime.setText(result);
     }
