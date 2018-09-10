@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".working.view.WorkingActivity">
+    tools:context=".working.views.WorkingActivity">
 
     <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/ll_buttons_bar"

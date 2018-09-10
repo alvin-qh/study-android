@@ -10,8 +10,9 @@ import alvin.base.service.bind.views.BindActivity;
 import alvin.base.service.foreground.views.ForegroundActivity;
 import alvin.base.service.intent.views.IntentActivity;
 import alvin.base.service.lifecycle.views.LifecycleActivity;
+import alvin.base.service.messenger.views.MessengerActivity;
 import alvin.base.service.remote.views.RemoteActivity;
-import alvin.base.service.working.view.WorkingActivity;
+import alvin.base.service.working.views.WorkingActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -31,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
             R.id.btn_bind_service,
             R.id.btn_intent_service,
             R.id.btn_remote_service,
-            R.id.btn_foreground_service
+            R.id.btn_foreground_service,
+            R.id.btn_messenger_service
     })
     public void onButtonsClick(Button b) {
         Intent intent;
@@ -54,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
             break;
         case R.id.btn_foreground_service:
             intent = new Intent(this, ForegroundActivity.class);
+            break;
+        case R.id.btn_messenger_service:
+            intent = new Intent(this, MessengerActivity.class);
             break;
         default:
             intent = null;

@@ -18,34 +18,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_working_service"
-        app:layout_constraintTop_toBottomOf="@id/btn_basic_service" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_basic_service" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_bind_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_bind_service"
-        app:layout_constraintTop_toBottomOf="@id/btn_working_service" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_working_service" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_intent_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_intent_service"
-        app:layout_constraintTop_toBottomOf="@id/btn_bind_service" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_bind_service" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_remote_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_remote_service"
-        app:layout_constraintTop_toBottomOf="@id/btn_intent_service" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_intent_service" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_foreground_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btn_foreground_service"
-        app:layout_constraintTop_toBottomOf="@id/btn_remote_service" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_remote_service" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_messenger_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_messenger_service"
+        app:layout_constraintTop_toBottomOf="@+id/btn_foreground_service" />
 
 </android.support.constraint.ConstraintLayout>

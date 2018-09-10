@@ -9,8 +9,15 @@
         android:label="@string/permission_remote_service_label"
         android:protectionLevel="dangerous" />
 
+    <permission
+        android:name="alvin.permissions.MESSENGER_SERVICE"
+        android:description="@string/permission_messenger_service_description"
+        android:label="@string/permission_messenger_service_label"
+        android:protectionLevel="normal" />
+
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="alvin.permissions.REMOTE_SERVICE" />
+    <uses-permission android:name="alvin.permissions.MESSENGER_SERVICE" />
 
     <application
         android:name=".Application"
@@ -37,7 +44,7 @@
             android:parentActivityName=".main.views.MainActivity" />
 
         <activity
-            android:name=".working.view.WorkingActivity"
+            android:name=".working.views.WorkingActivity"
             android:label="@string/title_working_service"
             android:parentActivityName=".main.views.MainActivity" />
 
@@ -61,6 +68,11 @@
             android:label="@string/title_foreground_service"
             android:parentActivityName=".main.views.MainActivity" />
 
+        <activity
+            android:name=".messenger.views.MessengerActivity"
+            android:label="@string/title_messenger"
+            android:parentActivityName=".main.views.MainActivity" />
+
         <service android:name=".lifecycle.services.LifecycleService" />
 
         <service android:name=".working.services.WorkingService" />
@@ -80,5 +92,15 @@
         </service>
 
         <service android:name=".foreground.services.ForegroundService" />
+
+        <service
+            android:name=".messenger.services.MessengerService"
+            android:exported="true"
+            android:permission="alvin.base.permissions.MESSENGER_SERVICE"
+            android:process=":alvin.base.processes.MESSENGER_SERVICE">
+            <intent-filter>
+                <action android:name="alvin.services.MESSENGER_SERVICE" />
+            </intent-filter>
+        </service>
     </application>
 </manifest>
