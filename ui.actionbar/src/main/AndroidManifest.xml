@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
-            android:name="alvin.ui.actionbar.main.MainActivity"
+            android:name=".main.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +25,9 @@
 
         <activity
             android:name=".simple.SimpleActionBarActivity"
-            android:parentActivityName=".main.MainActivity"
-            android:label="@string/label_simple_actionbar"/>
+            android:label="@string/label_simple_actionbar"
+            android:parentActivityName=".main.MainActivity" />
+
+        <activity android:name=".homeup.ActionHomeAsUpActivity" />
     </application>
 </manifest>
