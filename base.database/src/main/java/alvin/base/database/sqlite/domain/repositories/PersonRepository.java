@@ -24,7 +24,7 @@ public class PersonRepository {
     private final SQLite.Builder sqliteBuilder;
 
     @Inject
-    public PersonRepository(SQLite.Builder sqliteBuilder) {
+    PersonRepository(SQLite.Builder sqliteBuilder) {
         this.sqliteBuilder = sqliteBuilder;
     }
 

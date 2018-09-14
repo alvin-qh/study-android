@@ -20,9 +20,9 @@ public class MessagePresenter extends PresenterAdapter<View> implements Presente
     private final TransactionManager tm;
 
     @Inject
-    public MessagePresenter(View view,
-                            MessageRepository messageRepository,
-                            TransactionManager tm) {
+    MessagePresenter(View view,
+                     MessageRepository messageRepository,
+                     TransactionManager tm) {
         super(view);
         this.messageRepository = messageRepository;
         this.tm = tm;

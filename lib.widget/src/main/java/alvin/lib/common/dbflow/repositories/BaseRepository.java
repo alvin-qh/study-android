@@ -15,11 +15,9 @@ public abstract class BaseRepository<T extends BaseModel> implements IRepository
 
     private final Class<T> entityClass;
 
-    public BaseRepository() {
-
+    @SuppressWarnings("unchecked")
+    protected BaseRepository() {
         ParameterizedType genericSuperclass = findParameterizedTypeParent(getClass());
-
-        //noinspection unchecked
         entityClass = (Class<T>) genericSuperclass.getActualTypeArguments()[0];
     }
 

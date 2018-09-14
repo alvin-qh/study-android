@@ -22,7 +22,7 @@ public class DBFlowPresenter extends PresenterAdapter<View> implements Presenter
     private final TransactionManager transactionManager;
 
     @Inject
-    public DBFlowPresenter(@NonNull View view,
+    DBFlowPresenter(View view,
                            PersonRepository personRepository,
                            TransactionManager transactionManager) {
         super(view);

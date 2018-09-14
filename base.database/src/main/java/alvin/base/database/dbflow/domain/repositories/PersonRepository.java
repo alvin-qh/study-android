@@ -18,7 +18,7 @@ import alvin.lib.common.dbflow.repositories.BaseRepository;
 public class PersonRepository extends BaseRepository<Person> {
 
     @Inject
-    public PersonRepository() {
+    PersonRepository() {
     }
 
     public AsyncQuery<Person> findById(int id) {

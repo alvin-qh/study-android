@@ -25,7 +25,7 @@ public class SQLitePresenter extends PresenterAdapter<View> implements Presenter
     private final PersonRepository personRepository;
 
     @Inject
-    public SQLitePresenter(@NonNull View view,
+    SQLitePresenter(View view,
                            @RxType.IO RxDecorator.Builder rxDecoratorBuilder,
                            PersonRepository personRepository) {
         super(view);

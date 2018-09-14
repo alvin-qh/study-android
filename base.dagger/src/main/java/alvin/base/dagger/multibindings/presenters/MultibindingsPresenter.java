@@ -19,9 +19,9 @@ public class MultibindingsPresenter extends PresenterAdapter<MultibindingsContra
     private final Map<String, LocalDate> birthdayMap;
 
     @Inject
-    public MultibindingsPresenter(MultibindingsContracts.View view,
-                                  @NameSet Set<String> nameSet,
-                                  @BirthdayMap Map<String, LocalDate> birthdayMap) {
+    MultibindingsPresenter(MultibindingsContracts.View view,
+                           @NameSet Set<String> nameSet,
+                           @BirthdayMap Map<String, LocalDate> birthdayMap) {
         super(view);
         this.nameSet = nameSet;
         this.birthdayMap = birthdayMap;
