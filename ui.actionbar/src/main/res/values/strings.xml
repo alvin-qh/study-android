@@ -2,6 +2,7 @@
     <string name="app_name">Actionbar Demo</string>
 
     <string name="label_simple_actionbar">Simple Actionbar</string>
+    <string name="label_toolbar">Toolbar</string>
 
     <string name="action_settings">Settings</string>
 

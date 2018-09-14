@@ -1,7 +1,7 @@
 package alvin.ui.actionbar.main
 
 import alvin.ui.actionbar.R
-import alvin.ui.actionbar.homeup.ActionHomeAsUpActivity
+import alvin.ui.actionbar.homeup.ToolbarActivity
 import alvin.ui.actionbar.simple.SimpleActionBarActivity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -20,12 +20,11 @@ class MainActivity : AppCompatActivity() {
     private fun setupButtons() {
         arrayOf(btn_simple_action, btn_action_home_up).forEach {
             it.setOnClickListener { b ->
-                val intent = when (b.id) {
+                startActivity(when (b.id) {
                     btn_simple_action.id -> intentFor<SimpleActionBarActivity>()
-                    btn_action_home_up.id -> intentFor<ActionHomeAsUpActivity>()
+                    btn_action_home_up.id -> intentFor<ToolbarActivity>()
                     else -> throw IllegalArgumentException()
-                }
-                startActivity(intent)
+                })
             }
         }
     }

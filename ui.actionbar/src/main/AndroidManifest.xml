@@ -28,6 +28,10 @@
             android:label="@string/label_simple_actionbar"
             android:parentActivityName=".main.MainActivity" />
 
-        <activity android:name=".homeup.ActionHomeAsUpActivity" />
+        <activity
+            android:name=".homeup.ToolbarActivity"
+            android:label="@string/label_toolbar"
+            android:parentActivityName=".main.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 </manifest>
