@@ -18,6 +18,8 @@
     <string name="string_network_available">Network available</string>
     <string name="string_network_lost">Network lost</string>
     <string name="string_network_disconnected">Network disconnected</string>
+    <string name="string_need_ip_address">Please input IP address</string>
+    <string name="string_bye">Bye</string>
 
     <string name="btn_open_net_work_status_demo">Network Status</string>
     <string name="btn_open_http_demo">Http</string>
@@ -30,6 +32,7 @@
     <string name="btn_stop">Stop</string>
     <string name="btn_remote_data">Remote Data</string>
     <string name="btn_remote_image">Remote Image</string>
+    <string name="btn_start">Start</string>
 
     <string name="error_cannot_load_config_file">Cannot load config file</string>
     <string name="error_get_weather">Cannot get weather</string>

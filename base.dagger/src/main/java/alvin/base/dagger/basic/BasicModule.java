@@ -12,28 +12,35 @@ import alvin.lib.common.rx.RxType;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
+import dagger.android.ContributesAndroidInjector;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 
 @Module
 public interface BasicModule {
 
-    @Binds
-    BasicContracts.View view(BasicActivity activity);
+    @ContributesAndroidInjector(modules = ActivityModule.class)
+    BasicActivity basicActivity();
 
-    @Binds
-    BasicContracts.Presenter presenter(MessagePresenter presenter);
+    @Module
+    interface ActivityModule {
+        @Binds
+        BasicContracts.View view(BasicActivity activity);
 
-    @Provides
-    static TransactionManager tm() {
-        return new TransactionManager(FlowManager.getDatabase(MessageDatabase.class));
-    }
+        @Binds
+        BasicContracts.Presenter presenter(MessagePresenter presenter);
 
-    @Provides
-    @RxType.IO
-    static RxDecorator.Builder rxDecoratorBuilder() {
-        return RxDecorator.newBuilder()
-                .subscribeOn(RxSchedulers::database)
-                .observeOn(AndroidSchedulers::mainThread);
+        @Provides
+        static TransactionManager tm() {
+            return new TransactionManager(FlowManager.getDatabase(MessageDatabase.class));
+        }
+
+        @Provides
+        @RxType.IO
+        static RxDecorator.Builder rxDecoratorBuilder() {
+            return RxDecorator.newBuilder()
+                    .subscribeOn(RxSchedulers::database)
+                    .observeOn(AndroidSchedulers::mainThread);
+        }
     }
 }

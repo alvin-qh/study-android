@@ -21,25 +21,22 @@ import io.reactivex.schedulers.Schedulers;
 @Module
 public interface RemoteModule {
 
-    @ContributesAndroidInjector(modules = {BindModule.class, ProvidesModule.class})
+    @ContributesAndroidInjector(modules = ActivityModule.class)
     RemoteActivity activity();
 
     @Module
-    interface BindModule {
+    interface ActivityModule {
+        int RETRY_TIMES = 3;
+
         @Binds
         RemoteContracts.View view(final RemoteActivity activity);
 
         @Binds
         RemoteContracts.Presenter presenter(final RemotePresenter presenter);
-    }
-
-    @Module
-    class ProvidesModule {
-        private static final int RETRY_TIMES = 3;
 
         @Provides
         @RxType.IO
-        public RxDecorator.Builder rxDecoratorBuilder() {
+        static RxDecorator.Builder rxDecoratorBuilder() {
             return RxDecorator.newBuilder()
                     .subscribeOn(Schedulers::io)
                     .observeOn(AndroidSchedulers::mainThread)
@@ -47,7 +44,7 @@ public interface RemoteModule {
         }
 
         @Provides
-        public ImageLoader imageLoader(final Context context) {
+        static ImageLoader imageLoader(final Context context) {
             final File cachePath = new File(context.getExternalCacheDir(), "images");
             if (!cachePath.exists() && !cachePath.mkdirs()) {
                 throw new RuntimeException("Cannot create cache directory");

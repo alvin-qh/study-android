@@ -45,7 +45,7 @@ public class SocketNativePresenter extends PresenterAdapter<NativeView>
 
     @Override
     @SuppressLint("CheckResult")
-    public void connect() {
+    public void connect(String ip) {
         final RxDecorator decorator = rxSendDecoratorBuilder.build();
         decorator.de(
                 Completable.create(emitter -> {
@@ -54,7 +54,7 @@ public class SocketNativePresenter extends PresenterAdapter<NativeView>
                     }
 
                     try {
-                        this.socket.connect();
+                        this.socket.connect(ip);
 
                         startReceive();
                         emitter.onComplete();

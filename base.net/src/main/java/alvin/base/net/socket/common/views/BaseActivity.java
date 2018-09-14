@@ -19,6 +19,7 @@ import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public abstract class BaseActivity extends ActivityAdapter<SocketContracts.NativePresenter>
         implements SocketContracts.NativeView {
@@ -27,6 +28,8 @@ public abstract class BaseActivity extends ActivityAdapter<SocketContracts.Nativ
 
     public static final int ONE_SECOND = 1000;
 
+    @BindView(R.id.text_ip) TextView textIp;
+    @BindView(R.id.btn_start) Button btnStart;
     @BindView(R.id.text_time) TextView textTime;
 
     private Timer timer;
@@ -37,12 +40,6 @@ public abstract class BaseActivity extends ActivityAdapter<SocketContracts.Nativ
         setContentView(R.layout.socket_common_activity_base);
 
         ButterKnife.bind(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        presenter.connect();
     }
 
     @Override
@@ -80,8 +77,18 @@ public abstract class BaseActivity extends ActivityAdapter<SocketContracts.Nativ
         }, 0, ONE_SECOND);
     }
 
+    @OnTextChanged(R.id.text_ip)
+    public void onTextIpChanged() {
+        btnStart.setEnabled(textIp.getText().length() > 0);
+    }
+
+    @OnClick(R.id.btn_start)
+    public void onButtonStartClicked() {
+        presenter.connect(textIp.getText().toString());
+    }
+
     @OnClick(R.id.btn_stop)
-    public void onButtonStop(Button b) {
+    public void onButtonStopClicked() {
         if (timer != null) {
             timer.cancel();
         }
@@ -95,6 +102,6 @@ public abstract class BaseActivity extends ActivityAdapter<SocketContracts.Nativ
 
     @Override
     public void showRemoteBye() {
-        textTime.setText("Bye");
+        textTime.setText(R.string.string_bye);
     }
 }

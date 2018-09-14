@@ -42,8 +42,8 @@ public class SocketNettyPresenter extends PresenterAdapter<SocketContracts.Nativ
     }
 
     @Override
-    public void connect() {
-        this.socket.connect(new NettySocket.Callback() {
+    public void connect(String ip) {
+        this.socket.connect(ip, new NettySocket.Callback() {
             @Override
             public void onReceived(CommandAck ack) {
                 whenCommandReceived(ack);

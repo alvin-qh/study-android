@@ -28,6 +28,7 @@ public class NettySocket implements Closeable, AutoCloseable {
     private final AtomicBoolean closed = new AtomicBoolean(true);
 
     private Callback callback;
+    private String host;
 
     public interface Callback {
         void onReceived(CommandAck ack);
@@ -68,7 +69,7 @@ public class NettySocket implements Closeable, AutoCloseable {
         this.group = new NioEventLoopGroup();
     }
 
-    public void connect(Callback callback) {
+    public void connect(String host, Callback callback) {
         if (closed.compareAndSet(true, false)) {
             new Bootstrap()
                     .group(group)
@@ -79,7 +80,7 @@ public class NettySocket implements Closeable, AutoCloseable {
                         @Override
                         public void onDisconnected(Throwable err) {
                             if (!closed.get()) {
-                                reconnect(callback);
+                                reconnect();
                             }
                             if (err == null) {
                                 callback.onDisconnect();
@@ -96,12 +97,12 @@ public class NettySocket implements Closeable, AutoCloseable {
                                     throwable -> {
                                         if (!closed.get()) {
                                             callback.onException(new NettyException(throwable));
-                                            reconnect(callback);
+                                            reconnect();
                                         }
                                     });
                         }
                     }))
-                    .connect(config.getHost(), config.getPort())
+                    .connect(host, config.getPort())
                     .addListener((ChannelFutureListener) future -> {
                         if (future.isSuccess()) {
                             contextRef.set(new ChannelContext(future.channel()));
@@ -110,6 +111,7 @@ public class NettySocket implements Closeable, AutoCloseable {
                             callback.onException(new NettyException("Cannot connect to remote"));
                         }
                     });
+            this.host = host;
             this.callback = callback;
         }
     }
@@ -142,18 +144,18 @@ public class NettySocket implements Closeable, AutoCloseable {
                 if (future.isSuccess()) {
                     callback.accept(cmd);
                 } else {
-                    reconnect(this.callback);
+                    reconnect();
                 }
             });
         }
     }
 
-    private void reconnect(Callback callback) {
+    private void reconnect() {
         final ChannelContext context = contextRef.getAndSet(null);
         if (context != null) {
             context.channel.close();
         }
-        connect(callback);
+        connect(host, callback);
     }
 
     public boolean isClose() {

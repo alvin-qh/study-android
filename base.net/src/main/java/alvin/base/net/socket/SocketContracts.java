@@ -24,7 +24,7 @@ public interface SocketContracts {
 
         void readRemoteDatetime();
 
-        void connect();
+        void connect(String ip);
 
         void bye();
     }

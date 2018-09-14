@@ -8,11 +8,11 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class ApplicationModule {
+interface ApplicationModule {
 
     @Singleton
     @Provides
-    public Context context(final Application application) {
+    static Context context(final Application application) {
         return application;
     }
 }

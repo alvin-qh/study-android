@@ -31,8 +31,8 @@ public abstract class BaseActivity extends ActivityAdapter<HttpContracts.Present
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_http_common);
 
+        setContentView(R.layout.activity_http_common);
         ButterKnife.bind(this);
     }
 

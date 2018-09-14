@@ -20,17 +20,23 @@ public class NativeSocket implements Closeable, AutoCloseable {
     private final AtomicBoolean closed = new AtomicBoolean(true);
 
     private Socket socket;
+    private String host;
 
     public NativeSocket(NativeProtocol protocol, NetworkConfig config) {
         this.protocol = protocol;
         this.config = config;
     }
 
-    public synchronized void connect() throws IOException {
+    public synchronized void connect(String host) throws IOException {
         if (closed.compareAndSet(true, false)) {
             this.socket = new Socket();
-            this.socket.connect(new InetSocketAddress(config.getHost(), config.getPort()), TIMEOUT);
+            this.socket.connect(new InetSocketAddress(host, config.getPort()), TIMEOUT);
+            this.host = host;
         }
+    }
+
+    private void connect() throws IOException {
+        this.connect(this.host);
     }
 
     public CommandAck getResponse() throws IOException {

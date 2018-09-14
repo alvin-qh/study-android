@@ -4,13 +4,21 @@ import alvin.base.database.sqlite.presenters.SQLitePresenter;
 import alvin.base.database.sqlite.views.SQLiteActivity;
 import dagger.Binds;
 import dagger.Module;
+import dagger.android.ContributesAndroidInjector;
 
 @Module
 public interface SQLiteModule {
 
-    @Binds
-    SQLiteContracts.View view(SQLiteActivity activity);
+    @ContributesAndroidInjector(modules = ActivityModule.class)
+    SQLiteActivity sqLiteActivity();
 
-    @Binds
-    SQLiteContracts.Presenter presenter(SQLitePresenter presenter);
+    @Module
+    interface ActivityModule {
+
+        @Binds
+        SQLiteContracts.View view(SQLiteActivity activity);
+
+        @Binds
+        SQLiteContracts.Presenter presenter(SQLitePresenter presenter);
+    }
 }
