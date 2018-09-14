@@ -11,29 +11,23 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public interface ScopeModule {
 
-    @ContributesAndroidInjector(modules = {ActivityModule.class})
-    @Scopes.Activity
-    ScopeActivity scopeActivity();
+    @Binds
+    ScopeContracts.ActivityView view(ScopeActivity activity);
+
+    @Binds
+    ScopeContracts.ActivityPresenter presenter(ActivityPresenter presenter);
+
+    @ContributesAndroidInjector(modules = FragmentModule.class)
+    @Scopes.Fragment
+    ScopeFragment scopeFragment();
+
 
     @Module
-    interface ActivityModule {
+    interface FragmentModule {
         @Binds
-        ScopeContracts.ActivityView view(ScopeActivity activity);
+        ScopeContracts.FragmentView view(ScopeFragment fragment);
 
         @Binds
-        ScopeContracts.ActivityPresenter presenter(ActivityPresenter presenter);
-
-        @ContributesAndroidInjector(modules = {FragmentModule.class})
-        @Scopes.Fragment
-        ScopeFragment scopeFragment();
-
-        @Module
-        interface FragmentModule {
-            @Binds
-            ScopeContracts.FragmentView view(ScopeFragment fragment);
-
-            @Binds
-            ScopeContracts.FragmentPresenter presenter(FragmentPresenter presenter);
-        }
+        ScopeContracts.FragmentPresenter presenter(FragmentPresenter presenter);
     }
 }
