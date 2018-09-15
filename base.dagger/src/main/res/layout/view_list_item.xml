@@ -51,7 +51,7 @@
         tools:text="2017-12-11 13:00:00" />
 
     <View
-        style="@style/Widget.Line"
+        style="@style/AppTheme.Line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="10dp"

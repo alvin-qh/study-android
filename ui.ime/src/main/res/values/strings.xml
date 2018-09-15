@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Android IME</string>
 
-    <string name="btn_input_confirm">Confirm</string>
+    <string name="hint_input_some_thing">Input something here</string>
+    <string name="btn_hide_ime">Hide IME</string>
 
-    <string name="message_input">Your input is %1$s</string>
+    <string name="title_hide_ime">Hide IME</string>
+    <string name="btn_input_confirm">Confirm</string>
 </resources>

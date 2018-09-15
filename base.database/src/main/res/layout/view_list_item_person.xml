@@ -10,7 +10,7 @@
     android:paddingEnd="10dp"
     android:paddingStart="10dp"
     android:paddingTop="5dp"
-    android:theme="@style/AppTheme.Widget.ListViewItem"
+    android:theme="@style/AppTheme.ListViewItem"
     tools:context=".common.views.BaseActivity">
 
     <TextView

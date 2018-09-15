@@ -1,17 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="buttonStyle">@style/AppTheme.Button</item>
+    </style>
+
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button">
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="AppTheme.Widget" parent="AppTheme" />
-
-    <style name="AppTheme.Widget.OvalRadioButton" parent="AppTheme.Widget">
+    <style name="AppTheme.OvalRadioButton">
         <item name="android:button">@null</item>
         <item name="android:drawablePadding">5dp</item>
         <item name="android:textColor">@drawable/radio_text</item>

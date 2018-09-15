@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Actionbar Demo</string>
+
+    <string name="label_simple_actionbar">Simple Actionbar</string>
+    <string name="label_toolbar">Toolbar</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="btn_simple_action">Simple Action</string>
+    <string name="btn_home_as_up">Display Home As Up</string>
+
+    <string name="btn_hide_actionbar">Hide Actionbar</string>
+    <string name="btn_show_actionbar">Show Actionbar</string>
+    <string name="btn_hide_up_home">Hide Up Home</string>
+    <string name="btn_show_up_home">Show Up Home</string>
+    <string name="btn_hide_logo">Hide Logo</string>
+    <string name="btn_show_logo">Show Logo</string>
+    <string name="btn_menu_layout">Menu Layout</string>
+    <string name="btn_up_home_icon">UpHome Icon</string>
+    <string name="btn_custom_view">Custom View</string>
+
+    <string-array name="sa_planets">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+</resources>
