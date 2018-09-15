@@ -50,8 +50,7 @@ class DaggerActivity :
         })
 
         fab.onClick { _ ->
-            val dlg = PersonDialog.Builder(this@DaggerActivity)
-                    .create(R.string.title_form_dialog)
+            val dlg = PersonDialog.Builder(this@DaggerActivity).create(R.string.title_form_dialog)
 
             dlg.onConfirmClickListener = View.OnClickListener {
                 presenter.savePerson(Person(dlg.name, dlg.gender, dlg.birthday))

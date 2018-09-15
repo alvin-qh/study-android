@@ -7,8 +7,7 @@ import alvin.base.kotlin.dagger.domain.services.PersonService
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter
 import javax.inject.Inject
 
-class DaggerPresenter
-@Inject constructor(
+class DaggerPresenter @Inject constructor(
         view: DaggerContracts.View,
         private val service: PersonService
 ) :

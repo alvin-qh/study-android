@@ -11,18 +11,15 @@ import dagger.android.ContributesAndroidInjector
 @Module
 interface DaggerModule {
 
-    @ContributesAndroidInjector(modules = [ViewModule::class, ProvidersModule::class])
+    @ContributesAndroidInjector(modules = [ActivityModule::class])
     fun daggerActivity(): DaggerActivity
 
     @Module
-    interface ViewModule {
+    abstract class ActivityModule {
         @Binds
-        fun view(view: DaggerActivity): DaggerContracts.View
+        abstract fun view(view: DaggerActivity): DaggerContracts.View
 
         @Binds
-        fun presenter(presenter: DaggerPresenter): DaggerContracts.Presenter
+        abstract fun presenter(presenter: DaggerPresenter): DaggerContracts.Presenter
     }
-
-    @Module
-    class ProvidersModule
 }

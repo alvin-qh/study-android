@@ -15,12 +15,12 @@ interface DBFlowModule {
     fun dBFlowActivity(): DBFlowActivity
 
     @Module
-    interface ViewModule {
+    abstract class ViewModule {
 
         @Binds
-        fun view(activity: DBFlowActivity): DBFlowContract.View
+        abstract fun view(activity: DBFlowActivity): DBFlowContract.View
 
         @Binds
-        fun presenter(presenter: DBFlowPresenter): DBFlowContract.Presenter
+        abstract fun presenter(presenter: DBFlowPresenter): DBFlowContract.Presenter
     }
 }

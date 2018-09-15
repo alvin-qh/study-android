@@ -8,11 +8,15 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule {
+abstract class ApplicationModule {
 
-    @Singleton
-    @Provides
-    fun transactionManager(): TransactionManager {
-        return TransactionManager(FlowManager.getDatabase(MainDatabase::class.java))
+    @Module
+    companion object {
+        @Provides
+        @JvmStatic
+        @Singleton
+        fun transactionManager(): TransactionManager {
+            return TransactionManager(FlowManager.getDatabase(MainDatabase::class.java))
+        }
     }
 }
