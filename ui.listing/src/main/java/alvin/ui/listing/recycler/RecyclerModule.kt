@@ -5,8 +5,8 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-interface RecyclerModule {
+abstract class RecyclerModule {
 
     @ContributesAndroidInjector
-    fun recyclerActivity(): RecyclerActivity
+    abstract fun recyclerActivity(): RecyclerActivity
 }

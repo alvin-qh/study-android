@@ -2,7 +2,6 @@ package alvin.ui.listing
 
 import alvin.ui.listing.domain.DomainModule
 import alvin.ui.listing.list.ListModule
-import alvin.ui.listing.main.MainModule
 import alvin.ui.listing.recycler.RecyclerModule
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -14,7 +13,6 @@ import javax.inject.Singleton
     AndroidSupportInjectionModule::class,
     ApplicationModule::class,
     DomainModule::class,
-    MainModule::class,
     ListModule::class,
     RecyclerModule::class
 ])

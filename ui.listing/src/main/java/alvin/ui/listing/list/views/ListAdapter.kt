@@ -8,12 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import kotlinx.android.synthetic.main.list_view_fileitem.view.*
+import kotlinx.android.synthetic.main.view_list_item.view.*
 
-class ListAdapter
-constructor(context: Context) : BaseAdapter() {
+class ListAdapter(private val context: Context) : BaseAdapter() {
 
-    private val inflater = LayoutInflater.from(context)
     private var fileItems: List<FileItem> = emptyList()
 
     fun update(fileItems: List<FileItem>? = null) {
@@ -24,7 +22,12 @@ constructor(context: Context) : BaseAdapter() {
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view = convertView ?: inflater.inflate(R.layout.list_view_fileitem, parent, false)
+        val view = if (convertView == null) {
+            val inflater = LayoutInflater.from(context)
+            inflater.inflate(R.layout.view_list_item, parent, false)
+        } else {
+            convertView
+        }
 
         var holder: ViewHolder? = view.tag as? ViewHolder
         if (holder == null) {
@@ -37,6 +40,7 @@ constructor(context: Context) : BaseAdapter() {
             FileType.FILE -> R.drawable.ic_file
             else -> R.drawable.ic_folder
         }
+
         holder.ivLogo.setImageResource(icon)
         holder.tvFilename.text = item.name
 
@@ -55,8 +59,7 @@ constructor(context: Context) : BaseAdapter() {
         return fileItems.size
     }
 
-    class ViewHolder
-    constructor(view: View) {
+    class ViewHolder(view: View) {
         val ivLogo = view.iv_logo!!
         val tvFilename = view.tv_file_name!!
     }

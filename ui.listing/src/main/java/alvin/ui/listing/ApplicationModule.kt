@@ -6,11 +6,16 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule {
+abstract class ApplicationModule {
 
-    @Provides
-    @Singleton
-    fun context(application: Application): Context {
-        return application
+    @Module
+    companion object {
+
+        @Provides
+        @Singleton
+        @JvmStatic
+        fun context(application: Application): Context {
+            return application
+        }
     }
 }

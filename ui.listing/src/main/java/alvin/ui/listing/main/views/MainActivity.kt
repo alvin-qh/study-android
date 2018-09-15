@@ -3,29 +3,25 @@ package alvin.ui.listing.main.views
 import alvin.ui.listing.R
 import alvin.ui.listing.list.views.ListActivity
 import alvin.ui.listing.recycler.views.RecyclerActivity
-import android.content.Intent
 import android.os.Bundle
-import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.main_activity.*
+import android.support.v7.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.sdk25.coroutines.onClick
 
-class MainActivity : DaggerAppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+        setContentView(R.layout.activity_main)
 
         arrayOf(btn_list_view, btn_recycler_view).forEach {
-            it.onClick {
-                val intent: Intent? = when (it) {
-                    btn_list_view -> Intent(this@MainActivity, ListActivity::class.java)
-                    btn_recycler_view -> Intent(this@MainActivity, RecyclerActivity::class.java)
-                    else -> null
-                }
-
-                if (intent != null) {
-                    startActivity(intent)
-                }
+            it.onClick { btn ->
+                startActivity(when (btn) {
+                    btn_list_view -> intentFor<ListActivity>()
+                    btn_recycler_view -> intentFor<RecyclerActivity>()
+                    else -> throw IllegalArgumentException()
+                })
             }
         }
     }

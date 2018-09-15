@@ -37,12 +37,13 @@
             tools:text="hello_word.txt" />
     </android.support.v7.widget.LinearLayoutCompat>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/color_divider"
-        app:layout_constraintTop_toBottomOf="@id/ll_item" />
+    <!--1px view as divider-->
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_marginStart="40dp"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:background="@color/color_divider"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/ll_item" />-->
 
 </android.support.constraint.ConstraintLayout>
