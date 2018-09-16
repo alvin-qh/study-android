@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    package="alvin.ui.layout"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:name=".Application"
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".main.views.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".listing.views.ListingActivity"
+            android:label="@string/title_listing"
+            android:parentActivityName=".main.views.MainActivity" />
+
+        <activity
+            android:name=".listing.views.ListViewActivity"
+            android:label="@string/title_listing_list_view"
+            android:parentActivityName=".listing.views.ListingActivity" />
+
+        <activity
+            android:name=".listing.views.RecyclerViewActivity"
+            android:label="@string/title_listing_recycler_view"
+            android:parentActivityName=".listing.views.ListingActivity" />
+
+        <activity
+            android:name=".merge.views.MergeActivity"
+            android:label="@string/title_merge"
+            android:parentActivityName=".main.views.MainActivity" />
+
+    </application>
+
+</manifest>

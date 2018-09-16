@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="app_name">Layout</string>
+
+    <string name="title_listing">Listing</string>
+    <string name="title_listing_list_view">List View</string>
+    <string name="title_listing_recycler_view">Recycler View</string>
+    <string name="title_merge">Merge Layout</string>
+
+    <string name="text_user_info">Hello, %1$s %2$s</string>
+
+    <string name="btn_listing">Listing</string>
+    <string name="btn_list_view">List View</string>
+    <string name="btn_recycler_view">Recycler View</string>
+    <string name="btn_merge">Merge Layout</string>
+    <string name="btn_confirm">Confirm</string>
+
+    <string name="label_name">Name</string>
+    <string name="label_gender">Gender</string>
+    <string name="label_gender_male">Male</string>
+    <string name="label_gender_female">Female</string>
+</resources>

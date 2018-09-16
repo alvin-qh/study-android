@@ -1,0 +1,15 @@
+apply plugin: 'kotlin-kapt'
+
+android {
+    defaultConfig {
+        applicationId "alvin.ui.layout"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation libs.main.dagger
+
+    kapt libs.annotation.dagger
+}
