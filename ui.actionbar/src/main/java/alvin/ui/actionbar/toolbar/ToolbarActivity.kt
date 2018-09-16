@@ -1,4 +1,4 @@
-package alvin.ui.actionbar.homeup
+package alvin.ui.actionbar.toolbar
 
 import alvin.ui.actionbar.R
 import android.os.Bundle
@@ -31,10 +31,6 @@ class ToolbarActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         setupActionbar()
         setupButtons()
-//        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
-//        }
     }
 
     private fun setupActionbar() {

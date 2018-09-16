@@ -29,7 +29,7 @@
             android:parentActivityName=".main.MainActivity" />
 
         <activity
-            android:name=".homeup.ToolbarActivity"
+            android:name=".toolbar.ToolbarActivity"
             android:label="@string/label_toolbar"
             android:parentActivityName=".main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />

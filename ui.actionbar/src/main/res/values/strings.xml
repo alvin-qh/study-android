@@ -7,7 +7,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="btn_simple_action">Simple Action</string>
-    <string name="btn_home_as_up">Display Home As Up</string>
+    <string name="btn_home_as_up">Toolbar</string>
 
     <string name="btn_hide_actionbar">Hide Actionbar</string>
     <string name="btn_show_actionbar">Show Actionbar</string>

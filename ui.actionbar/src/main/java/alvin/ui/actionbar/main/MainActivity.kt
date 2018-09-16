@@ -1,8 +1,8 @@
 package alvin.ui.actionbar.main
 
 import alvin.ui.actionbar.R
-import alvin.ui.actionbar.homeup.ToolbarActivity
 import alvin.ui.actionbar.simple.SimpleActionBarActivity
+import alvin.ui.actionbar.toolbar.ToolbarActivity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
