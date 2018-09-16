@@ -1,0 +1,11 @@
+apply plugin: 'kotlin-kapt'
+
+android {
+    defaultConfig {
+        applicationId "alvin.ui.style"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}

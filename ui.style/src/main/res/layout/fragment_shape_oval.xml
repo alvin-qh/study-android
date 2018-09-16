@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingEnd="20dp"
+    android:paddingStart="20dp"
+    android:paddingTop="20dp">
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/oval"
+        android:gravity="center"
+        android:text="@string/label_oval_default" />
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/oval_padding"
+        android:text="@string/label_oval_padding" />
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/oval_gradient"
+        android:gravity="center"
+        android:text="@string/label_oval_gradient" />
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/oval_stroke"
+        android:gravity="center"
+        android:text="@string/label_oval_stroke" />
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/oval_stroke_dash"
+        android:gravity="center"
+        android:text="@string/label_oval_stroke_dash" />
+
+</LinearLayout>

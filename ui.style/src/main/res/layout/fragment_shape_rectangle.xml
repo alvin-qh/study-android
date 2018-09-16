@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingEnd="20dp"
+    android:paddingStart="20dp"
+    android:paddingTop="20dp">
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle"
+        android:text="@string/label_rectangle_default" />
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rectangle_padding"
+        android:text="@string/label_rectangle_padding" />
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rectangle_gradient"
+        android:text="@string/label_rectangle_gradient" />
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rectangle_corners"
+        android:text="@string/label_rectangle_corners" />
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rectangle_corners_diagonal"
+        android:text="@string/label_rectangle_corners_diagonal" />
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rectangle_stroke"
+        android:text="@string/label_rectangle_stroke" />
+
+    <TextView
+        style="@style/AppTheme.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rectangle_stroke_dash"
+        android:text="@string/label_rectangle_stroke_dash" />
+
+</LinearLayout>

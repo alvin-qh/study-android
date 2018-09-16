@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="app_name">Style</string>
+
+    <string name="title_shape">Shape</string>
+
+    <string name="label_rectangle_default">Default Rectangle</string>
+    <string name="label_rectangle_padding">Padding Rectangle</string>
+    <string name="label_rectangle_gradient">Gradient Rectangle</string>
+    <string name="label_rectangle_">Gradient Rectangle</string>
+    <string name="label_rectangle_corners">Corners Rectangle</string>
+    <string name="label_rectangle_corners_diagonal">Corners Diagonal Rectangle</string>
+    <string name="label_rectangle_stroke">Stroke Rectangle</string>
+    <string name="label_rectangle_stroke_dash">Stroke Dash Rectangle</string>
+    <string name="label_oval_default">Default Oval</string>
+    <string name="label_oval_padding">Padding Oval</string>
+    <string name="label_oval_gradient">Gradient Oval</string>
+    <string name="label_oval_stroke">Stroke Oval</string>
+    <string name="label_oval_stroke_dash">Stroke Dash Oval</string>
+
+    <string name="action_shape_rectangle">Rectangle</string>
+    <string name="action_shape_oval">Oval</string>
+
+    <string name="btn_shape">Shape</string>
+    <string name="btn_selector">Selector</string>
+    <string name="btn_layer_list">Layer List</string>
+    <string name="btn_animation">Animation</string>
+    <string name="btn_style">Style</string>
+</resources>
