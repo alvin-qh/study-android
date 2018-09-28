@@ -6,9 +6,9 @@ buildscript {
         versions = [
                 multidex        : '1.0.3',
 //              retrolambda     : '3.7.0',
-                sdk             : '28.0.0-rc01',
-                buildTool       : '28.0.2',
-                constraintLayout: '1.0.2',
+                support         : '28.0.0',
+                buildTool       : '28.0.3',
+                constraintLayout: '1.1.3',
                 butterKnife     : '8.8.1',
                 guava           : '26.0-android',
                 storeBox        : '1.4.0',
