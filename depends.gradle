@@ -101,7 +101,7 @@ ext {
                     /**
                      * Primary annotations (like @Nonnull, @Nullable)
                      */
-                    androidAnnotation: "com.android.support:support-annotations:${versions.sdk}",
+                    androidAnnotation: "com.android.support:support-annotations:${versions.support}",
 
                     /**
                      * facebook debug tool for chrome
