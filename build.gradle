@@ -9,11 +9,11 @@ buildscript {
                 support         : '28.0.0',
                 buildTool       : '28.0.3',
                 constraintLayout: '1.1.3',
-                butterKnife     : '8.8.1',
+                butterKnife     : '10.0.0',
                 guava           : '26.0-android',
                 storeBox        : '1.4.0',
                 DBFlow          : '4.2.4',
-                kotlin          : '1.2.61',
+                kotlin          : '1.3.20',
                 dagger          : '2.17',
                 okhttp          : '3.11.0',
                 jackson         : '2.9.6',
@@ -59,16 +59,13 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.3.0'
+        classpath "com.android.tools.build:gradle-experimental:0.11.1"
 //      classpath "me.tatarka:gradle-retrolambda:${versions.retrolambda}" // Plugin support by java 8, Enable if SDK version < 24
-
         classpath "com.jakewharton:butterknife-gradle-plugin:${versions.butterKnife}"
         //noinspection DifferentKotlinGradleVersion
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-
         classpath "gradle.plugin.org.jlleitschuh.gradle:ktlint-gradle:${versions.ktlint}"
-
-        classpath "com.android.tools.build:gradle-experimental:0.11.1"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
