@@ -1,6 +1,5 @@
 package alvin.lib.common.dbflow.repositories;
 
-import android.support.annotation.NonNull;
 
 import com.google.common.base.Preconditions;
 import com.raizlabs.android.dbflow.sql.language.SQLOperator;
@@ -10,6 +9,8 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+
+import androidx.annotation.NonNull;
 
 public abstract class BaseRepository<T extends BaseModel> implements IRepository<T> {
 

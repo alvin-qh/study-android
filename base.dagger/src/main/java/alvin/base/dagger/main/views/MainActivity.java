@@ -2,13 +2,13 @@ package alvin.base.dagger.main.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import alvin.base.dagger.R;
 import alvin.base.dagger.basic.views.BasicActivity;
 import alvin.base.dagger.multibindings.views.MultibindingsActivity;
 import alvin.base.dagger.scope.views.ScopeActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 

@@ -1,6 +1,5 @@
 package alvin.base.dagger.basic.presenters;
 
-import android.support.annotation.NonNull;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +9,7 @@ import alvin.base.dagger.basic.domain.models.Message;
 import alvin.base.dagger.basic.domain.repositories.MessageRepository;
 import alvin.lib.common.dbflow.repositories.TransactionManager;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
+import androidx.annotation.NonNull;
 
 import static alvin.base.dagger.basic.BasicContracts.Presenter;
 import static alvin.base.dagger.basic.BasicContracts.View;

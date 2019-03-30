@@ -1,10 +1,9 @@
 package alvin.base.net.http;
 
-import android.support.annotation.NonNull;
-
 import alvin.base.net.http.domain.models.LiveWeather;
 import alvin.lib.mvp.contracts.IPresenter;
 import alvin.lib.mvp.contracts.IView;
+import androidx.annotation.NonNull;
 
 public interface HttpContracts {
 

@@ -4,10 +4,10 @@ import alvin.base.kotlin.R
 import alvin.base.kotlin.common.domain.models.Gender
 import alvin.base.kotlin.common.domain.models.Person
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.listview_person.view.*
 import java.time.format.DateTimeFormatter
 

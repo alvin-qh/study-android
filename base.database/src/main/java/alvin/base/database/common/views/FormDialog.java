@@ -4,8 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +17,8 @@ import java.time.format.DateTimeFormatter;
 
 import alvin.base.database.R;
 import alvin.base.database.common.domain.models.Gender;
+import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

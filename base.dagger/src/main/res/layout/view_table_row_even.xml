@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.v7.widget.AppCompatTextView
+    <TextView
         android:id="@+id/tv_map_key"
         style="@style/AppTheme.Multibindings.TableRow.TextView"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         android:textStyle="bold"
         tools:text="Map Key" />
 
-    <android.support.v7.widget.AppCompatTextView
+    <TextView
         android:id="@+id/tv_map_value"
         style="@style/AppTheme.Multibindings.TableRow.TextView"
         android:layout_height="wrap_content"

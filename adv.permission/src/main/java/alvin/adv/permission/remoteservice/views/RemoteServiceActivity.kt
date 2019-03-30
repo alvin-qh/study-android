@@ -12,7 +12,7 @@ import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
 import kotlinx.android.synthetic.main.remote_service_activity.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.toast
 
 class RemoteServiceActivity :

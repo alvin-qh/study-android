@@ -1,8 +1,5 @@
 package alvin.base.net.http.domain.services;
 
-
-import android.support.annotation.NonNull;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -10,6 +7,7 @@ import java.io.IOException;
 
 import alvin.base.net.http.domain.models.LiveWeather;
 import alvin.lib.common.utils.ApplicationConfig;
+import androidx.annotation.NonNull;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

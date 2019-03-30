@@ -2,12 +2,12 @@ package alvin.base.database.main.views;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import alvin.base.database.R;
 import alvin.base.database.dbflow.views.DBFlowActivity;
 import alvin.base.database.sqlite.views.SQLiteActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 

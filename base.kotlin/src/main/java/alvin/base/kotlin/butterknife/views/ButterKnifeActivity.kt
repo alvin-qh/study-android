@@ -4,8 +4,8 @@ package alvin.base.kotlin.butterknife.views
 
 import alvin.base.kotlin.R
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import butterknife.ButterKnife
 import butterknife.OnClick
 import kotlinx.android.synthetic.main.activity_butterknife.*

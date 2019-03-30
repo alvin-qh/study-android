@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.AppCompatTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="80dp"
@@ -23,7 +23,7 @@
             android:text="@string/label_name"
             android:textAlignment="textEnd" />
 
-        <android.support.v7.widget.AppCompatEditText
+        <EditText
             android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp">
 
-        <android.support.v7.widget.AppCompatTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="80dp"
@@ -52,14 +52,14 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatRadioButton
+            <RadioButton
                 android:id="@+id/rb_gender_male"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="@string/label_gender_male" />
 
-            <android.support.v7.widget.AppCompatRadioButton
+            <RadioButton
                 android:id="@+id/rb_gender_female"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp">
 
-        <android.support.v7.widget.AppCompatTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:width="80dp"
@@ -83,7 +83,7 @@
             android:textAlignment="textEnd" />
 
 
-        <android.support.v7.widget.AppCompatEditText
+        <EditText
             android:id="@+id/et_birthday"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
             android:inputType="none"
             android:textSize="@dimen/font_size_edit" />
 
-        <android.support.v7.widget.AppCompatImageButton
+        <ImageButton
             android:id="@+id/btn_calendar"
             android:layout_width="60dp"
             android:layout_height="40dp"
@@ -109,7 +109,7 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -121,7 +121,7 @@
             android:textColor="@color/color_dialog_button_default"
             android:textSize="@dimen/font_size_button" />
 
-        <android.support.v7.widget.AppCompatButton
+        <Button
             android:id="@+id/btn_confirm"
             android:layout_width="0dp"
             android:layout_height="match_parent"

@@ -1,11 +1,10 @@
 package alvin.base.net.http.domain.models;
 
-import android.support.annotation.NonNull;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 
 import alvin.lib.mvp.contracts.IModel;
+import androidx.annotation.NonNull;
 
 public class LiveWeather implements IModel {
 

@@ -1,11 +1,6 @@
 package alvin.base.dagger.basic.views;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +14,11 @@ import javax.inject.Singleton;
 import alvin.base.dagger.R;
 import alvin.base.dagger.basic.domain.models.Message;
 import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -53,7 +53,7 @@ public class BasicActivity extends ActivityAdapter<Presenter> implements View {
         listAdapter = new MessageListAdapter(this, presenter);
         rvMessageListView.setAdapter(listAdapter);
         rvMessageListView.setItemAnimator(new DefaultItemAnimator());
-        rvMessageListView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rvMessageListView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
     }
 
     @Override

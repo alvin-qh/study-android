@@ -2,12 +2,11 @@ package alvin.lib.common.utils;
 
 import android.content.Context;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+
+import androidx.annotation.NonNull;
 
 public class Storages {
     private final Context context;
@@ -49,9 +48,9 @@ public class Storages {
         return new File(dir, filename);
     }
 
-    @NotNull
-    public File createExternalStorageFile(@NotNull String pathname,
-                                          @NotNull String filename) throws IOException {
+    @NonNull
+    public File createExternalStorageFile(@NonNull String pathname,
+                                          @NonNull String filename) throws IOException {
         File dir = new File(Environment.getExternalStorageDirectory(), pathname);
         if (!dir.exists()) {
             if (!dir.mkdirs()) {

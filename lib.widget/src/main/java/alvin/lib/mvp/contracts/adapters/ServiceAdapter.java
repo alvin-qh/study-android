@@ -1,12 +1,12 @@
 package alvin.lib.mvp.contracts.adapters;
 
-import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
 
 import javax.inject.Inject;
 
 import alvin.lib.mvp.contracts.IPresenter;
 import alvin.lib.mvp.contracts.IView;
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
 import dagger.android.support.DaggerAppCompatActivity;
 
 public abstract class ServiceAdapter<Presenter extends IPresenter>

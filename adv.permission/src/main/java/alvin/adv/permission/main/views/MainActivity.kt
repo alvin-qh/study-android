@@ -6,7 +6,7 @@ import alvin.adv.permission.storage.views.StorageActivity
 import android.os.Bundle
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.main_activity.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.startActivity
 
 class MainActivity : DaggerAppCompatActivity() {

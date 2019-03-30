@@ -1,7 +1,6 @@
 package alvin.base.net.http.views;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +15,7 @@ import alvin.base.net.R;
 import alvin.base.net.http.HttpContracts;
 import alvin.base.net.http.domain.models.LiveWeather;
 import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

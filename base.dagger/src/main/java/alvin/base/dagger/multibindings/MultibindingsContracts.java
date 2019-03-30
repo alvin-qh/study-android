@@ -1,6 +1,5 @@
 package alvin.base.dagger.multibindings;
 
-import android.support.annotation.NonNull;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -8,6 +7,7 @@ import java.util.Set;
 
 import alvin.lib.mvp.contracts.IPresenter;
 import alvin.lib.mvp.contracts.IView;
+import androidx.annotation.NonNull;
 
 public interface MultibindingsContracts {
 

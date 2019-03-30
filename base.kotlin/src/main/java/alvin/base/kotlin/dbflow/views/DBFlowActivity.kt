@@ -8,12 +8,13 @@ import alvin.base.kotlin.common.views.PersonListAdapter
 import alvin.base.kotlin.dbflow.DBFlowContract
 import alvin.lib.mvp.contracts.adapters.ActivityAdapter
 import android.os.Bundle
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_dagger.*
-import org.jetbrains.anko.sdk25.coroutines.onCheckedChange
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.toast
 
 class DBFlowActivity :
@@ -31,7 +32,7 @@ class DBFlowActivity :
         val adapter = PersonListAdapter(this, emptyList())
         rv_persons.adapter = adapter
         rv_persons.itemAnimator = DefaultItemAnimator()
-        rv_persons.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rv_persons.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         adapter.onItemEditListener = { person ->
             onPersonEdit(person)

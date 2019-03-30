@@ -1,12 +1,12 @@
 package alvin.base.dagger.basic;
 
-import android.support.annotation.NonNull;
 
 import java.util.List;
 
 import alvin.base.dagger.basic.domain.models.Message;
 import alvin.lib.mvp.contracts.IPresenter;
 import alvin.lib.mvp.contracts.IView;
+import androidx.annotation.NonNull;
 
 public interface BasicContracts {
 

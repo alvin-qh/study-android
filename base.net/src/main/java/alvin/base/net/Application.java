@@ -1,10 +1,10 @@
 package alvin.base.net;
 
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 
 import alvin.lib.common.utils.ApplicationConfig;
 import alvin.lib.common.utils.Applications;
+import androidx.annotation.RequiresApi;
 import dagger.android.AndroidInjector;
 import dagger.android.support.DaggerApplication;
 

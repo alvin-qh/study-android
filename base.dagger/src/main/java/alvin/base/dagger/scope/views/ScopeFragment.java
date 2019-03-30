@@ -1,14 +1,14 @@
 package alvin.base.dagger.scope.views;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import alvin.base.dagger.R;
 import alvin.lib.mvp.contracts.adapters.FragmentAdapter;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

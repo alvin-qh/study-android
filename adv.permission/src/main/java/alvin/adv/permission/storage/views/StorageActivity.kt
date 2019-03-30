@@ -9,7 +9,7 @@ import alvin.lib.mvp.contracts.adapters.ActivityAdapter
 import android.Manifest
 import android.os.Bundle
 import kotlinx.android.synthetic.main.storage_activty.*
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.toast
 import java.time.LocalDate
 
@@ -49,7 +49,7 @@ class StorageActivity :
                 R.id.rb_gender_female -> Gender.FEMALE
                 else -> Gender.MALE
             }
-            val birthday = LocalDate.of(dp_birthday.year, dp_birthday.month, dp_birthday.dayOfMonth)
+            val birthday = LocalDate.of(dp_birthday.year, dp_birthday.month + 1, dp_birthday.dayOfMonth)
 
             val person = Person(
                     et_name.text.toString(),

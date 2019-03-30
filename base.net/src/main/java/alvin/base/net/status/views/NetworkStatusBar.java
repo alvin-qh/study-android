@@ -3,9 +3,6 @@ package alvin.base.net.status.views;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -17,6 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import alvin.base.net.R;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;

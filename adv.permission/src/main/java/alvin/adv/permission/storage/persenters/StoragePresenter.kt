@@ -6,6 +6,7 @@ import alvin.lib.common.rx.RxDecorator
 import alvin.lib.common.rx.RxType
 import alvin.lib.common.utils.Storages
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter
+import android.annotation.SuppressLint
 import android.util.Log
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.reactivex.Completable
@@ -27,6 +28,7 @@ class StoragePresenter
         val TAG = StoragePresenter::class.simpleName
     }
 
+    @SuppressLint("CheckResult")
     override fun savePerson(person: Person) {
         val decorator = rxDecoratorBuilder.build()
         decorator.de(Completable.create {
@@ -47,10 +49,14 @@ class StoragePresenter
         )
     }
 
+    @SuppressLint("CheckResult")
     override fun loadPerson() {
         val decorator = rxDecoratorBuilder.build()
         decorator.de<Person>(Single.create {
             val file = storages.createExternalStorageFile("persons", "person.data")
+            if (!file.exists()) {
+                return@create
+            }
 
             val buffer = StringBuilder()
             BufferedReader(InputStreamReader(FileInputStream(file), Charsets.UTF_8)).use {

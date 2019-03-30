@@ -1,11 +1,12 @@
 package alvin.lib.common.dbflow.repositories;
 
-import android.support.annotation.NonNull;
 
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 import com.raizlabs.android.dbflow.structure.database.transaction.ITransaction;
 import com.raizlabs.android.dbflow.structure.database.transaction.Transaction;
+
+import androidx.annotation.NonNull;
 
 public class TransactionManager {
 

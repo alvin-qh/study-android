@@ -8,13 +8,14 @@ import alvin.base.kotlin.common.views.PersonListAdapter
 import alvin.base.kotlin.dagger.DaggerContracts
 import alvin.lib.mvp.contracts.adapters.ActivityAdapter
 import android.os.Bundle
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_dbflow.*
-import org.jetbrains.anko.sdk25.coroutines.onCheckedChange
-import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
+import org.jetbrains.anko.sdk27.coroutines.onClick
 import org.jetbrains.anko.toast
 
 class DaggerActivity :
@@ -36,7 +37,7 @@ class DaggerActivity :
         val adapter = PersonListAdapter(this, emptyList())
         rv_persons.adapter = adapter
         rv_persons.itemAnimator = DefaultItemAnimator()
-        rv_persons.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        rv_persons.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         adapter.onItemEditListener = { person ->
             onPersonEdit(person)

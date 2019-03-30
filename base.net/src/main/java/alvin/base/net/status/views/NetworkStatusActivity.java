@@ -8,7 +8,6 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
@@ -17,6 +16,7 @@ import alvin.base.net.R;
 import alvin.base.net.status.network.NetStatusReceiver;
 import alvin.base.net.status.network.NetworkStatus;
 import alvin.base.net.status.network.OnNetStatusChangedListener;
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

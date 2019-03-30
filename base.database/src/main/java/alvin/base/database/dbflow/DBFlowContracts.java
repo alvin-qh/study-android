@@ -1,13 +1,12 @@
 package alvin.base.database.dbflow;
 
-import android.support.annotation.NonNull;
-
 import java.util.List;
 
 import alvin.base.database.common.domain.models.Gender;
 import alvin.base.database.common.domain.models.IPerson;
 import alvin.lib.mvp.contracts.IPresenter;
 import alvin.lib.mvp.contracts.IView;
+import androidx.annotation.NonNull;
 
 public interface DBFlowContracts {
 

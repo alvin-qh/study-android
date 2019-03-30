@@ -5,10 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.annotation.NonNull;
 import android.util.ArraySet;
 
 import java.util.Set;
+
+import androidx.annotation.NonNull;
 
 public class NetStatusReceiver extends BroadcastReceiver {
     private final Set<OnNetStatusChangedListener> listeners = new ArraySet<>();

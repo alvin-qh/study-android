@@ -2,7 +2,6 @@ package alvin.base.net.http.presenters;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 
 import java.io.IOException;
 
@@ -13,6 +12,7 @@ import alvin.base.net.http.domain.models.LiveWeather;
 import alvin.base.net.http.domain.services.WeatherException;
 import alvin.base.net.http.domain.services.WeatherService;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
+import androidx.annotation.NonNull;
 
 public class HttpWithTaskPresenter extends PresenterAdapter<HttpContracts.View>
         implements HttpContracts.Presenter {

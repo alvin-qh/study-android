@@ -1,7 +1,6 @@
 package alvin.base.database.sqlite.presenters;
 
 import android.annotation.SuppressLint;
-import android.support.annotation.NonNull;
 
 import java.util.List;
 
@@ -13,6 +12,7 @@ import alvin.base.database.sqlite.domain.repositories.PersonRepository;
 import alvin.lib.common.rx.RxDecorator;
 import alvin.lib.common.rx.RxType;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
+import androidx.annotation.NonNull;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 
@@ -26,8 +26,8 @@ public class SQLitePresenter extends PresenterAdapter<View> implements Presenter
 
     @Inject
     SQLitePresenter(View view,
-                           @RxType.IO RxDecorator.Builder rxDecoratorBuilder,
-                           PersonRepository personRepository) {
+                    @RxType.IO RxDecorator.Builder rxDecoratorBuilder,
+                    PersonRepository personRepository) {
         super(view);
         this.rxDecoratorBuilder = rxDecoratorBuilder;
         this.personRepository = personRepository;

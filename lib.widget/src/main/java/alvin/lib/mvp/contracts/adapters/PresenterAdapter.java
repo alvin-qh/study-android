@@ -1,7 +1,5 @@
 package alvin.lib.mvp.contracts.adapters;
 
-import android.support.annotation.CallSuper;
-import android.support.annotation.NonNull;
 
 import java.lang.ref.WeakReference;
 import java.util.function.Consumer;
@@ -9,6 +7,8 @@ import java.util.function.Consumer;
 import alvin.lib.mvp.contracts.IPresenter;
 import alvin.lib.mvp.contracts.IView;
 import alvin.lib.mvp.contracts.Target;
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
 
 public abstract class PresenterAdapter<T extends Target> implements IPresenter {
 

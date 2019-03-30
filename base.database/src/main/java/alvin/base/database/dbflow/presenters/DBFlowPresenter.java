@@ -1,7 +1,5 @@
 package alvin.base.database.dbflow.presenters;
 
-import android.support.annotation.NonNull;
-
 import java.util.Collections;
 
 import javax.inject.Inject;
@@ -12,6 +10,7 @@ import alvin.base.database.dbflow.domain.models.Person;
 import alvin.base.database.dbflow.domain.repositories.PersonRepository;
 import alvin.lib.common.dbflow.repositories.TransactionManager;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
+import androidx.annotation.NonNull;
 
 import static alvin.base.database.dbflow.DBFlowContracts.Presenter;
 import static alvin.base.database.dbflow.DBFlowContracts.View;
@@ -23,8 +22,8 @@ public class DBFlowPresenter extends PresenterAdapter<View> implements Presenter
 
     @Inject
     DBFlowPresenter(View view,
-                           PersonRepository personRepository,
-                           TransactionManager transactionManager) {
+                    PersonRepository personRepository,
+                    TransactionManager transactionManager) {
         super(view);
         this.transactionManager = transactionManager;
         this.personRepository = personRepository;

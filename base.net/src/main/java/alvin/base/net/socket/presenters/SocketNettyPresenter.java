@@ -2,7 +2,6 @@ package alvin.base.net.socket.presenters;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.common.base.Strings;
@@ -18,6 +17,7 @@ import alvin.base.net.socket.common.commands.CommandAck;
 import alvin.base.net.socket.network.NettyException;
 import alvin.base.net.socket.network.NettySocket;
 import alvin.lib.mvp.contracts.adapters.PresenterAdapter;
+import androidx.annotation.NonNull;
 
 
 public class SocketNettyPresenter extends PresenterAdapter<SocketContracts.NativeView>

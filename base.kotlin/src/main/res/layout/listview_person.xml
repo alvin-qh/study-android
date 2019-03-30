@@ -7,7 +7,7 @@
     android:layout_marginBottom="10dp"
     android:orientation="horizontal">
 
-    <android.support.v7.widget.AppCompatTextView
+    <TextView
         android:id="@+id/tv_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <android.support.v7.widget.AppCompatTextView
+        <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatTextView
+            <TextView
                 android:id="@+id/tv_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                 android:textSize="@dimen/font_size_small"
                 tools:text="Male" />
 
-            <android.support.v7.widget.AppCompatTextView
+            <TextView
                 android:id="@+id/tv_birthday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
         android:layout_marginStart="5dp"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatImageButton
+        <ImageButton
             android:id="@+id/btn_edit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -87,7 +87,7 @@
             android:src="@android:drawable/ic_menu_manage"
             android:textAllCaps="false" />
 
-        <android.support.v7.widget.AppCompatImageButton
+        <ImageButton
             android:id="@+id/btn_delete"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

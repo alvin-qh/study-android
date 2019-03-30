@@ -1,8 +1,6 @@
 package alvin.lib.common.utils;
 
 import android.content.IntentFilter;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.google.common.base.Strings;
 
@@ -10,6 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import alvin.lib.common.collect.Collections2;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public final class IntentFilters {
 

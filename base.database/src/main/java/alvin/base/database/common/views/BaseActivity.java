@@ -1,13 +1,9 @@
 package alvin.base.database.common.views;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.widget.RadioGroup;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.lang.ref.WeakReference;
 import java.time.LocalDate;
@@ -20,6 +16,11 @@ import alvin.base.database.common.domain.models.IPerson;
 import alvin.base.database.common.views.adapters.PersonAdapter;
 import alvin.lib.mvp.contracts.IPresenter;
 import alvin.lib.mvp.contracts.adapters.ActivityAdapter;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -74,7 +75,7 @@ public abstract class BaseActivity<Presenter extends IPresenter> extends Activit
 
         rvPerson.setAdapter(adapter);
         rvPerson.setItemAnimator(new DefaultItemAnimator());
-        rvPerson.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rvPerson.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
         radioGender.setOnCheckedChangeListener((group, checkedId) -> getPersons());
     }
