@@ -59,7 +59,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.2'
+        classpath 'com.android.tools.build:gradle:3.4.2'
         classpath 'com.android.tools.build:gradle-experimental:0.11.1'
 
 //      classpath "me.tatarka:gradle-retrolambda:${versions.retrolambda}" // Plugin support by java 8, Enable if SDK version < 24
