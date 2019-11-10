@@ -2,7 +2,6 @@ package alvin.base.preferences.original.views;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -19,6 +18,7 @@ import alvin.base.preferences.R;
 import alvin.base.preferences.common.domain.models.Gender;
 import alvin.base.preferences.original.domain.models.Person;
 import alvin.base.preferences.original.domain.repositories.PersonRepository;
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

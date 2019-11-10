@@ -1,8 +1,7 @@
 package alvin.base.preferences;
 
-import android.support.multidex.MultiDexApplication;
-
 import alvin.lib.common.utils.Applications;
+import androidx.multidex.MultiDexApplication;
 
 public class Application extends MultiDexApplication {
 

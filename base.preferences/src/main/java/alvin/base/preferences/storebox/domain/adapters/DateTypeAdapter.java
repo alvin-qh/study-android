@@ -1,6 +1,5 @@
 package alvin.base.preferences.storebox.domain.adapters;
 
-import android.support.annotation.Nullable;
 
 import com.google.common.base.Strings;
 
@@ -8,6 +7,8 @@ import net.orange_box.storebox.adapters.base.BaseStringTypeAdapter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import androidx.annotation.Nullable;
 
 public class DateTypeAdapter extends BaseStringTypeAdapter<LocalDate> {
 
@@ -17,6 +18,7 @@ public class DateTypeAdapter extends BaseStringTypeAdapter<LocalDate> {
         if (value == null) {
             return "";
         }
+
         return value.format(DateTimeFormatter.ISO_DATE);
     }
 
